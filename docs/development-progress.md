@@ -17,7 +17,7 @@
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + **Gemini Pivot Analysis & Roadmap**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + **Tax Reserve Calculator Tool**
 
 **Current Focus:**
 
@@ -82,6 +82,51 @@
 
 **Commits:**
 - `ed6f12f` docs: add Gemini market research app pivot recommendations
+
+---
+
+**Tax Reserve Calculator Tool** - New free lead-gen tool at `/tools/tax-reserve-calculator` for freelancers to calculate how much to set aside for taxes.
+
+**Features:**
+
+| Country | Tax Types Calculated |
+|---------|---------------------|
+| **US** | Self-employment tax (15.3%), Federal income tax (2025 brackets), State tax estimate (~5%) |
+| **Canada** | CPP contributions (both portions), Federal income tax, Provincial tax (all 13 provinces), GST/HST reserve |
+
+**Key Outputs:**
+- **Safe to Spend** - Amount available after setting aside tax reserve
+- **Monthly Reserve** - How much to set aside each month
+- **Quarterly Payment** - Estimated installment amount
+- **Tax Breakdown** - Detailed breakdown by tax type
+- **Alerts** - GST/HST $30K threshold warning, quarterly payment reminders
+
+**Canadian-Specific Features:**
+- All 13 provinces/territories with correct HST rates
+- GST/HST threshold alert at $30K gross revenue
+- CPP self-employed calculation (both employer + employee portions)
+- Canadian quarterly due dates (Mar 15, Jun 15, Sep 15, Dec 15)
+
+**New Files:**
+- `lib/tools/calculate-tax-reserve.ts` - Tax calculation logic (US + Canada)
+- `components/tools/tax-calculator-form.tsx` - Form with country/province selection
+- `components/tools/tax-calculator-result.tsx` - Result display with breakdown
+- `components/tools/tax-calculator.tsx` - Main wrapper component
+- `app/tools/tax-reserve-calculator/page.tsx` - Page with SEO metadata and FAQs
+- `app/tools/tax-reserve-calculator/opengraph-image.tsx` - Dynamic OG image
+
+**Modified Files:**
+- `components/tools/tools-index-client.tsx` - Added to tools grid
+- `components/landing/footer.tsx` - Added to Free Tools section
+
+**SEO:**
+- Keywords: freelance tax calculator, self-employed tax calculator, HST calculator Canada, quarterly tax calculator
+- FAQ schema with 4 questions
+- WebApplication schema
+
+**Commits:**
+- `9d5cec5` feat: add Tax Reserve Calculator tool
+- `225ca71` feat: add Tax Calculator to footer Free Tools section
 
 ---
 
