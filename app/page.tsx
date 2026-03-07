@@ -21,7 +21,6 @@ import {
   Mail,
   Megaphone,
   Palette,
-  PenLine,
   PiggyBank,
   Shield,
   Sparkles,
@@ -34,7 +33,7 @@ import { getUserSubscription } from '@/lib/stripe/subscription';
 export const metadata: Metadata = {
   title: 'Stop Guessing If You Can Afford It | Cash Flow Forecaster',
   description:
-    'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for freelancers with irregular income.',
+    'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for designers, developers & consultants with irregular income.',
   keywords: [
     // Core product terms
     'cash flow calendar',
@@ -49,6 +48,17 @@ export const metadata: Metadata = {
     'freelancer finances app',
     'freelancer cash flow forecast',
     'freelancer money management',
+    // Profession-specific terms
+    'ux designer finances',
+    'ux designer budget app',
+    'web developer cash flow',
+    'developer freelance budget',
+    'ai consultant finances',
+    'ml consultant cash flow',
+    'marketing consultant budget',
+    'consultant cash flow forecast',
+    'designer invoice tracking',
+    'developer project payments',
     // Solopreneur terms
     'solopreneur cash flow',
     'solopreneur budget app',
@@ -86,13 +96,18 @@ export const metadata: Metadata = {
     'freelancer tax tracking',
     'quarterly tax payments freelancer',
     'emergency fund tracker',
-    // Migration terms
+    // Migration/comparison terms
     'ynab alternative',
     'ynab import',
     'migrate from ynab',
     'switch from ynab',
     'mint alternative',
     'mint replacement',
+    'float app alternative',
+    'pulse app alternative',
+    'cheaper than float',
+    'float alternative freelancer',
+    'pulse alternative freelancer',
   ],
   alternates: {
     canonical: 'https://www.cashflowforecaster.io',
@@ -245,7 +260,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="flex flex-wrap justify-center gap-2">
               <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900/60 border border-zinc-800 px-4 py-2 text-sm text-zinc-200">
                 <Sparkles className="h-4 w-4 text-teal-400" />
-                <span>Built for freelancers with irregular income</span>
+                <span>Built for designers, developers & consultants</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-teal-500/10 border border-teal-500/20 px-4 py-2 text-sm text-teal-300">
                 <FileText className="h-4 w-4" />
@@ -884,24 +899,24 @@ export default async function Home({ searchParams }: HomeProps) {
                 <div className="h-11 w-11 rounded-xl bg-teal-500/10 ring-1 ring-teal-500/25 flex items-center justify-center">
                   <Palette className="h-5 w-5 text-teal-300" />
                 </div>
-                <h3 className="mt-4 font-semibold text-white">Graphic Designers</h3>
-                <p className="mt-2 text-sm text-zinc-400">Waiting on client approvals and Net-30 payments</p>
+                <h3 className="mt-4 font-semibold text-white">UX Designers</h3>
+                <p className="mt-2 text-sm text-zinc-400">Project-based work with Net-30 client payments</p>
               </div>
 
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
                 <div className="h-11 w-11 rounded-xl bg-teal-500/10 ring-1 ring-teal-500/25 flex items-center justify-center">
-                  <PenLine className="h-5 w-5 text-teal-300" />
+                  <Sparkles className="h-5 w-5 text-teal-300" />
                 </div>
-                <h3 className="mt-4 font-semibold text-white">Freelance Writers</h3>
-                <p className="mt-2 text-sm text-zinc-400">Juggling multiple clients with different payment schedules</p>
+                <h3 className="mt-4 font-semibold text-white">AI & ML Consultants</h3>
+                <p className="mt-2 text-sm text-zinc-400">High-value contracts with variable payment timelines</p>
               </div>
 
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
                 <div className="h-11 w-11 rounded-xl bg-teal-500/10 ring-1 ring-teal-500/25 flex items-center justify-center">
                   <Megaphone className="h-5 w-5 text-teal-300" />
                 </div>
-                <h3 className="mt-4 font-semibold text-white">Marketing Consultants</h3>
-                <p className="mt-2 text-sm text-zinc-400">Managing retainers and project-based work</p>
+                <h3 className="mt-4 font-semibold text-white">Marketing Strategists</h3>
+                <p className="mt-2 text-sm text-zinc-400">Mixing retainers with project-based campaigns</p>
               </div>
 
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
@@ -955,10 +970,41 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         </section>
 
+        {/* Pricing Comparison Callout */}
+        <section className="px-6 py-12">
+          <div className="mx-auto max-w-4xl">
+            <div className="rounded-2xl border border-teal-500/20 bg-teal-500/5 px-6 py-8">
+              <p className="text-center text-zinc-300 text-lg">
+                Why pay <span className="line-through text-zinc-500">$59-199/mo</span> for enterprise tools?
+              </p>
+              <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
+                <Link
+                  href="/compare/float"
+                  className="text-teal-400 hover:text-teal-300 underline underline-offset-4 decoration-teal-500/50"
+                >
+                  87% cheaper than Float
+                </Link>
+                <Link
+                  href="/compare/pulse"
+                  className="text-teal-400 hover:text-teal-300 underline underline-offset-4 decoration-teal-500/50"
+                >
+                  73% cheaper than Pulse
+                </Link>
+                <Link
+                  href="/compare/cash-flow-calendar-apps"
+                  className="text-teal-400 hover:text-teal-300 underline underline-offset-4 decoration-teal-500/50"
+                >
+                  See all comparisons
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing Section with Stripe Integration */}
-        <PricingSection 
-          isLoggedIn={!!user} 
-          currentTier={currentTier} 
+        <PricingSection
+          isLoggedIn={!!user}
+          currentTier={currentTier}
         />
 
         {/* FAQ Section */}
