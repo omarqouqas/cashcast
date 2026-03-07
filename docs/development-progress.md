@@ -17,7 +17,7 @@
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + **Float Comparison Page**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + **Pulse Comparison Page**
 
 **Current Focus:**
 
@@ -165,6 +165,43 @@
 
 **Commits:**
 - `fca9460` feat: add Float comparison page
+
+---
+
+**Pulse Comparison Page** - New SEO comparison page at `/compare/pulse` targeting freelancers looking for Pulse alternatives.
+
+**Key Differentiators vs Pulse:**
+
+| Feature | Cash Flow Forecaster | Pulse |
+|---------|---------------------|-------|
+| Price | $7.99/mo (73% cheaper) | $29-89/mo |
+| Data entry | Guided forms | Spreadsheet-style |
+| Built-in invoicing | Yes (Runway Collect) | No |
+| "Safe to Spend" metric | Core feature | Not available |
+| Tax tracking | Yes + free calculator | No |
+| Target user | Solo freelancers | Small agencies |
+
+**Page Sections:**
+- Price comparison cards (Pulse vs CFF vs Savings)
+- Key differences (4 cards: Guided vs Spreadsheet, Invoicing, Safe to Spend, Tax tracking)
+- 21-feature comparison table
+- FAQ section (4 questions with structured data)
+- Links to other comparisons (Float, YNAB, All Apps)
+- Related guides (What is Safe to Spend, Tax Calculator)
+
+**SEO:**
+- Keywords: pulse alternative, pulse app alternative, cheaper than pulse, pulseapp alternative
+- FAQ schema for rich snippets
+- Canonical URL: `/compare/pulse`
+
+**Files Created:**
+- `app/compare/pulse/page.tsx` - Full comparison page
+
+**Files Modified:**
+- `components/landing/footer.tsx` - Added "vs Pulse" to Compare section
+
+**Commits:**
+- `66978fa` feat: add Pulse comparison page
 
 ---
 
