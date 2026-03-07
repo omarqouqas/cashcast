@@ -17,7 +17,7 @@
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + **Pulse Comparison Page**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + **Landing Page Niche Messaging**
 
 **Current Focus:**
 
@@ -202,6 +202,49 @@
 
 **Commits:**
 - `66978fa` feat: add Pulse comparison page
+
+---
+
+**Landing Page Niche Messaging** - Updated landing page to target specific high-value knowledge professionals based on Gemini Market Research pivot recommendations.
+
+**Hero Badge Update:**
+- Changed from "Built for freelancers with irregular income" → "Built for designers, developers & consultants"
+- More specific targeting for knowledge worker niche
+
+**"Who It's For" Section Updates:**
+
+| Before | After |
+|--------|-------|
+| Graphic Designers | UX Designers |
+| Freelance Writers | AI & ML Consultants |
+| Marketing Consultants | Marketing Strategists |
+| Web Developers | Web Developers (kept) |
+
+**Pricing Comparison Callout:**
+- New section before pricing with teal highlight styling
+- Links to Float comparison (87% cheaper)
+- Links to Pulse comparison (73% cheaper)
+- Links to all comparisons page
+
+**Meta Keywords Added (15 new):**
+
+Profession-specific:
+- `ux designer finances`, `ux designer budget app`
+- `web developer cash flow`, `developer freelance budget`
+- `ai consultant finances`, `ml consultant cash flow`
+- `marketing consultant budget`, `consultant cash flow forecast`
+- `designer invoice tracking`, `developer project payments`
+
+Comparison terms:
+- `float app alternative`, `pulse app alternative`
+- `cheaper than float`, `float alternative freelancer`
+- `pulse alternative freelancer`
+
+**Files Modified:**
+- `app/page.tsx` - Hero badge, Who It's For section, pricing callout, keywords
+
+**Commits:**
+- `4460e41` feat: update landing page messaging for niche targeting
 
 ---
 
