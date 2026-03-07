@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import posthog from 'posthog-js';
-import { BadgeDollarSign, Calendar, DollarSign, ArrowRight, TrendingUp } from 'lucide-react';
+import { BadgeDollarSign, Calendar, DollarSign, ArrowRight, TrendingUp, PiggyBank } from 'lucide-react';
 import { GetStartedCTA } from '@/components/landing/get-started-cta';
 
 const TOOLS = [
@@ -14,6 +14,14 @@ const TOOLS = [
       'Enter your current balance, upcoming bills, next income, and a purchase to see your projected lowest point.',
     href: '/tools/can-i-afford-it',
     icon: BadgeDollarSign,
+  },
+  {
+    slug: 'tax-reserve-calculator',
+    title: 'Tax Reserve Calculator',
+    description:
+      'Calculate how much to set aside for taxes. Supports US and Canada with self-employment tax, GST/HST, and CPP.',
+    href: '/tools/tax-reserve-calculator',
+    icon: PiggyBank,
   },
   {
     slug: 'freelance-rate-calculator',
