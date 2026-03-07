@@ -130,6 +130,17 @@ export function LandingFooter() {
               Cash Flow Apps
             </Link>
             <Link
+              href="/compare/float"
+              className="hover:text-zinc-200 transition-colors"
+              onClick={() => {
+                try {
+                  posthog.capture('footer_compare_clicked', { link: '/compare/float' });
+                } catch {}
+              }}
+            >
+              vs Float
+            </Link>
+            <Link
               href="/compare/ynab"
               className="hover:text-zinc-200 transition-colors"
               onClick={() => {
