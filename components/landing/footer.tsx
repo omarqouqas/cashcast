@@ -141,6 +141,17 @@ export function LandingFooter() {
               vs Float
             </Link>
             <Link
+              href="/compare/pulse"
+              className="hover:text-zinc-200 transition-colors"
+              onClick={() => {
+                try {
+                  posthog.capture('footer_compare_clicked', { link: '/compare/pulse' });
+                } catch {}
+              }}
+            >
+              vs Pulse
+            </Link>
+            <Link
               href="/compare/ynab"
               className="hover:text-zinc-200 transition-colors"
               onClick={() => {
