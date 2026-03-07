@@ -8,83 +8,83 @@
 
 ## The Script (60 seconds)
 
-### Version A: Problem-Focused (Recommended)
+### Version A: Empathy-Driven (Recommended)
 
 ```
 [0-10 seconds - Hook]
-"I used to spend every Sunday night in a spreadsheet,
-trying to figure out if I could actually afford to pay my bills next month."
+"I kept hearing the same thing from my freelancer friends:
+'I have money in my account, but I don't know if I can actually spend it.'"
 
 [10-25 seconds - Problem]
-"As a freelancer, my income was all over the place.
-One month I'd have three clients paying me, the next month... silence.
-I never knew if the money in my bank account was actually mine to spend,
-or if I needed it for rent in 6 weeks."
+"They'd get paid, feel good for a day,
+then remember rent is due in three weeks and a client still hasn't paid.
+Spreadsheets that took hours and were wrong by Tuesday.
+That constant low-grade anxiety about money."
 
 [25-40 seconds - Solution]
-"So I built Cash Flow Forecaster.
-It shows you one number: what's actually safe to spend today,
+"So I built Cash Flow Forecaster for them.
+It shows one number: what's actually safe to spend today,
 without overdrafting later.
-You add your bills, your expected income, and it maps out
-your real bank balance for the next 90 days."
+Add your bills, your expected income, and see your real bank balance
+90 days into the future."
 
 [40-55 seconds - Proof + CTA]
-"No bank connection required. No spreadsheets.
-Just clarity on whether you can take that vacation,
-buy that equipment, or need to chase that invoice.
+"No bank connection required. No complicated setup.
+Just clarity on whether you can afford that new laptop,
+take that trip, or need to chase that invoice.
 Try it free — link's below."
 
 [55-60 seconds - Sign off]
-"I'm Omar, and I built this for freelancers like us."
+"I'm Omar. I built this for every freelancer tired of guessing."
 ```
 
-### Version B: Emotional/Relatable
+### Version B: Story-Driven
 
 ```
 [0-10 seconds - Hook]
-"You know that feeling when a client says 'payment sent'
-and you refresh your bank account twelve times?"
+"A designer friend called me stressed out of her mind.
+She had $8,000 in her account but didn't know if she could buy a $200 chair."
 
 [10-25 seconds - Problem]
-"I lived that for years. Never knowing if I'd make rent.
-Spreadsheets that were outdated the moment I made them.
-That Sunday night anxiety — wondering if I'd miscalculated something."
+"Turns out, after rent, taxes, and two late-paying clients,
+she actually had about $400 of breathing room.
+She'd been doing this mental math for years.
+So had every other freelancer I knew."
 
 [25-40 seconds - Solution]
-"Cash Flow Forecaster fixes that.
-It takes your bills, your invoices, your expected payments,
-and shows you exactly what your bank balance will be —
-90 days into the future."
+"I'm a developer, so I built them a tool.
+Cash Flow Forecaster maps out your real bank balance
+for the next 90 days — every bill, every expected payment.
+One number tells you what's safe to spend right now."
 
 [40-55 seconds - Key Benefit]
-"One number tells you what's safe to spend today.
-No surprises. No overdrafts. No more spreadsheet hell.
-It takes 5 minutes to set up."
+"No more spreadsheets. No more guessing.
+Just open the app and know exactly where you stand."
 
 [55-60 seconds - CTA]
-"Link's in the description. Try it free.
-Built by a freelancer, for freelancers."
+"Try it free. Link below.
+Built for freelancers, by someone who listens to them."
 ```
 
 ### Version C: Ultra-Short (45 seconds)
 
 ```
-[0-8 seconds - Hook]
-"I built Cash Flow Forecaster because I was tired of
-not knowing if I could afford things."
+[0-10 seconds - Hook]
+"Every freelancer I know has the same problem:
+money in the bank, but no idea if they can spend it."
 
-[8-25 seconds - Problem + Solution]
-"As a freelancer, my income was unpredictable.
-So I built a tool that shows your real bank balance
-90 days ahead — accounting for every bill and payment coming in."
+[10-25 seconds - Problem + Solution]
+"Bills coming up. Clients paying late. Taxes due in April.
+So I built Cash Flow Forecaster —
+it shows your real bank balance 90 days ahead,
+accounting for everything coming in and going out."
 
 [25-40 seconds - Key Feature]
 "One number: Safe to Spend.
-It tells you exactly what you can spend today
-without screwing yourself next month."
+What you can actually use today without screwing yourself next month."
 
 [40-45 seconds - CTA]
-"Try it free. No credit card. Link below."
+"Try it free. No credit card needed. Link below."
 ```
 
 ---
@@ -193,13 +193,13 @@ without screwing yourself next month."
 
 **Twitter Thread Format:**
 ```
-Tweet 1: Video + "I built @cashflowforecast because I was tired of not knowing if I could afford things."
+Tweet 1: Video + "I kept hearing the same thing from freelancer friends: 'I have money but I don't know if I can spend it.' So I built them a tool."
 
-Tweet 2: "The problem: As a freelancer, I never knew if the money in my bank was actually mine to spend."
+Tweet 2: "The problem: Freelancers never know if the money in their bank is actually theirs. Bills, taxes, late clients — it's constant mental math."
 
-Tweet 3: "The solution: One number — Safe to Spend — tells you what's available after all upcoming bills."
+Tweet 3: "The solution: Cash Flow Forecaster shows your real bank balance 90 days ahead. One number tells you what's safe to spend today."
 
-Tweet 4: "Try it free: [link]"
+Tweet 4: "No bank connection. No spreadsheets. Try it free: [link]"
 ```
 
 ### 3. Email Sequences
@@ -285,6 +285,18 @@ Track these after adding video to landing page:
 - **Indie Hackers** - Successful launch videos
 
 The best ones feel like a conversation, not a commercial.
+
+---
+
+## Your Unique Angle
+
+**You're not a freelancer — and that's actually a strength.**
+
+- You built this by *listening* to freelancers, not assuming
+- You're a developer who solved a real problem for people you care about
+- This makes the story relatable: "I saw my friends struggling, so I built them a solution"
+
+This angle builds trust because it shows empathy without pretending to be something you're not.
 
 ---
 
