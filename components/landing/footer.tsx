@@ -41,6 +41,17 @@ export function LandingFooter() {
               Can I Afford It?
             </Link>
             <Link
+              href="/tools/tax-reserve-calculator"
+              className="hover:text-zinc-200 transition-colors"
+              onClick={() => {
+                try {
+                  posthog.capture('footer_free_tools_clicked', { link: '/tools/tax-reserve-calculator' });
+                } catch {}
+              }}
+            >
+              Tax Calculator
+            </Link>
+            <Link
               href="/tools/freelance-rate-calculator"
               className="hover:text-zinc-200 transition-colors"
               onClick={() => {
