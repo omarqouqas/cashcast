@@ -500,10 +500,10 @@ export default async function Home({ searchParams }: HomeProps) {
                   <Image
                     src="/screenshot-calendar.png"
                     alt="Cash flow calendar with interactive chart and balance forecast"
-                    width={1600}
-                    height={900}
+                    width={1825}
+                    height={1667}
                     sizes="(max-width: 1024px) 100vw, 560px"
-                    className="w-full h-auto aspect-video"
+                    className="w-full h-auto"
                     loading="lazy"
                   />
                 </div>
@@ -566,10 +566,10 @@ export default async function Home({ searchParams }: HomeProps) {
                   <Image
                     src="/screenshot-invoices.png"
                     alt="Invoice dashboard with status tracking and PDF downloads"
-                    width={1600}
-                    height={900}
+                    width={1855}
+                    height={862}
                     sizes="(max-width: 1024px) 100vw, 560px"
-                    className="w-full h-auto aspect-video"
+                    className="w-full h-auto"
                     loading="lazy"
                   />
                 </div>
@@ -745,10 +745,10 @@ export default async function Home({ searchParams }: HomeProps) {
                       <Image
                         src="/screenshot-scenario.png"
                         alt="Can I Afford It scenario tester"
-                        width={800}
-                        height={600}
+                        width={882}
+                        height={902}
                         sizes="(max-width: 768px) 100vw, 400px"
-                        className="w-full h-auto aspect-[4/3]"
+                        className="w-full h-auto"
                         loading="lazy"
                       />
                     </div>
@@ -780,10 +780,10 @@ export default async function Home({ searchParams }: HomeProps) {
                       <Image
                         src="/screenshot-import.png"
                         alt="CSV import wizard with 3-step process"
-                        width={800}
-                        height={600}
+                        width={1580}
+                        height={820}
                         sizes="(max-width: 768px) 100vw, 400px"
-                        className="w-full h-auto aspect-[4/3]"
+                        className="w-full h-auto"
                         loading="lazy"
                       />
                     </div>
