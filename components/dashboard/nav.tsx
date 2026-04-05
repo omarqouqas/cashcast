@@ -20,6 +20,7 @@ import {
   FileBarChart,
   ClipboardList,
   ArrowRightLeft,
+  MoreHorizontal,
 } from 'lucide-react';
 import { ScenarioButton } from '@/components/scenarios/scenario-button';
 import { createPortalSession } from '@/lib/actions/stripe';
@@ -66,19 +67,25 @@ function UserAvatar({
 export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProps) {
   const pathname = usePathname();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [isBillingLoading, setIsBillingLoading] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const links = [
+  // Main nav links (essential features)
+  const mainLinks = [
     { href: '/dashboard/calendar', label: 'Calendar', icon: Calendar },
     { href: '/dashboard/accounts', label: 'Accounts', icon: Wallet },
     { href: '/dashboard/income', label: 'Income', icon: TrendingUp },
     { href: '/dashboard/bills', label: 'Bills', icon: FileText },
+    { href: '/dashboard/invoices', label: 'Invoices', icon: Receipt },
+  ];
+
+  // Secondary features in "More" dropdown
+  const moreLinks = [
     { href: '/dashboard/transfers', label: 'Transfers', icon: ArrowRightLeft },
     { href: '/dashboard/debt-payoff', label: 'Debt Payoff', icon: TrendingDown },
-    { href: '/dashboard/import', label: 'Import', icon: Upload },
-    { href: '/dashboard/invoices', label: 'Invoices', icon: Receipt },
     { href: '/dashboard/quotes', label: 'Quotes', icon: ClipboardList },
+    { href: '/dashboard/import', label: 'Import', icon: Upload },
     { href: '/dashboard/reports', label: 'Reports', icon: FileBarChart },
   ];
 
@@ -238,7 +245,7 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
       {/* Desktop Navigation - Hidden on mobile */}
       <div className="hidden md:flex items-center gap-4">
         <nav className="flex gap-1">
-          {links.map((link) => {
+          {mainLinks.map((link) => {
             const Icon = link.icon;
             const isActive = isLinkActive(link.href);
             const isCalendar = link.href === '/dashboard/calendar';
@@ -271,6 +278,57 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
               </Link>
             );
           })}
+
+          {/* More dropdown for secondary features */}
+          <div className="relative">
+            <button
+              onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+              className={[
+                'px-3 py-2 min-h-[44px]',
+                'text-sm font-medium rounded-md whitespace-nowrap',
+                'transition-colors',
+                'inline-flex items-center gap-2',
+                moreLinks.some(link => isLinkActive(link.href))
+                  ? 'text-zinc-100 bg-zinc-800'
+                  : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800',
+              ].join(' ')}
+            >
+              <MoreHorizontal className="w-4 h-4" />
+              <span>More</span>
+              <ChevronDown
+                className={`w-3 h-3 transition-transform ${isMoreMenuOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+
+            {isMoreMenuOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsMoreMenuOpen(false)} />
+                <div className="absolute right-0 mt-2 w-48 bg-zinc-800 border border-zinc-700 rounded-lg shadow-lg z-20 py-1">
+                  {moreLinks.map((link) => {
+                    const Icon = link.icon;
+                    const isActive = isLinkActive(link.href);
+
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setIsMoreMenuOpen(false)}
+                        className={[
+                          'flex items-center gap-3 px-4 py-2.5 text-sm',
+                          isActive
+                            ? 'text-zinc-100 bg-zinc-700'
+                            : 'text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100',
+                        ].join(' ')}
+                      >
+                        <Icon className="w-4 h-4" />
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
 
           <ScenarioButton variant="nav" source="nav" label="Afford it?" />
         </nav>

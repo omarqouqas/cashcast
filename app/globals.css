@@ -13,6 +13,8 @@
     scroll-behavior: smooth;
     /* Prevent pull-to-refresh on mobile */
     overscroll-behavior-y: contain;
+    /* Prevent horizontal overflow from causing white space */
+    overflow-x: hidden;
   }
 
   body {
