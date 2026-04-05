@@ -7,7 +7,7 @@
 
 ## Overview
 
-This document outlines the data visualization strategy for Cash Flow Forecaster, including implemented charts and future priorities.
+This document outlines the data visualization strategy for Cashcast, including implemented charts and future priorities.
 
 ---
 

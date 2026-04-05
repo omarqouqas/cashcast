@@ -1,4 +1,4 @@
-# Cash Flow Forecaster - Strategic Considerations
+# Cashcast - Strategic Considerations
 
 **Created:** January 27, 2026
 **Status:** Living Document
@@ -126,7 +126,7 @@ iOS apps **MUST** be built on macOS with Xcode. You cannot submit to App Store w
 
 ### Current Advantages
 
-Features that set Cash Flow Forecaster apart from competitors:
+Features that set Cashcast apart from competitors:
 
 | Feature | Us | Monarch | YNAB | Copilot |
 |---------|-----|---------|------|---------|

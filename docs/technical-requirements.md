@@ -11,7 +11,7 @@
 - [x] TypeScript types generated from live database
 - [x] Git repository initialized
 - [x] GitHub remote connected
-- [x] Domains secured (cashflowforecaster.io, .app)
+- [x] Domains secured (cashcast.money, .app)
 - [x] DNS configured for Vercel
 - [x] Authentication (email + Google OAuth)
 - [x] Password reset flow
@@ -60,11 +60,11 @@
 
 ## System Overview
 
-**Product Name:** Cash Flow Forecaster
+**Product Name:** Cashcast
 
-**Description:** A Progressive Web App that projects bank balance 60 days into the future using a daily liquidity calendar interface. Designed for freelancers, gig workers, and anyone who needs to know if they can afford expenses before payday arrives.
+**Description:** A Progressive Web App that projects bank balance into the future using a daily liquidity calendar interface. Designed for freelancers, gig workers, and anyone who needs to know if they can afford expenses before payday arrives.
 
-**Production Domains:** cashflowforecaster.io (primary), cashflowforecaster.app (redirect)
+**Production Domains:** cashcast.money (primary), cashcast.money (redirect)
 
 **Development URL:** http://localhost:3000
 
@@ -670,7 +670,7 @@ const handleChartDayClick = (dayIndex: number) => {
 
 ### Manifest Configuration
 
-- App name: "Cash Flow Forecaster"
+- App name: "Cashcast"
 - Short name: "Cash Flow"
 - Theme color: #14b8a6 (teal-500)
 - Background color: #18181b (zinc-900)
@@ -759,14 +759,14 @@ NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 RESEND_API_KEY=re_xxx
 
 # App
-NEXT_PUBLIC_APP_URL=https://cashflowforecaster.io
+NEXT_PUBLIC_APP_URL=https://cashcast.money
 ```
 
 ---
 
 ## Repository Information
 
-**GitHub:** https://github.com/omarqouqas/cashflowforecaster
+**GitHub:** https://github.com/omarqouqas/cashcast
 
 **Branch Strategy:**
 - `main` - Production-ready code
@@ -789,7 +789,7 @@ NEXT_PUBLIC_APP_URL=https://cashflowforecaster.io
 ### Production Environment
 
 - **Platform:** Vercel
-- **Domain:** cashflowforecaster.io
+- **Domain:** cashcast.money
 - **SSL:** Automatic (Vercel)
 - **CDN:** Vercel Edge Network
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Enable users to import bills by forwarding emails to `bills@cashflowforecaster.io`. The app receives the forwarded email, extracts invoice data using AI, and presents it for user review before creating a bill.
+Enable users to import bills by forwarding emails to `bills@cashcast.money`. The app receives the forwarded email, extracts invoice data using AI, and presents it for user review before creating a bill.
 
 **Problem it solves:** Freelancers receive bills via email from various vendors (utilities, software subscriptions, contractors). Manually entering each bill is tedious and error-prone. This feature automates bill capture while keeping the user in full control - they only share what they explicitly forward.
 
@@ -18,7 +18,7 @@ Enable users to import bills by forwarding emails to `bills@cashflowforecaster.i
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  1. USER FORWARDS EMAIL                                                  │
 │  ┌──────────────────────────────────────────────────────────────────┐   │
-│  │  User forwards invoice email to bills@cashflowforecaster.io      │   │
+│  │  User forwards invoice email to bills@cashcast.money      │   │
 │  │  Works from ANY email provider (Gmail, Outlook, Yahoo, etc.)     │   │
 │  └────────────────────────────┬─────────────────────────────────────┘   │
 │                               ▼                                          │
@@ -62,7 +62,7 @@ Enable users to import bills by forwarding emails to `bills@cashflowforecaster.i
 
 **Additional UI elements:**
 - Instructions card explaining how to forward emails
-- Copy button for `bills@cashflowforecaster.io`
+- Copy button for `bills@cashcast.money`
 - Import history view
 
 ---
@@ -195,7 +195,7 @@ CREATE INDEX idx_verified_emails_email
 
 ### 1. Domain Configuration
 
-Add MX record for receiving emails at `bills@cashflowforecaster.io`:
+Add MX record for receiving emails at `bills@cashcast.money`:
 
 ```
 Type: MX
@@ -207,7 +207,7 @@ Priority: 10
 ### 2. Resend Webhook Configuration
 
 In Resend dashboard, configure inbound webhook:
-- **Endpoint:** `https://cashflowforecaster.io/api/email/inbound`
+- **Endpoint:** `https://cashcast.money/api/email/inbound`
 - **Events:** `email.received`
 
 ### 3. Environment Variables
@@ -220,7 +220,7 @@ RESEND_API_KEY=re_xxxxxxxxxxxxx
 RESEND_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxx
 
 # Inbound email address
-BILL_PARSER_EMAIL=bills@cashflowforecaster.io
+BILL_PARSER_EMAIL=bills@cashcast.money
 ```
 
 ---
@@ -905,7 +905,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Copy, Check, Mail } from 'lucide-react';
 
-const PARSER_EMAIL = 'bills@cashflowforecaster.io';
+const PARSER_EMAIL = 'bills@cashcast.money';
 
 export function HowItWorksCard() {
   const [copied, setCopied] = useState(false);
@@ -1073,7 +1073,7 @@ RESEND_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxx
 OPENAI_API_KEY=sk-xxxxxxxxxxxxx
 
 # Parser email address (for display in UI)
-BILL_PARSER_EMAIL=bills@cashflowforecaster.io
+BILL_PARSER_EMAIL=bills@cashcast.money
 ```
 
 ---
@@ -1138,7 +1138,7 @@ BILL_PARSER_EMAIL=bills@cashflowforecaster.io
 
 ## Verification Checklist
 
-- [ ] MX record configured for bills@cashflowforecaster.io
+- [ ] MX record configured for bills@cashcast.money
 - [ ] Resend webhook receives forwarded emails
 - [ ] User matching works by sender email
 - [ ] AI extraction returns structured data

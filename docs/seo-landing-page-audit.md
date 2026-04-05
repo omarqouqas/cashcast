@@ -11,7 +11,7 @@
 
 **Strengths:**
 - Proper meta tags with title, description, keywords on `app/page.tsx`
-- Canonical URL set (`https://cashflowforecaster.io`)
+- Canonical URL set (`https://cashcast.money`)
 - OpenGraph and Twitter cards configured
 - JSON-LD structured data (SoftwareApplication schema)
 - FAQPage schema in FAQ section
@@ -23,7 +23,7 @@
 | Issue | Location | Recommendation |
 |-------|----------|----------------|
 | **Inconsistent meta description** | `layout.tsx` says "60 days" but `page.tsx` says "365 days" | Update `layout.tsx` to match "365 days" |
-| **Canonical URL mismatch** | `robots.ts` uses non-www, `sitemap.ts` uses www | Standardize to one (recommend non-www: `cashflowforecaster.io`) |
+| **Canonical URL mismatch** | `robots.ts` uses non-www, `sitemap.ts` uses www | Standardize to one (recommend non-www: `cashcast.money`) |
 | **Missing OG image** | `page.tsx` has no `images` in OpenGraph | Add OG image for better social sharing |
 | **FAQ content outdated** | First FAQ answer mentions "next 60 days" | Update to clarify Pro gets 365 days |
 | **New features not in keywords** | Invoice branding, payment links, low balance alerts | Add keywords like "invoice payment links", "stripe invoicing freelancers" |
@@ -106,7 +106,7 @@
 ### High Priority (SEO/AEO) - COMPLETED Jan 23, 2026
 
 - [x] Fix canonical URL mismatch between `sitemap.ts` (uses www) and `robots.ts` (uses non-www)
-  - File: `app/sitemap.ts` - changed to `https://cashflowforecaster.io`
+  - File: `app/sitemap.ts` - changed to `https://cashcast.money`
 - [x] Update `layout.tsx` description from "60 days" to "365 days"
   - File: `app/layout.tsx` - updated meta description and OG/Twitter descriptions
 - [x] Add OG image to `page.tsx` OpenGraph config

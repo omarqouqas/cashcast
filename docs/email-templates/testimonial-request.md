@@ -12,7 +12,7 @@
 
 Hi [First Name],
 
-I noticed you've been using Cash Flow Forecaster — thank you for being one of our earliest users!
+I noticed you've been using Cashcast — thank you for being one of our earliest users!
 
 I'm building this for freelancers like you, and I'd love to hear how it's working for you. Would you mind sharing a quick testimonial I could use on our website?
 
@@ -42,7 +42,7 @@ P.S. If something's not working or you have feedback, I'd love to hear that too.
 
 Hi [First Name],
 
-Just bumping this in case it got buried. Would love your quick thoughts on Cash Flow Forecaster if you have 2 minutes.
+Just bumping this in case it got buried. Would love your quick thoughts on Cashcast if you have 2 minutes.
 
 Even a one-liner helps!
 

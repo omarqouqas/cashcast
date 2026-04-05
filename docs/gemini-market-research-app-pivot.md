@@ -14,7 +14,7 @@ The Gemini market research validates many of our current features while identify
 
 **Critical Finding:** Many of Gemini's "recommendations" describe features we already have. This indicates strong product-market alignment but also that our landing page may not be communicating features clearly enough.
 
-**Key Finding:** CashFlowForecaster.io already implements the research's "North Star" recommendation—the "Safe to Spend" metric—as a core feature. The primary opportunities lie in:
+**Key Finding:** Cashcast already implements the research's "North Star" recommendation—the "Safe to Spend" metric—as a core feature. The primary opportunities lie in:
 1. Niche positioning (not feature changes)
 2. Tax automation enhancements
 3. Tax calculator lead-gen tool
@@ -254,7 +254,7 @@ Where Tax Reserve = (YTD Income × Tax Rate) - Taxes Already Paid
 - `app/tools/tax-reserve-calculator/opengraph-image.tsx`
 - `components/tools/tax-calculator-result.tsx`
 
-**Conversion path:** Calculator result shows "Track this automatically with Cash Flow Forecaster →"
+**Conversion path:** Calculator result shows "Track this automatically with Cashcast →"
 
 #### C. AI-Driven Payment Date Prediction (MEDIUM PRIORITY)
 
@@ -413,7 +413,7 @@ Where Tax Reserve = (YTD Income × Tax Rate) - Taxes Already Paid
 
 1. **Collect specific testimonials**
    - Email 5-10 active users asking for specific outcomes/numbers
-   - Template: "What's one specific problem Cash Flow Forecaster solved for you? Numbers help!"
+   - Template: "What's one specific problem Cashcast solved for you? Numbers help!"
    - Goal: 2-3 metric-based testimonials
 
 2. **Record founder video**
@@ -488,7 +488,7 @@ Where Tax Reserve = (YTD Income × Tax Rate) - Taxes Already Paid
 
 ## Conclusion
 
-The Gemini market research validates CashFlowForecaster.io's core approach. Critically, **many of Gemini's "new feature" suggestions already exist in the product**—indicating either:
+The Gemini market research validates Cashcast's core approach. Critically, **many of Gemini's "new feature" suggestions already exist in the product**—indicating either:
 1. Gemini didn't fully analyze the product, OR
 2. The landing page doesn't communicate features clearly enough
 

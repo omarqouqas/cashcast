@@ -223,7 +223,7 @@ For people who left their email:
 >
 > Based on your answers, I think you might find this useful — it's a tool I built that shows your projected bank balance up to 90 days out, so you always know what's safe to spend.
 >
-> Here's the link if you want to try it (free): https://cashflowforecaster.io
+> Here's the link if you want to try it (free): https://cashcast.money
 >
 > Would love to hear what you think — even if it's "this sucks" feedback.
 

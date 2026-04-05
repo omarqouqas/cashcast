@@ -138,7 +138,7 @@ This document tracks content gaps identified in landing pages, FAQs, and blog ba
 **Implementation Checklist:**
 - [x] Add link from landing page import feature ✅ Added Feb 8, 2026
 - [x] Add prominent CTA on /compare/ynab page ✅ Added Feb 8, 2026
-- [x] Blog post: "How to Migrate from YNAB to Cash Flow Forecaster" ✅ Added Feb 8, 2026
+- [x] Blog post: "How to Migrate from YNAB to Cashcast" ✅ Added Feb 8, 2026
 
 ---
 

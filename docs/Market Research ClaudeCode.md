@@ -2,19 +2,19 @@
 
 **Research Date:** January 19, 2026
 **Research Method:** Web search across Reddit communities, forums, and aggregated freelancer resources
-**Purpose:** Validate whether Cash Flow Forecaster addresses real user pain points
+**Purpose:** Validate whether Cashcast addresses real user pain points
 
 ---
 
 ## Executive Summary
 
-Cash Flow Forecaster directly addresses the #1 pain point freelancers face: **the anxiety of not knowing if they can pay bills before income arrives**. The 365-day forecast with calendar view is exactly what freelancers say they wish existed but can't find in traditional budgeting apps.
+Cashcast directly addresses the #1 pain point freelancers face: **the anxiety of not knowing if they can pay bills before income arrives**. The 365-day forecast with calendar view is exactly what freelancers say they wish existed but can't find in traditional budgeting apps.
 
 ---
 
 ## Top Pain Points Your App Can Address
 
-| Pain Point | Evidence | How Cash Flow Forecaster Helps |
+| Pain Point | Evidence | How Cashcast Helps |
 |------------|----------|-------------------------------|
 | **Feast-or-Famine Anxiety** | 82% of small businesses fail due to poor cash flow management | 365-day forecast shows future balance dips before they happen |
 | **Can't Predict When Bills Hit** | "The irregular cash flow often feels like a nightmare... struggling to pay bills" | Calendar view shows exactly when bills come due vs. when income arrives |
@@ -99,7 +99,7 @@ New freelancers fall for requests to work for exposure or promises of future luc
 
 ## Competitive Landscape
 
-| App | Strength | Cash Flow Forecaster Advantage |
+| App | Strength | Cashcast Advantage |
 |-----|----------|-------------------------------|
 | **YNAB** | Popular, powerful, large community | Steep learning curve - CFF is simpler to use |
 | **Monarch** | Good cash flow features, 30k+ Reddit community | $15/month - CFF has a free tier |
@@ -108,7 +108,7 @@ New freelancers fall for requests to work for exposure or promises of future luc
 | **Generic budgeting apps** | Good for tracking past spending | Don't forecast future - CFF's core differentiator |
 
 ### Key Differentiator
-Most budgeting apps focus on **tracking where money went**. Cash Flow Forecaster focuses on **predicting where money will be** - a fundamentally different value proposition that addresses the core anxiety freelancers express.
+Most budgeting apps focus on **tracking where money went**. Cashcast focuses on **predicting where money will be** - a fundamentally different value proposition that addresses the core anxiety freelancers express.
 
 ---
 
@@ -127,7 +127,7 @@ Most budgeting apps focus on **tracking where money went**. Cash Flow Forecaster
 
 ### Problem-Solution Fit: STRONG
 
-Cash Flow Forecaster directly addresses the primary pain points:
+Cashcast directly addresses the primary pain points:
 
 1. **Anxiety about future cash position** - 365-day forecast provides visibility
 2. **Not knowing when bills vs. income align** - Calendar view shows timing clearly

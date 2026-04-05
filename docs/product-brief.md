@@ -1,26 +1,26 @@
-# Cash Flow Forecaster - Complete Product Brief
+# Cashcast - Complete Product Brief
 
 **Version:** 6.16
 **Last Updated:** April 4, 2026
 **Status:** Live - AI-Powered Probabilistic Forecasting
-**Product URL:** https://cashflowforecaster.io
+**Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashflowforecaster
 
 ---
 
 ## Executive Summary
 
-**Product Name:** Cash Flow Forecaster
+**Product Name:** Cashcast
 
 **Domains:** 
-- Primary: cashflowforecaster.io
+- Primary: cashcast.money
 - Redirect: cashflowforecaster.app
 
 **One-Liner:** "Stop guessing if you can cover rent."
 
 **Hook:** "Your personal cash flow calendar for the next 365 days — with every invoice, bill, and payday mapped out."
 
-Cash Flow Forecaster is a Progressive Web App that helps freelancers, gig workers, and anyone with irregular income see their bank balance up to 365 days into the future (90 days free, 365 days Pro). Unlike traditional budgeting apps that focus on past spending, Cash Flow Forecaster uses a daily liquidity calendar to answer the critical question: "Can I afford this expense before my next paycheck arrives?"
+Cashcast is a Progressive Web App that helps freelancers, gig workers, and anyone with irregular income see their bank balance up to 365 days into the future (90 days free, 365 days Pro). Unlike traditional budgeting apps that focus on past spending, Cashcast uses a daily liquidity calendar to answer the critical question: "Can I afford this expense before my next paycheck arrives?"
 
 ### Problem Statement
 
@@ -34,7 +34,7 @@ Millions of freelancers and gig workers struggle with cash flow uncertainty. The
 
 ### Solution
 
-Cash Flow Forecaster projects bank balance 90 days into the future using a daily calendar interface. Users input:
+Cashcast projects bank balance 90 days into the future using a daily calendar interface. Users input:
 - Current account balances
 - Income sources (with frequency: weekly, bi-weekly, monthly)
 - Recurring bills (with due dates)
@@ -137,7 +137,7 @@ The app calculates and displays a 90-day calendar showing projected daily balanc
 
 The most significant unmet need in the freelancer market is the answer to a single question: **"How much of the money in my bank account is actually mine to spend?"**
 
-By automatically subtracting tax reserves, upcoming bills, and debt payments from the projected bank balance, Cash Flow Forecaster differentiates itself from QuickBooks (which shows history) and Float (which shows enterprise liquidity).
+By automatically subtracting tax reserves, upcoming bills, and debt payments from the projected bank balance, Cashcast differentiates itself from QuickBooks (which shows history) and Float (which shows enterprise liquidity).
 
 ### Three Pillars of Cash Flow Clarity
 
@@ -514,7 +514,7 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 ### Premium Features (Post-MVP / Planned)
 
 **14. Email Parser** (Planned)
-- Forward bills to bills@cashflowforecaster.io
+- Forward bills to bills@cashcast.money
 - Automatic bill extraction
 - One-click bill creation
 
@@ -811,7 +811,7 @@ User Request
 - `Miami freelancer money management`
 
 **Tier 5 — Competitor Comparison**
-- `YNAB vs Cash Flow Forecaster`
+- `YNAB vs Cashcast`
 - `Mint alternative irregular income`
 - `why QuickBooks doesn't work for freelancers`
 - `best budgeting app for irregular income`
@@ -852,7 +852,7 @@ User Request
 
 ### Competitive Comparison
 
-| Aspect | Cash Flow Forecaster | YNAB | Monarch Money | Mint |
+| Aspect | Cashcast | YNAB | Monarch Money | Mint |
 |--------|---------------------|------|---------------|------|
 | **Focus** | Future balance prediction | Past spending tracking | Wealth optimization | Expense categorization |
 | **UI** | Calendar (90-day view) | Category budgets | Dashboard/graphs | Transaction feed |
@@ -871,7 +871,7 @@ User Request
 
 ### Specialized Forecasting Competitor Analysis
 
-| Feature | Pulse | Float | QuickBooks Solopreneur | Cash Flow Forecaster |
+| Feature | Pulse | Float | QuickBooks Solopreneur | Cashcast |
 |---------|-------|-------|------------------------|---------------------|
 | **Primary Value** | Cash Flow Management | Liquidity Visibility | Core Accounting | Forward Cash Flow Calendar |
 | **Data Method** | Enhanced Spreadsheet (Manual) | Automated Sync (Xero/QBO) | Automated Expense Tracking | Manual + CSV Import |
@@ -970,7 +970,7 @@ User Request
 
 ### Phase 3 Features (Months 5-8)
 
-- [ ] Email parser (bills@cashflowforecaster.io)
+- [ ] Email parser (bills@cashcast.money)
 - [ ] Bank account integration (Plaid)
 - [ ] AI-powered bill categorization
 - [ ] Predictive analytics
@@ -1024,9 +1024,9 @@ Canada represents a strategic expansion opportunity due to:
 
 ## Contact Information
 
-**Product:** Cash Flow Forecaster  
-**Website:** https://cashflowforecaster.io  
-**Email:** support@cashflowforecaster.io  
+**Product:** Cashcast  
+**Website:** https://cashcast.money  
+**Email:** support@cashcast.money  
 **Repository:** https://github.com/omarqouqas/cashflowforecaster
 
 ---
@@ -1634,7 +1634,7 @@ Canada represents a strategic expansion opportunity due to:
 - Internal linking:
   - Added “Compare” to landing header navigation
   - Added footer compare link (“Compare Cash Flow Apps”)
-  - Updated sitemap priorities and standardized sitemap URLs to `https://www.cashflowforecaster.io`
+  - Updated sitemap priorities and standardized sitemap URLs to `https://www.cashcast.money`
 - UX polish:
   - Made “Safety buffer” clickable (links to Settings) with a mobile-friendly tap target
 - Build stability:

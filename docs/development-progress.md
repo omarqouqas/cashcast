@@ -1,10 +1,10 @@
-# Cash Flow Forecaster - Development Progress
+# Cashcast - Development Progress
 
 **Last Updated:** April 4, 2026 (Day 61)
 
-**Repository:** https://github.com/omarqouqas/cashflowforecaster
+**Repository:** https://github.com/omarqouqas/cashcast
 
-**Live URL:** https://cashflowforecaster.io
+**Live URL:** https://cashcast.io
 
 ---
 
@@ -226,7 +226,7 @@ Reduced desktop nav from 10 items to 5 main items + "More" dropdown for better l
 
 **Key Differentiators vs Float:**
 
-| Feature | Cash Flow Forecaster | Float |
+| Feature | Cashcast | Float |
 |---------|---------------------|-------|
 | Price | $7.99/mo (87% cheaper) | $59-199/mo |
 | Requires accounting software | No (standalone) | Yes (Xero/QuickBooks) |
@@ -264,7 +264,7 @@ Reduced desktop nav from 10 items to 5 main items + "More" dropdown for better l
 
 **Key Differentiators vs Pulse:**
 
-| Feature | Cash Flow Forecaster | Pulse |
+| Feature | Cashcast | Pulse |
 |---------|---------------------|-------|
 | Price | $7.99/mo (73% cheaper) | $29-89/mo |
 | Data entry | Guided forms | Spreadsheet-style |
@@ -409,7 +409,7 @@ Comparison terms:
 - Product identity crisis: Too many features (forecasting + invoicing + debt payoff + tax tracking = 5+ products in one)
 - Pricing psychology mismatch: $7.99/mo may be underpriced for value delivered
 - Build-to-validate ratio inverted: 58 days development, only ~13 users
-- Domain/brand: "cashflowforecaster.io" is generic and hard to remember
+- Domain/brand: "cashcast.io" is generic and hard to remember
 - No social proof: Zero testimonials, no user counts displayed
 
 **Landing Page Repositioning:**
@@ -1258,7 +1258,7 @@ Comparison terms:
 **Dashboard Layout Improvements** - Better information hierarchy and mobile optimization.
 
 - Removed redundant "View Calendar" CTA under Daily Budget, replaced with "Adjust Buffer" → Settings
-- Removed generic "Welcome to Cash Flow Forecaster!" heading
+- Removed generic "Welcome to Cashcast!" heading
 - Reorganized sections: Metric cards → Forecast → Invoices → Tax → Emergency Fund → Scenario Tester → Import
 - Mobile responsive text sizing (text-xl sm:text-2xl md:text-3xl)
 - Added min-w-0 and truncate for overflow prevention
@@ -1552,7 +1552,7 @@ Comparison terms:
 
 ### Completed
 
-- Domains: cashflowforecaster.io, .app (DNS via Namecheap → Vercel)
+- Domains: cashcast.io, .app (DNS via Namecheap → Vercel)
 - Database: Supabase with 15 tables, RLS, TypeScript types
 - Hosting: Vercel with custom domain, SSL
 - Payments: Stripe live mode (checkout, webhooks, portal)

@@ -22,7 +22,7 @@ Spreadsheets that took hours and were wrong by Tuesday.
 That constant low-grade anxiety about money."
 
 [25-40 seconds - Solution]
-"So I built Cash Flow Forecaster for them.
+"So I built Cashcast for them.
 It shows one number: what's actually safe to spend today,
 without overdrafting later.
 Add your bills, your expected income, and see your real bank balance
@@ -53,7 +53,7 @@ So had every other freelancer I knew."
 
 [25-40 seconds - Solution]
 "I'm a developer, so I built them a tool.
-Cash Flow Forecaster maps out your real bank balance
+Cashcast maps out your real bank balance
 for the next 90 days — every bill, every expected payment.
 One number tells you what's safe to spend right now."
 
@@ -75,7 +75,7 @@ money in the bank, but no idea if they can spend it."
 
 [10-25 seconds - Problem + Solution]
 "Bills coming up. Clients paying late. Taxes due in April.
-So I built Cash Flow Forecaster —
+So I built Cashcast —
 it shows your real bank balance 90 days ahead,
 accounting for everything coming in and going out."
 
@@ -197,7 +197,7 @@ Tweet 1: Video + "I kept hearing the same thing from freelancer friends: 'I have
 
 Tweet 2: "The problem: Freelancers never know if the money in their bank is actually theirs. Bills, taxes, late clients — it's constant mental math."
 
-Tweet 3: "The solution: Cash Flow Forecaster shows your real bank balance 90 days ahead. One number tells you what's safe to spend today."
+Tweet 3: "The solution: Cashcast shows your real bank balance 90 days ahead. One number tells you what's safe to spend today."
 
 Tweet 4: "No bank connection. No spreadsheets. Try it free: [link]"
 ```

@@ -528,7 +528,7 @@ Key insights:
 Jeremy's key points:
 1. Most businesses already have invoicing/accounting software
 2. Requiring data entry in two systems creates friction
-3. The tool name is "Cash Flow Forecaster" - that's the core value prop
+3. The tool name is "Cashcast" - that's the core value prop
 4. Cash flow forecasting is genuinely challenging for small clients
 
 **Jeremy's suggested split:**

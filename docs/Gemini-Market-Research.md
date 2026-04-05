@@ -134,7 +134,7 @@ Growing SMBs 39
 Solo Proprietors 38
 
 The consensus among users is that while specialized tools are powerful, they are often priced too high for an individual freelancer. A $59/month subscription for Float can feel like a significant burden for someone whose income is already volatile.40 This price sensitivity creates a market opening for a tool that offers the specialized forecasting of Pulse but at a price point and complexity level tailored specifically for the solopreneur.42
-The Hypothetical Solution: CashFlowForecaster.io
+The Hypothetical Solution: Cashcast
 To successfully disrupt the status quo, the solution must differentiate itself from both the "complexity of QuickBooks" and the "pricing of Float." The modern independent professional does not want "another analytics tool"; they want a "reliability engine" that saves time and prevents financial crises.42
 Core Product Pillars for the Solo Market
 The analysis of user pain points suggests that a world-class solution must integrate the following four pillars:
@@ -189,7 +189,7 @@ Corporate Tax (CCPC)
 $500,000 Active Income 53
 Access to lower tax rates (Small Biz Deduction).
 
-Strategic Recommendations for CashFlowForecaster.io
+Strategic Recommendations for Cashcast
 The trajectory of the global workforce suggests a paradigm shift where independence is no longer a peripheral activity but a central pillar of the modern economy. However, "freelancers" as a whole are too heterogeneous for a single, cost-effective SaaS solution to capture without being pulled into the "horizontal trap" of generic features.23
 Recommendation 1: Select a Lead Niche (The "Beachhead")
 The product should focus initially on "Project-Based Knowledge Professionals" (UX Designers, AI Consultants, Marketing Strategists). This group has high hourly rates ($47.71 - $100+), uses multiple digital tools, and faces the "Net-60" payment cycle risk.1 By speaking their specific language—using terms like "milestone payment," "retainer," and "SaaS overhead"—the product achieves the "Vertical SaaS" advantage of higher retention and lower churn.20

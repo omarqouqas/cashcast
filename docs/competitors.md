@@ -8,7 +8,7 @@
 
 ## Overview
 
-This document tracks competitors in the personal finance and cash flow management space, with analysis of how Cash Flow Forecaster differentiates.
+This document tracks competitors in the personal finance and cash flow management space, with analysis of how Cashcast differentiates.
 
 ---
 
@@ -237,7 +237,7 @@ This document tracks competitors in the personal finance and cash flow managemen
 - **Calendar view:** Day-by-day balance projection (they don't have this)
 - **Generous free tier:** 90-day forecast with 10 bills/income vs their basic templates
 
-**Competitive Overlap:** Low-Medium — Different primary focus. Flow = "create invoices fast", Cash Flow Forecaster = "know if you'll have money when bills hit". We both serve freelancers but solve different problems. They could become more direct competitors if they add forecasting.
+**Competitive Overlap:** Low-Medium — Different primary focus. Flow = "create invoices fast", Cashcast = "know if you'll have money when bills hit". We both serve freelancers but solve different problems. They could become more direct competitors if they add forecasting.
 
 **What We Can Learn From Them:**
 1. Trust badges (HMRC, ICO, GDPR displayed prominently)

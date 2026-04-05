@@ -1,4 +1,4 @@
-# Apollo Lead Generation Guide - Cash Flow Forecaster
+# Apollo Lead Generation Guide - Cashcast
 
 > Created: January 20, 2026
 
@@ -60,7 +60,7 @@ Hi {{first_name}},
 
 Running a {{company}} means dealing with clients who pay on their own schedule - not yours.
 
-I built Cash Flow Forecaster specifically for agency owners and consultants who need to know exactly when money will hit their account.
+I built Cashcast specifically for agency owners and consultants who need to know exactly when money will hit their account.
 
 Two features I think you'd find useful:
 • See a visual forecast of your cash flow weeks ahead
@@ -68,7 +68,7 @@ Two features I think you'd find useful:
 
 Would you be open to trying it free? No demo needed - just sign up and poke around.
 
-cashflowforecaster.io
+cashcast.money
 
 - Omar
 ```
@@ -80,7 +80,7 @@ cashflowforecaster.io
 ```
 Hi {{first_name}},
 
-Just bumping this up - did you get a chance to look at Cash Flow Forecaster?
+Just bumping this up - did you get a chance to look at Cashcast?
 
 If late-paying clients or unpredictable income isn't a pain point for you, no worries at all.
 
@@ -98,9 +98,9 @@ Hi {{first_name}},
 
 Final follow-up - I'll leave you alone after this.
 
-If you ever find yourself wondering "do I have enough cash to cover next month's bills?" - that's exactly what Cash Flow Forecaster solves.
+If you ever find yourself wondering "do I have enough cash to cover next month's bills?" - that's exactly what Cashcast solves.
 
-Here's a free account if you want to try it: cashflowforecaster.io
+Here's a free account if you want to try it: cashcast.money
 
 Either way, best of luck with {{company}}.
 
@@ -114,8 +114,8 @@ Either way, best of luck with {{company}}.
 ```
 --
 Omar
-Founder, Cash Flow Forecaster
-cashflowforecaster.io
+Founder, Cashcast
+cashcast.money
 ```
 
 Keep it minimal - no phone numbers, social links, or images.

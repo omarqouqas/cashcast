@@ -25,7 +25,7 @@
 
 Contact your 3 beta testers directly. Use this template:
 
-> Hey [Name], quick favor — would you mind sharing 2-3 sentences about your experience with Cash Flow Forecaster? Specifically: what problem does it solve for you, and would you recommend it to other freelancers?
+> Hey [Name], quick favor — would you mind sharing 2-3 sentences about your experience with Cashcast? Specifically: what problem does it solve for you, and would you recommend it to other freelancers?
 >
 > No pressure if you're not comfortable, but it would really help me understand if I'm building something valuable.
 
@@ -149,7 +149,7 @@ The goal is to start conversations, not close sales. You're looking for:
 ### Bad Message Examples
 
 **Too salesy:**
-> Hi! I built Cash Flow Forecaster, the #1 tool for freelancers to manage their finances. Check it out at cashflowforecaster.io!
+> Hi! I built Cashcast, the #1 tool for freelancers to manage their finances. Check it out at cashflowforecaster.io!
 
 **Too generic:**
 > Hey, I see you're a freelancer. I have a tool you might like.
