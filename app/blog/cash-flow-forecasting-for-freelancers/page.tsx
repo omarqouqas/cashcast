@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -53,12 +53,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -110,7 +110,7 @@ export default function CashFlowForecastingPage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Cash Flow Forecasting', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Cash Flow Forecasting', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -354,7 +354,7 @@ export default function CashFlowForecastingPage() {
             </h2>
 
             <p className="text-zinc-300 leading-relaxed mb-6">
-              You can build a basic cash flow forecast in a spreadsheet, or use a tool like Cash Flow Forecaster
+              You can build a basic cash flow forecast in a spreadsheet, or use a tool like Cashcast
               that does the heavy lifting. Either way, here&apos;s the process:
             </p>
 
@@ -483,7 +483,7 @@ export default function CashFlowForecastingPage() {
                   <tr>
                     <th className="px-4 py-3 text-left text-zinc-400 font-medium">Feature</th>
                     <th className="px-4 py-3 text-center text-zinc-400 font-medium">Spreadsheet</th>
-                    <th className="px-4 py-3 text-center text-zinc-400 font-medium">Cash Flow Forecaster</th>
+                    <th className="px-4 py-3 text-center text-zinc-400 font-medium">Cashcast</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800">
@@ -545,7 +545,7 @@ export default function CashFlowForecastingPage() {
             Start forecasting your cash flow today
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Cash Flow Forecaster gives you day-by-day visibility for up to 365 days. See your Safe to Spend,
+            Cashcast gives you day-by-day visibility for up to 365 days. See your Safe to Spend,
             get low balance alerts, and finally know where your money is going.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

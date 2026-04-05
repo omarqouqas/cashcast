@@ -8,18 +8,18 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { Sparkles, BookOpen, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Free Cash Flow Tools | Cash Flow Forecaster',
+  title: 'Free Cash Flow Tools | Cashcast',
   description:
     'Free cash flow tools to help freelancers forecast balances, avoid overdrafts, and make smarter spending decisions.',
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools',
+    canonical: 'https://cashcast.money/tools',
   },
   openGraph: {
     title: 'Free Cash Flow Tools',
     description:
       'Try free cash flow tools to forecast your balance and avoid getting blindsided.',
-    url: 'https://www.cashflowforecaster.io/tools',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/tools',
+    siteName: 'Cashcast',
     type: 'website',
     images: [{ url: '/hero-dashboard.png' }],
   },
@@ -65,7 +65,7 @@ export default function ToolsIndexPage() {
               Free Cash Flow Tools
             </h1>
             <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
-              Quick calculators that demonstrate forward-looking cash flow projection - built on the same approach as Cash Flow Forecaster.
+              Quick calculators that demonstrate forward-looking cash flow projection - built on the same approach as Cashcast.
             </p>
           </div>
 

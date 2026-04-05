@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Learn how to include credit cards in your cash flow forecast. Track utilization, plan payment amounts, and see how charges today affect your balance tomorrow.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -44,7 +44,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Compare the Snowball and Avalanche debt payoff methods. Learn which strategy works best for irregular income and how to accelerate becoming debt-free.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -67,7 +67,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Step-by-step guide to importing your bank transactions from Excel (.xlsx) or CSV files. Auto-detect recurring bills and set up your cash flow forecast in minutes.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -89,7 +89,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Tired of subscription fatigue? Learn why we offer a one-time $99 lifetime deal and how it compares to monthly subscriptions like YNAB.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'news',
@@ -111,7 +111,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Learn how to export your income, expenses, and cash flow reports for tax preparation. Includes tips for 1099 contractors and quarterly estimated taxes.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -129,11 +129,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'migrate-from-ynab',
-    title: 'How to Migrate from YNAB to Cash Flow Forecaster',
-    description: 'Step-by-step guide to switching from YNAB. Export your data, import it into Cash Flow Forecaster, and start forecasting your cash flow in minutes.',
+    title: 'How to Migrate from YNAB to Cashcast',
+    description: 'Step-by-step guide to switching from YNAB. Export your data, import it into Cashcast, and start forecasting your cash flow in minutes.',
     publishedAt: '2026-02-08',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -155,7 +155,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Compare the top cash flow forecasting apps for freelancers. We break down features, pricing, and which app works best for different freelance situations.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'tools',
@@ -179,7 +179,7 @@ export const blogPosts: BlogPost[] = [
     description: 'A simple, practical system for tracking freelance income and expenses. Learn what to track, how often, and the best tools for the job.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -203,7 +203,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Learn exactly how much to save for quarterly taxes as a 1099 contractor. Includes a simple formula and tips to avoid underpayment penalties.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -227,7 +227,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Signs it\'s time to increase your rates, how much to raise them, and scripts for telling existing clients. Stop undercharging for your work.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'tips',
@@ -251,7 +251,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Traditional budgets assume steady paychecks. Learn a flexible budgeting system designed for solopreneurs, gig workers, and anyone with unpredictable income.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -273,7 +273,7 @@ export const blogPosts: BlogPost[] = [
     description: 'The standard "3-6 months expenses" advice doesn\'t account for irregular income. Here\'s how to calculate the right emergency fund size for freelancers.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -295,7 +295,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Confused by invoice payment terms? Learn what Net 30, Net 15, and Due on Receipt mean, and which terms to use with different clients.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -317,7 +317,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Learn proven strategies for budgeting, saving, and planning when your income is unpredictable. Stop the feast-or-famine cycle with these practical tips.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -342,7 +342,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Discover why tracking your Safe to Spend amount is more important than your bank balance, and how to calculate it for irregular income.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',
@@ -365,7 +365,7 @@ export const blogPosts: BlogPost[] = [
     description: 'Learn why monthly budgets fail freelancers and how daily cash flow forecasting helps you avoid overdrafts and plan with confidence.',
     publishedAt: '2026-01-23',
     author: {
-      name: 'Cash Flow Forecaster Team',
+      name: 'Cashcast Team',
       role: 'Personal Finance Experts',
     },
     category: 'guides',

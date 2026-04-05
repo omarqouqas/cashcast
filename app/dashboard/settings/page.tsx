@@ -35,8 +35,8 @@ import { CategoryManagementForm } from '@/components/settings/category-managemen
 import { FileImage } from 'lucide-react';
 
 export const metadata = {
-  title: 'Settings | Cash Flow Forecaster',
-  description: 'Configure your Cash Flow Forecaster preferences',
+  title: 'Settings | Cashcast',
+  description: 'Configure your Cashcast preferences',
 };
 
 export default async function SettingsPage() {

@@ -63,7 +63,7 @@ export function buildQuoteEmail({
             <tr>
               <td style="padding:20px 24px;background-color:#ffffff;">
                 <div style="font-family:Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
-                  <div style="font-size:12px;color:#71717a;letter-spacing:0.06em;">CASH FLOW FORECASTER</div>
+                  <div style="font-size:12px;color:#71717a;letter-spacing:0.06em;">CASHCAST</div>
                   <div style="margin-top:6px;font-size:20px;font-weight:700;color:#18181b;">You've received a quote</div>
                   ${
                     safeClientName
@@ -126,7 +126,7 @@ export function buildQuoteEmail({
             <tr>
               <td style="padding:16px 24px;border-top:1px solid #f4f4f5;background-color:#ffffff;">
                 <div style="font-family:Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#71717a;">
-                  This quote was sent via Cash Flow Forecaster.
+                  This quote was sent via Cashcast.
                 </div>
               </td>
             </tr>

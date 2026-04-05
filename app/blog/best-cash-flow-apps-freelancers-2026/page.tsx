@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -51,18 +51,18 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
 const apps = [
   {
-    name: 'Cash Flow Forecaster',
+    name: 'Cashcast',
     bestFor: 'Freelancers with irregular income who need day-by-day visibility',
     price: 'Free tier, Pro from $7.99/mo',
     pros: [
@@ -162,7 +162,7 @@ export default function BestCashFlowAppsPage() {
         items={[
           breadcrumbs.home,
           breadcrumbs.blog,
-          { name: 'Best Cash Flow Apps', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+          { name: 'Best Cash Flow Apps', url: `https://cashcast.money/blog/${post.slug}` },
         ]}
         className="mb-8"
       />
@@ -313,7 +313,7 @@ export default function BestCashFlowAppsPage() {
             </thead>
             <tbody className="divide-y divide-zinc-800">
               <tr className="bg-teal-500/5">
-                <td className="p-4 text-white font-medium">Cash Flow Forecaster</td>
+                <td className="p-4 text-white font-medium">Cashcast</td>
                 <td className="p-4 text-green-400">365 days</td>
                 <td className="p-4 text-zinc-400">No</td>
                 <td className="p-4 text-zinc-300">Free / $9+</td>
@@ -354,7 +354,7 @@ export default function BestCashFlowAppsPage() {
 
         <ol>
           <li>
-            <strong>A forward-looking cash flow app</strong> (like Cash Flow Forecaster or PocketSmith) to see your
+            <strong>A forward-looking cash flow app</strong> (like Cashcast or PocketSmith) to see your
             future balance and plan ahead
           </li>
           <li>
@@ -375,7 +375,7 @@ export default function BestCashFlowAppsPage() {
               <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
             ))}
           </div>
-          <h3 className="text-xl font-semibold text-white mb-3">Try Cash Flow Forecaster Free</h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Try Cashcast Free</h3>
           <p className="text-zinc-300 mb-4">
             See your balance up to 365 days ahead. Built specifically for freelancers with irregular income.
           </p>

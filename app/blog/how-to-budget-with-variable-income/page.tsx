@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -52,12 +52,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -111,7 +111,7 @@ export default function VariableIncomeBudgetPage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Variable Income Budget', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Variable Income Budget', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -442,7 +442,7 @@ export default function VariableIncomeBudgetPage() {
               <div className="flex items-start gap-3">
                 <Target className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-white font-semibold mb-1">Try Cash Flow Forecaster</p>
+                  <p className="text-white font-semibold mb-1">Try Cashcast</p>
                   <p className="text-zinc-300 mb-4">
                     See your projected balance up to 365 days ahead, get low-balance alerts, and know
                     your Safe to Spend amount at a glance.
@@ -487,7 +487,7 @@ export default function VariableIncomeBudgetPage() {
             See your variable income mapped out
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Cash Flow Forecaster shows your balance day-by-day so you know exactly when to tighten
+            Cashcast shows your balance day-by-day so you know exactly when to tighten
             up and when you have room to breathe.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

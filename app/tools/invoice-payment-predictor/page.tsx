@@ -8,7 +8,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { Calendar, Clock, FileText, HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Invoice Payment Date Predictor - When Will You Get Paid? | Cash Flow Forecaster',
+  title: 'Invoice Payment Date Predictor - When Will You Get Paid? | Cashcast',
   description:
     'Free calculator to predict when your invoice will be paid. Enter invoice date and payment terms (Net-30, Net-60, etc.) to see the expected payment date, adjusted for weekends.',
   keywords: [
@@ -22,14 +22,14 @@ export const metadata: Metadata = {
     'freelance invoice calculator',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools/invoice-payment-predictor',
+    canonical: 'https://cashcast.money/tools/invoice-payment-predictor',
   },
   openGraph: {
     title: 'Invoice Payment Date Predictor - When Will You Get Paid?',
     description:
       'Stop guessing when invoices will be paid. Calculate expected payment dates based on terms, weekends, and client history.',
-    url: 'https://www.cashflowforecaster.io/tools/invoice-payment-predictor',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/tools/invoice-payment-predictor',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
@@ -52,7 +52,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
-  url: 'https://www.cashflowforecaster.io/tools/invoice-payment-predictor',
+  url: 'https://cashcast.money/tools/invoice-payment-predictor',
 } as const;
 
 const faqSchema = {
@@ -138,7 +138,7 @@ export default function InvoicePaymentPredictorPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.tools,
-              { name: 'Payment Predictor', url: 'https://www.cashflowforecaster.io/tools/invoice-payment-predictor' },
+              { name: 'Payment Predictor', url: 'https://cashcast.money/tools/invoice-payment-predictor' },
             ]}
             className="mb-8"
           />
@@ -261,7 +261,7 @@ export default function InvoicePaymentPredictorPage() {
               href="/auth/signup"
               className="mt-4 inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
             >
-              Try Cash Flow Forecaster Free
+              Try Cashcast Free
             </Link>
           </div>
         </div>

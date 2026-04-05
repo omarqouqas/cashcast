@@ -172,7 +172,7 @@ export async function sendInvoiceReminder(
 
     // 5) Send email
     const from =
-      process.env.RESEND_FROM_EMAIL?.trim() || 'Cash Flow Forecaster <onboarding@resend.dev>';
+      process.env.RESEND_FROM_EMAIL?.trim() || 'Cashcast <onboarding@resend.dev>';
 
     const res = await resend.emails.send({
       from,

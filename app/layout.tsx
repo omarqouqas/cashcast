@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.cashflowforecaster.io'),
-  title: 'Cash Flow Calendar for Freelancers | Cash Flow Forecaster',
+  metadataBase: new URL('https://cashcast.money'),
+  title: 'Cash Flow Calendar for Freelancers | Cashcast',
   description:
     'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
   keywords: [
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
     'bill tracking app',
   ],
   openGraph: {
-    title: 'Cash Flow Calendar for Freelancers | Cash Flow Forecaster',
+    title: 'Cash Flow Calendar for Freelancers | Cashcast',
     description:
       'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cash Flow Calendar for Freelancers | Cash Flow Forecaster',
+    title: 'Cash Flow Calendar for Freelancers | Cashcast',
     description:
       'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
   },
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Cash Flow',
+    title: 'Cashcast',
   },
 };
 

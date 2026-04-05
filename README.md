@@ -1,12 +1,12 @@
-# Cash Flow Forecaster
+# Cashcast
 
-See your bank balance 60 days into the future.
+See your cash, days ahead.
 
-**Production URL**: [cashflowforecaster.io](https://cashflowforecaster.io) (coming soon)
+**Production URL**: [cashcast.money](https://cashcast.money)
 
-**Alternative**: [cashflowforecaster.app](https://cashflowforecaster.app) (redirects to .io)
+**Legacy**: [cashflowforecaster.io](https://cashflowforecaster.io) (redirects to cashcast.money)
 
-Cash Flow Forecaster is a Progressive Web App that projects your bank balance 60 days into the future using a daily liquidity calendar interface. Perfect for freelancers, gig workers, and anyone who needs to know if they can afford rent before payday arrives.
+Cashcast is a Progressive Web App that projects your bank balance up to 365 days into the future using a daily liquidity calendar interface. Perfect for freelancers, gig workers, and anyone who needs to know if they can afford rent before payday arrives.
 
 ## Tech Stack
 
@@ -27,7 +27,7 @@ Cash Flow Forecaster is a Progressive Web App that projects your bank balance 60
 
 ```bash
 git clone <repository-url>
-cd cash-flow-forecaster
+cd cashcast
 ```
 
 2. Install dependencies:
@@ -200,7 +200,7 @@ The database schema has been created and configured:
 
 - ✅ **scenarios** - "Can I afford it?" calculations
 
-- ✅ **parsed_emails** - Email parser results (bills@cashflowforecaster.io)
+- ✅ **parsed_emails** - Email parser results (bills@cashcast.money)
 
 - ✅ **weekly_checkins** - Burn rate accuracy tracking
 

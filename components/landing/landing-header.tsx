@@ -23,12 +23,12 @@ export default function LandingHeader() {
         <Link href="/" className="flex items-center gap-2 text-white font-semibold">
           <Image
             src="/logo.png"
-            alt="Cash Flow Forecaster"
+            alt="Cashcast"
             width={32}
             height={32}
             className="rounded-lg"
           />
-          <span>Cash Flow Forecaster</span>
+          <span>Cashcast</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-zinc-300">

@@ -81,7 +81,7 @@ export default async function OpenGraphImage() {
               >
                 C
               </div>
-              <div style={{ fontSize: 24, fontWeight: 600, color: '#a1a1aa' }}>Cash Flow Forecaster</div>
+              <div style={{ fontSize: 24, fontWeight: 600, color: '#a1a1aa' }}>Cashcast</div>
             </div>
             <div
               style={{
@@ -168,7 +168,7 @@ export default async function OpenGraphImage() {
               <div style={{ fontSize: 16, color: '#71717a' }}>{post.readingTime}</div>
             </div>
           </div>
-          <div style={{ fontSize: 18, color: '#71717a' }}>cashflowforecaster.io</div>
+          <div style={{ fontSize: 18, color: '#71717a' }}>cashcast.money</div>
         </div>
       </div>
     ),

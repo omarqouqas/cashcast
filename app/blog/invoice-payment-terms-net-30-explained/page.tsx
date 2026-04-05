@@ -17,17 +17,17 @@ import {
 const post = getPostBySlug('invoice-payment-terms-net-30-explained')!;
 
 export const metadata: Metadata = {
-  title: post.title + ' | Cash Flow Forecaster',
+  title: post.title + ' | Cashcast',
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -51,12 +51,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -104,7 +104,7 @@ export default function InvoicePaymentTermsPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.blog,
-              { name: 'Invoice Payment Terms', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+              { name: 'Invoice Payment Terms', url: `https://cashcast.money/blog/${post.slug}` },
             ]}
             className="mb-8"
           />
@@ -398,7 +398,7 @@ export default function InvoicePaymentTermsPage() {
                 See When Payments Will Actually Arrive
               </h3>
               <p className="text-zinc-300 mb-4">
-                Cash Flow Forecaster lets you add expected income with specific dates, so you can see
+                Cashcast lets you add expected income with specific dates, so you can see
                 your real balance projection—not just what&apos;s invoiced, but what&apos;s actually in your account.
               </p>
               <Link

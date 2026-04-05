@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -53,12 +53,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -118,7 +118,7 @@ export default function IrregularIncomeGuidePage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Irregular Income Guide', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Irregular Income Guide', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -435,7 +435,7 @@ export default function IrregularIncomeGuidePage() {
               <div className="flex items-start gap-3">
                 <TrendingUp className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-white font-semibold mb-1">Try Cash Flow Forecaster</p>
+                  <p className="text-white font-semibold mb-1">Try Cashcast</p>
                   <p className="text-zinc-300 mb-4">
                     See your projected balance up to 365 days ahead with interactive charts, bill alerts,
                     and a &quot;Safe to Spend&quot; indicator that tells you exactly what you can spend today.
@@ -603,7 +603,7 @@ export default function IrregularIncomeGuidePage() {
             Ready to see your cash flow calendar?
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Stop guessing when you&apos;ll run low. Cash Flow Forecaster shows your projected balance
+            Stop guessing when you&apos;ll run low. Cashcast shows your projected balance
             up to 365 days ahead—free to start.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

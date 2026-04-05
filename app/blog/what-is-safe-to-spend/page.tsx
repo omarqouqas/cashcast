@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -52,12 +52,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -110,7 +110,7 @@ export default function SafeToSpendPage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Safe to Spend', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Safe to Spend', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -462,7 +462,7 @@ export default function SafeToSpendPage() {
             See your Safe to Spend right now
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Cash Flow Forecaster calculates your Safe to Spend automatically and keeps it updated as bills and
+            Cashcast calculates your Safe to Spend automatically and keeps it updated as bills and
             income change. Start free—no credit card required.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

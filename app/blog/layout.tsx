@@ -4,8 +4,8 @@ import { LandingFooter } from '@/components/landing/footer';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Cash Flow Forecaster Blog',
-    default: 'Freelancer Finance Blog | Cash Flow Forecaster',
+    template: '%s | Cashcast Blog',
+    default: 'Freelancer Finance Blog | Cashcast',
   },
   description: 'Expert guides on managing irregular income, cash flow forecasting, and financial planning for freelancers.',
 };

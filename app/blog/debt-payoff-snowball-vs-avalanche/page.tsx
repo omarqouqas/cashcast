@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -53,12 +53,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -110,7 +110,7 @@ export default function DebtPayoffPage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Debt Payoff Methods', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Debt Payoff Methods', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -474,7 +474,7 @@ export default function DebtPayoffPage() {
             Plan your debt payoff today
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Cash Flow Forecaster includes a Debt Payoff Planner that compares Snowball vs Avalanche
+            Cashcast includes a Debt Payoff Planner that compares Snowball vs Avalanche
             side-by-side. See your debt-free date and start making progress.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

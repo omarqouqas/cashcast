@@ -8,7 +8,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { DollarSign, Clock, Target, HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Freelance Hourly Rate Calculator - What Should You Charge? | Cash Flow Forecaster',
+  title: 'Freelance Hourly Rate Calculator - What Should You Charge? | Cashcast',
   description:
     'Free calculator to find your ideal freelance hourly rate. Enter your income goal, expenses, and billable hours to see your minimum, suggested, and premium rates.',
   keywords: [
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     'calculate freelance rate',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools/freelance-rate-calculator',
+    canonical: 'https://cashcast.money/tools/freelance-rate-calculator',
   },
   openGraph: {
     title: 'Freelance Rate Calculator - Find Your Ideal Hourly Rate',
     description: 'Stop guessing what to charge. Calculate your minimum hourly rate based on your income goals and actual expenses.',
-    url: 'https://www.cashflowforecaster.io/tools/freelance-rate-calculator',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/tools/freelance-rate-calculator',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
@@ -50,7 +50,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
-  url: 'https://www.cashflowforecaster.io/tools/freelance-rate-calculator',
+  url: 'https://cashcast.money/tools/freelance-rate-calculator',
 } as const;
 
 const faqSchema = {
@@ -136,7 +136,7 @@ export default function FreelanceRateCalculatorPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.tools,
-              { name: 'Rate Calculator', url: 'https://www.cashflowforecaster.io/tools/freelance-rate-calculator' },
+              { name: 'Rate Calculator', url: 'https://cashcast.money/tools/freelance-rate-calculator' },
             ]}
             className="mb-8"
           />
@@ -258,7 +258,7 @@ export default function FreelanceRateCalculatorPage() {
               href="/auth/signup"
               className="mt-4 inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
             >
-              Try Cash Flow Forecaster Free
+              Try Cashcast Free
             </Link>
           </div>
         </div>

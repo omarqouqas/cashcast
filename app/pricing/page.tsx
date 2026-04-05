@@ -9,7 +9,7 @@ import { getUserSubscription } from '@/lib/stripe/subscription';
 import PricingSection from '@/components/pricing/pricing-section';
 
 export const metadata = {
-  title: 'Pricing | Cash Flow Forecaster',
+  title: 'Pricing | Cashcast',
   description: 'Choose the plan that works for your financial needs',
 };
 

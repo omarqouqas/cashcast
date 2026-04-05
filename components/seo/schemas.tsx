@@ -7,19 +7,19 @@
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Cash Flow Forecaster',
-  url: 'https://www.cashflowforecaster.io',
-  logo: 'https://www.cashflowforecaster.io/logo.png',
+  name: 'Cashcast',
+  url: 'https://cashcast.money',
+  logo: 'https://cashcast.money/logo.png',
   description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead.',
   foundingDate: '2024',
   sameAs: [
     // Add social profiles as they become available
-    // 'https://twitter.com/cashflowforecast',
-    // 'https://linkedin.com/company/cashflowforecaster',
+    // 'https://twitter.com/cashcast',
+    // 'https://linkedin.com/company/cashcast',
   ],
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'support@cashflowforecaster.io',
+    email: 'support@cashcast.money',
     contactType: 'customer support',
     availableLanguage: 'English',
   },
@@ -35,14 +35,14 @@ export const organizationSchema = {
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Cash Flow Forecaster',
-  url: 'https://www.cashflowforecaster.io',
+  name: 'Cashcast',
+  url: 'https://cashcast.money',
   description: 'Cash flow calendar app for freelancers with irregular income',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
       '@type': 'EntryPoint',
-      urlTemplate: 'https://www.cashflowforecaster.io/search?q={search_term_string}',
+      urlTemplate: 'https://cashcast.money/search?q={search_term_string}',
     },
     'query-input': 'required name=search_term_string',
   },
@@ -69,11 +69,11 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
 
 // Predefined breadcrumb paths
 export const breadcrumbs = {
-  home: { name: 'Home', url: 'https://www.cashflowforecaster.io' },
-  tools: { name: 'Free Tools', url: 'https://www.cashflowforecaster.io/tools' },
-  compare: { name: 'Compare', url: 'https://www.cashflowforecaster.io/compare' },
-  pricing: { name: 'Pricing', url: 'https://www.cashflowforecaster.io/pricing' },
-  blog: { name: 'Blog', url: 'https://www.cashflowforecaster.io/blog' },
+  home: { name: 'Home', url: 'https://cashcast.money' },
+  tools: { name: 'Free Tools', url: 'https://cashcast.money/tools' },
+  compare: { name: 'Compare', url: 'https://cashcast.money/compare' },
+  pricing: { name: 'Pricing', url: 'https://cashcast.money/pricing' },
+  blog: { name: 'Blog', url: 'https://cashcast.money/blog' },
 } as const;
 
 // AEO-optimized definitional content for common questions
@@ -100,7 +100,7 @@ export const definitions = {
   },
   runwayCollect: {
     term: 'Runway Collect',
-    definition: 'Runway Collect is Cash Flow Forecaster\'s built-in invoicing feature that lets freelancers create professional invoices, send one-click payment links via Stripe, and automatically sync expected payments to their cash flow forecast. When a client pays, the invoice status updates automatically.',
+    definition: 'Runway Collect is Cashcast\'s built-in invoicing feature that lets freelancers create professional invoices, send one-click payment links via Stripe, and automatically sync expected payments to their cash flow forecast. When a client pays, the invoice status updates automatically.',
     alsoKnownAs: ['invoicing feature', 'payment collection', 'invoice management'],
   },
 } as const;
@@ -109,11 +109,11 @@ export const definitions = {
 export const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: 'Cash Flow Forecaster Pro',
+  name: 'Cashcast Pro',
   description: '365-day cash flow forecast with unlimited bills, invoicing, and tax tracking for freelancers',
   brand: {
     '@type': 'Brand',
-    name: 'Cash Flow Forecaster',
+    name: 'Cashcast',
   },
   offers: [
     {

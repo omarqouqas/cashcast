@@ -31,7 +31,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
 
 export const metadata: Metadata = {
-  title: 'Stop Guessing If You Can Afford It | Cash Flow Forecaster',
+  title: 'Stop Guessing If You Can Afford It | Cashcast',
   description:
     'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for designers, developers & consultants with irregular income.',
   keywords: [
@@ -110,37 +110,37 @@ export const metadata: Metadata = {
     'pulse alternative freelancer',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io',
+    canonical: 'https://www.cashcast.money',
   },
   openGraph: {
-    title: 'Stop Guessing If You Can Afford It | Cash Flow Forecaster',
+    title: 'Stop Guessing If You Can Afford It | Cashcast',
     description:
       'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
-    url: 'https://www.cashflowforecaster.io',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://www.cashcast.money',
+    siteName: 'Cashcast',
     type: 'website',
     images: [
       {
-        url: 'https://www.cashflowforecaster.io/hero-dashboard.png',
+        url: 'https://www.cashcast.money/hero-dashboard.png',
         width: 1200,
         height: 630,
-        alt: 'Cash Flow Forecaster dashboard showing balance forecast chart and calendar',
+        alt: 'Cashcast dashboard showing balance forecast chart and calendar',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stop Guessing If You Can Afford It | Cash Flow Forecaster',
+    title: 'Stop Guessing If You Can Afford It | Cashcast',
     description:
       'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
-    images: ['https://www.cashflowforecaster.io/hero-dashboard.png'],
+    images: ['https://www.cashcast.money/hero-dashboard.png'],
   },
 };
 
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Cash Flow Forecaster',
+  name: 'Cashcast',
   applicationCategory: 'FinanceApplication',
   operatingSystem: 'Web',
   offers: {
@@ -248,7 +248,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 max-w-md w-full mx-4">
           <div className="bg-green-50 border border-green-200 rounded-lg p-4 shadow-lg">
             <p className="text-sm text-green-800 font-medium text-center">
-              Your account has been successfully deleted. Thank you for using Cash Flow Forecaster.
+              Your account has been successfully deleted. Thank you for using Cashcast.
             </p>
           </div>
         </div>

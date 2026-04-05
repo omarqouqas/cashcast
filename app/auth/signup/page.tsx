@@ -134,7 +134,7 @@ export default function SignupPage() {
               Create your account
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Get started with Cash Flow Forecaster
+              Get started with Cashcast
             </p>
           </div>
 

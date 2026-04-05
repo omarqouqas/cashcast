@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -53,12 +53,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -110,7 +110,7 @@ export default function EmergencyFundPage() {
           items={[
             breadcrumbs.home,
             breadcrumbs.blog,
-            { name: 'Emergency Fund Guide', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+            { name: 'Emergency Fund Guide', url: `https://cashcast.money/blog/${post.slug}` },
           ]}
           className="mb-8"
         />
@@ -509,7 +509,7 @@ export default function EmergencyFundPage() {
                 <div>
                   <p className="text-white font-semibold mb-1">Track it automatically</p>
                   <p className="text-zinc-300 mb-4">
-                    Cash Flow Forecaster includes an emergency fund tracker that shows your runway
+                    Cashcast includes an emergency fund tracker that shows your runway
                     in months based on your actual spending patterns.
                   </p>
                   <GetStartedCTA className="bg-teal-500 hover:bg-teal-400 text-zinc-950 text-sm" />
@@ -525,7 +525,7 @@ export default function EmergencyFundPage() {
             Know your runway at a glance
           </h2>
           <p className="mt-3 text-zinc-400 max-w-xl mx-auto">
-            Cash Flow Forecaster shows how many months of runway you have and alerts you when
+            Cashcast shows how many months of runway you have and alerts you when
             savings dip below your target.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">

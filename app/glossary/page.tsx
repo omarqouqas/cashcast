@@ -4,7 +4,7 @@ import LandingHeader from '@/components/landing/landing-header';
 import { LandingFooter } from '@/components/landing/footer';
 
 export const metadata: Metadata = {
-  title: 'Freelance Finance Glossary | Cash Flow Forecaster',
+  title: 'Freelance Finance Glossary | Cashcast',
   description:
     'Clear definitions of cash flow, invoicing, tax, and budgeting terms every freelancer needs to know. Plain English explanations for self-employed finances.',
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'solopreneur finance dictionary',
   ],
   openGraph: {
-    title: 'Freelance Finance Glossary | Cash Flow Forecaster',
+    title: 'Freelance Finance Glossary | Cashcast',
     description:
       'Clear definitions of cash flow, invoicing, tax, and budgeting terms every freelancer needs to know.',
     type: 'website',
@@ -421,7 +421,7 @@ export default function GlossaryPage() {
                 Put These Concepts Into Practice
               </h2>
               <p className="text-slate-300 mb-6 max-w-xl mx-auto">
-                Cash Flow Forecaster helps you manage irregular income with
+                Cashcast helps you manage irregular income with
                 day-by-day balance projections, safe-to-spend calculations, and
                 automatic tax set-asides.
               </p>

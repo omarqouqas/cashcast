@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, BookOpen, ArrowRight, DollarSign } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'YNAB Alternative for Freelancers | Cash Flow Forecaster vs YNAB',
+  title: 'YNAB Alternative for Freelancers | Cashcast vs YNAB',
   description:
-    'Looking for a YNAB alternative? Cash Flow Forecaster is 47% cheaper ($7.99 vs $14.99), forward-looking instead of backward-looking, and built for irregular income.',
+    'Looking for a YNAB alternative? Cashcast is 47% cheaper ($7.99 vs $14.99), forward-looking instead of backward-looking, and built for irregular income.',
   keywords: [
     'ynab alternative',
     'ynab alternative free',
@@ -27,21 +27,21 @@ export const metadata: Metadata = {
     'you need a budget alternative',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare/ynab',
+    canonical: 'https://cashcast.money/compare/ynab',
   },
   openGraph: {
     title: 'YNAB Alternative for Freelancers | 47% Cheaper',
     description:
-      'Looking for a YNAB alternative? Cash Flow Forecaster is 47% cheaper, forward-looking, and built for irregular income.',
-    url: 'https://www.cashflowforecaster.io/compare/ynab',
-    siteName: 'Cash Flow Forecaster',
+      'Looking for a YNAB alternative? Cashcast is 47% cheaper, forward-looking, and built for irregular income.',
+    url: 'https://cashcast.money/compare/ynab',
+    siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'YNAB Alternative for Freelancers | 47% Cheaper',
     description:
-      'Looking for a YNAB alternative? Cash Flow Forecaster is 47% cheaper, forward-looking, and built for irregular income.',
+      'Looking for a YNAB alternative? Cashcast is 47% cheaper, forward-looking, and built for irregular income.',
   },
 };
 
@@ -78,15 +78,15 @@ const faqStructuredData = {
       name: 'Why is YNAB so expensive?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'YNAB charges $14.99/month or $109/year, making it one of the most expensive budgeting apps. The price has increased multiple times over the years, frustrating long-time users. Cash Flow Forecaster offers similar functionality for 47% less at $7.99/month.',
+        text: 'YNAB charges $14.99/month or $109/year, making it one of the most expensive budgeting apps. The price has increased multiple times over the years, frustrating long-time users. Cashcast offers similar functionality for 47% less at $7.99/month.',
       },
     },
     {
       '@type': 'Question',
-      name: 'What is the difference between YNAB and Cash Flow Forecaster?',
+      name: 'What is the difference between YNAB and Cashcast?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'YNAB is backward-looking—it tracks where your money went. Cash Flow Forecaster is forward-looking—it shows where your money will be. For freelancers with irregular income, seeing future cash flow is often more valuable than categorizing past expenses.',
+        text: 'YNAB is backward-looking—it tracks where your money went. Cashcast is forward-looking—it shows where your money will be. For freelancers with irregular income, seeing future cash flow is often more valuable than categorizing past expenses.',
       },
     },
     {
@@ -94,7 +94,7 @@ const faqStructuredData = {
       name: 'Does YNAB work for freelancers?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'YNAB can work for freelancers, but it requires workarounds. The envelope budgeting method assumes predictable income. If you have irregular income, a forward-looking cash flow calendar like Cash Flow Forecaster may be a better fit.',
+        text: 'YNAB can work for freelancers, but it requires workarounds. The envelope budgeting method assumes predictable income. If you have irregular income, a forward-looking cash flow calendar like Cashcast may be a better fit.',
       },
     },
     {
@@ -110,7 +110,7 @@ const faqStructuredData = {
       name: 'Is there a free YNAB alternative?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Cash Flow Forecaster offers a free tier with 10 bills, 10 income sources, and a 90-day forecast—no credit card required. YNAB only offers a 34-day trial before requiring payment.',
+        text: 'Yes. Cashcast offers a free tier with 10 bills, 10 income sources, and a 90-day forecast—no credit card required. YNAB only offers a 34-day trial before requiring payment.',
       },
     },
     {
@@ -118,7 +118,7 @@ const faqStructuredData = {
       name: 'What is the best YNAB alternative for freelancers in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster is the best YNAB alternative for freelancers in 2026. It costs 47% less ($7.99/mo vs $14.99/mo), offers a forward-looking cash flow calendar built for irregular income, and includes built-in invoicing to help you get paid faster.',
+        text: 'Cashcast is the best YNAB alternative for freelancers in 2026. It costs 47% less ($7.99/mo vs $14.99/mo), offers a forward-looking cash flow calendar built for irregular income, and includes built-in invoicing to help you get paid faster.',
       },
     },
   ],
@@ -169,7 +169,7 @@ export default function YNABComparisonPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.compare,
-              { name: 'YNAB Alternative', url: 'https://www.cashflowforecaster.io/compare/ynab' },
+              { name: 'YNAB Alternative', url: 'https://cashcast.money/compare/ynab' },
             ]}
             className="mb-8"
           />
@@ -190,7 +190,7 @@ export default function YNABComparisonPage() {
             </p>
 
             <p className="mt-4 text-zinc-400 leading-relaxed">
-              Cash Flow Forecaster is <span className="text-emerald-300 font-medium">47% cheaper</span> and takes a different approach:
+              Cashcast is <span className="text-emerald-300 font-medium">47% cheaper</span> and takes a different approach:
               instead of tracking where your money <em>went</em>, we show you where it <em>will be</em>.
               For freelancers with irregular income, that forward-looking view is often more valuable.
             </p>
@@ -223,7 +223,7 @@ export default function YNABComparisonPage() {
                 <p className="mt-1 text-sm text-zinc-400">or $109/year</p>
               </div>
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
-                <p className="text-sm text-teal-300 font-medium">Cash Flow Forecaster</p>
+                <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
                 <p className="mt-1 text-sm text-zinc-400">or $79/year</p>
               </div>
@@ -248,7 +248,7 @@ export default function YNABComparisonPage() {
                 <thead className="bg-zinc-950/40 border-b border-zinc-800">
                   <tr>
                     <th className="px-5 py-4 text-zinc-300 font-medium">Feature</th>
-                    <th className="px-5 py-4 text-white font-semibold">Cash Flow Forecaster</th>
+                    <th className="px-5 py-4 text-white font-semibold">Cashcast</th>
                     <th className="px-5 py-4 text-zinc-200 font-medium">YNAB</th>
                   </tr>
                 </thead>
@@ -364,11 +364,11 @@ export default function YNABComparisonPage() {
                 <h3 className="text-white font-semibold">Why is YNAB so expensive?</h3>
                 <p className="mt-2 text-zinc-400">
                   YNAB has raised prices multiple times, frustrating users. At $14.99/mo, it&apos;s one of the priciest budget apps.
-                  Cash Flow Forecaster costs 47% less.
+                  Cashcast costs 47% less.
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">Is Cash Flow Forecaster better than YNAB?</h3>
+                <h3 className="text-white font-semibold">Is Cashcast better than YNAB?</h3>
                 <p className="mt-2 text-zinc-400">
                   It depends on your needs. YNAB excels at envelope budgeting. We excel at forward-looking cash flow for irregular income.
                   If you&apos;re a freelancer, we&apos;re likely a better fit.
@@ -382,7 +382,7 @@ export default function YNABComparisonPage() {
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">Does Cash Flow Forecaster have bank sync?</h3>
+                <h3 className="text-white font-semibold">Does Cashcast have bank sync?</h3>
                 <p className="mt-2 text-zinc-400">
                   Not yet—bank sync is on our roadmap. Many users prefer manual entry for privacy and control.
                   Our CSV import makes it easy to get started.

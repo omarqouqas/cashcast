@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -51,12 +51,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -110,7 +110,7 @@ export default function TrackFreelanceIncomeExpensesPage() {
         items={[
           breadcrumbs.home,
           breadcrumbs.blog,
-          { name: 'Track Income & Expenses', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+          { name: 'Track Income & Expenses', url: `https://cashcast.money/blog/${post.slug}` },
         ]}
         className="mb-8"
       />
@@ -244,7 +244,7 @@ export default function TrackFreelanceIncomeExpensesPage() {
         </p>
 
         <ul>
-          <li>Cash Flow Forecaster for planning (when will money come in/go out)</li>
+          <li>Cashcast for planning (when will money come in/go out)</li>
           <li>Spreadsheet or Wave for tax categorization (where did money go)</li>
         </ul>
 
@@ -393,7 +393,7 @@ export default function TrackFreelanceIncomeExpensesPage() {
             Track Income Timing, Not Just Amounts
           </h3>
           <p className="text-zinc-300 mb-4">
-            Cash Flow Forecaster helps you see when payments will arrive and when bills are due—so you never
+            Cashcast helps you see when payments will arrive and when bills are due—so you never
             get caught short between invoices.
           </p>
           <Link

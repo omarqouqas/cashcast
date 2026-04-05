@@ -278,7 +278,7 @@ export function PaymentPredictorResult({ result, lastInput, invoices }: Props) {
           <div>
             <p className="text-sm font-semibold text-white">Track exactly when money will hit your account</p>
             <p className="mt-1 text-sm text-zinc-500">
-              Cash Flow Forecaster lets you map all invoices (and bills) onto a calendar so you can plan ahead.
+              Cashcast lets you map all invoices (and bills) onto a calendar so you can plan ahead.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, Sparkles, BookOpen, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Best Cash Flow Calendar Apps for Freelancers (2026) | Cash Flow Forecaster',
+  title: 'Best Cash Flow Calendar Apps for Freelancers (2026) | Cashcast',
   description:
-    "Compare cash flow calendar apps for freelancers. See why Cash Flow Forecaster's invoicing integration and free tier beats the competition.",
+    "Compare cash flow calendar apps for freelancers. See why Cashcast's invoicing integration and free tier beats the competition.",
   keywords: [
     // Core comparison terms
     'cash flow calendar',
@@ -40,21 +40,21 @@ export const metadata: Metadata = {
     'emergency fund tracker freelancer',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare/cash-flow-calendar-apps',
+    canonical: 'https://cashcast.money/compare/cash-flow-calendar-apps',
   },
   openGraph: {
     title: 'Best Cash Flow Calendar Apps for Freelancers (2026)',
     description:
-      "Compare cash flow calendar apps for freelancers. See why Cash Flow Forecaster's invoicing integration and free tier beats the competition.",
-    url: 'https://www.cashflowforecaster.io/compare/cash-flow-calendar-apps',
-    siteName: 'Cash Flow Forecaster',
+      "Compare cash flow calendar apps for freelancers. See why Cashcast's invoicing integration and free tier beats the competition.",
+    url: 'https://cashcast.money/compare/cash-flow-calendar-apps',
+    siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Best Cash Flow Calendar Apps for Freelancers (2026)',
     description:
-      "Compare cash flow calendar apps for freelancers. See why Cash Flow Forecaster's invoicing integration and free tier beats the competition.",
+      "Compare cash flow calendar apps for freelancers. See why Cashcast's invoicing integration and free tier beats the competition.",
   },
 };
 
@@ -106,15 +106,15 @@ const faqStructuredData = {
       name: 'Do I need to connect my bank account?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Not necessarily. Some apps require a bank connection, but Cash Flow Forecaster supports starting with manual balances if you prefer.',
+        text: 'Not necessarily. Some apps require a bank connection, but Cashcast supports starting with manual balances if you prefer.',
       },
     },
     {
       '@type': 'Question',
-      name: 'What makes Cash Flow Forecaster different from typical cash flow calendar apps?',
+      name: 'What makes Cashcast different from typical cash flow calendar apps?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster is built for freelancers with irregular income and includes built-in invoicing (Runway Collect) plus automatic invoice-to-forecast syncing and a free tier.',
+        text: 'Cashcast is built for freelancers with irregular income and includes built-in invoicing (Runway Collect) plus automatic invoice-to-forecast syncing and a free tier.',
       },
     },
   ],
@@ -166,7 +166,7 @@ export default function CashFlowCalendarAppsComparePage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.compare,
-              { name: 'Cash Flow Calendar Apps', url: 'https://www.cashflowforecaster.io/compare/cash-flow-calendar-apps' },
+              { name: 'Cash Flow Calendar Apps', url: 'https://cashcast.money/compare/cash-flow-calendar-apps' },
             ]}
             className="mb-8"
           />
@@ -196,7 +196,7 @@ export default function CashFlowCalendarAppsComparePage() {
             </div>
 
             <p className="mt-4 text-zinc-400 leading-relaxed">
-              People often compare tools like <span className="text-zinc-200">Cash Flow Forecaster</span> vs{' '}
+              People often compare tools like <span className="text-zinc-200">Cashcast</span> vs{' '}
               <span className="text-zinc-200">Cash Flow Calendar</span> and other cash flow calendar apps. Here&apos;s a clear,
               freelancer-focused breakdown—without the fluff.
             </p>
@@ -216,7 +216,7 @@ export default function CashFlowCalendarAppsComparePage() {
           <section className="mt-12">
             <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Feature comparison</h2>
             <p className="mt-3 text-zinc-400 max-w-3xl">
-              Most cash flow forecasting tools show a short projection and stop there. Cash Flow Forecaster is built around
+              Most cash flow forecasting tools show a short projection and stop there. Cashcast is built around
               freelancer workflows—combining cash flow forecasting and liquidity visibility with invoicing and irregular income support.
             </p>
 
@@ -225,7 +225,7 @@ export default function CashFlowCalendarAppsComparePage() {
                 <thead className="bg-zinc-950/40 border-b border-zinc-800">
                   <tr>
                     <th className="px-5 py-4 text-zinc-300 font-medium">Feature</th>
-                    <th className="px-5 py-4 text-white font-semibold">Cash Flow Forecaster</th>
+                    <th className="px-5 py-4 text-white font-semibold">Cashcast</th>
                     <th className="px-5 py-4 text-zinc-200 font-medium">Typical Cash Flow Calendar Apps</th>
                   </tr>
                 </thead>
@@ -252,9 +252,9 @@ export default function CashFlowCalendarAppsComparePage() {
 
           {/* Why CFF */}
           <section className="mt-14">
-            <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Why Cash Flow Forecaster</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Why Cashcast</h2>
             <p className="mt-3 text-zinc-400 max-w-3xl">
-              Cash Flow Forecaster is designed for freelancers who want the most reliable cash flow forecasting system that actually matches how they
+              Cashcast is designed for freelancers who want the most reliable cash flow forecasting system that actually matches how they
               get paid—a true cash flow forecast model built for irregular income.
             </p>
 
@@ -330,12 +330,12 @@ export default function CashFlowCalendarAppsComparePage() {
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
                 <h3 className="text-white font-semibold">Do I need to connect my bank?</h3>
                 <p className="mt-2 text-zinc-400">
-                  No—Cash Flow Forecaster supports starting with manual balances. Many cash flow calendar apps push bank
+                  No—Cashcast supports starting with manual balances. Many cash flow calendar apps push bank
                   connections by default.
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">Is Cash Flow Forecaster better than Cash Flow Calendar?</h3>
+                <h3 className="text-white font-semibold">Is Cashcast better than Cash Flow Calendar?</h3>
                 <p className="mt-2 text-zinc-400">
                   If you&apos;re a freelancer, the differentiators that matter most are built-in invoicing, invoice-to-forecast
                   sync, and a free tier—areas where typical cash flow calendar apps are often limited.
@@ -348,7 +348,7 @@ export default function CashFlowCalendarAppsComparePage() {
           <section className="mt-14">
             <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Switching from another app?</h2>
             <p className="mt-3 text-zinc-400 max-w-3xl">
-              See detailed comparisons for popular budgeting and cash flow tools—and learn what makes Cash Flow Forecaster the better choice for freelancers.
+              See detailed comparisons for popular budgeting and cash flow tools—and learn what makes Cashcast the better choice for freelancers.
             </p>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <Link
@@ -358,7 +358,7 @@ export default function CashFlowCalendarAppsComparePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold text-white group-hover:text-teal-300 transition-colors text-lg">
-                      Cash Flow Forecaster vs YNAB
+                      Cashcast vs YNAB
                     </p>
                     <p className="mt-2 text-sm text-zinc-400">
                       YNAB costs $14.99/month. See why freelancers are switching to a tool built for irregular income—at half the price.

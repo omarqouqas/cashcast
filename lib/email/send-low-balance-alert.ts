@@ -130,14 +130,14 @@ export async function sendLowBalanceAlert(userData: UserAlertData): Promise<Send
 
     const from =
       process.env.RESEND_FROM_EMAIL?.trim() ||
-      'Cash Flow Forecaster <notifications@cashflowforecaster.io>';
+      'Cashcast <notifications@cashcast.money>';
 
     const res = await resend.emails.send({
       from,
       to: userData.email,
       subject,
       html,
-      replyTo: 'info@cashflowforecaster.io',
+      replyTo: 'info@cashcast.money',
     });
 
     if (res.error) {

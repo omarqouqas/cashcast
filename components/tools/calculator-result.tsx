@@ -113,7 +113,7 @@ export function CalculatorResult({ result, lastInput }: Props) {
           <div>
             <p className="text-sm font-semibold text-white">Want the real answer (not a quick estimate)?</p>
             <p className="mt-1 text-sm text-zinc-500">
-              Cash Flow Forecaster lets you track multiple accounts, recurring bills, and a full calendar projection.
+              Cashcast lets you track multiple accounts, recurring bills, and a full calendar projection.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

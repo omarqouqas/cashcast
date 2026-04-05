@@ -55,14 +55,14 @@ export async function sendWelcomeEmail(userId: string): Promise<SendWelcomeResul
     });
 
     const from = process.env.RESEND_FROM_EMAIL?.trim() ||
-                 'Omar from Cash Flow Forecaster <notifications@cashflowforecaster.io>';
+                 'Omar from Cashcast <notifications@cashcast.money>';
 
     const res = await resend.emails.send({
       from,
       to: userEmail,
       subject,
       html,
-      replyTo: 'info@cashflowforecaster.io',
+      replyTo: 'info@cashcast.money',
     });
 
     if (res.error) {

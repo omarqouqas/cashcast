@@ -8,7 +8,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { PiggyBank, Calculator, Shield, HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Freelance Tax Reserve Calculator - How Much to Set Aside | Cash Flow Forecaster',
+  title: 'Freelance Tax Reserve Calculator - How Much to Set Aside | Cashcast',
   description:
     'Free tax calculator for freelancers and self-employed. Calculate your tax reserve for US or Canada, including self-employment tax, GST/HST, CPP, and quarterly estimated payments.',
   keywords: [
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     '1099 tax calculator',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools/tax-reserve-calculator',
+    canonical: 'https://cashcast.money/tools/tax-reserve-calculator',
   },
   openGraph: {
     title: 'Freelance Tax Reserve Calculator - Know Your Safe to Spend',
     description: 'Stop guessing how much to set aside for taxes. Calculate your tax reserve for US or Canada with our free tool.',
-    url: 'https://www.cashflowforecaster.io/tools/tax-reserve-calculator',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/tools/tax-reserve-calculator',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
@@ -54,7 +54,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
-  url: 'https://www.cashflowforecaster.io/tools/tax-reserve-calculator',
+  url: 'https://cashcast.money/tools/tax-reserve-calculator',
   description: 'Calculate how much to set aside for taxes as a freelancer or self-employed professional.',
 } as const;
 
@@ -141,7 +141,7 @@ export default function TaxReserveCalculatorPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.tools,
-              { name: 'Tax Reserve Calculator', url: 'https://www.cashflowforecaster.io/tools/tax-reserve-calculator' },
+              { name: 'Tax Reserve Calculator', url: 'https://cashcast.money/tools/tax-reserve-calculator' },
             ]}
             className="mb-8"
           />
@@ -266,13 +266,13 @@ export default function TaxReserveCalculatorPage() {
           {/* CTA */}
           <div className="mt-12 max-w-3xl rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 text-center">
             <p className="text-zinc-300">
-              Want to track your tax reserve automatically? Cash Flow Forecaster shows your Safe to Spend in real-time.
+              Want to track your tax reserve automatically? Cashcast shows your Safe to Spend in real-time.
             </p>
             <Link
               href="/auth/signup"
               className="mt-4 inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
             >
-              Try Cash Flow Forecaster Free
+              Try Cashcast Free
             </Link>
           </div>
         </div>

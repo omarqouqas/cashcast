@@ -36,16 +36,16 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 };
 
 const howToSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
-  name: 'How to Migrate from YNAB to Cash Flow Forecaster',
-  description: 'Step-by-step guide to exporting your YNAB data and importing it into Cash Flow Forecaster',
+  name: 'How to Migrate from YNAB to Cashcast',
+  description: 'Step-by-step guide to exporting your YNAB data and importing it into Cashcast',
   step: [
     {
       '@type': 'HowToStep',
@@ -54,8 +54,8 @@ const howToSchema = {
     },
     {
       '@type': 'HowToStep',
-      name: 'Create Cash Flow Forecaster account',
-      text: 'Sign up for a free Cash Flow Forecaster account',
+      name: 'Create Cashcast account',
+      text: 'Sign up for a free Cashcast account',
     },
     {
       '@type': 'HowToStep',
@@ -133,7 +133,7 @@ export default function MigrateFromYnabPage() {
         {/* Content */}
         <div className="prose prose-invert prose-zinc max-w-none">
           <p className="text-lg text-zinc-300 leading-relaxed">
-            Thinking about switching from YNAB (You Need A Budget) to Cash Flow Forecaster?
+            Thinking about switching from YNAB (You Need A Budget) to Cashcast?
             Whether you&apos;re frustrated with subscription costs, need better forecasting
             for irregular income, or just want something different—we&apos;ve made the
             migration process as smooth as possible.
@@ -155,7 +155,7 @@ export default function MigrateFromYnabPage() {
                 <h3 className="text-lg font-semibold text-white mb-1">Subscription Costs</h3>
                 <p className="text-zinc-400">
                   YNAB costs $99/year (or $14.99/month). Over 5 years, that&apos;s nearly $500.
-                  Cash Flow Forecaster offers a $99 lifetime deal—pay once, use forever.
+                  Cashcast offers a $99 lifetime deal—pay once, use forever.
                 </p>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function MigrateFromYnabPage() {
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">Better Forecasting</h3>
                 <p className="text-zinc-400">
-                  YNAB focuses on envelope budgeting. Cash Flow Forecaster shows you your
+                  YNAB focuses on envelope budgeting. Cashcast shows you your
                   projected balance 365 days ahead—crucial for freelancers planning for
                   lean months.
                 </p>
@@ -180,7 +180,7 @@ export default function MigrateFromYnabPage() {
                 <h3 className="text-lg font-semibold text-white mb-1">Irregular Income Focus</h3>
                 <p className="text-zinc-400">
                   YNAB&apos;s &quot;give every dollar a job&quot; philosophy works great for
-                  steady paychecks. Cash Flow Forecaster is built specifically for variable
+                  steady paychecks. Cashcast is built specifically for variable
                   income—gig workers, freelancers, and solopreneurs.
                 </p>
               </div>
@@ -241,7 +241,7 @@ export default function MigrateFromYnabPage() {
           </div>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
-            Step 2: Create Your Cash Flow Forecaster Account
+            Step 2: Create Your Cashcast Account
           </h2>
           <p className="text-zinc-300">
             If you haven&apos;t already, sign up for a free account:
@@ -256,7 +256,7 @@ export default function MigrateFromYnabPage() {
           </div>
           <p className="text-zinc-400 text-sm">
             Our free tier includes 30-day forecasting—enough to test the import and see
-            if Cash Flow Forecaster works for you.
+            if Cashcast works for you.
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
@@ -402,14 +402,14 @@ export default function MigrateFromYnabPage() {
                 <li>• Age of money metrics</li>
               </ul>
               <p className="text-xs text-zinc-500 mt-3">
-                These features work differently in Cash Flow Forecaster, so they need
+                These features work differently in Cashcast, so they need
                 to be set up fresh.
               </p>
             </div>
           </div>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
-            YNAB vs. Cash Flow Forecaster: Key Differences
+            YNAB vs. Cashcast: Key Differences
           </h2>
           <p className="text-zinc-300">
             The two tools have different philosophies. Here&apos;s what to expect:
@@ -420,7 +420,7 @@ export default function MigrateFromYnabPage() {
                 <tr className="border-b border-zinc-700">
                   <th className="py-3 px-4 text-zinc-300 font-semibold">Feature</th>
                   <th className="py-3 px-4 text-zinc-300 font-semibold">YNAB</th>
-                  <th className="py-3 px-4 text-zinc-300 font-semibold">Cash Flow Forecaster</th>
+                  <th className="py-3 px-4 text-zinc-300 font-semibold">Cashcast</th>
                 </tr>
               </thead>
               <tbody className="text-zinc-400">
@@ -475,7 +475,7 @@ export default function MigrateFromYnabPage() {
             <li className="flex items-start gap-3">
               <ArrowRight className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
               <span>
-                Email us at support@cashflowforecaster.io—we typically respond within 24 hours
+                Email us at support@cashcast.money—we typically respond within 24 hours
               </span>
             </li>
           </ul>
@@ -512,7 +512,7 @@ export default function MigrateFromYnabPage() {
       <footer className="border-t border-zinc-800 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center text-zinc-500 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Cash Flow Forecaster. All rights reserved.
+            &copy; {new Date().getFullYear()} Cashcast. All rights reserved.
           </p>
         </div>
       </footer>

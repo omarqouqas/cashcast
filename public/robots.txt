@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.cashflowforecaster.io/sitemap.xml
+Sitemap: https://cashcast.money/sitemap.xml
 
 # Block test pages in production
 Disallow: /test-supabase

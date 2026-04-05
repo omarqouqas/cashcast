@@ -62,7 +62,7 @@ export default async function DashboardLayout({
           <div className="flex justify-between items-center h-16">
             <Link href="/dashboard" className="flex-shrink-0">
               <h1 className="text-xl font-bold text-zinc-100 hover:text-teal-400 transition-colors cursor-pointer whitespace-nowrap">
-                Cash Flow Forecaster
+                Cashcast
               </h1>
             </Link>
             <DashboardNav userEmail={user.email ?? ''} userName={userName} userTier={userTier} />

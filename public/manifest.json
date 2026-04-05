@@ -1,7 +1,7 @@
 {
-  "name": "Cash Flow Forecaster",
-  "short_name": "Cash Flow",
-  "description": "Cash flow calendar app for freelancers. See your bank balance up to 365 days ahead and know what's safe to spend.",
+  "name": "Cashcast",
+  "short_name": "Cashcast",
+  "description": "Cash flow forecasting for freelancers. See your bank balance up to 365 days ahead and know what's safe to spend.",
   "start_url": "/dashboard",
   "scope": "/",
   "display": "standalone",
@@ -22,7 +22,7 @@
       "src": "/screenshot-calendar.png",
       "sizes": "1600x900",
       "type": "image/png",
-      "label": "Cash flow calendar with balance forecast"
+      "label": "Cashcast - Cash flow calendar with balance forecast"
     }
   ],
   "shortcuts": [

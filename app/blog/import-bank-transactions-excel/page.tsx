@@ -36,8 +36,8 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 };
 
@@ -45,7 +45,7 @@ const howToSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
   name: 'How to Import Bank Transactions from Excel or CSV',
-  description: 'Step-by-step guide to importing your bank transactions into Cash Flow Forecaster',
+  description: 'Step-by-step guide to importing your bank transactions into Cashcast',
   step: [
     {
       '@type': 'HowToStep',
@@ -54,7 +54,7 @@ const howToSchema = {
     },
     {
       '@type': 'HowToStep',
-      name: 'Upload to Cash Flow Forecaster',
+      name: 'Upload to Cashcast',
       text: 'Click Import and select your downloaded file',
     },
     {
@@ -134,7 +134,7 @@ export default function ImportBankTransactionsExcelPage() {
         <div className="prose prose-invert prose-zinc max-w-none">
           <p className="text-lg text-zinc-300 leading-relaxed">
             If you&apos;ve been tracking your finances in a spreadsheet or just downloaded your bank
-            statement, you don&apos;t have to re-enter everything manually. Cash Flow Forecaster
+            statement, you don&apos;t have to re-enter everything manually. Cashcast
             supports importing transactions directly from Excel (.xlsx, .xls) and CSV files—and
             can even auto-detect recurring bills and income to save you hours of setup time.
           </p>
@@ -204,7 +204,7 @@ export default function ImportBankTransactionsExcelPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">Upload Your File</h3>
                   <p className="text-zinc-400">
-                    In Cash Flow Forecaster, click the <strong>Import</strong> button in the top
+                    In Cashcast, click the <strong>Import</strong> button in the top
                     navigation. Drag and drop your file or click to browse. We&apos;ll automatically
                     detect the file type and parse it.
                   </p>
@@ -263,7 +263,7 @@ export default function ImportBankTransactionsExcelPage() {
             Auto-Detecting Recurring Transactions
           </h2>
           <p className="text-zinc-300">
-            Here&apos;s where Cash Flow Forecaster really shines. When you import transactions,
+            Here&apos;s where Cashcast really shines. When you import transactions,
             our smart detection algorithm analyzes patterns to find recurring bills and income:
           </p>
           <div className="bg-gradient-to-br from-teal-500/10 to-teal-600/5 border border-teal-500/20 rounded-lg p-6 my-6">
@@ -412,7 +412,7 @@ export default function ImportBankTransactionsExcelPage() {
       <footer className="border-t border-zinc-800 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center text-zinc-500 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Cash Flow Forecaster. All rights reserved.
+            &copy; {new Date().getFullYear()} Cashcast. All rights reserved.
           </p>
         </div>
       </footer>

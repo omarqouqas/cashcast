@@ -61,11 +61,11 @@ export async function POST(request: NextRequest) {
         const htmlContent = generateEmailHtml(email.message);
 
         await resend.emails.send({
-          from: 'Omar from Cash Flow Forecaster <notifications@cashflowforecaster.io>',
+          from: 'Omar from Cashcast <notifications@cashcast.money>',
           to: email.to,
           subject: email.subject,
           html: htmlContent,
-          replyTo: 'info@cashflowforecaster.io',
+          replyTo: 'info@cashcast.money',
         });
 
         results.push({ email: email.to, success: true });
@@ -132,7 +132,7 @@ function generateEmailHtml(message: string): string {
       <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #e4e4e7;">
         <p style="margin: 0; color: #71717a; font-size: 13px;">
           Omar<br>
-          Founder, <a href="https://cashflowforecaster.io" style="color: #0d9488; text-decoration: none;">Cash Flow Forecaster</a>
+          Founder, <a href="https://cashcast.money" style="color: #0d9488; text-decoration: none;">Cashcast</a>
         </p>
       </div>
     </body>

@@ -3,8 +3,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Privacy Policy | Cash Flow Forecaster",
-  description: "Privacy Policy for Cash Flow Forecaster",
+  title: "Privacy Policy | Cashcast",
+  description: "Privacy Policy for Cashcast",
 };
 
 export default function PrivacyPage() {
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
             href="/"
             className="text-lg font-semibold text-teal-400 hover:text-teal-300 transition-colors"
           >
-            ← Back to Cash Flow Forecaster
+            ← Back to Cashcast
           </Link>
         </div>
       </header>
@@ -33,10 +33,10 @@ export default function PrivacyPage() {
               1. Introduction
             </h2>
             <p>
-              Cash Flow Forecaster (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to
+              Cashcast (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to
               protecting your privacy. This Privacy Policy explains how we
               collect, use, disclose, and safeguard your information when you
-              use our web application at cashflowforecaster.io (the &quot;Service&quot;).
+              use our web application at cashcast.money (the &quot;Service&quot;).
             </p>
           </section>
 
@@ -291,10 +291,10 @@ export default function PrivacyPage() {
             <p className="mt-3">
               To exercise these rights, contact us at{" "}
               <a
-                href="mailto:support@cashflowforecaster.io"
+                href="mailto:support@cashcast.money"
                 className="text-teal-400 hover:text-teal-300"
               >
-                support@cashflowforecaster.io
+                support@cashcast.money
               </a>
               .
             </p>
@@ -360,10 +360,10 @@ export default function PrivacyPage() {
             <p className="mt-3">
               <strong className="text-white">Email:</strong>{" "}
               <a
-                href="mailto:support@cashflowforecaster.io"
+                href="mailto:support@cashcast.money"
                 className="text-teal-400 hover:text-teal-300"
               >
-                support@cashflowforecaster.io
+                support@cashcast.money
               </a>
             </p>
           </section>
@@ -373,7 +373,7 @@ export default function PrivacyPage() {
       {/* Footer */}
       <footer className="border-t border-zinc-800 mt-12">
         <div className="mx-auto max-w-4xl px-6 py-6 text-center text-zinc-500 text-sm">
-          © {new Date().getFullYear()} Cash Flow Forecaster. All rights
+          © {new Date().getFullYear()} Cashcast. All rights
           reserved.
         </div>
       </footer>

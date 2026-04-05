@@ -6,7 +6,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { BookOpen, Calendar, Clock, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Freelancer Finance Blog - Tips, Guides & Tools | Cash Flow Forecaster',
+  title: 'Freelancer Finance Blog - Tips, Guides & Tools | Cashcast',
   description: 'Expert guides on managing irregular income, cash flow forecasting, and financial planning for freelancers and gig workers.',
   keywords: [
     'freelancer finances',
@@ -17,18 +17,18 @@ export const metadata: Metadata = {
     'financial planning freelancers',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/blog',
+    canonical: 'https://cashcast.money/blog',
   },
   openGraph: {
-    title: 'Freelancer Finance Blog | Cash Flow Forecaster',
+    title: 'Freelancer Finance Blog | Cashcast',
     description: 'Expert guides on managing irregular income and cash flow forecasting for freelancers.',
-    url: 'https://www.cashflowforecaster.io/blog',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/blog',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Freelancer Finance Blog | Cash Flow Forecaster',
+    title: 'Freelancer Finance Blog | Cashcast',
     description: 'Expert guides on managing irregular income and cash flow forecasting for freelancers.',
   },
 };
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
 const blogSchema = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  name: 'Cash Flow Forecaster Blog',
+  name: 'Cashcast Blog',
   description: 'Expert guides on managing irregular income and cash flow forecasting for freelancers.',
-  url: 'https://www.cashflowforecaster.io/blog',
+  url: 'https://cashcast.money/blog',
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 };
 

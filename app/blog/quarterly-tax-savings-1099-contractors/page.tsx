@@ -19,13 +19,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -49,12 +49,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -105,7 +105,7 @@ export default function QuarterlyTaxSavingsPage() {
         items={[
           breadcrumbs.home,
           breadcrumbs.blog,
-          { name: 'Quarterly Tax Savings', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+          { name: 'Quarterly Tax Savings', url: `https://cashcast.money/blog/${post.slug}` },
         ]}
         className="mb-8"
       />
@@ -378,7 +378,7 @@ export default function QuarterlyTaxSavingsPage() {
             Know When Tax Payments Are Due
           </h3>
           <p className="text-zinc-300 mb-4">
-            Cash Flow Forecaster can show your quarterly tax due dates on your calendar—so you never
+            Cashcast can show your quarterly tax due dates on your calendar—so you never
             miss a payment and always know what&apos;s coming.
           </p>
           <Link

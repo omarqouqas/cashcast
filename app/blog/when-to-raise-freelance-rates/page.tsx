@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   description: post.description,
   keywords: post.keywords,
   alternates: {
-    canonical: `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    canonical: `https://cashcast.money/blog/${post.slug}`,
   },
   openGraph: {
     title: post.title,
     description: post.description,
-    url: `https://www.cashflowforecaster.io/blog/${post.slug}`,
-    siteName: 'Cash Flow Forecaster',
+    url: `https://cashcast.money/blog/${post.slug}`,
+    siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
     authors: [post.author.name],
@@ -51,12 +51,12 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://www.cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://www.cashflowforecaster.io/blog/${post.slug}`,
+    '@id': `https://cashcast.money/blog/${post.slug}`,
   },
 };
 
@@ -105,7 +105,7 @@ export default function WhenToRaiseRatesPage() {
         items={[
           breadcrumbs.home,
           breadcrumbs.blog,
-          { name: 'When to Raise Rates', url: `https://www.cashflowforecaster.io/blog/${post.slug}` },
+          { name: 'When to Raise Rates', url: `https://cashcast.money/blog/${post.slug}` },
         ]}
         className="mb-8"
       />
@@ -370,7 +370,7 @@ export default function WhenToRaiseRatesPage() {
             See How Rate Changes Affect Your Cash Flow
           </h3>
           <p className="text-zinc-300 mb-4">
-            Use Cash Flow Forecaster to model how a rate increase would impact your income over the next
+            Use Cashcast to model how a rate increase would impact your income over the next
             3, 6, or 12 months—before you make the change.
           </p>
           <Link

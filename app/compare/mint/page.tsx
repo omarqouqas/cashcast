@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, Sparkles, BookOpen, ArrowRight, AlertCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Mint Alternative for Freelancers | Migrate from Mint to Cash Flow Forecaster',
+  title: 'Mint Alternative for Freelancers | Migrate from Mint to Cashcast',
   description:
-    'Mint is shutting down. Cash Flow Forecaster is a free, forward-looking alternative with no ads—built for freelancers with irregular income.',
+    'Mint is shutting down. Cashcast is a free, forward-looking alternative with no ads—built for freelancers with irregular income.',
   keywords: [
     'mint alternative',
     'mint alternative free',
@@ -28,21 +28,21 @@ export const metadata: Metadata = {
     'credit karma alternative',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare/mint',
+    canonical: 'https://cashcast.money/compare/mint',
   },
   openGraph: {
     title: 'Mint Alternative for Freelancers | Free & No Ads',
     description:
-      'Mint is shutting down. Cash Flow Forecaster is a free, forward-looking alternative with no ads—built for freelancers.',
-    url: 'https://www.cashflowforecaster.io/compare/mint',
-    siteName: 'Cash Flow Forecaster',
+      'Mint is shutting down. Cashcast is a free, forward-looking alternative with no ads—built for freelancers.',
+    url: 'https://cashcast.money/compare/mint',
+    siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Mint Alternative for Freelancers | Free & No Ads',
     description:
-      'Mint is shutting down. Cash Flow Forecaster is a free, forward-looking alternative with no ads—built for freelancers.',
+      'Mint is shutting down. Cashcast is a free, forward-looking alternative with no ads—built for freelancers.',
   },
 };
 
@@ -86,15 +86,15 @@ const faqStructuredData = {
       name: 'What is the best Mint alternative?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'For freelancers and people with irregular income, Cash Flow Forecaster is an excellent Mint alternative. Unlike Mint, it shows your future cash flow—not just past spending—and has no ads.',
+        text: 'For freelancers and people with irregular income, Cashcast is an excellent Mint alternative. Unlike Mint, it shows your future cash flow—not just past spending—and has no ads.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Is Cash Flow Forecaster free like Mint?',
+      name: 'Is Cashcast free like Mint?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes! Cash Flow Forecaster has a free tier with 10 bills, 10 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $99 lifetime deal.',
+        text: 'Yes! Cashcast has a free tier with 10 bills, 10 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $99 lifetime deal.',
       },
     },
     {
@@ -102,7 +102,7 @@ const faqStructuredData = {
       name: 'Can I import my data from Mint?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster supports CSV import. Export your recurring bills and income from Mint, then import them into Cash Flow Forecaster. A dedicated Mint importer is on our roadmap.',
+        text: 'Cashcast supports CSV import. Export your recurring bills and income from Mint, then import them into Cashcast. A dedicated Mint importer is on our roadmap.',
       },
     },
     {
@@ -110,7 +110,7 @@ const faqStructuredData = {
       name: 'What is the best free Mint alternative in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster is the best free Mint alternative in 2026. It offers a generous free tier with 10 bills, 10 income sources, and 90-day forecasting—with no ads and no data selling. For freelancers, it\'s better than Mint because it shows future cash flow, not just past spending.',
+        text: 'Cashcast is the best free Mint alternative in 2026. It offers a generous free tier with 10 bills, 10 income sources, and 90-day forecasting—with no ads and no data selling. For freelancers, it\'s better than Mint because it shows future cash flow, not just past spending.',
       },
     },
     {
@@ -118,7 +118,7 @@ const faqStructuredData = {
       name: 'What happened to Mint budget app?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Intuit discontinued the Mint budget app in late 2023/early 2024 and migrated users to Credit Karma. Credit Karma focuses on credit scores and financial product offers (ads), not budgeting. Many users are now looking for true budgeting alternatives like Cash Flow Forecaster.',
+        text: 'Intuit discontinued the Mint budget app in late 2023/early 2024 and migrated users to Credit Karma. Credit Karma focuses on credit scores and financial product offers (ads), not budgeting. Many users are now looking for true budgeting alternatives like Cashcast.',
       },
     },
   ],
@@ -169,7 +169,7 @@ export default function MintComparisonPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.compare,
-              { name: 'Mint Alternative', url: 'https://www.cashflowforecaster.io/compare/mint' },
+              { name: 'Mint Alternative', url: 'https://cashcast.money/compare/mint' },
             ]}
             className="mb-8"
           />
@@ -196,7 +196,7 @@ export default function MintComparisonPage() {
             </h1>
 
             <p className="mt-5 text-lg text-zinc-300 leading-relaxed">
-              Mint tracked where your money <em>went</em>. Cash Flow Forecaster shows where it <em>will be</em>.
+              Mint tracked where your money <em>went</em>. Cashcast shows where it <em>will be</em>.
               For freelancers with irregular income, that forward-looking view makes all the difference.
             </p>
 
@@ -249,7 +249,7 @@ export default function MintComparisonPage() {
 
           {/* Comparison table */}
           <section className="mt-12">
-            <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Mint vs Cash Flow Forecaster</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">Mint vs Cashcast</h2>
             <p className="mt-3 text-zinc-400 max-w-3xl">
               Mint was great for tracking past spending. But if you have irregular income, you need to see
               the future—not just the past. Here&apos;s how we compare.
@@ -260,7 +260,7 @@ export default function MintComparisonPage() {
                 <thead className="bg-zinc-950/40 border-b border-zinc-800">
                   <tr>
                     <th className="px-5 py-4 text-zinc-300 font-medium">Feature</th>
-                    <th className="px-5 py-4 text-white font-semibold">Cash Flow Forecaster</th>
+                    <th className="px-5 py-4 text-white font-semibold">Cashcast</th>
                     <th className="px-5 py-4 text-zinc-200 font-medium">Mint</th>
                   </tr>
                 </thead>
@@ -310,7 +310,7 @@ export default function MintComparisonPage() {
                     2
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Sign up for Cash Flow Forecaster</h3>
+                    <h3 className="text-lg font-semibold text-white">Sign up for Cashcast</h3>
                     <p className="mt-2 text-zinc-400">
                       Create a free account—no credit card required. You&apos;ll get 10 bills, 10 income sources,
                       and 90-day forecasting to start.
@@ -382,7 +382,7 @@ export default function MintComparisonPage() {
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">Is Cash Flow Forecaster really free?</h3>
+                <h3 className="text-white font-semibold">Is Cashcast really free?</h3>
                 <p className="mt-2 text-zinc-400">
                   Yes! Our free tier includes 10 bills, 10 income sources, 90-day forecasting, and no ads.
                   No credit card required. Upgrade to Pro only when you need more.
@@ -392,7 +392,7 @@ export default function MintComparisonPage() {
                 <h3 className="text-white font-semibold">Can I import my Mint data?</h3>
                 <p className="mt-2 text-zinc-400">
                   Yes! Export your data from Mint as CSV, then add your recurring bills and income to
-                  Cash Flow Forecaster. A dedicated Mint importer is coming soon.
+                  Cashcast. A dedicated Mint importer is coming soon.
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">

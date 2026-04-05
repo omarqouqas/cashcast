@@ -4,7 +4,7 @@ import { verifyCheckoutSession } from '@/lib/stripe/connect';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export const metadata = {
-  title: 'Payment Successful | Cash Flow Forecaster',
+  title: 'Payment Successful | Cashcast',
   description: 'Your payment has been processed successfully',
 };
 
@@ -117,10 +117,10 @@ export default async function PaymentSuccessPage({
           </div>
 
           <Link
-            href="https://cashflowforecaster.io"
+            href="https://cashcast.money"
             className="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors"
           >
-            Learn more about Cash Flow Forecaster
+            Learn more about Cashcast
           </Link>
         </div>
 

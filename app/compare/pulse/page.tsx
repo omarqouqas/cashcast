@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, BookOpen, ArrowRight, DollarSign, Zap, Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Pulse Alternative for Freelancers | Cash Flow Forecaster vs Pulse App',
+  title: 'Pulse Alternative for Freelancers | Cashcast vs Pulse App',
   description:
-    'Looking for a Pulse alternative? Cash Flow Forecaster is 73% cheaper ($7.99 vs $29/mo), includes invoicing, and shows your "Safe to Spend" so you always know what you can afford.',
+    'Looking for a Pulse alternative? Cashcast is 73% cheaper ($7.99 vs $29/mo), includes invoicing, and shows your "Safe to Spend" so you always know what you can afford.',
   keywords: [
     'pulse alternative',
     'pulse app alternative',
@@ -25,21 +25,21 @@ export const metadata: Metadata = {
     'freelancer cash flow forecast',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare/pulse',
+    canonical: 'https://cashcast.money/compare/pulse',
   },
   openGraph: {
     title: 'Pulse Alternative for Freelancers | 73% Cheaper',
     description:
-      'Looking for a Pulse alternative? Cash Flow Forecaster is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
-    url: 'https://www.cashflowforecaster.io/compare/pulse',
-    siteName: 'Cash Flow Forecaster',
+      'Looking for a Pulse alternative? Cashcast is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
+    url: 'https://cashcast.money/compare/pulse',
+    siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Pulse Alternative for Freelancers | 73% Cheaper',
     description:
-      'Looking for a Pulse alternative? Cash Flow Forecaster is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
+      'Looking for a Pulse alternative? Cashcast is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
   },
 };
 
@@ -73,10 +73,10 @@ const faqStructuredData = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What is the difference between Pulse and Cash Flow Forecaster?',
+      name: 'What is the difference between Pulse and Cashcast?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Pulse uses a spreadsheet-style interface where you manually enter cash flow data. Cash Flow Forecaster uses guided forms and includes built-in invoicing that automatically syncs to your forecast. Both show future cash flow, but Cash Flow Forecaster is 73% cheaper and includes a "Safe to Spend" metric.',
+        text: 'Pulse uses a spreadsheet-style interface where you manually enter cash flow data. Cashcast uses guided forms and includes built-in invoicing that automatically syncs to your forecast. Both show future cash flow, but Cashcast is 73% cheaper and includes a "Safe to Spend" metric.',
       },
     },
     {
@@ -84,15 +84,15 @@ const faqStructuredData = {
       name: 'Is Pulse good for freelancers?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Pulse works for freelancers but was designed more for small agencies. At $29-89/month, it can be expensive for solo freelancers. It also lacks invoicing and tax tracking features that freelancers often need. Cash Flow Forecaster is built specifically for freelancers at $7.99/month.',
+        text: 'Pulse works for freelancers but was designed more for small agencies. At $29-89/month, it can be expensive for solo freelancers. It also lacks invoicing and tax tracking features that freelancers often need. Cashcast is built specifically for freelancers at $7.99/month.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Why is Cash Flow Forecaster cheaper than Pulse?',
+      name: 'Why is Cashcast cheaper than Pulse?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster focuses on solo freelancers rather than agencies, allowing for simpler architecture and lower costs. We pass those savings to you: $7.99/month vs Pulse $29-89/month. You get core cash flow forecasting plus invoicing at 73% less cost.',
+        text: 'Cashcast focuses on solo freelancers rather than agencies, allowing for simpler architecture and lower costs. We pass those savings to you: $7.99/month vs Pulse $29-89/month. You get core cash flow forecasting plus invoicing at 73% less cost.',
       },
     },
     {
@@ -100,7 +100,7 @@ const faqStructuredData = {
       name: 'Does Pulse have invoicing?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No, Pulse does not include invoicing. You need separate software to send invoices, then manually enter expected payments into Pulse. Cash Flow Forecaster includes Runway Collect invoicing—send invoices and expected income automatically appears in your forecast.',
+        text: 'No, Pulse does not include invoicing. You need separate software to send invoices, then manually enter expected payments into Pulse. Cashcast includes Runway Collect invoicing—send invoices and expected income automatically appears in your forecast.',
       },
     },
     {
@@ -108,7 +108,7 @@ const faqStructuredData = {
       name: 'What is the best Pulse alternative for freelancers in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster is the best Pulse alternative for freelancers in 2026. It costs 73% less ($7.99/mo vs $29+/mo), includes built-in invoicing, shows your "Safe to Spend" metric, and has tax tracking—features Pulse lacks.',
+        text: 'Cashcast is the best Pulse alternative for freelancers in 2026. It costs 73% less ($7.99/mo vs $29+/mo), includes built-in invoicing, shows your "Safe to Spend" metric, and has tax tracking—features Pulse lacks.',
       },
     },
   ],
@@ -159,7 +159,7 @@ export default function PulseComparisonPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.compare,
-              { name: 'Pulse Alternative', url: 'https://www.cashflowforecaster.io/compare/pulse' },
+              { name: 'Pulse Alternative', url: 'https://cashcast.money/compare/pulse' },
             ]}
             className="mb-8"
           />
@@ -180,7 +180,7 @@ export default function PulseComparisonPage() {
             </p>
 
             <p className="mt-4 text-zinc-400 leading-relaxed">
-              Cash Flow Forecaster gives you the same forward-looking visibility for{' '}
+              Cashcast gives you the same forward-looking visibility for{' '}
               <span className="text-emerald-300 font-medium">73% less</span>—plus built-in invoicing and a
               &quot;Safe to Spend&quot; metric that tells you exactly what you can afford right now.
             </p>
@@ -212,7 +212,7 @@ export default function PulseComparisonPage() {
                 <p className="mt-1 text-sm text-zinc-400">up to $89/mo for more features</p>
               </div>
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
-                <p className="text-sm text-teal-300 font-medium">Cash Flow Forecaster</p>
+                <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
                 <p className="mt-1 text-sm text-zinc-400">or $99 lifetime</p>
               </div>
@@ -236,7 +236,7 @@ export default function PulseComparisonPage() {
                   <h3 className="text-lg font-semibold text-white">Guided vs Spreadsheet</h3>
                 </div>
                 <p className="mt-3 text-zinc-400">
-                  Pulse uses a spreadsheet-style interface that requires manual data entry. Cash Flow Forecaster
+                  Pulse uses a spreadsheet-style interface that requires manual data entry. Cashcast
                   uses guided forms—just fill in the blanks and we handle the rest.
                 </p>
               </div>
@@ -295,7 +295,7 @@ export default function PulseComparisonPage() {
                 <thead className="bg-zinc-950/40 border-b border-zinc-800">
                   <tr>
                     <th className="px-5 py-4 text-zinc-300 font-medium">Feature</th>
-                    <th className="px-5 py-4 text-white font-semibold">Cash Flow Forecaster</th>
+                    <th className="px-5 py-4 text-white font-semibold">Cashcast</th>
                     <th className="px-5 py-4 text-zinc-200 font-medium">Pulse</th>
                   </tr>
                 </thead>
@@ -340,7 +340,7 @@ export default function PulseComparisonPage() {
             <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight">FAQ</h2>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">What&apos;s the main difference between Pulse and Cash Flow Forecaster?</h3>
+                <h3 className="text-white font-semibold">What&apos;s the main difference between Pulse and Cashcast?</h3>
                 <p className="mt-2 text-zinc-400">
                   Pulse uses a spreadsheet-style interface; we use guided forms. We include invoicing and tax tracking;
                   Pulse doesn&apos;t. We&apos;re 73% cheaper.
@@ -350,7 +350,7 @@ export default function PulseComparisonPage() {
                 <h3 className="text-white font-semibold">Is Pulse better for agencies?</h3>
                 <p className="mt-2 text-zinc-400">
                   Pulse was designed more for small agencies than solo freelancers. If you&apos;re a solo freelancer,
-                  Cash Flow Forecaster is likely a better fit—and much cheaper.
+                  Cashcast is likely a better fit—and much cheaper.
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">

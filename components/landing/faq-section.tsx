@@ -18,8 +18,8 @@ const faqs: FAQItem[] = [
     answer: "Safe to Spend is the maximum amount you can spend today without risking an overdraft in the next 14 days. It's calculated by taking your lowest projected balance over the next two weeks and subtracting your safety buffer. For example, if your lowest upcoming balance will be $2,500 and your buffer is $500, your Safe to Spend is $2,000. This gives freelancers with irregular income a clear, single number that answers 'Can I afford this?' without guessing. Also known as: available balance, spendable amount, discretionary income."
   },
   {
-    question: "How does Cash Flow Forecaster predict my balance?",
-    answer: "Cash Flow Forecaster uses a simple but powerful algorithm. You enter your current account balance, recurring income (with frequencies like weekly, bi-weekly, or monthly), and recurring bills with their due dates. The app then projects your balance day-by-day—up to 90 days on Free, or a full 365 days on Pro—showing you exactly when money comes in and goes out. It's like having a financial crystal ball that answers 'Will I have enough on the 15th?' with precision."
+    question: "How does Cashcast predict my balance?",
+    answer: "Cashcast uses a simple but powerful algorithm. You enter your current account balance, recurring income (with frequencies like weekly, bi-weekly, or monthly), and recurring bills with their due dates. The app then projects your balance day-by-day—up to 90 days on Free, or a full 365 days on Pro—showing you exactly when money comes in and goes out. It's like having a financial crystal ball that answers 'Will I have enough on the 15th?' with precision."
   },
   {
     question: "What's included in the weekly email digest?",
@@ -27,7 +27,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How is this different from Mint or YNAB?",
-    answer: "Traditional budgeting apps like Mint and YNAB focus on tracking where your money went—they're backward-looking. Cash Flow Forecaster is forward-looking. Instead of categorizing past expenses, we show you your projected daily balance for up to a full year ahead. The calendar interface answers the real question freelancers have: 'Can I afford this expense before my next paycheck arrives?' Plus, our 'Can I Afford It?' feature lets you test hypothetical purchases and see exactly how they'd impact your future balance."
+    answer: "Traditional budgeting apps like Mint and YNAB focus on tracking where your money went—they're backward-looking. Cashcast is forward-looking. Instead of categorizing past expenses, we show you your projected daily balance for up to a full year ahead. The calendar interface answers the real question freelancers have: 'Can I afford this expense before my next paycheck arrives?' Plus, our 'Can I Afford It?' feature lets you test hypothetical purchases and see exactly how they'd impact your future balance."
   },
   {
     question: "Can I import my data from YNAB or Mint?",
@@ -47,11 +47,11 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Can I connect my bank account?",
-    answer: "Bank sync is coming soon! Currently, Cash Flow Forecaster works with manual entry, which many freelancers actually prefer—it gives you full control and awareness of your finances. You enter your starting balance once, then add your recurring income and bills. The calendar updates automatically. When bank sync launches, it will be optional, not required."
+    answer: "Bank sync is coming soon! Currently, Cashcast works with manual entry, which many freelancers actually prefer—it gives you full control and awareness of your finances. You enter your starting balance once, then add your recurring income and bills. The calendar updates automatically. When bank sync launches, it will be optional, not required."
   },
   {
     question: "Do you track credit card accounts?",
-    answer: "Yes! Cash Flow Forecaster offers credit card cash flow forecasting—a feature most competitors don't have. Add your credit cards with their limits, APR, and payment due dates. You'll see: credit utilization tracking with color-coded warnings (green under 30%, amber 30-50%, red over 50%), payment due dates appearing in your cash flow calendar, a payment simulator to compare minimum payment vs statement balance vs custom amounts, and interest cost projections. For users with multiple cards, our Debt Payoff Planner compares Snowball vs Avalanche strategies to help you become debt-free faster."
+    answer: "Yes! Cashcast offers credit card cash flow forecasting—a feature most competitors don't have. Add your credit cards with their limits, APR, and payment due dates. You'll see: credit utilization tracking with color-coded warnings (green under 30%, amber 30-50%, red over 50%), payment due dates appearing in your cash flow calendar, a payment simulator to compare minimum payment vs statement balance vs custom amounts, and interest cost projections. For users with multiple cards, our Debt Payoff Planner compares Snowball vs Avalanche strategies to help you become debt-free faster."
   },
   {
     question: "How does the debt payoff planner work?",
@@ -59,10 +59,10 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Can I import from Excel?",
-    answer: "Yes! Cash Flow Forecaster supports both CSV and Excel file imports (.xlsx, .xls). Just drag and drop your bank statement or transaction export into the import page. Our smart column detection automatically identifies date, description, and amount columns—no manual mapping required. The importer also detects recurring transactions and can create recurring bills or income sources from your import. This works great for bank exports, credit card statements, or even your own Excel budget spreadsheets."
+    answer: "Yes! Cashcast supports both CSV and Excel file imports (.xlsx, .xls). Just drag and drop your bank statement or transaction export into the import page. Our smart column detection automatically identifies date, description, and amount columns—no manual mapping required. The importer also detects recurring transactions and can create recurring bills or income sources from your import. This works great for bank exports, credit card statements, or even your own Excel budget spreadsheets."
   },
   {
-    question: "Who is Cash Flow Forecaster built for?",
+    question: "Who is Cashcast built for?",
     answer: "We built this for freelancers, gig workers, and anyone with irregular income. If you've ever wondered 'Can I pay rent on the 1st?' or 'Am I safe until my next invoice pays?', this is for you. There are 1.57 billion freelancers globally, and 66% struggle with finding consistent work. Traditional budgeting apps assume you get a steady paycheck on the 1st and 15th—we don't. Great fit for graphic designers, freelance writers, marketing consultants, web developers, AI specialists, and side-gig hustlers. Not built for complex accounting or businesses with full-time bookkeepers—we keep it simple on purpose."
   },
   {
@@ -79,11 +79,11 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How do I budget with irregular income?",
-    answer: "Budgeting with irregular income requires a different approach than traditional monthly budgets. Research shows 47% of freelancers cite income instability as their #1 financial worry, and 80% can't comfortably handle an unexpected expense. Here's what works: First, calculate your baseline expenses—the minimum you need each month for rent, utilities, insurance, and essentials. Second, build a buffer fund of 3-6 months of expenses (financial advisors recommend this range for irregular earners). Third, use a cash flow calendar (not a monthly budget) to see your projected balance day-by-day. Fourth, reserve 25-30% for taxes. Finally, pay yourself a consistent 'salary' from your business income rather than spending whatever comes in. Cash Flow Forecaster automates the cash flow calendar and tax tracking, showing you exactly when you'll run low and what's truly safe to spend."
+    answer: "Budgeting with irregular income requires a different approach than traditional monthly budgets. Research shows 47% of freelancers cite income instability as their #1 financial worry, and 80% can't comfortably handle an unexpected expense. Here's what works: First, calculate your baseline expenses—the minimum you need each month for rent, utilities, insurance, and essentials. Second, build a buffer fund of 3-6 months of expenses (financial advisors recommend this range for irregular earners). Third, use a cash flow calendar (not a monthly budget) to see your projected balance day-by-day. Fourth, reserve 25-30% for taxes. Finally, pay yourself a consistent 'salary' from your business income rather than spending whatever comes in. Cashcast automates the cash flow calendar and tax tracking, showing you exactly when you'll run low and what's truly safe to spend."
   },
   {
     question: "Can I export my data?",
-    answer: "Yes! Cash Flow Forecaster includes a full Reports & Export feature. Free users can export their data to CSV format, which opens in Excel, Google Sheets, or Numbers. Pro users unlock Excel and JSON export formats, plus access to all report types including Cash Forecast and complete data backups. You can export quick reports like Monthly Summary or Category Spending with one click, or use the Custom Export Builder to select exactly what data you want, choose a date range, and pick your preferred format. Your export history is saved for 30 days so you can re-download previous exports."
+    answer: "Yes! Cashcast includes a full Reports & Export feature. Free users can export their data to CSV format, which opens in Excel, Google Sheets, or Numbers. Pro users unlock Excel and JSON export formats, plus access to all report types including Cash Forecast and complete data backups. You can export quick reports like Monthly Summary or Category Spending with one click, or use the Custom Export Builder to select exactly what data you want, choose a date range, and pick your preferred format. Your export history is saved for 30 days so you can re-download previous exports."
   },
   {
     question: "What reports can I generate?",
@@ -99,7 +99,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How accurate is automated cash flow forecasting vs spreadsheets?",
-    answer: "Research shows that automated cash flow forecasting is 30-50% more accurate than manual spreadsheet tracking. This is because automated tools eliminate human error in data entry, automatically track recurring transactions, and update projections in real-time. Beyond accuracy, there's a time savings of 2-5 hours per week—time you could spend on billable work instead of manual spreadsheet updates. Despite this, 43% of organizations still use spreadsheets for forecasting, often because specialized tools cost $29-199/month. At $7.99/month, Cash Flow Forecaster makes automated accuracy accessible to individual freelancers."
+    answer: "Research shows that automated cash flow forecasting is 30-50% more accurate than manual spreadsheet tracking. This is because automated tools eliminate human error in data entry, automatically track recurring transactions, and update projections in real-time. Beyond accuracy, there's a time savings of 2-5 hours per week—time you could spend on billable work instead of manual spreadsheet updates. Despite this, 43% of organizations still use spreadsheets for forecasting, often because specialized tools cost $29-199/month. At $7.99/month, Cashcast makes automated accuracy accessible to individual freelancers."
   }
 ]
 
@@ -232,7 +232,7 @@ export function FAQSection() {
             Still have questions?
           </p>
           <a
-            href="mailto:support@cashflowforecaster.io"
+            href="mailto:support@cashcast.money"
             className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 font-medium transition-colors"
           >
             Contact our support team

@@ -8,7 +8,7 @@ export function LandingFooter() {
     <footer className="px-6 py-12 border-t border-zinc-900">
       <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-6 gap-8 text-sm">
         <div className="col-span-2 md:col-span-1">
-          <p className="text-white font-semibold">Cash Flow Forecaster</p>
+          <p className="text-white font-semibold">Cashcast</p>
           <p className="mt-2 text-zinc-400">Made for freelancers, by a freelancer.</p>
           <p className="mt-3 text-zinc-500 text-xs">
             The cash flow calendar app that shows your bank balance up to 365 days ahead.
@@ -203,7 +203,7 @@ export function LandingFooter() {
             <Link href="/terms" className="hover:text-zinc-200 transition-colors">
               Terms of Service
             </Link>
-            <Link href="mailto:support@cashflowforecaster.io" className="hover:text-zinc-200 transition-colors">
+            <Link href="mailto:support@cashcast.money" className="hover:text-zinc-200 transition-colors">
               Contact Us
             </Link>
           </div>
@@ -211,7 +211,7 @@ export function LandingFooter() {
       </div>
 
       <div className="mx-auto max-w-6xl mt-10 pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
-        <p>&copy; {new Date().getFullYear()} Cash Flow Forecaster. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Cashcast. All rights reserved.</p>
         <p className="inline-flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-teal-500" aria-hidden="true" />
           Built to help you stay cash-positive

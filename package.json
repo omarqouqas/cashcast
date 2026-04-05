@@ -1,12 +1,12 @@
 {
-  "name": "cashflowforecaster",
+  "name": "cashcast",
   "version": "0.1.0",
   "private": true,
-  "description": "Project your bank balance 60 days into the future",
-  "homepage": "https://cashflowforecaster.io",
+  "description": "See your cash, days ahead. Cash flow forecasting for freelancers.",
+  "homepage": "https://cashcast.money",
   "repository": {
     "type": "git",
-    "url": "https://github.com/omarqouqas/cashflowforecaster.git"
+    "url": "https://github.com/omarqouqas/cashcast.git"
   },
   "scripts": {
     "dev": "next dev",

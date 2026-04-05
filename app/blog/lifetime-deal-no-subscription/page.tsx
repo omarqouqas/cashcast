@@ -36,8 +36,8 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 };
 
@@ -137,7 +137,7 @@ export default function LifetimeDealPage() {
           <p className="text-lg text-zinc-300 leading-relaxed">
             Let&apos;s be honest: subscription fatigue is real. Between Netflix, Spotify, your
             cloud storage, your password manager, and a dozen other services, monthly fees add
-            up fast. So when we built Cash Flow Forecaster, we decided to do something different.
+            up fast. So when we built Cashcast, we decided to do something different.
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
@@ -377,7 +377,7 @@ export default function LifetimeDealPage() {
           </div>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
-            YNAB vs. Cash Flow Forecaster: A Quick Comparison
+            YNAB vs. Cashcast: A Quick Comparison
           </h2>
           <div className="overflow-x-auto my-6">
             <table className="w-full text-left">
@@ -385,7 +385,7 @@ export default function LifetimeDealPage() {
                 <tr className="border-b border-zinc-700">
                   <th className="py-3 px-4 text-zinc-300 font-semibold">Feature</th>
                   <th className="py-3 px-4 text-zinc-300 font-semibold">YNAB</th>
-                  <th className="py-3 px-4 text-zinc-300 font-semibold">Cash Flow Forecaster</th>
+                  <th className="py-3 px-4 text-zinc-300 font-semibold">Cashcast</th>
                 </tr>
               </thead>
               <tbody className="text-zinc-400">
@@ -455,7 +455,7 @@ export default function LifetimeDealPage() {
       <footer className="border-t border-zinc-800 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center text-zinc-500 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Cash Flow Forecaster. All rights reserved.
+            &copy; {new Date().getFullYear()} Cashcast. All rights reserved.
           </p>
         </div>
       </footer>

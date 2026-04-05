@@ -96,7 +96,7 @@ export default async function OpenGraphImage() {
               <div style={{ width: 14, height: 14, borderRadius: 4, background: '#14b8a6' }} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ fontSize: 24, fontWeight: 650 }}>Cash Flow Forecaster</div>
+              <div style={{ fontSize: 24, fontWeight: 650 }}>Cashcast</div>
               <div style={{ fontSize: 20, color: '#71717a' }}>See your bank balance 90 days ahead</div>
             </div>
           </div>

@@ -62,15 +62,15 @@ export async function POST(request: Request) {
   const tool = ((payload as any)?.tool ?? 'can-i-afford-it') as string;
   const result = (payload as any)?.result ?? {};
 
-  const from = process.env.RESEND_FROM_EMAIL?.trim() || 'Cash Flow Forecaster <onboarding@resend.dev>';
-  const signupUrl = 'https://cashflowforecaster.io/auth/signup';
-  let subject = 'Your results from Cash Flow Forecaster';
-  let toolUrl = 'https://cashflowforecaster.io/tools';
+  const from = process.env.RESEND_FROM_EMAIL?.trim() || 'Cashcast <onboarding@resend.dev>';
+  const signupUrl = 'https://cashcast.money/auth/signup';
+  let subject = 'Your results from Cashcast';
+  let toolUrl = 'https://cashcast.money/tools';
   let html = '';
 
   if (tool === 'freelance-rate-calculator') {
     subject = 'Your Freelance Rate Calculator results';
-    toolUrl = 'https://cashflowforecaster.io/tools/freelance-rate-calculator';
+    toolUrl = 'https://cashcast.money/tools/freelance-rate-calculator';
 
     const minimumHourlyRate = (result as any)?.minimumHourlyRate;
     const suggestedHourlyRate = (result as any)?.suggestedHourlyRate;
@@ -162,7 +162,7 @@ export async function POST(request: Request) {
     `.trim();
   } else if (tool === 'invoice-payment-predictor') {
     subject = 'Your Invoice Payment Predictor results';
-    toolUrl = 'https://cashflowforecaster.io/tools/invoice-payment-predictor';
+    toolUrl = 'https://cashcast.money/tools/invoice-payment-predictor';
 
     const expectedPaymentDate = (result as any)?.expectedPaymentDate;
     const dayOfWeek = (result as any)?.dayOfWeek;
@@ -277,7 +277,7 @@ export async function POST(request: Request) {
     `.trim();
   } else if (tool === 'income-variability-calculator') {
     subject = 'Your Income Variability Calculator results';
-    toolUrl = 'https://cashflowforecaster.io/tools/income-variability-calculator';
+    toolUrl = 'https://cashcast.money/tools/income-variability-calculator';
 
     const variabilityLevel = safeText((result as any)?.variabilityLevel, 16) || '—';
     const variabilityScore = (result as any)?.variabilityScore;
@@ -412,7 +412,7 @@ export async function POST(request: Request) {
     const overdraftDays = result?.overdraftDays;
 
     subject = canAfford ? 'Your “Can I Afford It?” result: ✅ Yes' : 'Your “Can I Afford It?” result: ⚠️ Not safely';
-    toolUrl = 'https://cashflowforecaster.io/tools/can-i-afford-it';
+    toolUrl = 'https://cashcast.money/tools/can-i-afford-it';
 
     const timeline: Array<any> = Array.isArray(result?.timeline) ? result.timeline.slice(0, 20) : [];
 
@@ -491,7 +491,7 @@ export async function POST(request: Request) {
           </div>
 
           <p style="margin:0; color:#71717a; font-size:12px;">
-            This is a simplified estimate using only what you entered. Cash Flow Forecaster gives you a full calendar forecast with recurring items.
+            This is a simplified estimate using only what you entered. Cashcast gives you a full calendar forecast with recurring items.
           </p>
         </div>
       </div>

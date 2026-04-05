@@ -5,18 +5,18 @@ import { LandingFooter } from '@/components/landing/footer';
 import { Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Compare Cash Flow Calendar Apps | Cash Flow Forecaster',
+  title: 'Compare Cash Flow Calendar Apps | Cashcast',
   description:
-    'Comparison guides for freelancers evaluating cash flow calendar apps. See how Cash Flow Forecaster stacks up on invoicing, free tier, and forecasting.',
+    'Comparison guides for freelancers evaluating cash flow calendar apps. See how Cashcast stacks up on invoicing, free tier, and forecasting.',
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare',
+    canonical: 'https://cashcast.money/compare',
   },
   openGraph: {
     title: 'Compare Cash Flow Calendar Apps',
     description:
       'Comparison guides for freelancers evaluating cash flow calendar apps.',
-    url: 'https://www.cashflowforecaster.io/compare',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/compare',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {

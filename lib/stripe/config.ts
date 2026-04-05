@@ -1,6 +1,6 @@
 // lib/stripe/config.ts
 // ============================================
-// Stripe Configuration for Cash Flow Forecaster
+// Stripe Configuration for Cashcast
 // ============================================
 
 // NOTE: Keep 'premium' for backwards compatibility with any legacy subscriptions.

@@ -124,7 +124,7 @@ export default function LoginPage() {
               Welcome back
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Sign in to your Cash Flow Forecaster account
+              Sign in to your Cashcast account
             </p>
           </div>
 

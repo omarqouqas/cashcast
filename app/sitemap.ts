@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog/posts';
 
-const baseUrl = 'https://www.cashflowforecaster.io';
+const baseUrl = 'https://cashcast.money';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

@@ -17,7 +17,7 @@ function escapeHtml(input: string) {
 export function buildWelcomeEmail(data: WelcomeEmailData): { subject: string; html: string } {
   const greeting = data.userName ? `Hi ${escapeHtml(data.userName)}` : 'Hey';
 
-  const subject = 'Welcome to Cash Flow Forecaster';
+  const subject = 'Welcome to Cashcast';
   const previewText = "You're in! Here's how to get started with your cash flow forecast.";
 
   const html = `<!doctype html>
@@ -61,7 +61,7 @@ export function buildWelcomeEmail(data: WelcomeEmailData): { subject: string; ht
             <tr>
               <td style="padding:0 24px 20px 24px;">
                 <div style="font-family:Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:24px;color:#3f3f46;">
-                  Thanks for signing up for Cash Flow Forecaster. I built this to help freelancers and small business owners see their money ahead of time — so you're never caught off guard by a bill.
+                  Thanks for signing up for Cashcast. I built this to help freelancers and small business owners see their money ahead of time — so you're never caught off guard by a bill.
                 </div>
               </td>
             </tr>
@@ -111,7 +111,7 @@ export function buildWelcomeEmail(data: WelcomeEmailData): { subject: string; ht
                 <table role="presentation" cellpadding="0" cellspacing="0">
                   <tr>
                     <td bgcolor="#0f766e" style="border-radius:10px;">
-                      <a href="https://www.cashflowforecaster.io/dashboard" target="_blank" rel="noreferrer"
+                      <a href="https://www.cashcast.money/dashboard" target="_blank" rel="noreferrer"
                         style="display:inline-block;padding:14px 24px;font-family:Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:10px;">
                         Go to your dashboard
                       </a>
@@ -144,7 +144,7 @@ export function buildWelcomeEmail(data: WelcomeEmailData): { subject: string; ht
             <tr>
               <td style="padding:16px 24px;border-top:1px solid #f4f4f5;background-color:#fafafa;">
                 <div style="font-family:Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#71717a;">
-                  <a href="https://www.cashflowforecaster.io" style="color:#0f766e;text-decoration:none;">Cash Flow Forecaster</a> — See your money ahead of time
+                  <a href="https://www.cashcast.money" style="color:#0f766e;text-decoration:none;">Cashcast</a> — See your money ahead of time
                 </div>
               </td>
             </tr>

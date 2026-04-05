@@ -179,7 +179,7 @@ export function buildWeeklyDigestEmail(
             <tr>
               <td style="padding:20px 24px;">
                 <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-                  <div style="font-size:12px;color:#a1a1aa;letter-spacing:0.08em;font-weight:700;">CASH FLOW FORECASTER</div>
+                  <div style="font-size:12px;color:#a1a1aa;letter-spacing:0.08em;font-weight:700;">CASHCAST</div>
                   <div style="margin-top:6px;font-size:20px;font-weight:800;color:#e4e4e7;">Weekly Digest</div>
                 </div>
               </td>
@@ -284,7 +284,7 @@ export function buildWeeklyDigestEmail(
                   <a href="${safeManageUrl}" style="color:#5eead4;text-decoration:underline;">Manage preferences</a>
                   &nbsp;|&nbsp;
                   <a href="${safeUnsubUrl}" style="color:#5eead4;text-decoration:underline;">Unsubscribe</a>
-                  <div style="margin-top:10px;color:#71717a;">© 2025 Cash Flow Forecaster</div>
+                  <div style="margin-top:10px;color:#71717a;">© 2025 Cashcast</div>
                 </div>
               </td>
             </tr>

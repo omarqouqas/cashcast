@@ -2,7 +2,7 @@ import { XCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Payment Cancelled | Cash Flow Forecaster',
+  title: 'Payment Cancelled | Cashcast',
   description: 'Your payment was cancelled',
 };
 
@@ -32,10 +32,10 @@ export default function PaymentCancelledPage() {
           </div>
 
           <Link
-            href="https://cashflowforecaster.io"
+            href="https://cashcast.money"
             className="text-teal-400 hover:text-teal-300 text-sm font-medium transition-colors"
           >
-            Learn more about Cash Flow Forecaster
+            Learn more about Cashcast
           </Link>
         </div>
 

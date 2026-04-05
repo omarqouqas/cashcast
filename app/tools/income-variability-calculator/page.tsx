@@ -8,7 +8,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { TrendingUp, AlertTriangle, PiggyBank, HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Income Variability Calculator | Cash Flow Forecaster',
+  title: 'Income Variability Calculator | Cashcast',
   description:
     'Free calculator to measure your freelance income variability. Enter your monthly income history to see your stability score, danger zones, and recommended emergency fund.',
   keywords: [
@@ -22,19 +22,19 @@ export const metadata: Metadata = {
     'gig economy income stability',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools/income-variability-calculator',
+    canonical: 'https://cashcast.money/tools/income-variability-calculator',
   },
   openGraph: {
-    title: 'Income Variability Calculator | Cash Flow Forecaster',
+    title: 'Income Variability Calculator | Cashcast',
     description:
       'Measure your income stability. See your variability score, identify danger zones, and get emergency fund recommendations.',
-    url: 'https://www.cashflowforecaster.io/tools/income-variability-calculator',
-    siteName: 'Cash Flow Forecaster',
+    url: 'https://cashcast.money/tools/income-variability-calculator',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Income Variability Calculator | Cash Flow Forecaster',
+    title: 'Income Variability Calculator | Cashcast',
     description: 'Free calculator to measure freelance income variability and get personalized recommendations.',
   },
 };
@@ -51,7 +51,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
-  url: 'https://www.cashflowforecaster.io/tools/income-variability-calculator',
+  url: 'https://cashcast.money/tools/income-variability-calculator',
 } as const;
 
 const faqSchema = {
@@ -137,7 +137,7 @@ export default function IncomeVariabilityCalculatorPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.tools,
-              { name: 'Income Variability', url: 'https://www.cashflowforecaster.io/tools/income-variability-calculator' },
+              { name: 'Income Variability', url: 'https://cashcast.money/tools/income-variability-calculator' },
             ]}
             className="mb-8"
           />
@@ -259,7 +259,7 @@ export default function IncomeVariabilityCalculatorPage() {
               href="/auth/signup"
               className="mt-4 inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
             >
-              Try Cash Flow Forecaster Free
+              Try Cashcast Free
             </Link>
           </div>
         </div>

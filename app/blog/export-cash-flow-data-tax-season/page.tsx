@@ -36,8 +36,8 @@ const articleSchema = {
   },
   publisher: {
     '@type': 'Organization',
-    name: 'Cash Flow Forecaster',
-    url: 'https://cashflowforecaster.io',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 };
 
@@ -50,7 +50,7 @@ const howToSchema = {
     {
       '@type': 'HowToStep',
       name: 'Go to Reports',
-      text: 'Navigate to the Reports section in Cash Flow Forecaster',
+      text: 'Navigate to the Reports section in Cashcast',
     },
     {
       '@type': 'HowToStep',
@@ -134,7 +134,7 @@ export default function ExportCashFlowDataTaxSeasonPage() {
         <div className="prose prose-invert prose-zinc max-w-none">
           <p className="text-lg text-zinc-300 leading-relaxed">
             Tax season doesn&apos;t have to be stressful—especially if you&apos;ve been tracking
-            your income and expenses in Cash Flow Forecaster. With our export features, you can
+            your income and expenses in Cashcast. With our export features, you can
             generate clean reports that make your accountant&apos;s job easier (and potentially
             save you money on preparation fees).
           </p>
@@ -143,7 +143,7 @@ export default function ExportCashFlowDataTaxSeasonPage() {
             What Data Can You Export?
           </h2>
           <p className="text-zinc-300">
-            Cash Flow Forecaster Pro lets you export comprehensive financial data:
+            Cashcast Pro lets you export comprehensive financial data:
           </p>
           <div className="grid sm:grid-cols-2 gap-4 my-6">
             <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
@@ -425,7 +425,7 @@ export default function ExportCashFlowDataTaxSeasonPage() {
                 <Check className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
                 <span>
                   <strong>1099 Forms</strong> — Copies of all 1099s received from clients
-                  (not from Cash Flow Forecaster)
+                  (not from Cashcast)
                 </span>
               </li>
             </ul>
@@ -456,7 +456,7 @@ export default function ExportCashFlowDataTaxSeasonPage() {
               <ArrowRight className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
               <span>
                 <strong>Keep personal and business separate</strong> — Use separate accounts
-                in Cash Flow Forecaster for cleaner reporting
+                in Cashcast for cleaner reporting
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -492,7 +492,7 @@ export default function ExportCashFlowDataTaxSeasonPage() {
       <footer className="border-t border-zinc-800 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center text-zinc-500 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Cash Flow Forecaster. All rights reserved.
+            &copy; {new Date().getFullYear()} Cashcast. All rights reserved.
           </p>
         </div>
       </footer>

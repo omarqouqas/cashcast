@@ -216,7 +216,7 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
                 </button>
 
                 <a
-                  href="mailto:support@cashflowforecaster.io"
+                  href="mailto:support@cashcast.money"
                   onClick={() => setIsUserMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-3 min-h-[44px] text-sm text-zinc-200 hover:bg-zinc-700/50 rounded-md transition-colors"
                 >
@@ -392,7 +392,7 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
                 </button>
 
                 <a
-                  href="mailto:support@cashflowforecaster.io"
+                  href="mailto:support@cashcast.money"
                   onClick={() => setIsUserMenuOpen(false)}
                   className="flex items-center gap-3 px-3 py-3 min-h-[44px] text-sm text-zinc-200 hover:bg-zinc-700/50 rounded-md transition-colors"
                 >

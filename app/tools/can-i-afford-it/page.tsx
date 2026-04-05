@@ -8,7 +8,7 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { BadgeDollarSign, CalendarDays, Sparkles, ArrowRight, BookOpen, HelpCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Free “Can I Afford It?” Calculator | Cash Flow Forecaster',
+  title: 'Free “Can I Afford It?” Calculator | Cashcast',
   description:
     'A free cash flow projection calculator. Enter your current balance, upcoming bills, next income, and a purchase to see if you can afford it without going negative.',
   keywords: [
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
     'side hustle budget calculator',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/tools/can-i-afford-it',
+    canonical: 'https://cashcast.money/tools/can-i-afford-it',
   },
   openGraph: {
     title: 'Can I Afford It? Free Cash Flow Calculator (Day-by-Day)',
     description:
-      'Try a purchase and see your projected bank balance day-by-day. Built on the same forward-looking cash flow logic as Cash Flow Forecaster.',
-    url: 'https://www.cashflowforecaster.io/tools/can-i-afford-it',
-    siteName: 'Cash Flow Forecaster',
+      'Try a purchase and see your projected bank balance day-by-day. Built on the same forward-looking cash flow logic as Cashcast.',
+    url: 'https://cashcast.money/tools/can-i-afford-it',
+    siteName: 'Cashcast',
     type: 'website',
   },
   twitter: {
@@ -57,7 +57,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
-  url: 'https://www.cashflowforecaster.io/tools/can-i-afford-it',
+  url: 'https://cashcast.money/tools/can-i-afford-it',
 } as const;
 
 const faqSchema = {
@@ -149,7 +149,7 @@ export default function CanIAffordItToolPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.tools,
-              { name: 'Can I Afford It?', url: 'https://www.cashflowforecaster.io/tools/can-i-afford-it' },
+              { name: 'Can I Afford It?', url: 'https://cashcast.money/tools/can-i-afford-it' },
             ]}
             className="mb-8"
           />
@@ -276,7 +276,7 @@ export default function CanIAffordItToolPage() {
                 href="/auth/signup"
                 className="mt-4 inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
               >
-                Try Cash Flow Forecaster Free
+                Try Cashcast Free
               </Link>
             </div>
           </section>

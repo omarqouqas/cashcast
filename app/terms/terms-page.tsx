@@ -3,8 +3,8 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Terms of Service | Cash Flow Forecaster",
-  description: "Terms of Service for Cash Flow Forecaster",
+  title: "Terms of Service | Cashcast",
+  description: "Terms of Service for Cashcast",
 };
 
 export default function TermsPage() {
@@ -17,7 +17,7 @@ export default function TermsPage() {
             href="/"
             className="text-lg font-semibold text-teal-400 hover:text-teal-300 transition-colors"
           >
-            ← Back to Cash Flow Forecaster
+            ← Back to Cashcast
           </Link>
         </div>
       </header>
@@ -33,7 +33,7 @@ export default function TermsPage() {
               1. Acceptance of Terms
             </h2>
             <p>
-              By accessing or using Cash Flow Forecaster (&quot;the Service&quot;), you
+              By accessing or using Cashcast (&quot;the Service&quot;), you
               agree to be bound by these Terms of Service. If you do not agree
               to these terms, please do not use the Service.
             </p>
@@ -44,7 +44,7 @@ export default function TermsPage() {
               2. Description of Service
             </h2>
             <p>
-              Cash Flow Forecaster is a web application that helps users project
+              Cashcast is a web application that helps users project
               their bank balance into the future by tracking income and
               expenses. The Service provides cash flow forecasting, invoice
               generation (for paid tiers), and financial planning tools.
@@ -72,7 +72,7 @@ export default function TermsPage() {
               4. Subscription and Payments
             </h2>
             <p className="mb-3">
-              Cash Flow Forecaster offers free and paid subscription tiers:
+              Cashcast offers free and paid subscription tiers:
             </p>
             <ul className="list-disc list-inside space-y-2 ml-4">
               <li>
@@ -99,10 +99,10 @@ export default function TermsPage() {
               We offer a 7-day refund policy for new subscribers who are not
               satisfied with the Service. To request a refund, contact us at{" "}
               <a
-                href="mailto:support@cashflowforecaster.io"
+                href="mailto:support@cashcast.money"
                 className="text-teal-400 hover:text-teal-300"
               >
-                support@cashflowforecaster.io
+                support@cashcast.money
               </a>{" "}
               within 7 days of your initial payment.
             </p>
@@ -127,7 +127,7 @@ export default function TermsPage() {
               7. Financial Disclaimer
             </h2>
             <p>
-              Cash Flow Forecaster is a planning tool and does not provide
+              Cashcast is a planning tool and does not provide
               financial advice. Projections are estimates based on the
               information you provide and may not reflect actual future
               balances. We are not responsible for any financial decisions made
@@ -159,7 +159,7 @@ export default function TermsPage() {
             </h2>
             <p>
               The Service, including its design, features, and content, is owned
-              by Cash Flow Forecaster and protected by copyright and other
+              by Cashcast and protected by copyright and other
               intellectual property laws. You may not copy, modify, or
               distribute any part of the Service without our written permission.
             </p>
@@ -170,7 +170,7 @@ export default function TermsPage() {
               10. Limitation of Liability
             </h2>
             <p>
-              To the maximum extent permitted by law, Cash Flow Forecaster shall
+              To the maximum extent permitted by law, Cashcast shall
               not be liable for any indirect, incidental, special,
               consequential, or punitive damages resulting from your use of the
               Service. Our total liability shall not exceed the amount you paid
@@ -219,7 +219,7 @@ export default function TermsPage() {
             </h2>
             <p>
               These Terms shall be governed by the laws of the jurisdiction in
-              which Cash Flow Forecaster operates, without regard to conflict of
+              which Cashcast operates, without regard to conflict of
               law principles.
             </p>
           </section>
@@ -232,10 +232,10 @@ export default function TermsPage() {
               If you have questions about these Terms of Service, please contact
               us at{" "}
               <a
-                href="mailto:support@cashflowforecaster.io"
+                href="mailto:support@cashcast.money"
                 className="text-teal-400 hover:text-teal-300"
               >
-                support@cashflowforecaster.io
+                support@cashcast.money
               </a>
               .
             </p>
@@ -246,7 +246,7 @@ export default function TermsPage() {
       {/* Footer */}
       <footer className="border-t border-zinc-800 mt-12">
         <div className="mx-auto max-w-4xl px-6 py-6 text-center text-zinc-500 text-sm">
-          © {new Date().getFullYear()} Cash Flow Forecaster. All rights
+          © {new Date().getFullYear()} Cashcast. All rights
           reserved.
         </div>
       </footer>

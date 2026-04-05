@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, BookOpen, ArrowRight, DollarSign, Users, Zap } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Float Alternative for Freelancers | Cash Flow Forecaster vs Float',
+  title: 'Float Alternative for Freelancers | Cashcast vs Float',
   description:
-    'Looking for a Float alternative? Cash Flow Forecaster is 87% cheaper ($7.99 vs $59/mo), built for freelancers instead of SMBs, and includes invoicing at no extra cost.',
+    'Looking for a Float alternative? Cashcast is 87% cheaper ($7.99 vs $59/mo), built for freelancers instead of SMBs, and includes invoicing at no extra cost.',
   keywords: [
     'float alternative',
     'float cash flow alternative',
@@ -26,21 +26,21 @@ export const metadata: Metadata = {
     'freelancer cash flow forecast',
   ],
   alternates: {
-    canonical: 'https://www.cashflowforecaster.io/compare/float',
+    canonical: 'https://cashcast.money/compare/float',
   },
   openGraph: {
     title: 'Float Alternative for Freelancers | 87% Cheaper',
     description:
-      'Looking for a Float alternative? Cash Flow Forecaster is 87% cheaper, built for freelancers, and includes invoicing.',
-    url: 'https://www.cashflowforecaster.io/compare/float',
-    siteName: 'Cash Flow Forecaster',
+      'Looking for a Float alternative? Cashcast is 87% cheaper, built for freelancers, and includes invoicing.',
+    url: 'https://cashcast.money/compare/float',
+    siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Float Alternative for Freelancers | 87% Cheaper',
     description:
-      'Looking for a Float alternative? Cash Flow Forecaster is 87% cheaper, built for freelancers, and includes invoicing.',
+      'Looking for a Float alternative? Cashcast is 87% cheaper, built for freelancers, and includes invoicing.',
   },
 };
 
@@ -78,15 +78,15 @@ const faqStructuredData = {
       name: 'Why is Float so expensive?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Float charges $59-199/month because it targets growing SMBs and agencies with complex cash flow needs, multi-user collaboration, and deep accounting software integration. For solo freelancers, this is often overkill. Cash Flow Forecaster offers similar forecasting for 87% less at $7.99/month.',
+        text: 'Float charges $59-199/month because it targets growing SMBs and agencies with complex cash flow needs, multi-user collaboration, and deep accounting software integration. For solo freelancers, this is often overkill. Cashcast offers similar forecasting for 87% less at $7.99/month.',
       },
     },
     {
       '@type': 'Question',
-      name: 'What is the difference between Float and Cash Flow Forecaster?',
+      name: 'What is the difference between Float and Cashcast?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Float is designed for growing businesses with accounting teams—it requires Xero or QuickBooks and supports multi-user collaboration. Cash Flow Forecaster is built for solo freelancers—it works standalone, includes invoicing, and costs 87% less. Both provide forward-looking cash flow forecasting.',
+        text: 'Float is designed for growing businesses with accounting teams—it requires Xero or QuickBooks and supports multi-user collaboration. Cashcast is built for solo freelancers—it works standalone, includes invoicing, and costs 87% less. Both provide forward-looking cash flow forecasting.',
       },
     },
     {
@@ -94,7 +94,7 @@ const faqStructuredData = {
       name: 'Does Float work for freelancers?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Float can work for freelancers, but it requires connecting Xero or QuickBooks first, which adds complexity and cost. At $59-199/month, it may be too expensive for most freelancers. Cash Flow Forecaster is built specifically for freelancers at $7.99/month.',
+        text: 'Float can work for freelancers, but it requires connecting Xero or QuickBooks first, which adds complexity and cost. At $59-199/month, it may be too expensive for most freelancers. Cashcast is built specifically for freelancers at $7.99/month.',
       },
     },
     {
@@ -102,7 +102,7 @@ const faqStructuredData = {
       name: 'Is Float worth it for a solopreneur?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'For most solopreneurs, Float is overkill. Its strength is multi-user collaboration and deep accounting integration—features solo workers rarely need. Cash Flow Forecaster offers the core cash flow forecasting at 87% less cost, with built-in invoicing included.',
+        text: 'For most solopreneurs, Float is overkill. Its strength is multi-user collaboration and deep accounting integration—features solo workers rarely need. Cashcast offers the core cash flow forecasting at 87% less cost, with built-in invoicing included.',
       },
     },
     {
@@ -110,7 +110,7 @@ const faqStructuredData = {
       name: 'What is the best Float alternative for freelancers in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cash Flow Forecaster is the best Float alternative for freelancers in 2026. It costs 87% less ($7.99/mo vs $59+/mo), works standalone without requiring accounting software, includes built-in invoicing, and shows your "Safe to Spend" so you always know what you can afford.',
+        text: 'Cashcast is the best Float alternative for freelancers in 2026. It costs 87% less ($7.99/mo vs $59+/mo), works standalone without requiring accounting software, includes built-in invoicing, and shows your "Safe to Spend" so you always know what you can afford.',
       },
     },
   ],
@@ -161,7 +161,7 @@ export default function FloatComparisonPage() {
             items={[
               breadcrumbs.home,
               breadcrumbs.compare,
-              { name: 'Float Alternative', url: 'https://www.cashflowforecaster.io/compare/float' },
+              { name: 'Float Alternative', url: 'https://cashcast.money/compare/float' },
             ]}
             className="mb-8"
           />
@@ -182,7 +182,7 @@ export default function FloatComparisonPage() {
             </p>
 
             <p className="mt-4 text-zinc-400 leading-relaxed">
-              Cash Flow Forecaster gives you the same forward-looking visibility for{' '}
+              Cashcast gives you the same forward-looking visibility for{' '}
               <span className="text-emerald-300 font-medium">87% less</span>. No accounting software required.
               No complex setup. Just a simple cash flow calendar that answers: &quot;Can I afford this?&quot;
             </p>
@@ -215,7 +215,7 @@ export default function FloatComparisonPage() {
                 <p className="mt-1 text-sm text-zinc-400">up to $199/mo for teams</p>
               </div>
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
-                <p className="text-sm text-teal-300 font-medium">Cash Flow Forecaster</p>
+                <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
                 <p className="mt-1 text-sm text-zinc-400">or $99 lifetime</p>
               </div>
@@ -263,7 +263,7 @@ export default function FloatComparisonPage() {
                   <div className="rounded-full bg-teal-500/10 p-2">
                     <Zap className="h-5 w-5 text-teal-400" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white">Cash Flow Forecaster is for...</h3>
+                  <h3 className="text-lg font-semibold text-white">Cashcast is for...</h3>
                 </div>
                 <ul className="mt-4 space-y-2 text-zinc-300">
                   <li className="flex items-start gap-2">
@@ -300,7 +300,7 @@ export default function FloatComparisonPage() {
                 <thead className="bg-zinc-950/40 border-b border-zinc-800">
                   <tr>
                     <th className="px-5 py-4 text-zinc-300 font-medium">Feature</th>
-                    <th className="px-5 py-4 text-white font-semibold">Cash Flow Forecaster</th>
+                    <th className="px-5 py-4 text-white font-semibold">Cashcast</th>
                     <th className="px-5 py-4 text-zinc-200 font-medium">Float</th>
                   </tr>
                 </thead>
@@ -394,7 +394,7 @@ export default function FloatComparisonPage() {
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
-                <h3 className="text-white font-semibold">Is Cash Flow Forecaster as accurate as Float?</h3>
+                <h3 className="text-white font-semibold">Is Cashcast as accurate as Float?</h3>
                 <p className="mt-2 text-zinc-400">
                   Both tools improve forecast accuracy by 30-50% vs spreadsheets. The difference is target user and
                   price—not accuracy.
@@ -403,7 +403,7 @@ export default function FloatComparisonPage() {
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
                 <h3 className="text-white font-semibold">Do I need Xero or QuickBooks?</h3>
                 <p className="mt-2 text-zinc-400">
-                  No! Cash Flow Forecaster works standalone. Just add your bills and income manually, or import from
+                  No! Cashcast works standalone. Just add your bills and income manually, or import from
                   Excel/CSV. No accounting software required.
                 </p>
               </div>

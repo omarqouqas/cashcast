@@ -98,7 +98,7 @@ export function ToolsIndexClient() {
           <div>
             <p className="text-lg font-semibold text-white">Want the full 90-day forecast?</p>
             <p className="mt-1 text-sm text-zinc-400">
-              Cash Flow Forecaster gives you a calendar projection across multiple accounts, recurring items, and scenarios.
+              Cashcast gives you a calendar projection across multiple accounts, recurring items, and scenarios.
             </p>
           </div>
           <GetStartedCTA

@@ -100,14 +100,14 @@ async function sendFeedbackNotification({
       </div>
       
       <p style="margin-top: 24px; color: #a1a1aa; font-size: 12px;">
-        Cash Flow Forecaster • Feedback Notification
+        Cashcast • Feedback Notification
       </p>
     </div>
   `;
 
   await resend.emails.send({
-    from: 'Cash Flow Forecaster <notifications@cashflowforecaster.io>',
-    to: 'support@cashflowforecaster.io', // Your support email
+    from: 'Cashcast <notifications@cashcast.money>',
+    to: 'support@cashcast.money', // Your support email
     replyTo: userEmail,
     subject,
     html: htmlContent,
