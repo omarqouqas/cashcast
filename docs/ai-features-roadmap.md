@@ -1,49 +1,54 @@
 # AI Features Roadmap
 
-Future AI-powered enhancements for CashFlowForecaster.
+AI-powered enhancements for CashFlowForecaster.
 
 ---
 
-## 1. Probabilistic Forecasting
+## 1. Probabilistic Forecasting ✅ COMPLETED (April 4, 2026)
 
 **User question:** "Will I run out of money?"
 
-### Current State
-- Forecasting in `lib/calendar/generate.ts` is deterministic
-- Same inputs always produce same 60-day projection
-- No variance modeling for income or expenses
+### Implementation: Monte Carlo Simulation
 
-### Proposed Enhancement
-Add confidence intervals and probability estimates to forecasts:
-- "15% chance of dropping below $0 in the next 30 days"
-- Optimistic / Expected / Pessimistic balance bands on the chart
-- Risk score for the forecast period
+We chose **Option A: Monte Carlo Simulation** and implemented it with the following approach:
 
-### Implementation Approaches
+**Architecture:**
+- 500 simulations per forecast (balancing accuracy vs. performance)
+- Seeded PRNG (mulberry32) for reproducibility
+- Box-Muller transform for normal distribution sampling
+- Server-side execution during page load (~9ms compute time)
 
-**Option A: Monte Carlo Simulation**
-- Run 1000+ forecast scenarios with randomized income/expense timing and amounts
-- Use historical variance from `lib/tools/calculate-income-variability.ts`
-- Calculate percentiles (P10, P50, P90) for each day
-- Pros: Statistically robust, handles complex interactions
-- Cons: Compute-intensive, may need backend processing
+**Variance Configuration:**
+| Frequency | Amount CV | Timing Variance |
+|-----------|-----------|-----------------|
+| Weekly | 2% | ±0 days |
+| Bi-weekly | 3% | ±1 day |
+| Semi-monthly | 3% | ±1 day |
+| Monthly | 5% | ±2 days |
+| Quarterly | 10% | ±5 days |
+| Annually | 15% | ±7 days |
+| Irregular | 25% | ±10 days |
+| One-time | 10% | ±3 days |
 
-**Option B: Variance Bands (Simpler)**
-- Calculate standard deviation from historical income data
-- Apply +/- 1-2 sigma bands to the deterministic forecast
-- Pros: Fast, runs client-side
-- Cons: Less accurate for edge cases
+**Files Created:**
+- `lib/calendar/monte-carlo/types.ts` - Type definitions
+- `lib/calendar/monte-carlo/variance-config.ts` - Variance parameters
+- `lib/calendar/monte-carlo/random.ts` - PRNG and distribution utilities
+- `lib/calendar/monte-carlo/simulation.ts` - Core Monte Carlo engine
+- `lib/calendar/monte-carlo/index.ts` - Public exports
+- `components/dashboard/risk-metrics.tsx` - Risk metrics display
 
-**Option C: ML-Based Prediction**
-- Train model on user's historical cash flow patterns
-- Predict likelihood of balance dropping below threshold
-- Pros: Learns user-specific patterns
-- Cons: Requires historical data, more complex
+**Features Delivered:**
+- P10/P50/P90 confidence bands on forecast chart
+- Risk metrics: probability of overdraft, worst-case balance, days at risk
+- Color-coded risk indicators (emerald/amber/rose)
+- Performance: ~9ms for 500 simulations × 60 days
 
-### Priority: High
-- Strong differentiator — most tools show deterministic forecasts
-- Aligns with freelancer audience who have variable income
-- Addresses core anxiety: "Will I be okay?"
+### Why This Approach
+- Statistically robust, handles complex interactions between income and bills
+- Timing shifts properly model real-world payment uncertainty
+- No external API dependencies — runs entirely on server
+- Reproducible results with seeded RNG
 
 ---
 
@@ -162,15 +167,15 @@ payment of $3,500 is expected.
 
 ## Implementation Priority Matrix
 
-| Feature | Impact | Effort | Dependencies | Priority |
-|---------|--------|--------|--------------|----------|
-| Probabilistic Forecasting | High | Medium | None | 1 |
-| Natural Language Queries | High | Medium | None | 2 |
-| Smart Categorization | High | Low-Med | Import feature (exists) | 3 |
+| Feature | Impact | Effort | Dependencies | Status |
+|---------|--------|--------|--------------|--------|
+| Probabilistic Forecasting | High | Medium | None | ✅ COMPLETED |
+| Natural Language Queries | High | Medium | None | Next |
+| Smart Categorization | High | Low-Med | Import feature (exists) | Planned |
 
 ### Recommended Sequence
 
-1. **Probabilistic Forecasting** — Core differentiator, no external API needed
+1. ~~**Probabilistic Forecasting**~~ — ✅ Completed April 4, 2026
 2. **Natural Language Queries** — High UX impact, leverages existing tools
 3. **Smart Categorization** — Enhances existing import flow
 
@@ -198,7 +203,15 @@ payment of $3,500 is expected.
 
 ## Open Questions
 
-- [ ] Which LLM provider? (OpenAI vs Anthropic vs open-source)
+- [ ] Which LLM provider? (OpenAI vs Anthropic vs open-source) — For NL queries and categorization
 - [ ] Free tier limits for AI features?
-- [ ] How much historical data needed for probabilistic forecasting?
+- [x] ~~How much historical data needed for probabilistic forecasting?~~ — None needed; uses variance config by frequency type
 - [ ] Should chat history be persisted?
+
+## Decisions Made
+
+**Probabilistic Forecasting (April 2026):**
+- Chose Monte Carlo over variance bands for statistical robustness
+- 500 simulations balances accuracy vs. performance
+- Server-side execution (not client-side) for consistent results
+- Variance derived from frequency type, not historical data (simpler, works for new users)

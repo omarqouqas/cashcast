@@ -34,7 +34,13 @@ The app is built for individual freelancers with irregular income ($45-90k/year)
 
 ## 2. AI Integration Opportunities
 
-### High-Value AI Features
+### Completed AI Features
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| **Probabilistic forecasting** | Monte Carlo simulation (500 iterations) with P10/P50/P90 confidence bands | ✅ Done (April 2026) |
+
+### High-Value AI Features (Remaining)
 
 | Feature | Description | Value | Effort |
 |---------|-------------|-------|--------|
@@ -43,7 +49,7 @@ The app is built for individual freelancers with irregular income ($45-90k/year)
 | **Invoice payment prediction** | ML model predicting when clients actually pay based on history | High | Medium |
 | **Natural language queries** | "Can I afford a $2k laptop next month?" | Medium | Medium |
 | **Anomaly detection** | "Your electric bill is 40% higher than usual" | Medium | Low |
-| **Smart forecasting** | Adjust predictions based on seasonal patterns in user's income | High | High |
+| ~~**Smart forecasting**~~ | ~~Adjust predictions based on seasonal patterns~~ | ~~High~~ | ~~High~~ | → Replaced by Monte Carlo
 
 ### Quick Win: Smart Categorization
 

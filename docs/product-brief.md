@@ -1,8 +1,8 @@
 # Cash Flow Forecaster - Complete Product Brief
 
-**Version:** 6.15
-**Last Updated:** February 11, 2026
-**Status:** Live - Landing Page Repositioning (Sacred Seven PM Review)
+**Version:** 6.16
+**Last Updated:** April 4, 2026
+**Status:** Live - AI-Powered Probabilistic Forecasting
 **Product URL:** https://cashflowforecaster.io
 **Repository:** https://github.com/omarqouqas/cashflowforecaster
 
@@ -451,6 +451,20 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
   - Legend with payoff dates per card
 - Dark theme styling consistent with app aesthetic
 - Unique gradient IDs to prevent conflicts with multiple charts
+
+**20. AI-Powered Probabilistic Forecasting ✅**
+- **Monte Carlo Simulation** with 500 iterations for statistical robustness
+- **Confidence bands** on forecast chart showing P10 (pessimistic) to P90 (optimistic) range
+- **Risk metrics dashboard:**
+  - "X% chance of overdraft" - probability of balance going below zero
+  - "X% chance below safety buffer" - probability of dipping below user's buffer
+  - "Worst case balance: $X" - P10 lowest balance across forecast period
+- **Color-coded risk indicators** (emerald/amber/rose for low/medium/high risk)
+- **Variance modeling** by income/bill frequency (irregular income: 25% CV, monthly: 5% CV)
+- **Timing variance** for payment date uncertainty (e.g., monthly bills ±2 days)
+- **Seeded PRNG** (mulberry32) for reproducible results
+- **Performance optimized:** ~9ms compute time for 500 simulations × 60 days
+- Addresses core user anxiety: "Will I run out of money?"
 
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
@@ -1018,6 +1032,30 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.16 (April 4, 2026)
+- **AI-Powered Probabilistic Forecasting (Monte Carlo Simulation):**
+  - New Monte Carlo simulation engine running 500 iterations per forecast
+  - Confidence bands (P10/P50/P90) displayed on forecast chart
+  - Risk metrics component showing probability of overdraft, worst-case balance
+  - Color-coded risk indicators (low/medium/high)
+  - Variance configuration by frequency type (irregular income: 25% CV, monthly: 5% CV)
+  - Timing variance for payment date uncertainty
+  - Seeded PRNG (mulberry32) for reproducibility
+  - Performance: ~9ms for 500 simulations × 60 days (target was <200ms)
+- **New Files:**
+  - `lib/calendar/monte-carlo/types.ts` - Type definitions
+  - `lib/calendar/monte-carlo/variance-config.ts` - Variance parameters
+  - `lib/calendar/monte-carlo/random.ts` - PRNG and distribution utilities
+  - `lib/calendar/monte-carlo/simulation.ts` - Core Monte Carlo engine
+  - `lib/calendar/monte-carlo/index.ts` - Public exports
+  - `components/dashboard/risk-metrics.tsx` - Risk metrics display
+- **Modified Files:**
+  - `lib/calendar/types.ts` - Added monteCarlo field to CalendarData
+  - `app/dashboard/page.tsx` - Integrated Monte Carlo after generateCalendar()
+  - `components/charts/forecast-balance-chart.tsx` - Added confidence band Areas
+  - `components/dashboard/dashboard-content.tsx` - Integrated RiskMetrics component
+- **Bug Fix:** Fixed timing shift causing transactions to disappear instead of moving to target days
 
 ### Version 6.15 (February 11, 2026)
 - **Landing Page Repositioning (Sacred Seven PM Framework Review):**
@@ -1670,7 +1708,7 @@ Canada represents a strategic expansion opportunity due to:
 
 ---
 
-**Document Version:** 6.15
-**Last Updated:** February 11, 2026
-**Status:** Live - Landing Page Repositioning (Sacred Seven PM Review)
-**Next Review:** March 2026
+**Document Version:** 6.16
+**Last Updated:** April 4, 2026
+**Status:** Live - AI-Powered Probabilistic Forecasting
+**Next Review:** May 2026

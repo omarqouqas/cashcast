@@ -3,6 +3,7 @@
  */
 
 import type { CollisionSummary } from './detect-collisions';
+import type { MonteCarloResult } from './monte-carlo/types';
 
 /**
  * Represents a transaction (income or bill) in the calendar.
@@ -101,5 +102,8 @@ export interface CalendarData {
 
   /** Bill collision data (multiple bills due on the same day) */
   collisions: CollisionSummary;
+
+  /** Optional Monte Carlo probabilistic forecast data */
+  monteCarlo?: MonteCarloResult;
 }
 

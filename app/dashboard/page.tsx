@@ -1,6 +1,7 @@
 import { requireAuth } from '@/lib/auth/session';
 import { createClient } from '@/lib/supabase/server';
 import generateCalendar from '@/lib/calendar/generate';
+import { runMonteCarloSimulation } from '@/lib/calendar/monte-carlo';
 import { getInvoiceSummary } from '@/lib/actions/invoices';
 import { getForecastDaysLimit, getUserSubscription } from '@/lib/stripe/subscription';
 import { getQuarterForDate } from '@/lib/tax/calculations';
@@ -117,6 +118,16 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   if (accounts.length > 0) {
     try {
       calendarData = generateCalendar(accounts, incomes, bills, safetyBuffer, timezone ?? undefined, forecastDays, transfers);
+
+      // Run Monte Carlo simulation for probabilistic forecasting
+      if (calendarData) {
+        const monteCarloResult = runMonteCarloSimulation(calendarData, {
+          safetyBuffer,
+          simulationCount: 500,
+          forecastDays,
+        });
+        calendarData.monteCarlo = monteCarloResult;
+      }
     } catch (error) {
       console.error('Error generating calendar:', error);
       calendarError = 'We couldn\'t generate your forecast. Please try refreshing the page.';
@@ -255,6 +266,16 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     lowestBalance: calendarData.lowestBalance,
     lowestBalanceDay: calendarData.lowestBalanceDay.toISOString(),
     safeToSpend: calendarData.safeToSpend,
+    // Monte Carlo probabilistic data
+    monteCarlo: calendarData.monteCarlo ? {
+      days: calendarData.monteCarlo.days.map(day => ({
+        ...day,
+        date: day.date.toISOString(),
+      })),
+      riskMetrics: calendarData.monteCarlo.riskMetrics,
+      simulationCount: calendarData.monteCarlo.simulationCount,
+      computeTimeMs: calendarData.monteCarlo.computeTimeMs,
+    } : null,
   } : null;
 
   return (
@@ -270,6 +291,13 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           transfers: day.transfers.map(t => ({ ...t, date: new Date(t.date) })),
         })),
         lowestBalanceDay: new Date(serializedCalendarData.lowestBalanceDay),
+        monteCarlo: serializedCalendarData.monteCarlo ? {
+          ...serializedCalendarData.monteCarlo,
+          days: serializedCalendarData.monteCarlo.days.map(day => ({
+            ...day,
+            date: new Date(day.date),
+          })),
+        } : undefined,
       } : null}
       monthlyIncome={monthlyIncome}
       monthlyBills={monthlyBills}

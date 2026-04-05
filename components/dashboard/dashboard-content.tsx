@@ -21,11 +21,13 @@ import { ScenarioButton } from '@/components/scenarios/scenario-button';
 import { TaxSavingsWidget } from '@/components/dashboard/tax-savings-widget';
 import { EmergencyFundWidget } from '@/components/dashboard/emergency-fund-widget';
 import { CreditCardsSection } from '@/components/dashboard/credit-cards-section';
+import { RiskMetrics } from '@/components/dashboard/risk-metrics';
 import {
   DashboardFilterBar,
   useDashboardFilters,
 } from './dashboard-filters';
 import type { CalendarDay } from '@/lib/calendar/types';
+import type { MonteCarloResult } from '@/lib/calendar/monte-carlo/types';
 import { trackDashboardViewed } from '@/lib/posthog/events';
 import { LifetimeDealBanner } from '@/components/subscription/lifetime-deal-banner';
 import type { SubscriptionTier } from '@/lib/stripe/config';
@@ -63,6 +65,7 @@ interface CalendarData {
   lowestBalance: number;
   lowestBalanceDay: Date;
   safeToSpend: number;
+  monteCarlo?: MonteCarloResult;
 }
 
 interface DashboardContentProps {
@@ -691,6 +694,18 @@ export function DashboardContent({
                     days={filteredCalendarDays}
                     currency={currency}
                     lowestBalanceDay={forecastMetrics.lowestBalanceDay}
+                    safetyBuffer={safetyBuffer}
+                    probabilisticDays={calendarData?.monteCarlo?.days}
+                  />
+                </div>
+              )}
+
+              {/* Risk Metrics from Monte Carlo simulation */}
+              {calendarData?.monteCarlo?.riskMetrics && (
+                <div className="py-3 border-t border-zinc-700/50">
+                  <RiskMetrics
+                    riskMetrics={calendarData.monteCarlo.riskMetrics}
+                    currency={currency}
                     safetyBuffer={safetyBuffer}
                   />
                 </div>

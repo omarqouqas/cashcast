@@ -14,12 +14,14 @@ import {
 import { format } from 'date-fns'
 import { formatCurrency, getCurrencySymbol } from '@/lib/utils/format'
 import type { CalendarDay } from '@/lib/calendar/types'
+import type { ProbabilisticDay } from '@/lib/calendar/monte-carlo/types'
 
 interface ForecastBalanceChartProps {
   days: CalendarDay[]
   currency: string
   lowestBalanceDay: Date
   safetyBuffer: number
+  probabilisticDays?: ProbabilisticDay[]
 }
 
 interface ChartDataPoint {
@@ -27,6 +29,8 @@ interface ChartDataPoint {
   dateLabel: string
   balance: number
   isLowest: boolean
+  p10?: number
+  p90?: number
 }
 
 // Custom tooltip component (defined outside to prevent recreation)
@@ -64,6 +68,7 @@ export function ForecastBalanceChart({
   currency,
   lowestBalanceDay,
   safetyBuffer,
+  probabilisticDays,
 }: ForecastBalanceChartProps) {
   const currencySymbol = getCurrencySymbol(currency)
   // Unique ID for gradient to prevent conflicts if multiple charts render
@@ -81,6 +86,17 @@ export function ForecastBalanceChart({
       (day) => format(day.date, 'yyyy-MM-dd') === lowestDayFormatted
     )
 
+    // Helper to get probabilistic data for a day index
+    const getProbabilisticData = (index: number) => {
+      if (!probabilisticDays || !probabilisticDays[index]) {
+        return { p10: undefined, p90: undefined }
+      }
+      return {
+        p10: probabilisticDays[index].p10,
+        p90: probabilisticDays[index].p90,
+      }
+    }
+
     const data: ChartDataPoint[] = []
     const addedIndices = new Set<number>()
 
@@ -89,11 +105,14 @@ export function ForecastBalanceChart({
       if (!day) continue
 
       addedIndices.add(i)
+      const probData = getProbabilisticData(i)
       data.push({
         date: day.date,
         dateLabel: format(day.date, 'MMM d'),
         balance: day.balance,
         isLowest: i === lowestDayIndex,
+        p10: probData.p10,
+        p90: probData.p90,
       })
     }
 
@@ -103,11 +122,14 @@ export function ForecastBalanceChart({
       if (lowestDay) {
         // Find the right position to insert (keep chronological order)
         const insertIndex = data.findIndex((d) => d.date > lowestDay.date)
+        const probData = getProbabilisticData(lowestDayIndex)
         const lowestPoint: ChartDataPoint = {
           date: lowestDay.date,
           dateLabel: format(lowestDay.date, 'MMM d'),
           balance: lowestDay.balance,
           isLowest: true,
+          p10: probData.p10,
+          p90: probData.p90,
         }
         if (insertIndex === -1) {
           data.push(lowestPoint)
@@ -123,16 +145,19 @@ export function ForecastBalanceChart({
     const lastIndex = days.length - 1
     const lastDay = days[lastIndex]
     if (lastDay && !addedIndices.has(lastIndex)) {
+      const probData = getProbabilisticData(lastIndex)
       data.push({
         date: lastDay.date,
         dateLabel: format(lastDay.date, 'MMM d'),
         balance: lastDay.balance,
         isLowest: lastIndex === lowestDayIndex,
+        p10: probData.p10,
+        p90: probData.p90,
       })
     }
 
     return data
-  }, [days, lowestBalanceDay])
+  }, [days, lowestBalanceDay, probabilisticDays])
 
   // Find the lowest point for the reference dot
   const lowestPoint = useMemo(() => {
@@ -143,12 +168,20 @@ export function ForecastBalanceChart({
       d.balance < min.balance ? d : min, chartData[0]!)
   }, [chartData])
 
-  // Calculate Y-axis domain
+  // Calculate Y-axis domain (include p10/p90 if available)
   const yDomain = useMemo((): [number, number] => {
     if (chartData.length === 0) return [0, 1000]
-    const balances = chartData.map(d => d.balance)
-    const min = Math.min(...balances)
-    const max = Math.max(...balances)
+
+    // Collect all values including probabilistic bounds
+    const allValues: number[] = []
+    for (const d of chartData) {
+      allValues.push(d.balance)
+      if (d.p10 !== undefined) allValues.push(d.p10)
+      if (d.p90 !== undefined) allValues.push(d.p90)
+    }
+
+    const min = Math.min(...allValues)
+    const max = Math.max(...allValues)
     const padding = (max - min) * 0.1 || 100
     return [
       Math.floor((min - padding) / 100) * 100,
@@ -207,6 +240,11 @@ export function ForecastBalanceChart({
                 stopOpacity={0}
               />
             </linearGradient>
+            {/* Gradient for confidence band */}
+            <linearGradient id={`confidenceGradient-${gradientId}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#14b8a6" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="#14b8a6" stopOpacity={0.15} />
+            </linearGradient>
           </defs>
 
           <XAxis
@@ -253,6 +291,28 @@ export function ForecastBalanceChart({
               strokeDasharray="3 3"
               strokeOpacity={0.4}
             />
+          )}
+
+          {/* Confidence band (P10-P90) - render only if probabilistic data exists */}
+          {probabilisticDays && probabilisticDays.length > 0 && (
+            <>
+              {/* Upper bound (P90) - optimistic scenario */}
+              <Area
+                type="monotone"
+                dataKey="p90"
+                stroke="none"
+                fill={`url(#confidenceGradient-${gradientId})`}
+                fillOpacity={1}
+              />
+              {/* Lower bound (P10) - pessimistic scenario, cuts out the band */}
+              <Area
+                type="monotone"
+                dataKey="p10"
+                stroke="none"
+                fill="#18181b"
+                fillOpacity={1}
+              />
+            </>
           )}
 
           <Area
