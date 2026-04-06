@@ -22,6 +22,26 @@ const faqs: FAQItem[] = [
     answer: "Cashcast uses a simple but powerful algorithm. You enter your current account balance, recurring income (with frequencies like weekly, bi-weekly, or monthly), and recurring bills with their due dates. The app then projects your balance day-by-day—up to 90 days on Free, or a full 365 days on Pro—showing you exactly when money comes in and goes out. It's like having a financial crystal ball that answers 'Will I have enough on the 15th?' with precision."
   },
   {
+    question: "What is Ask Cashcast?",
+    answer: "Ask Cashcast is our AI-powered natural language interface. Instead of navigating charts and numbers, just type a question like 'Can I afford a $2,000 laptop next week?' or 'When is my next low balance day?' and get an instant, personalized answer based on your actual bills, income, and projected balances. It understands context—ask follow-up questions like 'What if I wait until after rent?' and it adjusts. Free users get 5 queries per day; Pro users have unlimited access."
+  },
+  {
+    question: "What can I ask Cashcast?",
+    answer: "You can ask about affordability ('Can I afford X on this date?'), timing ('When is the best day to make a large purchase?'), risk ('Will I overdraft this month?'), income patterns ('How stable is my income?'), taxes ('How much should I set aside for quarterly taxes?'), and forecasts ('What's my lowest balance in the next 30 days?'). The AI has full context of your accounts, bills, income, and cash flow history, so it gives answers specific to your financial situation."
+  },
+  {
+    question: "What are confidence bands?",
+    answer: "Confidence bands show the range of possible outcomes for your future balance, calculated using Monte Carlo simulation—the same technique banks use for financial modeling. We run 500 simulations with realistic variations (payments arriving early/late, amounts fluctuating slightly) to show P10/P50/P90 bands: the pessimistic case (P10), most likely outcome (P50), and optimistic case (P90). This answers 'How confident can I be in this forecast?' and helps you plan for uncertainty rather than pretending your forecast is perfect."
+  },
+  {
+    question: "How does auto-categorization work?",
+    answer: "When you import bank transactions (CSV or Excel), Cashcast automatically categorizes them using a two-step process. First, our rule engine matches 50+ common merchant patterns (Netflix → Subscriptions, Uber → Transportation, Whole Foods → Groceries). For unrecognized merchants, AI analyzes the description and suggests a category. You'll see confidence badges ('Auto', 'Likely', or 'Guess') and can override any suggestion before importing. Free users get AI categorization for up to 10 transactions per import; Pro users get 50."
+  },
+  {
+    question: "Is my financial data used to train AI?",
+    answer: "No. Your financial data is never used to train AI models. When you use Ask Cashcast or AI categorization, your data is sent to Claude (Anthropic's AI) for real-time processing only—it's not stored, logged, or used for training. We chose Anthropic specifically because of their strong privacy commitments. Your forecast data stays in your account, protected by row-level security, and is never shared with third parties."
+  },
+  {
     question: "What's included in the weekly email digest?",
     answer: "Every week, you'll receive an email summarizing your upcoming cash flow: total income expected, bills due, your lowest balance day, and any alerts like bill collisions or overdraft risks. You can customize which day and time you receive it in your settings."
   },
@@ -39,7 +59,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What's the difference between Free and Pro?",
-    answer: "The Free plan gives you the core experience: up to 10 bills, 10 income sources, 90-day forecast, CSV & Excel import, and CSV export. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), adds full Reports & Export with Excel and JSON formats (Monthly Summary, Category Spending, Cash Forecast reports), credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
+    answer: "The Free plan gives you the core experience: up to 10 bills, 10 income sources, 90-day forecast, AI risk analysis with confidence bands, 5 Ask Cashcast queries per day, auto-categorization for 10 transactions per import, CSV & Excel import, and CSV export. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), gives you unlimited Ask Cashcast queries, increases auto-categorization to 50 transactions per import, adds full Reports & Export with Excel and JSON formats, credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
   },
   {
     question: "Do you offer a lifetime deal?",

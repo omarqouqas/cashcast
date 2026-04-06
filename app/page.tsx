@@ -10,6 +10,8 @@ import HeroDashboard from '@/components/landing/hero-dashboard';
 import {
   BadgeDollarSign,
   Bell,
+  Bot,
+  Brain,
   Calendar,
   CheckCircle2,
   Code2,
@@ -20,10 +22,12 @@ import {
   Lock,
   Mail,
   Megaphone,
+  MessageSquareText,
   Palette,
   PiggyBank,
   Shield,
   Sparkles,
+  Tags,
   TrendingDown,
   Wallet,
 } from 'lucide-react';
@@ -172,7 +176,7 @@ const howToSchema = {
       '@type': 'HowToStep',
       position: 3,
       name: 'See Your Future',
-      text: 'Get up to a 365-day projection with interactive charts and filters showing your daily balance.',
+      text: 'Get up to a 365-day projection with AI-powered confidence bands showing your risk of running low.',
     },
     {
       '@type': 'HowToStep',
@@ -266,6 +270,10 @@ export default async function Home({ searchParams }: HomeProps) {
                 <FileText className="h-4 w-4" />
                 <span>Invoice → Forecast sync</span>
               </div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-violet-500/10 border border-violet-500/20 px-4 py-2 text-sm text-violet-300">
+                <Brain className="h-4 w-4" />
+                <span>AI-powered insights</span>
+              </div>
             </div>
 
             <h1 className="mt-6 text-4xl md:text-5xl font-bold text-white tracking-tight">
@@ -275,6 +283,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <p className="mt-5 text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
               See your real bank balance <span className="text-teal-300 font-semibold">90 days out</span> — no bank connection required.
               One number tells you what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today without overdrafting later.
+              Ask questions in plain English. <span className="text-violet-300 font-semibold">AI answers instantly.</span>
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
@@ -417,7 +426,7 @@ export default async function Home({ searchParams }: HomeProps) {
                   </div>
                 </div>
                 <h3 className="mt-4 font-semibold text-white">See Your Future</h3>
-                <p className="mt-2 text-zinc-400">Get up to a 365-day projection with interactive charts and filters.</p>
+                <p className="mt-2 text-zinc-400">Get up to a 365-day projection with AI-powered confidence bands showing your risk of running low.</p>
               </div>
 
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6">
@@ -813,6 +822,112 @@ export default async function Home({ searchParams }: HomeProps) {
                       <p className="mt-3 text-xs text-zinc-400">
                         3.2 months of runway at current spending
                       </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI-Powered Features Row */}
+                <div className="mt-10">
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-violet-500/10 border border-violet-500/20 px-4 py-2 text-sm text-violet-300 mb-4">
+                      <Brain className="h-4 w-4" />
+                      <span>AI-Powered</span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-white tracking-tight">Intelligent insights, zero guesswork</h3>
+                    <p className="mt-2 text-zinc-400 max-w-2xl mx-auto">
+                      Ask questions in plain English, see your risk of overdraft, and auto-categorize imports—all powered by AI.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Ask Cashcast */}
+                    <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-zinc-900/50 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="h-10 w-10 rounded-lg bg-violet-500/10 ring-1 ring-violet-500/25 flex items-center justify-center">
+                          <MessageSquareText className="h-5 w-5 text-violet-300" />
+                        </div>
+                        <span className="text-xs text-violet-300 bg-violet-500/10 border border-violet-500/20 rounded-full px-3 py-1">
+                          Ask Cashcast
+                        </span>
+                      </div>
+                      <h4 className="mt-4 font-semibold text-white">Ask in Plain English</h4>
+                      <p className="mt-2 text-zinc-400">
+                        &quot;Can I afford a $2,000 laptop next Friday?&quot; Get instant, personalized answers based on your actual cash flow.
+                      </p>
+                      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>Understands your bills, income, and balance</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>Suggests best timing for purchases</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>5 free queries/day, unlimited on Pro</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Monte Carlo Forecasting */}
+                    <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-zinc-900/50 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="h-10 w-10 rounded-lg bg-violet-500/10 ring-1 ring-violet-500/25 flex items-center justify-center">
+                          <Bot className="h-5 w-5 text-violet-300" />
+                        </div>
+                        <span className="text-xs text-violet-300 bg-violet-500/10 border border-violet-500/20 rounded-full px-3 py-1">
+                          Risk Analysis
+                        </span>
+                      </div>
+                      <h4 className="mt-4 font-semibold text-white">Know Your Risk</h4>
+                      <p className="mt-2 text-zinc-400">
+                        Monte Carlo simulation runs 500 scenarios to show your probability of running low—before it happens.
+                      </p>
+                      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>P10/P50/P90 confidence bands on chart</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>Overdraft probability percentage</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>Worst-case balance and days at risk</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Smart Categorization */}
+                    <div className="rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-zinc-900/50 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="h-10 w-10 rounded-lg bg-violet-500/10 ring-1 ring-violet-500/25 flex items-center justify-center">
+                          <Tags className="h-5 w-5 text-violet-300" />
+                        </div>
+                        <span className="text-xs text-violet-300 bg-violet-500/10 border border-violet-500/20 rounded-full px-3 py-1">
+                          Smart Import
+                        </span>
+                      </div>
+                      <h4 className="mt-4 font-semibold text-white">Auto-Categorize Imports</h4>
+                      <p className="mt-2 text-zinc-400">
+                        Upload your bank CSV and transactions are auto-sorted. Netflix → Subscriptions. Uber → Transportation. Done.
+                      </p>
+                      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>50+ merchant patterns recognized</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>AI fallback for unrecognized merchants</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
+                          <span>Review and override before saving</span>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>

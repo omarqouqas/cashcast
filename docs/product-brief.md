@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.19
+**Version:** 6.20
 **Last Updated:** April 6, 2026
-**Status:** Live - Branding Refresh
+**Status:** Live - AI Features Showcased on Landing Page
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -177,8 +177,8 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 
 **Hero:**
 - **Headline:** "Stop guessing if you can afford it."
-- **Subhead:** "See your real bank balance 90 days out — no bank connection required. One number tells you what's safe to spend today without overdrafting later."
-- **Badge:** "Built for freelancers with irregular income"
+- **Subhead:** "See your real bank balance 90 days out — no bank connection required. One number tells you what's safe to spend today without overdrafting later. Ask questions in plain English. AI answers instantly."
+- **Badges:** "Built for designers, developers & consultants" | "Invoice → Forecast sync" | "AI-powered insights"
 - **Social Proof:** "Join 50+ freelancers testing the beta"
 
 **Trust Signal:**
@@ -1069,6 +1069,18 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.20 (April 6, 2026)
+- **Landing Page AI Feature Coverage:**
+  - Hero: Added "AI-powered insights" badge and "Ask questions in plain English. AI answers instantly." tagline
+  - How it Works: Step 3 mentions AI-powered confidence bands
+  - Features: New "AI-Powered Features" section with 3 cards (Ask Cashcast, Know Your Risk, Auto-Categorize)
+  - Pricing: Both tiers now list AI features (queries/day, categorizations/import)
+  - FAQs: 5 new AI-related questions (Ask Cashcast, confidence bands, auto-categorization, data privacy)
+- **Files Modified:**
+  - `app/page.tsx` - Hero badges, How it Works, Features section with AI cards
+  - `components/pricing/pricing-section.tsx` - AI features in tier lists
+  - `components/landing/faq-section.tsx` - 5 new AI FAQs + updated Free vs Pro FAQ
 
 ### Version 6.19 (April 6, 2026)
 - **Branding Refresh:**

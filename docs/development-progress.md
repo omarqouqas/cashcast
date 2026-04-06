@@ -98,6 +98,51 @@
 - `public/manifest.json` - PWA icons (192x192, 512x512) with maskable purpose
 
 **Removed:**
+- `public/Old-logo.png`
+- `public/cashcast-lockup-dark.png`
+- `public/cashcast-logo-horizontal.svg`
+- `public/icon-512x512-optimized.png`
+
+---
+
+### Day 63: Landing Page AI Feature Coverage (April 6, 2026)
+
+**Updated landing page to showcase all three AI features:** Monte Carlo forecasting, Ask Cashcast, and Smart Categorization.
+
+**Hero Section:**
+- Added "AI-powered insights" badge with violet styling
+- Added new tagline: "Ask questions in plain English. AI answers instantly."
+
+**How it Works Section:**
+- Step 3 updated: "AI-powered confidence bands showing your risk of running low"
+- Updated HowTo schema for SEO consistency
+
+**Features Section:**
+- New "AI-Powered Features" row with violet color scheme
+- **Ask Cashcast** card: Natural language queries, 5 free/day, unlimited Pro
+- **Know Your Risk** card: Monte Carlo P10/P50/P90 bands, overdraft probability
+- **Auto-Categorize Imports** card: 50+ patterns, AI fallback, confidence badges
+
+**Pricing Section:**
+- Free tier: Added AI risk analysis, 5 AI queries/day, 10 auto-categorizations/import
+- Pro tier: Added unlimited AI queries, 50 auto-categorizations/import
+
+**FAQ Section (5 new items):**
+- "What is Ask Cashcast?"
+- "What can I ask Cashcast?"
+- "What are confidence bands?"
+- "How does auto-categorization work?"
+- "Is my financial data used to train AI?"
+- Updated "Free vs Pro" FAQ with AI feature differences
+
+**Files Modified:**
+- `app/page.tsx` - Hero, How it Works, Features sections
+- `components/pricing/pricing-section.tsx` - Tier feature lists
+- `components/landing/faq-section.tsx` - 5 new AI FAQs
+
+---
+
+### Day 63: Earlier Updates (April 6, 2026)
 - `public/logo.png` - Old square logo
 - `public/Old-logo.png`, `public/cashcast-lockup-dark.png` - Deprecated assets
 
