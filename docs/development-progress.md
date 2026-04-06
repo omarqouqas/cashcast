@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 6, 2026 (Day 62)
+**Last Updated:** April 6, 2026 (Day 63)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 62
+- **Days in Development:** 63
 - **Commits:** 406+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + **AI Natural Language Queries ("Ask Cashcast")**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + **Smart Categorization for Imports**
 
 **Current Focus:**
 
@@ -28,7 +28,56 @@
 
 ---
 
-## Recent Development (Days 40-62)
+## Recent Development (Days 40-63)
+
+### Day 63: Smart Categorization for Imports (April 6, 2026)
+
+**Major Feature: Smart Categorization** - Auto-categorize imported bank transactions using a hybrid rule-based + AI approach.
+
+**User Value:**
+- Netflix, Spotify automatically categorized as "Subscriptions"
+- Comcast, T-Mobile automatically categorized as "Utilities"
+- GEICO, State Farm automatically categorized as "Insurance"
+- Unknown merchants categorized by AI with confidence indicators
+- Users can override any suggestion before importing
+
+**Technical Implementation:**
+
+| Component | Description |
+|-----------|-------------|
+| **Rule Engine** | ~50 merchant patterns, priority-based matching |
+| **AI Fallback** | Claude Sonnet for unrecognized transactions |
+| **Tier Limits** | Free: 10, Pro/Premium/Lifetime: 50 AI categorizations |
+| **Confidence Badges** | Auto (rule), Likely (AI medium), Guess (AI low) |
+
+**Category Patterns:**
+
+| Category | Example Merchants |
+|----------|-------------------|
+| Subscriptions | Netflix, Spotify, Adobe, Disney+, HBO Max |
+| Utilities | Comcast, T-Mobile, Verizon, PG&E, Duke Energy |
+| Insurance | GEICO, State Farm, Blue Cross, Aetna |
+| Rent/Mortgage | Rocket Mortgage, Greystar, Zillow Rent |
+| Transportation | Uber, Lyft, Shell, Exxon, EZPASS |
+
+**New Files:**
+- `lib/categorization/types.ts` - Type definitions (CategorySuggestion, CategorizationRule, etc.)
+- `lib/categorization/rules.ts` - ~50 merchant patterns organized by category
+- `lib/categorization/rule-engine.ts` - Pattern matching with priority ordering
+- `lib/categorization/ai-categorize.ts` - Claude API integration with batch processing
+- `lib/categorization/index.ts` - Exports and orchestration (categorizeTransactions, mergeSuggestions)
+- `app/api/categorize/route.ts` - API endpoint with auth, validation, tier limits
+
+**Modified Files:**
+- `components/import/import-page-client.tsx` - Added categorization useEffect, AI loading state
+- `components/import/transaction-selector.tsx` - Added Category column with confidence badges
+
+**Bug Fixes (during implementation):**
+- Rules now use proper category names instead of hardcoded "Other"
+- AI categorization processes first N transactions when over limit (was skipping entirely)
+- API validates transaction structure to prevent malformed prompts
+
+---
 
 ### Day 62: AI Natural Language Queries (April 6, 2026)
 

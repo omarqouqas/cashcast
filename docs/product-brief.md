@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.17
+**Version:** 6.18
 **Last Updated:** April 6, 2026
-**Status:** Live - AI Natural Language Queries
+**Status:** Live - Smart Categorization
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -485,6 +485,22 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
   - Pro/Premium/Lifetime: Unlimited queries
 - **Upgrade prompt** when free tier limit reached
 - Marketing angle: "Talk to your finances"
+
+**22. Smart Categorization ✅**
+- **Hybrid approach:** Rule-based engine (instant, free) + Claude API fallback
+- **Rule engine:** ~50 merchant patterns for common services
+  - NETFLIX, SPOTIFY, HULU → Subscriptions
+  - COMCAST, XFINITY, T-MOBILE → Utilities
+  - GEICO, STATE FARM, BLUE CROSS → Insurance
+  - UBER, LYFT, SHELL, EXXON → Transportation
+- **AI fallback:** Claude categorizes unrecognized transactions
+- **Tier-based limits:** Free (10), Pro/Premium/Lifetime (50) AI categorizations
+- **UI integration:** Category column in import table with confidence badges
+  - "Auto" (emerald) - High confidence rule match
+  - "Likely" (amber) - Medium confidence AI suggestion
+  - "Guess" (zinc) - Low confidence AI suggestion
+- **User control:** Override any suggestion before import
+- Marketing angle: "Import smarter, not harder"
 
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
@@ -1053,6 +1069,28 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.18 (April 6, 2026)
+- **Smart Categorization for Imports:**
+  - Hybrid categorization: rule-based engine + Claude API fallback
+  - Rule engine with ~50 merchant patterns (Subscriptions, Utilities, Insurance, Transportation, etc.)
+  - AI fallback for unrecognized transactions (tier-based: Free 10, Pro 50)
+  - Category column in transaction selector with confidence badges
+  - User can override suggestions before import
+- **New Files:**
+  - `lib/categorization/types.ts` - Type definitions
+  - `lib/categorization/rules.ts` - ~50 merchant patterns
+  - `lib/categorization/rule-engine.ts` - Pattern matching logic
+  - `lib/categorization/ai-categorize.ts` - Claude API integration
+  - `lib/categorization/index.ts` - Exports and orchestration
+  - `app/api/categorize/route.ts` - API endpoint with auth, validation, tier limits
+- **Modified Files:**
+  - `components/import/import-page-client.tsx` - Categorization integration
+  - `components/import/transaction-selector.tsx` - Category column + badges
+- **Bug Fixes:**
+  - Rules now use proper category names (Transportation, Food & Dining) instead of hardcoded "Other"
+  - AI categorization processes first N transactions when over limit (was skipping entirely)
+  - API validates transaction structure to prevent malformed prompts
 
 ### Version 6.17 (April 6, 2026)
 - **AI Natural Language Queries ("Ask Cashcast"):**

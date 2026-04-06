@@ -52,50 +52,67 @@ We chose **Option A: Monte Carlo Simulation** and implemented it with the follow
 
 ---
 
-## 2. Smart Categorization (LLM-Based)
+## 2. Smart Categorization ✅ COMPLETED (April 6, 2026)
 
 **Use case:** Auto-categorize imported bank transactions
 
-### Current State
-- CSV import exists: upload bank export → map columns → select transactions
-- Bills have a `category` field (string, user-defined)
-- No automatic categorization of imported transactions
+### Implementation: Hybrid Rule-Based + LLM Fallback
 
-### Proposed Enhancement
-Use LLM to automatically categorize transactions based on description:
-- "AMZN MKTP US*123ABC" → Shopping / Subscriptions
-- "SPOTIFY USA" → Entertainment / Subscriptions
-- "SHELL OIL 12345" → Transportation / Gas
+We chose **Option C: Rule-Based + LLM Fallback** for the best balance of cost, speed, and accuracy.
 
-### Implementation Approaches
-
-**Option A: OpenAI/Claude API**
-- Send transaction descriptions in batches
-- Prompt: "Categorize these transactions into: Utilities, Subscriptions, Food, Transportation, etc."
-- Pros: High accuracy, handles edge cases
-- Cons: API costs, latency, privacy considerations
-
-**Option B: Local Classification Model**
-- Use a small transformer model (e.g., DistilBERT fine-tuned on transaction data)
-- Run in browser via ONNX or TensorFlow.js
-- Pros: No API costs, faster, privacy-preserving
-- Cons: Less accurate, larger bundle size
-
-**Option C: Rule-Based + LLM Fallback**
-- Maintain regex/keyword rules for common merchants (Netflix, Amazon, Uber)
-- Use LLM only for unrecognized transactions
-- Pros: Cost-effective, fast for common cases
-- Cons: Rules need maintenance
-
-### Data Flow
+**Architecture:**
 ```
-CSV Upload → Parse Transactions → Auto-Categorize → User Review → Save as Bills/Income
+CSV Upload → Parse → Normalize → Categorize → Review → Save
+                                     ↓
+                        ┌────────────┴────────────┐
+                        ↓                         ↓
+                  Rule Engine               Claude API
+                  (instant, free)         (batch fallback)
+                        ↓                         ↓
+                        └────────────┬────────────┘
+                                     ↓
+                          Category Suggestions
+                                     ↓
+                        Transaction Selector UI
+                          (user can override)
 ```
 
-### Priority: High (revised)
-- Import feature already exists — this is the natural next step
-- Reduces friction in onboarding flow
-- Users importing bank data expect smart parsing
+**Rule Engine:**
+- ~50 merchant patterns for common services
+- Pattern categories: Subscriptions, Utilities, Insurance, Rent/Mortgage, Transportation, Food & Dining, Shopping
+- Examples: NETFLIX → Subscriptions, COMCAST → Utilities, GEICO → Insurance
+- Priority-based matching (higher priority rules checked first)
+- Case-insensitive keyword matching
+
+**AI Fallback:**
+- Claude Sonnet for unrecognized transactions
+- Batched API calls for efficiency
+- Tier-based limits: Free (10), Pro/Premium/Lifetime (50)
+- Graceful degradation if AI fails
+
+**UI Integration:**
+- Category column in transaction selector table
+- Confidence badges: "Auto" (high), "Likely" (medium), "Guess" (low)
+- Color-coded: emerald (rule), amber (AI medium), zinc (AI low)
+- User can override any suggestion before import
+
+**Files Created:**
+- `lib/categorization/types.ts` - Type definitions
+- `lib/categorization/rules.ts` - ~50 merchant patterns
+- `lib/categorization/rule-engine.ts` - Pattern matching logic
+- `lib/categorization/ai-categorize.ts` - Claude API integration
+- `lib/categorization/index.ts` - Exports and orchestration
+- `app/api/categorize/route.ts` - API endpoint for AI categorization
+
+**Files Modified:**
+- `components/import/import-page-client.tsx` - Categorization integration
+- `components/import/transaction-selector.tsx` - Category column + badges
+
+### Why This Approach
+- Rule engine handles 60-80% of transactions instantly (free)
+- AI fallback provides high accuracy for edge cases
+- Tier-based limits control API costs
+- Users can always override suggestions
 
 ---
 
@@ -235,13 +252,13 @@ payment of $3,500 is expected.
 |---------|--------|--------|--------------|--------|
 | Probabilistic Forecasting | High | Medium | None | ✅ COMPLETED |
 | Natural Language Queries | High | Medium | None | ✅ COMPLETED |
-| Smart Categorization | High | Low-Med | Import feature (exists) | Next |
+| Smart Categorization | High | Low-Med | Import feature (exists) | ✅ COMPLETED |
 
 ### Recommended Sequence
 
 1. ~~**Probabilistic Forecasting**~~ — ✅ Completed April 4, 2026
 2. ~~**Natural Language Queries**~~ — ✅ Completed April 6, 2026
-3. **Smart Categorization** — Enhances existing import flow
+3. ~~**Smart Categorization**~~ — ✅ Completed April 6, 2026
 
 ---
 
