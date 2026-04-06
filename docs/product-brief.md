@@ -4,7 +4,7 @@
 **Last Updated:** April 4, 2026
 **Status:** Live - AI-Powered Probabilistic Forecasting
 **Product URL:** https://cashcast.money
-**Repository:** https://github.com/omarqouqas/cashflowforecaster
+**Repository:** https://github.com/omarqouqas/cashcast
 
 ---
 
@@ -14,7 +14,7 @@
 
 **Domains:** 
 - Primary: cashcast.money
-- Redirect: cashflowforecaster.app
+- Legacy redirect: cashflowforecaster.io → cashcast.money
 
 **One-Liner:** "Stop guessing if you can cover rent."
 
@@ -1027,7 +1027,7 @@ Canada represents a strategic expansion opportunity due to:
 **Product:** Cashcast  
 **Website:** https://cashcast.money  
 **Email:** support@cashcast.money  
-**Repository:** https://github.com/omarqouqas/cashflowforecaster
+**Repository:** https://github.com/omarqouqas/cashcast
 
 ---
 

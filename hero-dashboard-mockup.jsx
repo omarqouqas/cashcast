@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// Refined Hero Dashboard for Cash Flow Forecaster Landing Page
+// Refined Hero Dashboard for Cashcast Landing Page
 // Design Direction: Premium fintech with bold focal points and breathing room
 
 export default function HeroDashboardMockup() {

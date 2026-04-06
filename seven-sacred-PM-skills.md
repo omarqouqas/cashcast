@@ -1,8 +1,8 @@
-# Cash Flow Forecaster: Strategic Review
+# Cashcast: Strategic Review
 ## Based on "Product Management's Sacred Seven" Framework
 
 **Date:** February 2026
-**Product:** Cash Flow Forecaster (cashflowforecaster.io)
+**Product:** Cashcast (cashcast.money)
 **Framework Source:** "Product Management's Sacred Seven" by Parth Detroja, Neel Mehta, Aditya Agashe
 
 ---
@@ -199,7 +199,7 @@ The freelancer who can't cover rent doesn't have 3 credit cards they're strategi
 - Comparison pages against YNAB, Mint
 
 **Weaknesses:**
-- **Domain/Brand:** "cashflowforecaster.io" is 22 characters, generic, forgettable, hard to say
+- **Domain/Brand:** "cashcast.money" is 22 characters, generic, forgettable, hard to say
 - **No word-of-mouth mechanism:** No referral program, no viral loops
 - **Build vs. validate ratio inverted:** 53 days building, 3 beta testers
 - **Reddit account banned** — primary launch channel unavailable
@@ -212,7 +212,7 @@ The freelancer who can't cover rent doesn't have 3 credit cards they're strategi
 | YNAB | 4 letters | Yes |
 | Mint | 4 letters | Yes |
 | Monarch | 7 letters | Yes |
-| Cash Flow Forecaster | 22 characters | No |
+| Cashcast | 22 characters | No |
 
 **Recommendations:**
 - Consider rebrand to something shorter: "Runway", "Steadypay", "Flowhawk", "SafeSpend"
@@ -256,7 +256,7 @@ Before building ANY new features, answer these questions with data:
 
 ## Core Strategic Insight
 
-> "You've built an impressive product from a technical standpoint, but you're over-indexed on building and under-indexed on validating, simplifying, and distributing. The best version of Cash Flow Forecaster is probably half the features with 10x the users."
+> "You've built an impressive product from a technical standpoint, but you're over-indexed on building and under-indexed on validating, simplifying, and distributing. The best version of Cashcast is probably half the features with 10x the users."
 
 The Invoice → Forecast sync is genuinely differentiated. But it's buried under feature creep and marketed with generic messaging. The path forward is:
 

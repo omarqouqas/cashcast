@@ -1,4 +1,4 @@
-# Cash Flow Forecaster: Implementation Plan
+# Cashcast: Implementation Plan
 ## Based on Sacred Seven PM Framework Review
 
 **Created:** February 2026

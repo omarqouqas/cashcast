@@ -25,7 +25,7 @@ const emails = [
   // NEVER STARTED
   {
     to: 'soccerrefplanet@gmail.com',
-    subject: 'Quick question about Cash Flow Forecaster',
+    subject: 'Quick question about Cashcast',
     message: `Hey,
 
 I noticed you signed up a few days ago but haven't added any accounts yet. Just wanted to check — did you run into any issues getting started?
@@ -41,7 +41,7 @@ Omar`,
   },
   {
     to: 'o.bernie@gmail.com',
-    subject: 'Still interested in Cash Flow Forecaster?',
+    subject: 'Still interested in Cashcast?',
     message: `Hey,
 
 You signed up a few weeks ago but never got started. Totally understand if life got busy or it wasn't the right fit.
@@ -93,7 +93,7 @@ Omar`,
   // COOLING OFF - Minimal setup
   {
     to: 'satwantsinghbansi90@gmail.com',
-    subject: 'Quick tip to get more from Cash Flow Forecaster',
+    subject: 'Quick tip to get more from Cashcast',
     message: `Hey,
 
 I noticed you added one bill when you signed up. The forecast gets a lot more useful once you add a few more recurring expenses (rent, subscriptions, utilities, etc.).
@@ -108,7 +108,7 @@ Omar`,
   // INACTIVE
   {
     to: 'joshaaronlevy@gmail.com',
-    subject: 'Your Cash Flow Forecaster account',
+    subject: 'Your Cashcast account',
     message: `Hey Josh,
 
 It's been a few weeks since you logged in. Just checking — is there anything I can help with, or did the app not quite fit what you needed?
@@ -174,7 +174,7 @@ function generateEmailHtml(message) {
       <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #e4e4e7;">
         <p style="margin: 0; color: #71717a; font-size: 13px;">
           Omar<br>
-          Founder, <a href="https://cashflowforecaster.io" style="color: #0d9488; text-decoration: none;">Cash Flow Forecaster</a>
+          Founder, <a href="https://cashcast.money" style="color: #0d9488; text-decoration: none;">Cashcast</a>
         </p>
       </div>
     </body>
@@ -202,11 +202,11 @@ async function sendEmails() {
       console.log(`   Subject: "${email.subject}"`);
 
       const { data, error } = await resend.emails.send({
-        from: 'Omar from Cash Flow Forecaster <notifications@cashflowforecaster.io>',
+        from: 'Omar from Cashcast <notifications@cashcast.money>',
         to: email.to,
         subject: email.subject,
         html: generateEmailHtml(email.message),
-        replyTo: 'info@cashflowforecaster.io',
+        replyTo: 'info@cashcast.money',
       });
 
       if (error) {

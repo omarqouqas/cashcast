@@ -149,7 +149,7 @@ The goal is to start conversations, not close sales. You're looking for:
 ### Bad Message Examples
 
 **Too salesy:**
-> Hi! I built Cashcast, the #1 tool for freelancers to manage their finances. Check it out at cashflowforecaster.io!
+> Hi! I built Cashcast, the #1 tool for freelancers to manage their finances. Check it out at cashcast.money!
 
 **Too generic:**
 > Hey, I see you're a freelancer. I have a tool you might like.
