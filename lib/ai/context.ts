@@ -91,9 +91,10 @@ export function buildFinancialContext(
   let safeToSpend = 0;
   let lowestBalanceAmount = spendableBalance;
   let lowestBalanceDate = new Date().toISOString().split('T')[0] ?? '';
+  let calendar: ReturnType<typeof generateCalendar> | null = null;
 
   try {
-    const calendar = generateCalendar(
+    calendar = generateCalendar(
       accounts,
       income,
       bills,
@@ -120,47 +121,52 @@ export function buildFinancialContext(
           })
           .join('\n');
 
-  // Format upcoming bills (next 30 days)
-  const today = new Date();
-  const thirtyDaysLater = new Date(today);
-  thirtyDaysLater.setDate(today.getDate() + 30);
+  // Extract upcoming bills and income from calendar data (next 30 days)
+  // The calendar correctly calculates recurring occurrences, so we use it
+  // instead of filtering raw due_date/next_date fields
+  const calendarDays30 = calendar?.days?.slice(0, 30) ?? [];
 
-  const upcomingBillsList = bills
-    .filter((b) => {
-      if (!b.due_date) return false;
-      const dueDate = new Date(b.due_date + 'T12:00:00');
-      return dueDate >= today && dueDate <= thirtyDaysLater;
-    })
-    .sort((a, b) => (a.due_date ?? '').localeCompare(b.due_date ?? ''))
+  // Collect all bill occurrences from the calendar's 30-day window
+  const upcomingBillsFromCalendar = calendarDays30
+    .flatMap((day) =>
+      (day.bills ?? []).map((b) => ({
+        name: b.name,
+        amount: b.amount,
+        date: b.date,
+      }))
+    )
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
     .slice(0, 10);
 
   const upcomingBills =
-    upcomingBillsList.length === 0
+    upcomingBillsFromCalendar.length === 0
       ? 'No bills due in the next 30 days.'
-      : upcomingBillsList
+      : upcomingBillsFromCalendar
           .map(
             (b) =>
-              `- ${b.name}: ${formatCurrency(b.amount, currency)} due ${b.due_date}`
+              `- ${b.name}: ${formatCurrency(b.amount, currency)} due ${b.date.toISOString().split('T')[0]}`
           )
           .join('\n');
 
-  // Format upcoming income (next 30 days)
-  const upcomingIncomeList = income
-    .filter((i) => {
-      if (!i.next_date) return false;
-      const nextDate = new Date(i.next_date + 'T12:00:00');
-      return nextDate >= today && nextDate <= thirtyDaysLater;
-    })
-    .sort((a, b) => (a.next_date ?? '').localeCompare(b.next_date ?? ''))
+  // Collect all income occurrences from the calendar's 30-day window
+  const upcomingIncomeFromCalendar = calendarDays30
+    .flatMap((day) =>
+      (day.income ?? []).map((i) => ({
+        name: i.name,
+        amount: i.amount,
+        date: i.date,
+      }))
+    )
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
     .slice(0, 10);
 
   const upcomingIncome =
-    upcomingIncomeList.length === 0
+    upcomingIncomeFromCalendar.length === 0
       ? 'No income expected in the next 30 days.'
-      : upcomingIncomeList
+      : upcomingIncomeFromCalendar
           .map(
             (i) =>
-              `- ${i.name}: ${formatCurrency(i.amount, currency)} expected ${i.next_date}`
+              `- ${i.name}: ${formatCurrency(i.amount, currency)} expected ${i.date.toISOString().split('T')[0]}`
           )
           .join('\n');
 
