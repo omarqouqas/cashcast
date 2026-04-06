@@ -14,6 +14,13 @@ import { showError, showSuccess } from '@/lib/toast';
 import { generateId } from '@/lib/utils';
 import { UpgradePrompt } from '@/components/subscription/upgrade-prompt';
 import type { SubscriptionTier } from '@/lib/stripe/config';
+import {
+  categorizeTransactions,
+  mergeSuggestions,
+  getAICategorizationLimit,
+  type CategorySuggestion,
+} from '@/lib/categorization';
+import { getUserCategories } from '@/lib/actions/manage-categories';
 
 type UsageForImport = {
   tier: SubscriptionTier;
@@ -170,6 +177,11 @@ export function ImportPageClient({ userId, usage }: Props) {
     amount: number;
   }>>([]);
 
+  // Category suggestions state
+  const [categorySuggestions, setCategorySuggestions] = useState<Map<string, CategorySuggestion>>(new Map());
+  const [isCategorizingWithAI, setIsCategorizingWithAI] = useState(false);
+  const [userCategories, setUserCategories] = useState<string[]>([]);
+
   // Load existing imported transactions for duplicate detection
   useEffect(() => {
     const loadExisting = async () => {
@@ -188,6 +200,17 @@ export function ImportPageClient({ userId, usage }: Props) {
 
     loadExisting();
   }, [userId]);
+
+  // Load user categories on mount
+  useEffect(() => {
+    const loadCategories = async () => {
+      const result = await getUserCategories();
+      if (result.success && result.categories) {
+        setUserCategories(result.categories.map((c) => c.name));
+      }
+    };
+    loadCategories();
+  }, []);
 
   const preview = useMemo(() => {
     if (!loaded) return null;
@@ -245,6 +268,65 @@ export function ImportPageClient({ userId, usage }: Props) {
     }
     return result;
   }, [loaded, mapping, existingTransactions, stableIds]);
+
+  // Run categorization when transactions are normalized
+  useEffect(() => {
+    if (normalizedTransactions.length === 0 || userCategories.length === 0) {
+      setCategorySuggestions(new Map());
+      return;
+    }
+
+    const runCategorization = async () => {
+      // Step 1: Rule-based categorization (instant)
+      const { suggestions, uncategorized } = categorizeTransactions(
+        normalizedTransactions.map((t) => ({
+          id: t.id,
+          description: t.description,
+          amount: t.amount,
+        })),
+        userCategories
+      );
+
+      setCategorySuggestions(suggestions);
+
+      // Step 2: AI categorization for uncategorized (if any)
+      const limit = getAICategorizationLimit(usage.tier);
+      if (uncategorized.length > 0) {
+        setIsCategorizingWithAI(true);
+        try {
+          const response = await fetch('/api/categorize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transactions: uncategorized.slice(0, limit) }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            if (data.suggestions) {
+              const aiSuggestions = new Map<string, CategorySuggestion>(
+                Object.entries(data.suggestions) as [string, CategorySuggestion][]
+              );
+              setCategorySuggestions((prev) => mergeSuggestions(prev, aiSuggestions));
+            }
+          }
+        } catch (error) {
+          console.error('AI categorization failed:', error);
+        } finally {
+          setIsCategorizingWithAI(false);
+        }
+      }
+    };
+
+    runCategorization();
+  }, [normalizedTransactions, userCategories, usage.tier]);
+
+  // Merge category suggestions into transactions
+  const transactionsWithCategories = useMemo(() => {
+    return normalizedTransactions.map((t) => ({
+      ...t,
+      suggestedCategory: categorySuggestions.get(t.id),
+    }));
+  }, [normalizedTransactions, categorySuggestions]);
 
   const mappingReady =
     mapping.dateIndex !== null &&
@@ -369,7 +451,7 @@ export function ImportPageClient({ userId, usage }: Props) {
         amount: Math.abs(r.amount),
         due_date: r.transaction_date,
         frequency: r.action === 'bill-recurring' ? (r.frequency ?? 'monthly') : 'one-time',
-        category: 'other',
+        category: r.category || 'Other', // Use suggested category or default to 'Other'
         is_active: true,
         source_import_id: r.id,
       }));
@@ -542,21 +624,32 @@ export function ImportPageClient({ userId, usage }: Props) {
 
       {loaded && <ColumnMapper headers={loaded.headers} mapping={mapping} onChange={setMapping} />}
 
-      {loaded && mappingReady && normalizedTransactions.length > 0 && (
-        <TransactionSelector
-          fileName={loaded.fileName}
-          transactions={normalizedTransactions}
-          onImport={handleImport}
-          tier={usage.tier}
-          currentBills={usage.bills.current}
-          currentIncome={usage.income.current}
-          billsLimit={usage.bills.limit}
-          incomeLimit={usage.income.limit}
-          onRequestUpgrade={openUpgrade}
-        />
+      {loaded && mappingReady && transactionsWithCategories.length > 0 && (
+        <>
+          {isCategorizingWithAI && (
+            <div className="flex items-center gap-2 text-sm text-violet-400 mb-4">
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              AI is categorizing transactions...
+            </div>
+          )}
+          <TransactionSelector
+            fileName={loaded.fileName}
+            transactions={transactionsWithCategories}
+            onImport={handleImport}
+            tier={usage.tier}
+            currentBills={usage.bills.current}
+            currentIncome={usage.income.current}
+            billsLimit={usage.bills.limit}
+            incomeLimit={usage.income.limit}
+            onRequestUpgrade={openUpgrade}
+          />
+        </>
       )}
 
-      {loaded && mappingReady && normalizedTransactions.length === 0 && (
+      {loaded && mappingReady && transactionsWithCategories.length === 0 && (
         <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6">
           <p className="text-base font-semibold text-zinc-100">No transactions found</p>
           <p className="text-sm text-zinc-400 mt-1">

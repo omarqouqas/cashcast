@@ -19,11 +19,17 @@ export type NormalizedTransaction = {
   original_row_number: number | null;
   isPotentialDuplicate?: boolean;
   suggestedAction?: 'income' | 'bill'; // Pre-computed suggestion (e.g., from YNAB category)
+  suggestedCategory?: {
+    category: string;
+    confidence: 'high' | 'medium' | 'low';
+    source: 'rule' | 'ai' | 'default';
+  };
 };
 
 export type ImportRow = NormalizedTransaction & {
   action: Exclude<ImportAction, 'ignore'>;
   frequency?: RecurringFrequency; // Only set when action is *-recurring
+  category?: string; // Suggested or default category for bills
 };
 
 type Props = {
@@ -398,6 +404,7 @@ export function TransactionSelector({
           original_row_number: t.original_row_number,
           action: t.action as Exclude<ImportAction, 'ignore'>,
           frequency: isRecurringAction(t.action) ? t.frequency : undefined,
+          category: t.suggestedCategory?.category,
         }))
       );
     } catch (e) {
@@ -594,6 +601,7 @@ export function TransactionSelector({
               <th className="text-left px-3 py-2.5 w-[130px] text-zinc-200 font-semibold">Date</th>
               <th className="text-left px-3 py-2.5 text-zinc-200 font-semibold">Description</th>
               <th className="text-right px-3 py-2.5 w-[120px] text-zinc-200 font-semibold">Amount</th>
+              <th className="text-left px-3 py-2.5 w-[140px] text-zinc-200 font-semibold">Category</th>
               <th className="text-left px-3 py-2.5 w-[200px] text-zinc-200 font-semibold">Action</th>
             </tr>
           </thead>
@@ -631,6 +639,29 @@ export function TransactionSelector({
                   </td>
                   <td className={`px-3 py-2 text-right font-medium tabular-nums ${amountColor}`}>
                     {formatCurrency(t.amount)}
+                  </td>
+                  <td className="px-3 py-2">
+                    {t.suggestedCategory ? (
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-zinc-200 text-sm truncate max-w-[100px]" title={t.suggestedCategory.category}>
+                          {t.suggestedCategory.category}
+                        </span>
+                        <span
+                          className={`inline-flex px-1.5 py-0.5 rounded text-xs font-medium border ${
+                            t.suggestedCategory.confidence === 'high'
+                              ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                              : t.suggestedCategory.confidence === 'medium'
+                                ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+                                : 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30'
+                          }`}
+                          title={`${t.suggestedCategory.source === 'rule' ? 'Auto-detected' : t.suggestedCategory.source === 'ai' ? 'AI suggestion' : 'Default'}`}
+                        >
+                          {t.suggestedCategory.confidence === 'high' ? 'Auto' : t.suggestedCategory.confidence === 'medium' ? 'Likely' : 'Guess'}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-zinc-500 text-sm">Other</span>
+                    )}
                   </td>
                   <td className="px-3 py-2">
                     <div className="flex flex-col gap-1.5">
