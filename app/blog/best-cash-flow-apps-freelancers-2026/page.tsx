@@ -391,8 +391,7 @@ export default function BestCashFlowAppsPage() {
 
         <p>
           The best cash flow app for you depends on your priorities. If you want automatic bank syncing and don&apos;t
-          mind complexity, try PocketSmith. If you want simplicity and focus on future planning, try Cash Flow
-          Forecaster.
+          mind complexity, try PocketSmith. If you want simplicity and focus on future planning, try Cashcast.
         </p>
 
         <p>
