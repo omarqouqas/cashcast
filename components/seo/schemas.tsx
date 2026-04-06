@@ -9,7 +9,7 @@ export const organizationSchema = {
   '@type': 'Organization',
   name: 'Cashcast',
   url: 'https://cashcast.money',
-  logo: 'https://cashcast.money/logo.png',
+  logo: 'https://cashcast.money/icon-512x512.png',
   description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead.',
   foundingDate: '2024',
   sameAs: [

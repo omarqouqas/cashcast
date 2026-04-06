@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { IdentifyUser } from '@/components/analytics/identify-user'
 import { FeedbackButton } from '@/components/feedback/feedback-button'
 import Link from 'next/link'
+/* eslint-disable @next/next/no-img-element */
 
 export default async function DashboardLayout({
   children,
@@ -61,9 +62,13 @@ export default async function DashboardLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/dashboard" className="flex-shrink-0">
-              <h1 className="text-xl font-bold text-zinc-100 hover:text-teal-400 transition-colors cursor-pointer whitespace-nowrap">
-                Cashcast
-              </h1>
+              <img
+                src="/cashcast-lockup.svg"
+                alt="Cashcast"
+                height={32}
+                width={180}
+                className="h-8 w-auto"
+              />
             </Link>
             <DashboardNav userEmail={user.email ?? ''} userName={userName} userTier={userTier} />
           </div>
