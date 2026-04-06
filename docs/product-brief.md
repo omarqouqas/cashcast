@@ -1,6 +1,6 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.22
+**Version:** 6.23
 **Last Updated:** April 6, 2026
 **Status:** Live - AI Features Showcased on Landing Page
 **Product URL:** https://cashcast.money
@@ -1069,6 +1069,18 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.23 (April 6, 2026)
+- **AI-Powered Weekly Digest Insights:**
+  - Enhanced weekly email digest with 2-3 AI-generated personalized insights
+  - Uses Claude to analyze user's financial data and provide actionable tips
+  - Graceful fallback to rule-based insights if AI fails
+  - Violet-themed "AI Insights" section in email template
+- **New Files:**
+  - `lib/email/generate-ai-insights.ts` - AI insight generator with fallback
+- **Modified Files:**
+  - `lib/email/generate-digest-data.ts` - Added aiInsights field
+  - `components/emails/weekly-digest.tsx` - Added AI insights section
 
 ### Version 6.22 (April 6, 2026)
 - **Ask Cashcast Suggested Questions:**

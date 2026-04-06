@@ -3,6 +3,7 @@ import 'server-only';
 import generateCalendar from '@/lib/calendar/generate';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { PRICING_TIERS, normalizeSubscriptionTier, type SubscriptionTier } from '@/lib/stripe/config';
+import { generateAIInsights, type AIInsight } from './generate-ai-insights';
 
 export interface DigestData {
   user: {
@@ -42,6 +43,7 @@ export interface DigestData {
   currency: string;
   timezone?: string | null;
   safetyBuffer?: number;
+  aiInsights?: AIInsight[];
 }
 
 function sum(nums: number[]): number {
@@ -158,7 +160,8 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
     .map((i) => ({ name: i.name, amount: i.amount, date: new Date(i.date) }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  return {
+  // Build digest data (without AI insights first)
+  const digestData: DigestData = {
     user: {
       id: userRow.id,
       email: userRow.email,
@@ -189,6 +192,16 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
     timezone,
     safetyBuffer,
   };
+
+  // Generate AI insights (non-blocking - falls back gracefully on error)
+  try {
+    digestData.aiInsights = await generateAIInsights(digestData);
+  } catch (error) {
+    console.error('Failed to generate AI insights for digest:', error);
+    digestData.aiInsights = [];
+  }
+
+  return digestData;
 }
 
 

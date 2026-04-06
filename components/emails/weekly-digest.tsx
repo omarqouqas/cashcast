@@ -90,6 +90,28 @@ export function buildWeeklyDigestEmail(
   const hasAlerts =
     data.alerts.hasLowBalance || data.alerts.hasOverdraftRisk || data.alerts.hasBillCollisions;
 
+  const hasAIInsights = data.aiInsights && data.aiInsights.length > 0;
+  const aiInsightsHtml = !hasAIInsights
+    ? ''
+    : `<tr>
+  <td style="padding:18px 24px;border-top:1px solid #27272a;">
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+      <div style="font-size:14px;letter-spacing:0.08em;color:#a1a1aa;font-weight:700;">✨ AI INSIGHTS</div>
+      <div style="margin-top:12px;background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 100%);border:1px solid #4c1d95;border-radius:12px;padding:16px;">
+        ${data.aiInsights!
+          .map(
+            (insight) => `<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span style="font-size:18px;line-height:24px;">${escapeHtml(insight.emoji)}</span>
+          <span style="font-size:15px;line-height:22px;color:#e4e4e7;">${escapeHtml(insight.text)}</span>
+        </div>`
+          )
+          .join('')}
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#71717a;">Powered by Cashcast AI</div>
+    </div>
+  </td>
+</tr>`;
+
   const safeViewUrl = escapeHtml(links.viewForecastUrl.trim());
   const safeManageUrl = escapeHtml(links.managePreferencesUrl.trim());
   const safeUnsubUrl = escapeHtml(links.unsubscribeUrl.trim());
@@ -243,6 +265,8 @@ export function buildWeeklyDigestEmail(
             </tr>
 
             ${alertsHtml}
+
+            ${aiInsightsHtml}
 
             <tr>
               <td style="padding:18px 24px;border-top:1px solid #27272a;">

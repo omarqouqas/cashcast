@@ -142,6 +142,35 @@
 
 ---
 
+### Day 63: AI-Powered Weekly Digest Insights (April 6, 2026)
+
+**Enhanced weekly email digest with AI-generated personalized insights** using Claude.
+
+**What's New:**
+- 2-3 personalized insights per email based on user's financial data
+- Insights are actionable and encouraging (not alarmist)
+- Graceful fallback to rule-based insights if AI fails
+- Violet-themed "AI Insights" section in email
+
+**Example Insights:**
+- "Great week ahead! You're projected to be $450 in the green."
+- "Your Netflix and Spotify both hit on Tuesday—consider spacing them out."
+- "With no bills due, this is a perfect week to boost your emergency fund."
+
+**Technical Implementation:**
+- Uses Claude Sonnet for insight generation
+- Falls back to rule-based defaults on error
+- Non-blocking: digest still sends even if AI fails
+
+**New Files:**
+- `lib/email/generate-ai-insights.ts` - AI insight generator with fallback
+
+**Modified Files:**
+- `lib/email/generate-digest-data.ts` - Added aiInsights field and generation
+- `components/emails/weekly-digest.tsx` - Added AI insights section to template
+
+---
+
 ### Day 63: Ask Cashcast Suggested Questions (April 6, 2026)
 
 **Added clickable suggested questions to Ask Cashcast modal** - Helps users discover what they can ask.
