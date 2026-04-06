@@ -83,10 +83,10 @@ export function AskModal({ open, onClose }: AskModalProps) {
   }, [open]);
 
   const handleSubmit = useCallback(
-    async (e?: React.FormEvent) => {
+    async (e?: React.FormEvent, overrideQuery?: string) => {
       e?.preventDefault();
 
-      const trimmedQuery = query.trim();
+      const trimmedQuery = (overrideQuery ?? query).trim();
       if (!trimmedQuery || isStreaming) return;
 
       // Add user message
@@ -202,7 +202,15 @@ export function AskModal({ open, onClose }: AskModalProps) {
         abortControllerRef.current = null;
       }
     },
-    [query, isStreaming]
+    [query, isStreaming, messages]
+  );
+
+  const handleSuggestedQuestion = useCallback(
+    (question: string) => {
+      if (isStreaming || remaining === 0) return;
+      void handleSubmit(undefined, question);
+    },
+    [handleSubmit, isStreaming, remaining]
   );
 
   const handleClose = useCallback(() => {
@@ -276,10 +284,35 @@ export function AskModal({ open, onClose }: AskModalProps) {
               <h3 className="text-lg font-medium text-zinc-200 mb-2">
                 What would you like to know?
               </h3>
-              <p className="text-sm text-zinc-500 max-w-sm">
-                Try asking &ldquo;Can I afford a $500 purchase next week?&rdquo; or
-                &ldquo;When will my balance be lowest?&rdquo;
+              <p className="text-sm text-zinc-500 max-w-sm mb-6">
+                Ask questions about your finances in plain English
               </p>
+
+              {/* Suggested questions */}
+              <div className="flex flex-wrap justify-center gap-2 max-w-md">
+                {[
+                  'Can I afford a $500 purchase next week?',
+                  'When will my balance be lowest?',
+                  'How much should I save for taxes?',
+                  'How stable is my income?',
+                ].map((question) => (
+                  <button
+                    key={question}
+                    type="button"
+                    onClick={() => handleSuggestedQuestion(question)}
+                    disabled={remaining === 0}
+                    className={cn(
+                      'text-xs px-3 py-2 rounded-full',
+                      'bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 hover:border-violet-500/50',
+                      'text-zinc-300 hover:text-violet-300',
+                      'transition-colors',
+                      'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-zinc-800 disabled:hover:border-zinc-700 disabled:hover:text-zinc-300'
+                    )}
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
             </div>
           ) : (
             messages.map((msg) => (
