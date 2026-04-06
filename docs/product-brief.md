@@ -1,6 +1,6 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.20
+**Version:** 6.21
 **Last Updated:** April 6, 2026
 **Status:** Live - AI Features Showcased on Landing Page
 **Product URL:** https://cashcast.money
@@ -1069,6 +1069,15 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.21 (April 6, 2026)
+- **Ask Cashcast FAB - App-Wide:**
+  - Moved FAB from dashboard-only to authenticated app layout
+  - Now visible on all /dashboard/* pages (Bills, Income, Invoices, Reports, Settings, Calendar, etc.)
+  - Consistent AI access point across the entire authenticated experience
+- **Files Modified:**
+  - `app/dashboard/layout.tsx` - Added AskButton FAB
+  - `components/dashboard/dashboard-content.tsx` - Removed duplicate FAB
 
 ### Version 6.20 (April 6, 2026)
 - **Landing Page AI Feature Coverage:**

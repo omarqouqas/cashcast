@@ -18,7 +18,6 @@ import { formatCurrency } from '@/lib/utils/format';
 import { ForecastBalanceChart } from '@/components/charts/forecast-balance-chart';
 import { SuccessMessage } from '@/components/ui/success-message';
 import { ScenarioButton } from '@/components/scenarios/scenario-button';
-import { AskButton } from '@/components/ask';
 import { TaxSavingsWidget } from '@/components/dashboard/tax-savings-widget';
 import { EmergencyFundWidget } from '@/components/dashboard/emergency-fund-widget';
 import { CreditCardsSection } from '@/components/dashboard/credit-cards-section';
@@ -929,9 +928,6 @@ export function DashboardContent({
         </Link>
       </div>
     </div>
-
-    {/* AI Assistant FAB - Always visible */}
-    <AskButton variant="fab" />
     </>
   );
 }

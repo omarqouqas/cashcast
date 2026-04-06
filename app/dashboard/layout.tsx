@@ -5,6 +5,7 @@ import { DashboardNav } from '@/components/dashboard/nav'
 import { redirect } from 'next/navigation'
 import { IdentifyUser } from '@/components/analytics/identify-user'
 import { FeedbackButton } from '@/components/feedback/feedback-button'
+import { AskButton } from '@/components/ask'
 import Link from 'next/link'
 /* eslint-disable @next/next/no-img-element */
 
@@ -84,7 +85,8 @@ export default async function DashboardLayout({
         {children}
       </main>
 
-      {/* Floating feedback button */}
+      {/* Floating buttons */}
+      <AskButton variant="fab" />
       <FeedbackButton />
     </div>
   )

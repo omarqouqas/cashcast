@@ -142,6 +142,31 @@
 
 ---
 
+### Day 63: Ask Cashcast FAB - App-Wide (April 6, 2026)
+
+**Moved Ask Cashcast FAB to authenticated app layout** so it appears on all dashboard pages, not just the main dashboard.
+
+**Change:**
+- FAB now visible on: Dashboard, Bills, Income, Invoices, Reports, Settings, Calendar, etc.
+- Removed duplicate FAB from dashboard-content.tsx
+- Consistent AI access point across the entire authenticated experience
+
+**Files Modified:**
+- `app/dashboard/layout.tsx` - Added AskButton FAB
+- `components/dashboard/dashboard-content.tsx` - Removed duplicate FAB
+
+**Layout:**
+```
+┌─────────────────────────────┐
+│         Page Content        │
+│ [Feedback]        [Ask AI]  │  ← FABs (z-40)
+├─────────────────────────────┤
+│  Home Accounts ... Settings │  ← Mobile nav (z-50)
+└─────────────────────────────┘
+```
+
+---
+
 ### Day 63: Earlier Updates (April 6, 2026)
 - `public/logo.png` - Old square logo
 - `public/Old-logo.png`, `public/cashcast-lockup-dark.png` - Deprecated assets
