@@ -2,12 +2,9 @@ import 'server-only';
 
 import { createAnthropicClient } from '@/lib/ai/client';
 import { formatCurrency } from '@/lib/utils/format';
-import type { DigestData } from './generate-digest-data';
+import type { DigestData, AIInsight } from './types';
 
-export interface AIInsight {
-  emoji: string;
-  text: string;
-}
+export type { AIInsight };
 
 /**
  * Generate personalized AI insights for the weekly digest email.
@@ -28,7 +25,7 @@ export async function generateAIInsights(data: DigestData): Promise<AIInsight[]>
 
   try {
     const response = await client.messages.create({
-      // Use Haiku for cost efficiency on bulk emails
+      // Use Sonnet for quality insights
       model: 'claude-sonnet-4-20250514',
       max_tokens: 300,
       messages: [
@@ -64,13 +61,20 @@ Rules:
     }
 
     // Validate and sanitize
-    return parsed
+    const validInsights = parsed
       .slice(0, 3)
       .filter((item) => item.emoji && item.text)
       .map((item) => ({
         emoji: String(item.emoji).slice(0, 2), // Ensure single emoji
         text: String(item.text).slice(0, 200), // Cap length
       }));
+
+    // Fall back to defaults if all insights failed validation
+    if (validInsights.length === 0) {
+      return getDefaultInsights(data, currency);
+    }
+
+    return validInsights;
   } catch (error) {
     console.error('Failed to generate AI insights:', error);
     return getDefaultInsights(data, currency);

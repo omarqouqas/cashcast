@@ -3,48 +3,10 @@ import 'server-only';
 import generateCalendar from '@/lib/calendar/generate';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { PRICING_TIERS, normalizeSubscriptionTier, type SubscriptionTier } from '@/lib/stripe/config';
-import { generateAIInsights, type AIInsight } from './generate-ai-insights';
+import { generateAIInsights } from './generate-ai-insights';
+import type { DigestData } from './types';
 
-export interface DigestData {
-  user: {
-    id: string;
-    email: string;
-    name: string | null;
-  };
-  weekRange: {
-    start: Date;
-    end: Date;
-  };
-  summary: {
-    totalIncome: number;
-    totalBills: number;
-    netChange: number;
-    startingBalance: number;
-    lowestBalance: number;
-    lowestBalanceDate: Date;
-    endingBalance: number;
-  };
-  alerts: {
-    hasLowBalance: boolean;
-    hasOverdraftRisk: boolean;
-    hasBillCollisions: boolean;
-    collisionCount: number;
-  };
-  upcomingBills: Array<{
-    name: string;
-    amount: number;
-    date: Date;
-  }>;
-  upcomingIncome: Array<{
-    name: string;
-    amount: number;
-    date: Date;
-  }>;
-  currency: string;
-  timezone?: string | null;
-  safetyBuffer?: number;
-  aiInsights?: AIInsight[];
-}
+export type { DigestData };
 
 function sum(nums: number[]): number {
   return nums.reduce((a, b) => a + b, 0);
