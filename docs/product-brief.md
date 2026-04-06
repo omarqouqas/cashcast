@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.18
+**Version:** 6.19
 **Last Updated:** April 6, 2026
-**Status:** Live - Smart Categorization
+**Status:** Live - Branding Refresh
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -1069,6 +1069,15 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.19 (April 6, 2026)
+- **Branding Refresh:**
+  - New favicons (ico, 16x16, 32x32) and apple-touch-icon (180px)
+  - New PWA icons (192x192, 512x512) with maskable purpose
+  - SVG horizontal lockup replaces text logo in dashboard and landing headers
+  - Light and dark background variants available
+  - Updated SEO schema with new logo URL
+  - Removed deprecated logo assets
 
 ### Version 6.18 (April 6, 2026)
 - **Smart Categorization for Imports:**
