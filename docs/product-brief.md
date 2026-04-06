@@ -1,6 +1,6 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.21
+**Version:** 6.22
 **Last Updated:** April 6, 2026
 **Status:** Live - AI Features Showcased on Landing Page
 **Product URL:** https://cashcast.money
@@ -1069,6 +1069,15 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.22 (April 6, 2026)
+- **Ask Cashcast Suggested Questions:**
+  - Added 4 clickable suggested questions in modal empty state
+  - Questions auto-submit when clicked for instant results
+  - Helps users discover what they can ask the AI
+  - Questions: affordability, lowest balance, tax savings, income stability
+- **File Modified:**
+  - `components/ask/ask-modal.tsx` - Added suggested questions UI
 
 ### Version 6.21 (April 6, 2026)
 - **Ask Cashcast FAB - App-Wide:**

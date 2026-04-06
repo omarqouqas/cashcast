@@ -142,6 +142,27 @@
 
 ---
 
+### Day 63: Ask Cashcast Suggested Questions (April 6, 2026)
+
+**Added clickable suggested questions to Ask Cashcast modal** - Helps users discover what they can ask.
+
+**Suggested Questions:**
+- "Can I afford a $500 purchase next week?"
+- "When will my balance be lowest?"
+- "How much should I save for taxes?"
+- "How stable is my income?"
+
+**UX:**
+- Displayed in empty state (before any messages)
+- Clicking a question auto-submits it instantly
+- Disabled when rate limit reached (remaining === 0)
+- Rounded pill buttons with violet hover state
+
+**File Modified:**
+- `components/ask/ask-modal.tsx` - Added suggested questions UI and handler
+
+---
+
 ### Day 63: Ask Cashcast FAB - App-Wide (April 6, 2026)
 
 **Moved Ask Cashcast FAB to authenticated app layout** so it appears on all dashboard pages, not just the main dashboard.
