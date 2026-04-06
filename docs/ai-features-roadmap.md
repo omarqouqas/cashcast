@@ -1,6 +1,6 @@
 # AI Features Roadmap
 
-AI-powered enhancements for CashFlowForecaster.
+AI-powered enhancements for Cashcast.
 
 ---
 
@@ -99,52 +99,114 @@ CSV Upload → Parse Transactions → Auto-Categorize → User Review → Save a
 
 ---
 
-## 3. Natural Language Queries
+## 3. Natural Language Queries ✅ COMPLETED (April 6, 2026)
 
 **User question:** "Can I afford a $500 purchase next week?"
 
-### Current State
-- Affordability logic exists in `lib/tools/calculate-affordability.ts`
-- Payment predictor tool at `lib/tools/calculate-payment-date.ts`
-- Tax reserve calculator at `lib/tools/calculate-tax-reserve.ts`
-- All require navigating to specific UI tools
+### Implementation: Claude API with Function Calling
 
-### Proposed Enhancement
-Chat-style interface where users ask questions in plain English:
-- "Can I afford a $500 purchase next week?"
-- "When will my balance be lowest this month?"
-- "How much should I set aside for taxes?"
-- "What if I delay my rent payment by 5 days?"
+We implemented a chat-style interface where users can ask financial questions in plain English, powered by Claude with real-time access to their financial data through tool calling.
 
-### Implementation Approach
+**Architecture:**
+```
+User Query (Modal)
+    ↓
+POST /api/ai/chat (streaming)
+    ↓
+Auth → Rate Limit Check → Fetch User Context
+    ↓
+Claude API (with tool definitions)
+    ↓
+Tool calls → Execute tools → Return results
+    ↓
+Stream response back to UI
+```
 
-**Architecture: LLM + Function Calling**
+**Model Selection:**
+- Claude Sonnet (`claude-3-5-sonnet-20241022`) for complex financial queries
+- Claude Haiku (`claude-3-5-haiku-20241022`) for simple greetings/short queries
 
-1. User submits natural language question
-2. LLM (OpenAI/Claude) interprets intent and extracts parameters
-3. LLM calls appropriate internal function:
-   - `calculateAffordability({ amount: 500, date: '2024-01-15' })`
-   - `generateCalendar()` for forecast queries
-   - `calculateTaxReserve()` for tax questions
-4. LLM formats response in natural language
+**Rate Limiting:**
+- Free tier: 5 queries per day (resets at midnight UTC)
+- Pro/Premium/Lifetime: Unlimited queries
+- Returns 429 with `resetAt` timestamp when limit reached
 
-**Available Functions to Expose:**
-| Function | Purpose |
-|----------|---------|
-| `calculateAffordability` | Can I afford X? |
-| `calculatePaymentDate` | When will client pay? |
-| `calculateTaxReserve` | Tax obligations |
-| `generateCalendar` | Full forecast data |
-| `calculateIncomeVariability` | Income stability |
+**Tools Exposed to Claude:**
 
-**UI Options:**
-- Chat panel in dashboard sidebar
-- Command bar (Cmd+K style)
-- Dedicated "Ask" page
+| Tool | Description | Use When |
+|------|-------------|----------|
+| `calculate_affordability` | Check if purchase is affordable | "Can I afford X?" |
+| `calculate_payment_date` | Predict invoice payment date | "When will client pay?" |
+| `calculate_tax_reserve` | Calculate tax obligations | "How much for taxes?" |
+| `calculate_income_variability` | Analyze income stability | "How stable is my income?" |
+| `calculate_hourly_rate` | Calculate freelance rates | "What should I charge?" |
+| `get_forecast_summary` | Get cash flow forecast | "When is my lowest balance?" |
+
+**Files Created:**
+
+```
+lib/ai/
+├── client.ts              # Anthropic SDK client, model selection
+├── tools.ts               # Tool definitions (JSON schemas for Claude)
+├── execute-tool.ts        # Tool execution dispatcher
+├── system-prompt.ts       # System prompt builder with user context
+├── context.ts             # Fetch user financial data from Supabase
+├── usage.ts               # Daily query tracking (rate limiting)
+└── types.ts               # TypeScript types
+
+components/ask/
+├── ask-button.tsx         # Trigger button (FAB, card, nav variants)
+├── ask-modal.tsx          # Chat modal with streaming responses
+└── index.ts               # Exports
+
+app/api/ai/chat/
+└── route.ts               # Streaming chat endpoint (SSE)
+
+supabase/migrations/
+└── 20260406000001_add_ai_query_usage.sql  # Usage tracking table
+```
+
+**Database Changes:**
+
+```sql
+-- ai_query_usage table for rate limiting
+CREATE TABLE ai_query_usage (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  query_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  query_count INTEGER NOT NULL DEFAULT 0,
+  UNIQUE(user_id, query_date)
+);
+
+-- Atomic increment function
+CREATE OR REPLACE FUNCTION increment_ai_query_usage(p_user_id UUID, p_query_date DATE)
+RETURNS void AS $$ ... $$ LANGUAGE plpgsql SECURITY DEFINER;
+```
+
+**Streaming Response Format (SSE):**
+```
+data: {"type":"text","content":"Based on..."}
+data: {"type":"tool_start","tool":"Checking affordability"}
+data: {"type":"tool_result","tool":"Checking affordability","success":true}
+data: {"type":"text","content":"you can afford..."}
+data: {"type":"done","remaining":4}
+```
+
+**UI Features:**
+- Modal triggered by floating action button (violet, distinct from teal Scenario button)
+- Full conversation history within session
+- Tool execution indicator (shows which tool is running)
+- Streaming text responses in real-time
+- Remaining queries indicator for free tier users
+- Upgrade prompt when limit reached
 
 ### Example Interaction
 ```
 User: "Can I afford to buy a $2000 laptop next Friday?"
+
+[Tool: Checking affordability...]
+
+---
 
 System: Looking at your forecast...
 
@@ -158,10 +220,12 @@ Recommendation: Wait until after Jan 26 when your invoice
 payment of $3,500 is expected.
 ```
 
-### Priority: High
-- Makes existing tools more accessible
-- Conversational UI is intuitive for non-technical users
-- Strong marketing angle: "Talk to your finances"
+### Why This Approach
+- Claude's function calling provides structured tool use with type-safe parameters
+- Streaming responses give immediate feedback while processing
+- User's full financial context available in system prompt
+- Conversation history maintained for follow-up questions
+- Rate limiting protects API costs while providing value to free users
 
 ---
 
@@ -170,13 +234,13 @@ payment of $3,500 is expected.
 | Feature | Impact | Effort | Dependencies | Status |
 |---------|--------|--------|--------------|--------|
 | Probabilistic Forecasting | High | Medium | None | ✅ COMPLETED |
-| Natural Language Queries | High | Medium | None | Next |
-| Smart Categorization | High | Low-Med | Import feature (exists) | Planned |
+| Natural Language Queries | High | Medium | None | ✅ COMPLETED |
+| Smart Categorization | High | Low-Med | Import feature (exists) | Next |
 
 ### Recommended Sequence
 
 1. ~~**Probabilistic Forecasting**~~ — ✅ Completed April 4, 2026
-2. **Natural Language Queries** — High UX impact, leverages existing tools
+2. ~~**Natural Language Queries**~~ — ✅ Completed April 6, 2026
 3. **Smart Categorization** — Enhances existing import flow
 
 ---
@@ -203,10 +267,10 @@ payment of $3,500 is expected.
 
 ## Open Questions
 
-- [ ] Which LLM provider? (OpenAI vs Anthropic vs open-source) — For NL queries and categorization
-- [ ] Free tier limits for AI features?
+- [x] ~~Which LLM provider? (OpenAI vs Anthropic vs open-source)~~ — Anthropic Claude (Sonnet/Haiku)
+- [x] ~~Free tier limits for AI features?~~ — 5 queries/day free, unlimited Pro
 - [x] ~~How much historical data needed for probabilistic forecasting?~~ — None needed; uses variance config by frequency type
-- [ ] Should chat history be persisted?
+- [ ] Should chat history be persisted across sessions? (Currently session-only)
 
 ## Decisions Made
 
@@ -215,3 +279,12 @@ payment of $3,500 is expected.
 - 500 simulations balances accuracy vs. performance
 - Server-side execution (not client-side) for consistent results
 - Variance derived from frequency type, not historical data (simpler, works for new users)
+
+**Natural Language Queries (April 2026):**
+- Chose Anthropic Claude over OpenAI for better function calling reliability
+- Model selection: Sonnet for complex queries, Haiku for simple ones (cost optimization)
+- Chat modal pattern (like ScenarioModal) over sidebar or command bar
+- Real-time streaming via SSE for responsive UX
+- 5 queries/day free tier limit balances value vs. API costs
+- Conversation history within session (not persisted to database)
+- Violet color scheme distinguishes from Scenario button (teal)

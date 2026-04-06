@@ -17,7 +17,7 @@ export interface FeatureGateResult {
 /**
  * Get user's subscription tier from the database
  */
-async function getUserTier(userId: string): Promise<SubscriptionTier> {
+export async function getUserTier(userId: string): Promise<SubscriptionTier> {
   const supabase = await createClient();
   
   const { data: subscription } = await supabase

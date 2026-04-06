@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.16
-**Last Updated:** April 4, 2026
-**Status:** Live - AI-Powered Probabilistic Forecasting
+**Version:** 6.17
+**Last Updated:** April 6, 2026
+**Status:** Live - AI Natural Language Queries
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -466,6 +466,26 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - **Performance optimized:** ~9ms compute time for 500 simulations × 60 days
 - Addresses core user anxiety: "Will I run out of money?"
 
+**21. AI Natural Language Queries ✅**
+- **"Ask Cashcast"** - Chat modal where users ask financial questions in plain English
+- **Powered by Claude** (Sonnet for complex queries, Haiku for simple ones)
+- **Real-time streaming** responses via Server-Sent Events
+- **Tool calling** with 6 exposed financial tools:
+  - `calculate_affordability` - "Can I afford a $500 purchase next week?"
+  - `calculate_payment_date` - "When will my client pay this invoice?"
+  - `calculate_tax_reserve` - "How much should I set aside for taxes?"
+  - `calculate_income_variability` - "How stable is my income?"
+  - `calculate_hourly_rate` - "What should I charge per hour?"
+  - `get_forecast_summary` - "When will my balance be lowest?"
+- **Full financial context** - Claude sees user's accounts, income, bills, and settings
+- **Conversation history** within session for follow-up questions
+- **Tool execution indicator** shows which calculation is running
+- **Rate limiting:**
+  - Free tier: 5 queries per day (resets at midnight UTC)
+  - Pro/Premium/Lifetime: Unlimited queries
+- **Upgrade prompt** when free tier limit reached
+- Marketing angle: "Talk to your finances"
+
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
 - Alerts: low balance, overdraft risk, bill collisions
@@ -546,6 +566,7 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 | Bills | 10 | Unlimited | Unlimited |
 | Income Sources | 10 | Unlimited | Unlimited |
 | Forecast Days | 90 | 365 | 365 |
+| AI Queries (Ask Cashcast) | 5/day | Unlimited | Unlimited |
 | Calendar View | ✅ | ✅ | ✅ |
 | "Can I Afford It?" | ✅ | ✅ | ✅ |
 | Weekly Email Digest | ✅ | ✅ | ✅ |
@@ -1032,6 +1053,36 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.17 (April 6, 2026)
+- **AI Natural Language Queries ("Ask Cashcast"):**
+  - Chat modal for asking financial questions in plain English
+  - Powered by Claude API (Sonnet for complex, Haiku for simple queries)
+  - Real-time streaming responses via Server-Sent Events (SSE)
+  - 6 tools exposed to Claude: affordability, payment date, tax reserve, income variability, hourly rate, forecast summary
+  - Full user financial context passed to Claude (accounts, income, bills, settings)
+  - Conversation history within session for follow-up questions
+  - Tool execution indicator showing which calculation is running
+  - Rate limiting: 5 queries/day free, unlimited for Pro/Premium/Lifetime
+  - Upgrade prompt when limit reached with remaining queries counter
+- **New Files:**
+  - `lib/ai/client.ts` - Anthropic SDK client and model selection
+  - `lib/ai/tools.ts` - Tool definitions (JSON schemas for Claude)
+  - `lib/ai/execute-tool.ts` - Tool execution dispatcher
+  - `lib/ai/system-prompt.ts` - System prompt builder with user context
+  - `lib/ai/context.ts` - Fetch user financial data
+  - `lib/ai/usage.ts` - Daily query tracking for rate limiting
+  - `lib/ai/types.ts` - TypeScript types
+  - `app/api/ai/chat/route.ts` - Streaming chat API endpoint
+  - `components/ask/ask-button.tsx` - Trigger button (FAB, card, nav variants)
+  - `components/ask/ask-modal.tsx` - Chat modal with streaming responses
+  - `supabase/migrations/20260406000001_add_ai_query_usage.sql` - Usage tracking table
+- **Modified Files:**
+  - `components/dashboard/dashboard-content.tsx` - Added AskButton
+  - `lib/stripe/feature-gate.ts` - Exported getUserTier for AI usage
+  - `.env.example` - Added ANTHROPIC_API_KEY
+- **Dependencies:**
+  - Added `@anthropic-ai/sdk` for Claude API access
 
 ### Version 6.16 (April 4, 2026)
 - **AI-Powered Probabilistic Forecasting (Monte Carlo Simulation):**
@@ -1708,7 +1759,7 @@ Canada represents a strategic expansion opportunity due to:
 
 ---
 
-**Document Version:** 6.16
-**Last Updated:** April 4, 2026
-**Status:** Live - AI-Powered Probabilistic Forecasting
+**Document Version:** 6.17
+**Last Updated:** April 6, 2026
+**Status:** Live - AI Natural Language Queries
 **Next Review:** May 2026

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 4, 2026 (Day 61)
+**Last Updated:** April 6, 2026 (Day 62)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 61
+- **Days in Development:** 62
 - **Commits:** 406+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + **AI-Powered Probabilistic Forecasting (Monte Carlo)** + **Simplified Navigation**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + **AI Natural Language Queries ("Ask Cashcast")**
 
 **Current Focus:**
 
@@ -28,7 +28,86 @@
 
 ---
 
-## Recent Development (Days 40-61)
+## Recent Development (Days 40-62)
+
+### Day 62: AI Natural Language Queries (April 6, 2026)
+
+**Major Feature: "Ask Cashcast"** - Added a chat-style interface where users can ask financial questions in plain English, powered by Claude with real-time access to their financial data through tool calling.
+
+**User Value:**
+- Ask questions like "Can I afford a $2000 laptop next Friday?"
+- Get personalized answers based on actual account balances and upcoming transactions
+- Follow-up questions within the same conversation
+- No need to navigate to specific tools - just ask
+
+**Technical Implementation:**
+
+| Component | Description |
+|-----------|-------------|
+| **LLM Provider** | Anthropic Claude (Sonnet for complex, Haiku for simple) |
+| **Streaming** | Server-Sent Events (SSE) for real-time responses |
+| **Tools** | 6 financial tools exposed via Claude function calling |
+| **Rate Limiting** | 5 queries/day free, unlimited Pro |
+
+**Tools Exposed to Claude:**
+
+| Tool | Use Case |
+|------|----------|
+| `calculate_affordability` | "Can I afford X?" |
+| `calculate_payment_date` | "When will client pay?" |
+| `calculate_tax_reserve` | "How much for taxes?" |
+| `calculate_income_variability` | "How stable is my income?" |
+| `calculate_hourly_rate` | "What should I charge?" |
+| `get_forecast_summary` | "When is my lowest balance?" |
+
+**New Files:**
+- `lib/ai/client.ts` - Anthropic SDK client, model selection logic
+- `lib/ai/tools.ts` - Tool definitions with JSON schemas for Claude
+- `lib/ai/execute-tool.ts` - Tool execution dispatcher routing to calculation functions
+- `lib/ai/system-prompt.ts` - System prompt builder with user financial context
+- `lib/ai/context.ts` - Fetch user accounts, income, bills, settings from Supabase
+- `lib/ai/usage.ts` - Query usage tracking (checkQueryUsage, incrementQueryUsage)
+- `lib/ai/types.ts` - TypeScript types (StreamEvent, UserFinancialData, etc.)
+- `app/api/ai/chat/route.ts` - Streaming API endpoint with tool use loop
+- `components/ask/ask-button.tsx` - Trigger button (FAB, card, nav, mobile-nav variants)
+- `components/ask/ask-modal.tsx` - Chat modal with streaming responses
+- `components/ask/index.ts` - Exports
+- `supabase/migrations/20260406000001_add_ai_query_usage.sql` - Usage tracking table + RLS + increment function
+
+**Modified Files:**
+- `components/dashboard/dashboard-content.tsx` - Integrated AskButton as card
+- `lib/stripe/feature-gate.ts` - Exported getUserTier for AI usage tracking
+- `.env.example` - Added ANTHROPIC_API_KEY configuration
+
+**Database Changes:**
+- New `ai_query_usage` table for daily query tracking
+- `increment_ai_query_usage` PostgreSQL function for atomic upsert
+- RLS policies for secure user-only access
+
+**UI Features:**
+- Violet-themed button (distinct from teal Scenario button)
+- Chat modal with message history
+- Tool execution indicator (shows which tool is running)
+- Streaming text responses
+- Remaining queries indicator for free users
+- Upgrade prompt when limit reached
+
+**Bug Fixes During Implementation:**
+- Fixed conversation history not being sent to API (follow-up questions now work)
+- Fixed TypeScript errors with Supabase types using type assertions
+- Fixed useEffect return path in ask-modal.tsx
+
+**Dependencies Added:**
+- `@anthropic-ai/sdk` - Anthropic Claude API client
+
+**Commits:**
+- AI chat API route with streaming and tool calling
+- Ask button and modal components
+- Database migration for usage tracking
+- Conversation history support
+- Dashboard integration
+
+---
 
 ### Day 61: AI-Powered Probabilistic Forecasting (April 4, 2026)
 
@@ -1573,6 +1652,7 @@ Comparison terms:
 | Bills | 10 | Unlimited | Unlimited |
 | Income Sources | 10 | Unlimited | Unlimited |
 | Forecast Days | 90 | 365 | 365 |
+| AI Queries (Ask Cashcast) | 5/day | Unlimited | Unlimited |
 | Invoicing | No | Yes | Yes |
 | Stripe Payment Links | No | Yes | Yes |
 | CSV Export | Yes | Yes | Yes |
@@ -1628,6 +1708,7 @@ Comparison terms:
 | Data Visualization Charts | Forecast balance chart, payoff timeline chart (Recharts) |
 | User Currency Preference | All currency displays respect user_settings.currency |
 | Probabilistic Forecasting | Monte Carlo simulation with P10/P50/P90 confidence bands |
+| Natural Language Queries | "Ask Cashcast" chat with Claude-powered tool calling |
 
 ### Upcoming
 
@@ -1672,6 +1753,10 @@ Comparison terms:
 - Lifetime deal option ($99) for upfront payment preference
 - **AI-powered probabilistic forecasting** with Monte Carlo simulation (P10/P50/P90 confidence bands)
 - Risk metrics showing probability of overdraft and worst-case scenarios
+- **AI Natural Language Queries** - "Ask Cashcast" chat modal powered by Claude
+- Tool calling with 6 financial tools (affordability, payment date, tax reserve, etc.)
+- Real-time streaming responses with conversation history
+- Rate limiting (5/day free, unlimited Pro)
 
 ## What's Next
 
