@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cashcast.money'),
+  metadataBase: new URL('https://www.cashcast.money'),
   title: 'Cash Flow Calendar for Freelancers | Cashcast',
   description:
     'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
@@ -52,12 +52,23 @@ export const metadata: Metadata = {
     title: 'Cash Flow Calendar for Freelancers | Cashcast',
     description:
       'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
+    siteName: 'Cashcast',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Cashcast - Cash flow calendar for freelancers',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cash Flow Calendar for Freelancers | Cashcast',
     description:
       'Cash flow calendar for freelancers with irregular income—see your bank balance up to 365 days ahead and avoid overdrafts before they happen.',
+    images: ['/og-image.png'],
   },
   // PWA metadata
   manifest: '/manifest.json',

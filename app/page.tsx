@@ -35,7 +35,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
 
 export const metadata: Metadata = {
-  title: 'Stop Guessing If You Can Afford It | Cashcast',
+  title: 'Stop Guessing If You Can Afford It | Cashcast App',
   description:
     'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for designers, developers & consultants with irregular income.',
   keywords: [
@@ -117,7 +117,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.cashcast.money',
   },
   openGraph: {
-    title: 'Stop Guessing If You Can Afford It | Cashcast',
+    title: 'Stop Guessing If You Can Afford It | Cashcast App',
     description:
       'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
     url: 'https://www.cashcast.money',
@@ -125,19 +125,19 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://www.cashcast.money/hero-dashboard.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Cashcast dashboard showing balance forecast chart and calendar',
+        alt: 'Cashcast - See your bank balance 90 days ahead and know exactly what you can afford',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stop Guessing If You Can Afford It | Cashcast',
+    title: 'Stop Guessing If You Can Afford It | Cashcast App',
     description:
       'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
-    images: ['https://www.cashcast.money/hero-dashboard.png'],
+    images: ['/og-image.png'],
   },
 };
 
