@@ -3,8 +3,9 @@ import 'server-only';
 import generateCalendar from '@/lib/calendar/generate';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { PRICING_TIERS, normalizeSubscriptionTier, type SubscriptionTier } from '@/lib/stripe/config';
+import { generateAlerts, buildAlertContext } from '@/lib/alerts';
 import { generateAIInsights } from './generate-ai-insights';
-import type { DigestData } from './types';
+import type { DigestData, DigestAlert } from './types';
 
 export type { DigestData };
 
@@ -60,15 +61,17 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
 
   const forecastDays = PRICING_TIERS[activeTier].limits.forecastDays;
 
-  const [accountsRes, incomeRes, billsRes] = await Promise.all([
+  const [accountsRes, incomeRes, billsRes, invoicesRes] = await Promise.all([
     supabase.from('accounts').select('*').eq('user_id', userId),
     supabase.from('income').select('*').eq('user_id', userId),
     supabase.from('bills').select('*').eq('user_id', userId),
+    supabase.from('invoices').select('id, client_name, amount, due_date, status').eq('user_id', userId).or('status.is.null,status.neq.paid'),
   ]);
 
   if (accountsRes.error) throw new Error(accountsRes.error.message);
   if (incomeRes.error) throw new Error(incomeRes.error.message);
   if (billsRes.error) throw new Error(billsRes.error.message);
+  if (invoicesRes.error) throw new Error(invoicesRes.error.message);
 
   const accounts = (accountsRes.data ?? []) as any[];
   const hasAccounts = accounts.length > 0;
@@ -76,6 +79,7 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
 
   const income = (incomeRes.data ?? []) as any[];
   const bills = (billsRes.data ?? []) as any[];
+  const invoices = (invoicesRes.data ?? []) as any[];
 
   const calendar = generateCalendar(accounts, income, bills, safetyBuffer, timezone ?? undefined, forecastDays);
   const weekDays = calendar.days.slice(0, 7);
@@ -122,6 +126,46 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
     .map((i) => ({ name: i.name, amount: i.amount, date: new Date(i.date) }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
+  // Generate proactive alerts
+  let proactiveAlerts: DigestAlert[] = [];
+  try {
+    const alertContext = buildAlertContext({
+      safetyBuffer,
+      currency,
+      calendarDays: calendar.days,
+      invoices: invoices.map((inv: any) => ({
+        id: inv.id,
+        client_name: inv.client_name,
+        amount: inv.amount,
+        due_date: inv.due_date,
+        status: inv.status,
+      })),
+      bills: bills.map((b: any) => ({
+        id: b.id,
+        name: b.name,
+        amount: b.amount,
+        frequency: b.frequency,
+        due_date: b.due_date,
+      })),
+      income: income.map((i: any) => ({
+        id: i.id,
+        name: i.name,
+        amount: i.amount,
+        frequency: i.frequency,
+        next_date: i.next_date,
+      })),
+    });
+    const alerts = generateAlerts(alertContext);
+    proactiveAlerts = alerts.map((alert) => ({
+      type: alert.type,
+      priority: alert.priority,
+      title: alert.title,
+      message: alert.message,
+    }));
+  } catch (error) {
+    console.error('Failed to generate proactive alerts for digest:', error);
+  }
+
   // Build digest data (without AI insights first)
   const digestData: DigestData = {
     user: {
@@ -153,9 +197,10 @@ export async function generateDigestData(userId: string): Promise<DigestData | n
     currency,
     timezone,
     safetyBuffer,
+    proactiveAlerts,
   };
 
-  // Generate AI insights (non-blocking - falls back gracefully on error)
+  // Generate AI insights
   try {
     digestData.aiInsights = await generateAIInsights(digestData);
   } catch (error) {

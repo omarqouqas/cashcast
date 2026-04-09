@@ -5,6 +5,7 @@ import { runMonteCarloSimulation } from '@/lib/calendar/monte-carlo';
 import { getInvoiceSummary } from '@/lib/actions/invoices';
 import { getForecastDaysLimit, getUserSubscription } from '@/lib/stripe/subscription';
 import { getQuarterForDate } from '@/lib/tax/calculations';
+import { generateAlerts, buildAlertContext } from '@/lib/alerts';
 import { DashboardContent } from '@/components/dashboard/dashboard-content';
 import type { Tables } from '@/types/supabase';
 
@@ -30,7 +31,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const supabase = await createClient();
 
   // Fetch accounts, income, bills, transfers, and user settings in parallel
-  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, forecastDays, subscription] = await Promise.all([
+  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription] = await Promise.all([
     supabase
       .from('accounts')
       .select('*')
@@ -69,6 +70,12 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       .or('status.is.null,status.neq.paid')
       .order('due_date', { ascending: true })
       .limit(3),
+    // Fetch all unpaid invoices for alerts (no limit)
+    supabase
+      .from('invoices')
+      .select('id, client_name, amount, due_date, status')
+      .eq('user_id', user.id)
+      .or('status.is.null,status.neq.paid'),
     getForecastDaysLimit(user.id),
     getUserSubscription(user.id),
   ]);
@@ -115,6 +122,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   // Generate calendar data if user has accounts
   let calendarData = null;
   let calendarError: string | null = null;
+
   if (accounts.length > 0) {
     try {
       calendarData = generateCalendar(accounts, incomes, bills, safetyBuffer, timezone ?? undefined, forecastDays, transfers);
@@ -253,6 +261,49 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     estimatedTaxQ4Paid,
   ];
 
+  // Generate proactive alerts
+  let alerts: ReturnType<typeof generateAlerts> = [];
+  if (calendarData) {
+    try {
+      const alertContext = buildAlertContext({
+        safetyBuffer,
+        currency,
+        calendarDays: calendarData.days,
+        riskMetrics: calendarData.monteCarlo?.riskMetrics,
+        invoices: allInvoicesResult.data?.map((inv) => ({
+          id: inv.id,
+          client_name: inv.client_name,
+          amount: inv.amount,
+          due_date: inv.due_date,
+          status: inv.status,
+        })),
+        bills: bills.map((b) => ({
+          id: b.id,
+          name: b.name,
+          amount: b.amount,
+          frequency: b.frequency,
+          due_date: b.due_date,
+        })),
+        income: incomes.map((i) => ({
+          id: i.id,
+          name: i.name,
+          amount: i.amount,
+          frequency: i.frequency,
+          next_date: i.next_date,
+        })),
+      });
+      alerts = generateAlerts(alertContext);
+    } catch (error) {
+      console.error('Error generating alerts:', error);
+    }
+  }
+
+  // Serialize alerts for client component
+  const serializedAlerts = alerts.map((alert) => ({
+    ...alert,
+    createdAt: alert.createdAt.toISOString(),
+  }));
+
   // Serialize calendar data for client component
   const serializedCalendarData = calendarData ? {
     days: calendarData.days.map(day => ({
@@ -326,6 +377,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       subscriptionTier={subscription.tier}
       checkoutSuccess={checkoutStatus === 'success'}
       isLifetimePurchase={isLifetimePurchase}
+      alerts={serializedAlerts}
     />
   );
 }

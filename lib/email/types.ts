@@ -8,6 +8,16 @@ export interface AIInsight {
   text: string;
 }
 
+/**
+ * Proactive alert for email digest (serialized version).
+ */
+export interface DigestAlert {
+  type: 'cash_crunch' | 'bill_collision' | 'invoice_risk' | 'opportunity' | 'anomaly';
+  priority: 'critical' | 'warning' | 'info' | 'opportunity';
+  title: string;
+  message: string;
+}
+
 export interface DigestData {
   user: {
     id: string;
@@ -47,4 +57,5 @@ export interface DigestData {
   timezone?: string | null;
   safetyBuffer?: number;
   aiInsights?: AIInsight[];
+  proactiveAlerts?: DigestAlert[];
 }

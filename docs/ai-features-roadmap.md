@@ -305,3 +305,367 @@ payment of $3,500 is expected.
 - 5 queries/day free tier limit balances value vs. API costs
 - Conversation history within session (not persisted to database)
 - Violet color scheme distinguishes from Scenario button (teal)
+
+**Proactive AI Alerts (April 2026):**
+- Rule-based engine with modular alert rules (no LLM needed for detection)
+- 4 initial alert types: cash crunch, bill collision, invoice risk, opportunity
+- Priority system: critical (can't dismiss), warning, info, opportunity
+- Server-side generation during dashboard page load
+- Replaced legacy warning banners with unified AlertBanner system
+- Collapsible UI with dismiss functionality for non-critical alerts
+- Max 5 alerts shown to avoid overwhelming users
+- No database persistence for dismissed alerts (session-only)
+- Integrated into weekly email digest with color-coded styling
+- Bug fixes: invoice count query, bill collision balance calculation, duplicate warning removal
+
+---
+
+# Phase 2: Proactive Intelligence
+
+*Vision: Transform Cashcast from a reactive tool to a proactive financial assistant that anticipates problems before they happen.*
+
+---
+
+## 4. Proactive AI Alerts ✅ COMPLETED (April 9, 2026)
+
+**User need:** "Don't make me ask — tell me when something needs my attention."
+
+### Overview
+
+Instead of waiting for users to ask questions, Cashcast will proactively analyze their financial data and surface actionable alerts before problems occur.
+
+### Alert Types
+
+| Alert Type | Trigger Condition | Example Message |
+|------------|-------------------|-----------------|
+| **Cash Crunch Warning** | Projected balance < safety buffer within 14 days | "Heads up: You'll hit $200 on March 15th. Consider delaying the software subscription." |
+| **Bill Collision** | 3+ bills landing within 2-day window | "You have $2,400 in bills landing March 1-3. Your balance can handle it, but it'll be tight." |
+| **Invoice Overdue Risk** | Client payment pattern suggests delay | "Acme Corp usually pays 5 days late. Adjusting your forecast accordingly." |
+| **Opportunity Window** | Surplus detected for discretionary spending | "You'll have $3K+ buffer for the next 3 weeks — good window for that equipment purchase." |
+| **Unusual Activity** | Spending pattern anomaly detected | "Your software subscriptions are up 40% this month ($847 vs usual $600)." |
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      Alert Generation Flow                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Triggers:                                                       │
+│  ├── Dashboard page load                                         │
+│  ├── Weekly digest email generation                              │
+│  └── After data changes (bill added, invoice sent, etc.)         │
+│                                                                  │
+│         ↓                                                        │
+│                                                                  │
+│  ┌─────────────────┐                                             │
+│  │  Alert Engine   │                                             │
+│  │  (Server-side)  │                                             │
+│  └────────┬────────┘                                             │
+│           │                                                      │
+│           ├── Fetch user context (accounts, bills, invoices)     │
+│           ├── Run Monte Carlo simulation                         │
+│           ├── Analyze patterns (payment history, spending)       │
+│           ├── Apply alert rules                                  │
+│           └── Generate alert messages (Claude Haiku for NL)      │
+│                                                                  │
+│         ↓                                                        │
+│                                                                  │
+│  ┌─────────────────┐    ┌─────────────────┐                      │
+│  │  Dashboard UI   │    │  Email Digest   │                      │
+│  │  (Alert Banner) │    │  (Alert Section)│                      │
+│  └─────────────────┘    └─────────────────┘                      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Implementation Plan
+
+**Files Created:**
+```
+lib/alerts/
+├── types.ts              # Alert type definitions
+├── rules/
+│   ├── cash-crunch.ts    # Low balance detection (triggers <14 days)
+│   ├── bill-collision.ts # 3+ bills within 2-day window
+│   ├── invoice-risk.ts   # Overdue and at-risk invoices
+│   ├── opportunity.ts    # 7+ days sustained surplus
+│   └── index.ts          # Rule exports
+├── engine.ts             # Alert rule orchestrator
+└── index.ts              # Public exports
+
+components/alerts/
+├── alert-banner.tsx      # Collapsible alert list with dismiss
+└── index.ts              # Exports
+```
+
+**Files Modified:**
+- `app/dashboard/page.tsx` - Generate and pass alerts to client
+- `components/dashboard/dashboard-content.tsx` - Display AlertBanner, removed legacy warning banners
+- `lib/email/types.ts` - Added DigestAlert type
+- `lib/email/generate-digest-data.ts` - Generate alerts for weekly email digest
+- `components/emails/weekly-digest.tsx` - Render proactive alerts in email
+
+### Alert Priority & Styling
+
+| Priority | Color | Icon | Behavior |
+|----------|-------|------|----------|
+| Critical | Rose/Red | ⚠️ | Always visible, can't dismiss |
+| Warning | Amber | ⚡ | Visible, dismissible |
+| Info | Blue | 💡 | Collapsible, dismissible |
+| Opportunity | Emerald | ✨ | Subtle, dismissible |
+
+### Why This Approach
+- Shifts product from reactive tool to proactive assistant
+- Leverages existing Monte Carlo and context infrastructure
+- Low API cost (Haiku for message generation, rules are local)
+- Increases engagement without requiring user action
+
+---
+
+## 5. Client Payment Risk Scoring 📋 PLANNED
+
+**User need:** "Which clients should I worry about paying late?"
+
+### Overview
+
+Predict invoice payment timing based on historical patterns and client behavior, giving freelancers better forecast accuracy and actionable insights.
+
+### Risk Score Model
+
+```
+Invoice: Acme Corp - $5,000 - Due Apr 15
+
+Payment Prediction:
+├── Expected Payment: Apr 18 (3 days late)
+├── Confidence: 78%
+├── Risk Level: Medium
+├── Pattern: Paid 12 days late last time, improving trend
+└── Recommendation: Follow up on Apr 14
+
+Risk Factors:
+├── [+] Paid last 3 invoices
+├── [+] Improving trend (was 12 days late → 8 days → 5 days)
+├── [-] Invoice amount higher than usual
+└── [-] End of quarter (historically slower)
+```
+
+### Data Points for Scoring
+
+| Factor | Weight | Source |
+|--------|--------|--------|
+| Historical payment speed | High | Invoice payment history |
+| Payment trend (improving/worsening) | Medium | Calculated from history |
+| Invoice amount vs. typical | Low | Invoice comparison |
+| Day of week/month sent | Low | Invoice metadata |
+| Time since last payment | Medium | Invoice history |
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Payment Risk Scoring Flow                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Invoice Created/Sent                                            │
+│         ↓                                                        │
+│  ┌─────────────────┐                                             │
+│  │  Risk Scorer    │                                             │
+│  │  (Server-side)  │                                             │
+│  └────────┬────────┘                                             │
+│           │                                                      │
+│           ├── Fetch client payment history                       │
+│           ├── Calculate average days to payment                  │
+│           ├── Detect trend (improving/worsening)                 │
+│           ├── Apply risk factors                                 │
+│           └── Generate risk score (0-100) + expected date        │
+│                                                                  │
+│         ↓                                                        │
+│                                                                  │
+│  ┌─────────────────┐    ┌─────────────────┐                      │
+│  │  Invoice List   │    │  Forecast Adj.  │                      │
+│  │  (Risk Badge)   │    │  (Use expected) │                      │
+│  └─────────────────┘    └─────────────────┘                      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Implementation Plan
+
+**Files to Create:**
+```
+lib/invoices/
+├── payment-risk/
+│   ├── types.ts           # Risk score types
+│   ├── history.ts         # Fetch payment history
+│   ├── scorer.ts          # Risk calculation engine
+│   ├── trend.ts           # Trend detection
+│   └── index.ts           # Public exports
+```
+
+**Files to Modify:**
+- `components/invoices/invoice-list.tsx` - Add risk badges
+- `lib/calendar/monte-carlo/simulation.ts` - Use predicted dates
+- Invoice detail page - Show risk breakdown
+
+### Risk Level Thresholds
+
+| Risk Level | Score Range | Color | Expected Delay |
+|------------|-------------|-------|----------------|
+| Low | 0-25 | Emerald | On time or early |
+| Medium | 26-50 | Amber | 1-7 days late |
+| High | 51-75 | Orange | 8-14 days late |
+| Critical | 76-100 | Rose | 15+ days late |
+
+### Why This Approach
+- Uses existing invoice data (no new data collection needed)
+- Rule-based scoring (no API costs)
+- Directly improves forecast accuracy
+- Unique differentiator for freelancer market
+
+---
+
+## 6. Income Pattern Forecasting 📋 PLANNED
+
+**User need:** "My income is irregular — help me predict it."
+
+### Overview
+
+Learn from historical income patterns to generate smarter forecasts for freelancers with variable income, going beyond simple recurring entries.
+
+### Pattern Analysis
+
+```
+Income Analysis for Omar:
+
+Client Breakdown:
+├── Acme Corp (Primary)
+│   ├── Frequency: ~Monthly, irregular timing
+│   ├── Amount: $4,000-$6,500 (avg $5,200)
+│   ├── Timing: Usually 5th-15th of month
+│   └── Trend: Stable
+│
+├── Beta Inc (Retainer)
+│   ├── Frequency: Monthly, consistent
+│   ├── Amount: $2,000 (fixed)
+│   ├── Timing: 1st of month
+│   └── Trend: Stable
+│
+└── Side Projects
+    ├── Frequency: Sporadic (0-3 per month)
+    ├── Amount: $500-$1,500
+    └── Predictability: Low
+
+Seasonality Detected:
+├── Q4: +30% (holiday projects)
+├── Q1: -15% (slow start)
+└── Summer: -10% (vacation season)
+
+AI Forecast (Next 90 Days):
+├── April: $7,200 (P50), range $5,800-$9,100
+├── May: $6,800 (P50), range $5,200-$8,600
+└── June: $7,500 (P50), range $5,900-$9,400
+```
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   Income Pattern Analysis Flow                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Data Sources:                                                   │
+│  ├── Paid invoices (last 12 months)                              │
+│  ├── Income entries (recurring + one-time)                       │
+│  └── Bank imports (if available)                                 │
+│                                                                  │
+│         ↓                                                        │
+│                                                                  │
+│  ┌─────────────────┐                                             │
+│  │ Pattern Engine  │                                             │
+│  │ (Server-side)   │                                             │
+│  └────────┬────────┘                                             │
+│           │                                                      │
+│           ├── Group income by source/client                      │
+│           ├── Calculate frequency distribution                   │
+│           ├── Detect seasonality (monthly, quarterly)            │
+│           ├── Identify trends (growing, stable, declining)       │
+│           └── Generate probabilistic forecast                    │
+│                                                                  │
+│         ↓                                                        │
+│                                                                  │
+│  ┌─────────────────┐    ┌─────────────────┐                      │
+│  │ Income Insights │    │ Enhanced Monte  │                      │
+│  │    Dashboard    │    │ Carlo Forecast  │                      │
+│  └─────────────────┘    └─────────────────┘                      │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Implementation Plan
+
+**Files to Create:**
+```
+lib/income/
+├── patterns/
+│   ├── types.ts           # Pattern types
+│   ├── analyzer.ts        # Pattern detection engine
+│   ├── seasonality.ts     # Seasonal trend detection
+│   ├── forecast.ts        # Probabilistic income forecast
+│   └── index.ts           # Public exports
+
+components/income/
+├── income-insights.tsx    # Pattern visualization
+├── forecast-chart.tsx     # Income forecast chart
+└── index.ts               # Exports
+```
+
+**Files to Modify:**
+- `app/dashboard/page.tsx` - Add income insights section
+- `lib/calendar/monte-carlo/simulation.ts` - Incorporate learned patterns
+
+### Minimum Data Requirements
+
+| Data Points | Forecast Quality |
+|-------------|------------------|
+| < 3 months | Basic (use entered recurring) |
+| 3-6 months | Moderate (detect simple patterns) |
+| 6-12 months | Good (seasonality detection) |
+| 12+ months | Excellent (full pattern analysis) |
+
+### Why This Approach
+- Core differentiator for freelancer market
+- Improves forecast accuracy over time
+- No API costs (statistical analysis)
+- Builds on existing Monte Carlo infrastructure
+
+---
+
+## Updated Implementation Priority Matrix
+
+| Feature | Impact | Effort | API Cost | Status |
+|---------|--------|--------|----------|--------|
+| Probabilistic Forecasting | High | Medium | None | ✅ COMPLETED |
+| Smart Categorization | High | Low-Med | Low | ✅ COMPLETED |
+| Natural Language Queries | High | Medium | Medium | ✅ COMPLETED |
+| **Proactive AI Alerts** | High | Low | None | ✅ COMPLETED |
+| **Client Payment Risk Scoring** | High | Medium | None | 📋 PLANNED |
+| **Income Pattern Forecasting** | High | High | None | 📋 PLANNED |
+
+### Phase 2 Sequence
+
+1. ~~**Proactive AI Alerts**~~ — ✅ Completed April 9, 2026
+2. **Client Payment Risk Scoring** — Uses existing invoice data
+3. **Income Pattern Forecasting** — Most complex, highest long-term value
+
+---
+
+## Future Considerations (Phase 3+)
+
+| Feature | Description | Effort |
+|---------|-------------|--------|
+| Bank Statement PDF Parsing | AI extracts transactions from PDF statements | Medium |
+| Expense Optimization | Identify savings opportunities from patterns | Medium |
+| Smart Scenario Suggestions | AI suggests relevant what-if scenarios | Low |
+| Voice Interface | Ask Cashcast questions by voice | High |
+| Receipt OCR | Scan receipts, auto-categorize | High |

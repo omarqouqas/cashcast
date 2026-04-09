@@ -87,8 +87,9 @@ export function buildWeeklyDigestEmail(
   const lowestBalanceStr = escapeHtml(formatCurrency(data.summary.lowestBalance, currency));
   const lowestBalanceDateStr = escapeHtml(formatDateForEmail(data.summary.lowestBalanceDate, tz));
 
-  const hasAlerts =
+  const hasLegacyAlerts =
     data.alerts.hasLowBalance || data.alerts.hasOverdraftRisk || data.alerts.hasBillCollisions;
+  const hasProactiveAlerts = data.proactiveAlerts && data.proactiveAlerts.length > 0;
 
   const hasAIInsights = data.aiInsights && data.aiInsights.length > 0;
   const aiInsightsHtml = !hasAIInsights
@@ -153,7 +154,34 @@ export function buildWeeklyDigestEmail(
           })
           .join('');
 
-  const alertsHtml = !hasAlerts
+  // Priority colors for proactive alerts
+  const alertColors: Record<string, { bg: string; border: string; icon: string }> = {
+    critical: { bg: '#4c1019', border: '#f87171', icon: '🚨' },
+    warning: { bg: '#451a03', border: '#fbbf24', icon: '⚠️' },
+    info: { bg: '#0c1929', border: '#60a5fa', icon: 'ℹ️' },
+    opportunity: { bg: '#052e16', border: '#4ade80', icon: '✨' },
+  };
+
+  // Build proactive alerts HTML (preferred) or fall back to legacy alerts
+  const alertsHtml = hasProactiveAlerts
+    ? `<tr>
+  <td style="padding:18px 24px;border-top:1px solid #27272a;">
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+      <div style="font-size:14px;letter-spacing:0.08em;color:#a1a1aa;font-weight:700;">🔔 ALERTS</div>
+      ${data.proactiveAlerts!
+        .map((alert) => {
+          const defaultColor = { bg: '#0c1929', border: '#60a5fa', icon: 'ℹ️' };
+          const colors = alertColors[alert.priority] ?? defaultColor;
+          return `<div style="margin-top:12px;background:${colors.bg};border:1px solid ${colors.border};border-radius:8px;padding:12px 14px;">
+        <div style="font-size:15px;font-weight:700;color:#e4e4e7;">${colors.icon} ${escapeHtml(alert.title)}</div>
+        <div style="margin-top:6px;font-size:14px;line-height:20px;color:#a1a1aa;">${escapeHtml(alert.message)}</div>
+      </div>`;
+        })
+        .join('')}
+    </div>
+  </td>
+</tr>`
+    : !hasLegacyAlerts
     ? ''
     : `<tr>
   <td style="padding:18px 24px;border-top:1px solid #27272a;">

@@ -30,7 +30,9 @@ import type { CalendarDay } from '@/lib/calendar/types';
 import type { MonteCarloResult } from '@/lib/calendar/monte-carlo/types';
 import { trackDashboardViewed } from '@/lib/posthog/events';
 import { LifetimeDealBanner } from '@/components/subscription/lifetime-deal-banner';
+import { AlertBanner } from '@/components/alerts';
 import type { SubscriptionTier } from '@/lib/stripe/config';
+import type { Alert } from '@/lib/alerts/types';
 
 interface Account {
   id: string;
@@ -68,6 +70,11 @@ interface CalendarData {
   monteCarlo?: MonteCarloResult;
 }
 
+/** Serialized alert from server (date as string) */
+interface SerializedAlert extends Omit<Alert, 'createdAt'> {
+  createdAt: string;
+}
+
 interface DashboardContentProps {
   accounts: Account[];
   calendarData: CalendarData | null;
@@ -98,6 +105,7 @@ interface DashboardContentProps {
   subscriptionTier?: SubscriptionTier;
   checkoutSuccess?: boolean;
   isLifetimePurchase?: boolean;
+  alerts?: SerializedAlert[];
 }
 
 /**
@@ -125,7 +133,17 @@ export function DashboardContent({
   subscriptionTier = 'free',
   checkoutSuccess = false,
   isLifetimePurchase = false,
+  alerts = [],
 }: DashboardContentProps) {
+  // Deserialize alerts (convert createdAt back to Date)
+  const deserializedAlerts: Alert[] = React.useMemo(
+    () =>
+      alerts.map((alert) => ({
+        ...alert,
+        createdAt: new Date(alert.createdAt),
+      })),
+    [alerts]
+  );
   const { filters, setFilters, visibleFilters, setVisibleFilters } = useDashboardFilters(undefined, forecastDays);
   const trackedRef = React.useRef(false);
 
@@ -339,6 +357,11 @@ export function DashboardContent({
         />
       </div>
 
+      {/* Proactive AI Alerts */}
+      {deserializedAlerts.length > 0 && (
+        <AlertBanner alerts={deserializedAlerts} className="mb-6" />
+      )}
+
       {/* Calendar Generation Error */}
       {calendarError && (
         <div className="mb-6">
@@ -372,117 +395,6 @@ export function DashboardContent({
           </div>
         </div>
       )}
-
-      {/* Critical Warning Banner - Overdraft Alert */}
-      {forecastMetrics?.negativeCount ? (
-        <div className="mb-6">
-          <div className="border border-rose-500/30 bg-rose-500/10 rounded-lg p-5">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-rose-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg
-                  className="w-5 h-5 text-rose-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  />
-                </svg>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-base font-semibold text-rose-300">
-                  You may overdraft on{' '}
-                  {forecastMetrics.firstNegativeDate
-                    ? format(forecastMetrics.firstNegativeDate, 'MMM d')
-                    : 'a future day'}
-                </p>
-                <p className="text-sm text-rose-400 mt-1">
-                  Let&apos;s fix that — check your forecast and adjust spending
-                  or income.
-                </p>
-                <Link
-                  href="/dashboard/calendar"
-                  className="inline-flex items-center text-sm font-medium text-rose-300 hover:text-rose-200 transition-colors mt-2"
-                >
-                  View full calendar →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : forecastMetrics?.lowBalanceCount ? (
-        <div className="mb-6">
-          <div className="border border-amber-500/30 bg-amber-500/10 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg
-                  className="w-4 h-4 text-amber-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-amber-300">
-                  Heads up — {forecastMetrics.lowBalanceCount} low-balance day
-                  {forecastMetrics.lowBalanceCount === 1 ? '' : 's'} in the next{' '}
-                  {horizonPeriod}
-                </p>
-                <Link
-                  href="/dashboard/calendar"
-                  className="inline-flex items-center text-sm text-amber-400 hover:text-amber-300 transition-colors mt-1"
-                >
-                  View calendar →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : forecastMetrics ? (
-        <div className="mb-6">
-          <div className="border border-teal-500/30 bg-teal-500/10 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-teal-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg
-                  className="w-4 h-4 text-teal-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-teal-300">
-                  ✓ You&apos;re in the green for the next {horizonPeriod}
-                </p>
-                <Link
-                  href="/dashboard/calendar"
-                  className="inline-flex items-center text-sm text-teal-400 hover:text-teal-300 transition-colors mt-1"
-                >
-                  View calendar →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
 
       {/* Quick Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
