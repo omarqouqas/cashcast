@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 6, 2026 (Day 63)
+**Last Updated:** April 9, 2026 (Day 66)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 63
+- **Days in Development:** 66
 - **Commits:** 406+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + **Branding Refresh**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + **Proactive AI Alerts**
 
 **Current Focus:**
 
@@ -28,7 +28,57 @@
 
 ---
 
-## Recent Development (Days 40-63)
+## Recent Development (Days 40-66)
+
+### Day 66: Proactive AI Alerts (April 9, 2026)
+
+**Major Feature: Proactive AI Alerts** - Rule-based alert engine that surfaces actionable insights before problems occur.
+
+**User Value:**
+- Get warned about cash crunches before they happen
+- See bill collision alerts (3+ bills in 2-day window)
+- Surface overdue and at-risk invoices automatically
+- Spot opportunity windows when surplus is sustained
+
+**Alert Types:**
+
+| Type | Trigger | Priority |
+|------|---------|----------|
+| Cash Crunch | Balance < safety buffer within 14 days | Critical/Warning |
+| Bill Collision | 3+ bills within 2-day window | Warning/Info |
+| Invoice Risk | Overdue or due within 3 days | Critical/Warning |
+| Opportunity | 7+ days with 2x safety buffer surplus | Opportunity |
+
+**Technical Implementation:**
+- Modular rule engine with pluggable alert rules
+- Server-side generation during dashboard page load
+- Integrated into weekly email digest with color-coded styling
+- Replaced legacy warning banners with unified AlertBanner system
+- Priority-based sorting (critical → warning → info → opportunity)
+- Max 5 alerts to avoid overwhelming users
+
+**New Files:**
+- `lib/alerts/types.ts` - Alert type definitions
+- `lib/alerts/rules/cash-crunch.ts` - Low balance detection
+- `lib/alerts/rules/bill-collision.ts` - Bill clustering detection
+- `lib/alerts/rules/invoice-risk.ts` - Overdue/at-risk invoices
+- `lib/alerts/rules/opportunity.ts` - Surplus window detection
+- `lib/alerts/engine.ts` - Alert rule orchestrator
+- `components/alerts/alert-banner.tsx` - Collapsible alert UI
+
+**Modified Files:**
+- `app/dashboard/page.tsx` - Generate and pass alerts to client
+- `components/dashboard/dashboard-content.tsx` - Display AlertBanner, removed legacy banners
+- `lib/email/types.ts` - Added DigestAlert type
+- `lib/email/generate-digest-data.ts` - Generate alerts for email digest
+- `components/emails/weekly-digest.tsx` - Render proactive alerts in email
+
+**Bug Fixes:**
+- Fixed invoice count bug (dashboard showed 3 vs actual 11 overdue)
+- Fixed bill collision balance calculation (was double-counting)
+- Removed duplicate warning banners (AlertBanner replaces legacy)
+
+---
 
 ### Day 63: Smart Categorization for Imports (April 6, 2026)
 

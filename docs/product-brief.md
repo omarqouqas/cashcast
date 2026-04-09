@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.23
-**Last Updated:** April 6, 2026
-**Status:** Live - AI Features Showcased on Landing Page
+**Version:** 6.24
+**Last Updated:** April 9, 2026
+**Status:** Live - Proactive AI Alerts
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -502,9 +502,23 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - **User control:** Override any suggestion before import
 - Marketing angle: "Import smarter, not harder"
 
+**23. Proactive AI Alerts ✅**
+- **Rule-based alert engine** surfacing insights before problems occur
+- **4 alert types:**
+  - Cash Crunch: warns when balance drops below safety buffer within 14 days
+  - Bill Collision: detects 3+ bills within 2-day window
+  - Invoice Risk: surfaces overdue and at-risk invoices
+  - Opportunity: highlights 7+ days with sustained surplus
+- **Priority system:** Critical (can't dismiss), Warning, Info, Opportunity
+- **AlertBanner UI:** Collapsible list with color-coded styling
+- **Email integration:** Proactive alerts included in weekly digest
+- Server-side generation during dashboard page load
+- Max 5 alerts to avoid overwhelming users
+
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
 - Alerts: low balance, overdraft risk, bill collisions
+- **Proactive AI Alerts section** with color-coded styling
 - User-configurable schedule (day + time) with timezone support
 - Unsubscribe link + open/click tracking
 
@@ -1069,6 +1083,28 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.24 (April 9, 2026)
+- **Proactive AI Alerts:**
+  - Rule-based alert engine surfacing actionable insights before problems occur
+  - 4 alert types: cash crunch, bill collision, invoice risk, opportunity
+  - Priority system: critical (can't dismiss), warning, info, opportunity
+  - AlertBanner component with collapsible UI and dismiss functionality
+  - Integrated into weekly email digest with color-coded styling
+  - Replaced legacy dashboard warning banners with unified AlertBanner
+  - Server-side generation during dashboard page load
+- **New Files:**
+  - `lib/alerts/` - Alert engine with modular rule system
+  - `components/alerts/alert-banner.tsx` - Collapsible alert UI
+- **Modified Files:**
+  - `app/dashboard/page.tsx` - Generate and pass alerts to client
+  - `components/dashboard/dashboard-content.tsx` - Display AlertBanner
+  - `lib/email/generate-digest-data.ts` - Generate alerts for email
+  - `components/emails/weekly-digest.tsx` - Render alerts in email
+- **Bug Fixes:**
+  - Fixed invoice count bug (dashboard showing 3 vs 11 actual overdue)
+  - Fixed bill collision balance calculation (was double-counting)
+  - Removed duplicate warning systems (unified under AlertBanner)
 
 ### Version 6.23 (April 6, 2026)
 - **AI-Powered Weekly Digest Insights:**
@@ -1848,7 +1884,7 @@ Canada represents a strategic expansion opportunity due to:
 
 ---
 
-**Document Version:** 6.17
-**Last Updated:** April 6, 2026
-**Status:** Live - AI Natural Language Queries
+**Document Version:** 6.24
+**Last Updated:** April 9, 2026
+**Status:** Live - Proactive AI Alerts
 **Next Review:** May 2026
