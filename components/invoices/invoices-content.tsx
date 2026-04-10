@@ -21,6 +21,7 @@ import {
   getRiskLabel,
   type PaymentRiskScore,
   type InvoiceForRisk,
+  type RiskLevel,
 } from '@/lib/invoices/payment-risk';
 
 interface Invoice {
@@ -87,9 +88,17 @@ function needsFollowUp(invoice: Invoice, now = new Date()) {
 /**
  * Filter invoices based on the current filter settings
  */
-function filterInvoices(invoices: Invoice[], filters: InvoicesFilters): Invoice[] {
+function filterInvoices(
+  invoices: Invoice[],
+  filters: InvoicesFilters,
+  riskScores: Map<string, PaymentRiskScore | null>
+): Invoice[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  // Check if risk filter is active (not all risk levels selected)
+  const allRiskLevels: RiskLevel[] = ['low', 'medium', 'high', 'critical'];
+  const isRiskFilterActive = filters.riskLevels.length < allRiskLevels.length;
 
   return invoices.filter((invoice) => {
     // Filter by status
@@ -115,6 +124,14 @@ function filterInvoices(invoices: Invoice[], filters: InvoicesFilters): Invoice[
     if (filters.amountMin !== null && invoice.amount < filters.amountMin) return false;
     if (filters.amountMax !== null && invoice.amount > filters.amountMax) return false;
 
+    // Filter by risk level
+    if (isRiskFilterActive) {
+      const risk = riskScores.get(invoice.id);
+      // Paid invoices have no risk - exclude if risk filter is active
+      if (!risk) return false;
+      if (!filters.riskLevels.includes(risk.riskLevel)) return false;
+    }
+
     // Filter by search term (client name or invoice number)
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
@@ -134,22 +151,7 @@ export function InvoicesContent({ invoices, currency = 'USD' }: InvoicesContentP
   const { filters, setFilters, visibleFilters, setVisibleFilters } = useInvoicesFilters();
   const now = new Date();
 
-  // Apply filters to invoices
-  const filteredInvoices = useMemo(
-    () => filterInvoices(invoices, filters),
-    [invoices, filters]
-  );
-
-  // Show empty state when all invoices are filtered out
-  const showEmptyState = invoices.length > 0 && filteredInvoices.length === 0;
-
-  // Follow-up invoices for the banner
-  const followUpInvoices = useMemo(
-    () => invoices.filter((inv) => needsFollowUp(inv, now)),
-    [invoices, now]
-  );
-
-  // Calculate risk scores for all invoices
+  // Calculate risk scores for all invoices (needed for filtering by risk)
   const riskScores = useMemo(() => {
     const scores = new Map<string, PaymentRiskScore | null>();
 
@@ -201,6 +203,21 @@ export function InvoicesContent({ invoices, currency = 'USD' }: InvoicesContentP
 
     return scores;
   }, [invoices]);
+
+  // Apply filters to invoices (must come after riskScores)
+  const filteredInvoices = useMemo(
+    () => filterInvoices(invoices, filters, riskScores),
+    [invoices, filters, riskScores]
+  );
+
+  // Show empty state when all invoices are filtered out
+  const showEmptyState = invoices.length > 0 && filteredInvoices.length === 0;
+
+  // Follow-up invoices for the banner
+  const followUpInvoices = useMemo(
+    () => invoices.filter((inv) => needsFollowUp(inv, now)),
+    [invoices, now]
+  );
 
   return (
     <>

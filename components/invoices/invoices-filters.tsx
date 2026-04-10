@@ -21,7 +21,12 @@ import {
   AlertTriangle,
   Calendar,
   DollarSign,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  Activity,
 } from 'lucide-react';
+import type { RiskLevel } from '@/lib/invoices/payment-risk';
 
 export type InvoiceStatus = 'draft' | 'sent' | 'viewed' | 'paid';
 
@@ -32,10 +37,12 @@ export interface InvoicesFilters {
   dueDateEnd: Date | null;
   amountMin: number | null;
   amountMax: number | null;
+  riskLevels: RiskLevel[];
   search: string;
 }
 
 const allStatuses: InvoiceStatus[] = ['draft', 'sent', 'viewed', 'paid'];
+const allRiskLevels: RiskLevel[] = ['low', 'medium', 'high', 'critical'];
 
 export const defaultInvoicesFilters: InvoicesFilters = {
   statuses: allStatuses,
@@ -44,6 +51,7 @@ export const defaultInvoicesFilters: InvoicesFilters = {
   dueDateEnd: null,
   amountMin: null,
   amountMax: null,
+  riskLevels: allRiskLevels,
   search: '',
 };
 
@@ -59,11 +67,19 @@ const overdueOptions: FilterDropdownOption[] = [
   { value: 'overdue', label: 'Overdue Only', icon: <AlertTriangle className="w-3.5 h-3.5" /> },
 ];
 
+const riskOptions: FilterDropdownOption[] = [
+  { value: 'low', label: 'Low Risk', icon: <TrendingUp className="w-3.5 h-3.5 text-emerald-400" /> },
+  { value: 'medium', label: 'Medium', icon: <Minus className="w-3.5 h-3.5 text-amber-400" /> },
+  { value: 'high', label: 'High Risk', icon: <TrendingDown className="w-3.5 h-3.5 text-orange-400" /> },
+  { value: 'critical', label: 'Critical', icon: <TrendingDown className="w-3.5 h-3.5 text-rose-400" /> },
+];
+
 // Filters that can be added via "+ Add filter" menu
 const additionalFilters: AddFilterOption[] = [
   { key: 'overdue', label: 'Overdue', icon: <AlertTriangle className="w-4 h-4" /> },
   { key: 'dueDate', label: 'Due Date', icon: <Calendar className="w-4 h-4" /> },
   { key: 'amount', label: 'Amount', icon: <DollarSign className="w-4 h-4" /> },
+  { key: 'risk', label: 'Risk', icon: <Activity className="w-4 h-4" /> },
 ];
 
 // Default visible filters (always shown)
@@ -132,6 +148,16 @@ export function InvoicesFilterBar({
       pills.push({ key: 'amount', label: 'Amount', value: amountLabel });
     }
 
+    // Risk filter
+    if (filters.riskLevels.length > 0 && filters.riskLevels.length < allRiskLevels.length) {
+      filters.riskLevels.forEach((level) => {
+        const option = riskOptions.find((o) => o.value === level);
+        if (option) {
+          pills.push({ key: 'risk', label: 'Risk', value: option.label });
+        }
+      });
+    }
+
     // Search filter
     if (filters.search) {
       pills.push({ key: 'search', label: 'Search', value: filters.search });
@@ -163,6 +189,17 @@ export function InvoicesFilterBar({
       case 'amount':
         onChange({ ...filters, amountMin: null, amountMax: null });
         break;
+      case 'risk': {
+        const riskValue = riskOptions.find((o) => o.label === value)?.value as RiskLevel;
+        if (riskValue) {
+          const newRiskLevels = filters.riskLevels.filter((r) => r !== riskValue);
+          onChange({
+            ...filters,
+            riskLevels: newRiskLevels.length > 0 ? newRiskLevels : allRiskLevels,
+          });
+        }
+        break;
+      }
       case 'search':
         onChange({ ...filters, search: '' });
         break;
@@ -235,6 +272,18 @@ export function InvoicesFilterBar({
           />
         )}
 
+        {visibleFilters.includes('risk') && (
+          <FilterDropdown
+            label="Risk"
+            options={riskOptions}
+            value={filters.riskLevels}
+            onChange={(value) =>
+              onChange({ ...filters, riskLevels: value as RiskLevel[] })
+            }
+            allowEmpty={false}
+          />
+        )}
+
         <AddFilterMenu
           availableFilters={availableFilters}
           onAdd={handleAddFilter}
@@ -278,6 +327,7 @@ export function useInvoicesFilters(initialFilters?: Partial<InvoicesFilters>) {
     const dueEnd = searchParams.get('due_end');
     const minAmount = searchParams.get('min');
     const maxAmount = searchParams.get('max');
+    const riskLevels = searchParams.get('risk');
     const search = searchParams.get('q');
 
     return {
@@ -289,6 +339,11 @@ export function useInvoicesFilters(initialFilters?: Partial<InvoicesFilters>) {
       dueDateEnd: dueEnd ? new Date(dueEnd + 'T00:00:00') : null,
       amountMin: minAmount ? parseFloat(minAmount) : null,
       amountMax: maxAmount ? parseFloat(maxAmount) : null,
+      riskLevels: (() => {
+        if (!riskLevels) return defaultInvoicesFilters.riskLevels;
+        const parsed = riskLevels.split(',').filter((r) => allRiskLevels.includes(r as RiskLevel)) as RiskLevel[];
+        return parsed.length > 0 ? parsed : defaultInvoicesFilters.riskLevels;
+      })(),
       search: search || '',
     };
   }, [searchParams]);
@@ -355,6 +410,14 @@ export function useInvoicesFilters(initialFilters?: Partial<InvoicesFilters>) {
         params.delete('max');
       }
 
+      // Risk levels
+      const isDefaultRiskLevels = newFilters.riskLevels.length === allRiskLevels.length;
+      if (isDefaultRiskLevels) {
+        params.delete('risk');
+      } else {
+        params.set('risk', newFilters.riskLevels.join(','));
+      }
+
       // Search
       if (newFilters.search) {
         params.set('q', newFilters.search);
@@ -409,6 +472,7 @@ export function useInvoicesFilters(initialFilters?: Partial<InvoicesFilters>) {
       filters.dueDateEnd !== null ||
       filters.amountMin !== null ||
       filters.amountMax !== null ||
+      filters.riskLevels.length !== allRiskLevels.length ||
       filters.search !== ''
     );
   }, [filters]);
