@@ -31,6 +31,11 @@ export function calculatePaymentRisk(
     return null;
   }
 
+  // Safety check for missing due_date
+  if (!invoice.due_date) {
+    return null;
+  }
+
   const factors: RiskFactor[] = [];
   let totalScore = 0;
 
@@ -210,6 +215,19 @@ function scoreInvoiceAmount(
   invoice: InvoiceForRisk,
   history: ClientPaymentHistory
 ): { score: number; factor: RiskFactor } {
+  // Guard against division by zero
+  if (history.avgInvoiceAmount === 0) {
+    return {
+      score: 40,
+      factor: {
+        name: 'Invoice amount',
+        impact: 'positive',
+        description: 'Unable to compare (no amount history)',
+        contribution: Math.round(40 * RISK_WEIGHTS.invoiceAmount),
+      },
+    };
+  }
+
   const ratio = invoice.amount / history.avgInvoiceAmount;
 
   let score: number;
