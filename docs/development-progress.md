@@ -30,7 +30,7 @@
 
 ## Recent Development (Days 60-66)
 
-### Day 66: Proactive AI Alerts (April 9, 2026)
+### Day 66: Proactive AI Alerts + Client Payment Risk Scoring (April 9, 2026)
 
 **Major Feature: Proactive AI Alerts** - Rule-based alert engine that surfaces actionable insights before problems occur.
 
@@ -77,6 +77,39 @@
 - Fixed invoice count bug (dashboard showed 3 vs actual 11 overdue)
 - Fixed bill collision balance calculation (was double-counting)
 - Removed duplicate warning banners (AlertBanner replaces legacy)
+
+**Major Feature: Client Payment Risk Scoring** - Predicts invoice payment timing based on client payment history.
+
+**User Value:**
+- See which clients are likely to pay late
+- Get predicted payment dates based on historical patterns
+- Risk badges on invoice list for quick visibility
+- Better cash flow forecast accuracy
+
+**Risk Level Thresholds:**
+
+| Level | Score | Color | Expected Delay |
+|-------|-------|-------|----------------|
+| Low | 0-25 | Emerald | On time or early |
+| Medium | 26-50 | Amber | 1-7 days late |
+| High | 51-75 | Orange | 8-14 days late |
+| Critical | 76-100 | Rose | 15+ days late |
+
+**Risk Factor Weights:**
+- Historical lateness: 40%
+- Payment trend: 20%
+- Invoice amount vs typical: 15%
+- Payment rate: 15%
+- Days since last payment: 10%
+
+**New Files:**
+- `lib/invoices/payment-risk/types.ts` - Type definitions and thresholds
+- `lib/invoices/payment-risk/history.ts` - Client payment history aggregation
+- `lib/invoices/payment-risk/scorer.ts` - Risk calculation engine
+- `lib/invoices/payment-risk/index.ts` - Public exports
+
+**Modified Files:**
+- `components/invoices/invoices-content.tsx` - Added Risk column with badges
 
 ---
 

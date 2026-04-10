@@ -423,7 +423,7 @@ components/alerts/
 
 ---
 
-## 5. Client Payment Risk Scoring 📋 PLANNED
+## 5. Client Payment Risk Scoring ✅ COMPLETED (April 9, 2026)
 
 **User need:** "Which clients should I worry about paying late?"
 
@@ -490,23 +490,26 @@ Risk Factors:
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Implementation Plan
+### Implementation
 
-**Files to Create:**
+**Files Created:**
 ```
-lib/invoices/
-├── payment-risk/
-│   ├── types.ts           # Risk score types
-│   ├── history.ts         # Fetch payment history
-│   ├── scorer.ts          # Risk calculation engine
-│   ├── trend.ts           # Trend detection
-│   └── index.ts           # Public exports
+lib/invoices/payment-risk/
+├── types.ts           # Risk score types, thresholds, weights
+├── history.ts         # Client payment history aggregation
+├── scorer.ts          # Risk calculation engine with 5 weighted factors
+└── index.ts           # Public exports
 ```
 
-**Files to Modify:**
-- `components/invoices/invoice-list.tsx` - Add risk badges
-- `lib/calendar/monte-carlo/simulation.ts` - Use predicted dates
-- Invoice detail page - Show risk breakdown
+**Files Modified:**
+- `components/invoices/invoices-content.tsx` - Added Risk column with color-coded badges
+
+**Risk Factor Weights (as implemented):**
+- Historical lateness: 40%
+- Payment trend: 20%
+- Invoice amount vs typical: 15%
+- Payment rate (paid/total): 15%
+- Days since last payment: 10%
 
 ### Risk Level Thresholds
 
@@ -649,13 +652,13 @@ components/income/
 | Smart Categorization | High | Low-Med | Low | ✅ COMPLETED |
 | Natural Language Queries | High | Medium | Medium | ✅ COMPLETED |
 | **Proactive AI Alerts** | High | Low | None | ✅ COMPLETED |
-| **Client Payment Risk Scoring** | High | Medium | None | 📋 PLANNED |
+| **Client Payment Risk Scoring** | High | Medium | None | ✅ COMPLETED |
 | **Income Pattern Forecasting** | High | High | None | 📋 PLANNED |
 
 ### Phase 2 Sequence
 
 1. ~~**Proactive AI Alerts**~~ — ✅ Completed April 9, 2026
-2. **Client Payment Risk Scoring** — Uses existing invoice data
+2. ~~**Client Payment Risk Scoring**~~ — ✅ Completed April 9, 2026
 3. **Income Pattern Forecasting** — Most complex, highest long-term value
 
 ---
