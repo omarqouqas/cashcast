@@ -520,6 +520,20 @@ lib/invoices/payment-risk/
 | High | 51-75 | Orange | 8-14 days late |
 | Critical | 76-100 | Rose | 15+ days late |
 
+### Enhancement: Risk Filter (April 10, 2026)
+
+Added filter-by-risk capability to the invoices list:
+
+- Added Risk to "+ Add filter" dropdown menu
+- Multi-select dropdown with all 4 risk levels
+- Color-coded icons matching risk badges
+- Filter pills show active risk filters
+- URL persistence (`?risk=high,critical`)
+
+**Files Modified:**
+- `components/invoices/invoices-filters.tsx` - Filter UI and URL persistence
+- `components/invoices/invoices-content.tsx` - Risk-aware filtering logic
+
 ### Why This Approach
 - Uses existing invoice data (no new data collection needed)
 - Rule-based scoring (no API costs)

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 9, 2026 (Day 66)
+**Last Updated:** April 10, 2026 (Day 67)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,7 +10,7 @@
 
 ## Quick Stats
 
-- **Days in Development:** 66
+- **Days in Development:** 67
 - **Commits:** 406+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -28,7 +28,34 @@
 
 ---
 
-## Recent Development (Days 60-66)
+## Recent Development (Days 60-67)
+
+### Day 67: Risk Filter for Invoices (April 10, 2026)
+
+**Enhancement: Risk Filter** - Filter invoices by payment risk level in the invoices list.
+
+**User Value:**
+- Filter to see only high-risk invoices that need attention
+- Focus on critical invoices first
+- URL-persisted filters for bookmarking filtered views
+
+**Implementation:**
+- Added Risk to "+ Add filter" dropdown menu
+- Multi-select dropdown with all 4 risk levels
+- Color-coded icons matching risk badges (emerald/amber/orange/rose)
+- Filter pills show active risk filters
+- URL persistence (`?risk=high,critical`)
+
+**Modified Files:**
+- `components/invoices/invoices-filters.tsx` - Added riskLevels to filters, UI dropdown, URL persistence
+- `components/invoices/invoices-content.tsx` - Updated filterInvoices to filter by risk level
+
+**Bug Fixes:**
+- Fixed division by zero in `scoreInvoiceAmount` when client has no invoice amount history
+- Fixed null check for `invoice.due_date` to prevent parsing errors
+- Fixed URL parsing of invalid risk levels (e.g., `?risk=` or `?risk=invalid`) to fall back to default
+
+---
 
 ### Day 66: Proactive AI Alerts + Client Payment Risk Scoring (April 9, 2026)
 
