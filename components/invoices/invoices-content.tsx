@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { Pencil, AlertTriangle } from 'lucide-react';
+import { Pencil, AlertTriangle, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { formatCurrency, formatDateOnly } from '@/lib/utils/format';
 import { DownloadPdfButton } from './download-pdf-button';
 import { DeleteInvoiceIconButton } from './delete-invoice-icon-button';
@@ -14,6 +14,14 @@ import {
   type InvoicesFilters,
   type InvoiceStatus,
 } from './invoices-filters';
+import {
+  getClientPaymentHistory,
+  calculatePaymentRisk,
+  getRiskBadgeClasses,
+  getRiskLabel,
+  type PaymentRiskScore,
+  type InvoiceForRisk,
+} from '@/lib/invoices/payment-risk';
 
 interface Invoice {
   id: string;
@@ -23,6 +31,8 @@ interface Invoice {
   amount: number;
   due_date: string;
   status: string | null;
+  sent_at: string | null;
+  paid_at: string | null;
   last_reminder_at: string | null;
   user_id: string;
   created_at: string;
@@ -139,6 +149,59 @@ export function InvoicesContent({ invoices, currency = 'USD' }: InvoicesContentP
     [invoices, now]
   );
 
+  // Calculate risk scores for all invoices
+  const riskScores = useMemo(() => {
+    const scores = new Map<string, PaymentRiskScore | null>();
+
+    // Convert invoices to the format needed for risk calculation
+    const invoicesForRisk: InvoiceForRisk[] = invoices.map((inv) => ({
+      id: inv.id,
+      client_name: inv.client_name,
+      client_email: inv.client_email,
+      amount: inv.amount,
+      due_date: inv.due_date,
+      sent_at: inv.sent_at,
+      paid_at: inv.paid_at,
+      status: inv.status,
+      created_at: inv.created_at,
+    }));
+
+    for (const invoice of invoices) {
+      // Skip paid invoices
+      if (invoice.status === 'paid') {
+        scores.set(invoice.id, null);
+        continue;
+      }
+
+      // Get client history
+      const history = getClientPaymentHistory(
+        invoicesForRisk,
+        invoice.client_name,
+        invoice.client_email
+      );
+
+      // Calculate risk
+      const risk = calculatePaymentRisk(
+        {
+          id: invoice.id,
+          client_name: invoice.client_name,
+          client_email: invoice.client_email,
+          amount: invoice.amount,
+          due_date: invoice.due_date,
+          sent_at: invoice.sent_at,
+          paid_at: invoice.paid_at,
+          status: invoice.status,
+          created_at: invoice.created_at,
+        },
+        history
+      );
+
+      scores.set(invoice.id, risk);
+    }
+
+    return scores;
+  }, [invoices]);
+
   return (
     <>
       {/* Filter Bar */}
@@ -218,6 +281,7 @@ export function InvoicesContent({ invoices, currency = 'USD' }: InvoicesContentP
                   <th className="text-right font-medium text-zinc-300 px-4 py-4">Amount</th>
                   <th className="text-left font-medium text-zinc-300 px-4 py-4">Due date</th>
                   <th className="text-left font-medium text-zinc-300 px-4 py-4">Status</th>
+                  <th className="text-left font-medium text-zinc-300 px-4 py-4">Risk</th>
                   <th className="text-right font-medium text-zinc-300 px-4 py-4">Actions</th>
                 </tr>
               </thead>
@@ -268,6 +332,36 @@ export function InvoicesContent({ invoices, currency = 'USD' }: InvoicesContentP
                         >
                           {invoice.status ?? 'draft'}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        {(() => {
+                          const risk = riskScores.get(invoice.id);
+                          if (!risk) {
+                            // Paid invoice or no risk data
+                            if (invoice.status === 'paid') {
+                              return (
+                                <span className="text-xs text-zinc-500">—</span>
+                              );
+                            }
+                            return null;
+                          }
+
+                          return (
+                            <div
+                              className="group relative"
+                              title={`Expected payment: ${risk.expectedDaysLate > 0 ? `${risk.expectedDaysLate} days late` : risk.expectedDaysLate < 0 ? `${Math.abs(risk.expectedDaysLate)} days early` : 'on time'}`}
+                            >
+                              <span className={getRiskBadgeClasses(risk.riskLevel)}>
+                                {risk.riskLevel === 'low' && <TrendingUp className="w-3 h-3" />}
+                                {risk.riskLevel === 'medium' && <Minus className="w-3 h-3" />}
+                                {(risk.riskLevel === 'high' || risk.riskLevel === 'critical') && (
+                                  <TrendingDown className="w-3 h-3" />
+                                )}
+                                {getRiskLabel(risk.riskLevel)}
+                              </span>
+                            </div>
+                          );
+                        })()}
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="inline-flex items-center justify-end gap-2">
