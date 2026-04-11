@@ -21,6 +21,7 @@ import {
   ClipboardList,
   ArrowRightLeft,
   MoreHorizontal,
+  Sparkles,
 } from 'lucide-react';
 import { ScenarioButton } from '@/components/scenarios/scenario-button';
 import { createPortalSession } from '@/lib/actions/stripe';
@@ -82,6 +83,7 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
 
   // Secondary features in "More" dropdown
   const moreLinks = [
+    { href: '/dashboard/insights', label: 'Insights', icon: Sparkles },
     { href: '/dashboard/transfers', label: 'Transfers', icon: ArrowRightLeft },
     { href: '/dashboard/debt-payoff', label: 'Debt Payoff', icon: TrendingDown },
     { href: '/dashboard/quotes', label: 'Quotes', icon: ClipboardList },

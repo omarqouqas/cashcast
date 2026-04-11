@@ -6,6 +6,7 @@ import { getInvoiceSummary } from '@/lib/actions/invoices';
 import { getForecastDaysLimit, getUserSubscription } from '@/lib/stripe/subscription';
 import { getQuarterForDate } from '@/lib/tax/calculations';
 import { generateAlerts, buildAlertContext } from '@/lib/alerts';
+import { generateIncomePatternAnalysis, serializeAnalysis } from '@/lib/forecasting';
 import { DashboardContent } from '@/components/dashboard/dashboard-content';
 import type { Tables } from '@/types/supabase';
 
@@ -31,7 +32,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const supabase = await createClient();
 
   // Fetch accounts, income, bills, transfers, and user settings in parallel
-  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription] = await Promise.all([
+  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription, incomePatternAnalysis] = await Promise.all([
     supabase
       .from('accounts')
       .select('*')
@@ -78,6 +79,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       .or('status.is.null,status.neq.paid'),
     getForecastDaysLimit(user.id),
     getUserSubscription(user.id),
+    generateIncomePatternAnalysis(user.id),
   ]);
 
   const accounts = (accountsResult.data || []) as AccountRecord[];
@@ -304,6 +306,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     createdAt: alert.createdAt.toISOString(),
   }));
 
+  // Serialize income pattern analysis for client component
+  const serializedPatternAnalysis = incomePatternAnalysis
+    ? serializeAnalysis(incomePatternAnalysis)
+    : null;
+
   // Serialize calendar data for client component
   const serializedCalendarData = calendarData ? {
     days: calendarData.days.map(day => ({
@@ -378,6 +385,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       checkoutSuccess={checkoutStatus === 'success'}
       isLifetimePurchase={isLifetimePurchase}
       alerts={serializedAlerts}
+      incomePatternAnalysis={serializedPatternAnalysis}
     />
   );
 }

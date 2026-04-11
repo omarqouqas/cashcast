@@ -33,6 +33,8 @@ import { LifetimeDealBanner } from '@/components/subscription/lifetime-deal-bann
 import { AlertBanner } from '@/components/alerts';
 import type { SubscriptionTier } from '@/lib/stripe/config';
 import type { Alert } from '@/lib/alerts/types';
+import type { SerializedIncomePatternAnalysis } from '@/lib/forecasting/types';
+import { IncomeInsightsCard } from '@/components/dashboard/income-insights-card';
 
 interface Account {
   id: string;
@@ -106,6 +108,7 @@ interface DashboardContentProps {
   checkoutSuccess?: boolean;
   isLifetimePurchase?: boolean;
   alerts?: SerializedAlert[];
+  incomePatternAnalysis?: SerializedIncomePatternAnalysis | null;
 }
 
 /**
@@ -134,6 +137,7 @@ export function DashboardContent({
   checkoutSuccess = false,
   isLifetimePurchase = false,
   alerts = [],
+  incomePatternAnalysis = null,
 }: DashboardContentProps) {
   // Deserialize alerts (convert createdAt back to Date)
   const deserializedAlerts: Alert[] = React.useMemo(
@@ -780,6 +784,14 @@ export function DashboardContent({
             View all invoices →
           </Link>
         </div>
+      </div>
+
+      {/* Income Insights Card */}
+      <div className="mb-6">
+        <IncomeInsightsCard
+          analysis={incomePatternAnalysis}
+          currency={currency}
+        />
       </div>
 
       {/* Tax Savings Widget */}
