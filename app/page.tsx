@@ -288,10 +288,10 @@ export default async function Home({ searchParams }: HomeProps) {
               See your real bank balance <span className="text-teal-300 font-semibold">90 days out</span> — no bank connection required.
             </p>
             <p className="mt-2 text-lg text-zinc-300 max-w-2xl mx-auto">
-              One number tells you what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today.
+              Know exactly what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today.
             </p>
             <p className="mt-3 text-lg text-zinc-400 max-w-xl mx-auto">
-              <span className="text-amber-300 font-medium">AI warns you before problems happen.</span> Ask in plain English. <span className="text-violet-300 font-medium whitespace-nowrap">No surprises.</span>
+              <span className="text-amber-300 font-medium">AI warns you before cash crunches hit.</span>
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
