@@ -542,7 +542,7 @@ Added filter-by-risk capability to the invoices list:
 
 ---
 
-## 6. Income Pattern Forecasting 📋 PLANNED
+## 6. Income Pattern Forecasting ✅ COMPLETED (April 10, 2026)
 
 **User need:** "My income is irregular — help me predict it."
 
@@ -550,51 +550,19 @@ Added filter-by-risk capability to the invoices list:
 
 Learn from historical income patterns to generate smarter forecasts for freelancers with variable income, going beyond simple recurring entries.
 
-### Pattern Analysis
+### Implementation
 
-```
-Income Analysis for Omar:
+We implemented a comprehensive income pattern analysis engine with the following components:
 
-Client Breakdown:
-├── Acme Corp (Primary)
-│   ├── Frequency: ~Monthly, irregular timing
-│   ├── Amount: $4,000-$6,500 (avg $5,200)
-│   ├── Timing: Usually 5th-15th of month
-│   └── Trend: Stable
-│
-├── Beta Inc (Retainer)
-│   ├── Frequency: Monthly, consistent
-│   ├── Amount: $2,000 (fixed)
-│   ├── Timing: 1st of month
-│   └── Trend: Stable
-│
-└── Side Projects
-    ├── Frequency: Sporadic (0-3 per month)
-    ├── Amount: $500-$1,500
-    └── Predictability: Low
-
-Seasonality Detected:
-├── Q4: +30% (holiday projects)
-├── Q1: -15% (slow start)
-└── Summer: -10% (vacation season)
-
-AI Forecast (Next 90 Days):
-├── April: $7,200 (P50), range $5,800-$9,100
-├── May: $6,800 (P50), range $5,200-$8,600
-└── June: $7,500 (P50), range $5,900-$9,400
-```
-
-### Architecture
-
+**Architecture:**
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                   Income Pattern Analysis Flow                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  Data Sources:                                                   │
-│  ├── Paid invoices (last 12 months)                              │
-│  ├── Income entries (recurring + one-time)                       │
-│  └── Bank imports (if available)                                 │
+│  ├── Paid invoices (last 24 months)                              │
+│  └── Income entries (recurring + one-time)                       │
 │                                                                  │
 │         ↓                                                        │
 │                                                                  │
@@ -604,57 +572,98 @@ AI Forecast (Next 90 Days):
 │  └────────┬────────┘                                             │
 │           │                                                      │
 │           ├── Group income by source/client                      │
-│           ├── Calculate frequency distribution                   │
-│           ├── Detect seasonality (monthly, quarterly)            │
-│           ├── Identify trends (growing, stable, declining)       │
-│           └── Generate probabilistic forecast                    │
+│           ├── Calculate per-source metrics                       │
+│           ├── Detect frequency (weekly to annually)              │
+│           ├── Analyze trends (growing/stable/declining)          │
+│           ├── Detect seasonality (quarterly patterns)            │
+│           └── Generate P10/P50/P90 Monte Carlo forecasts         │
 │                                                                  │
 │         ↓                                                        │
 │                                                                  │
 │  ┌─────────────────┐    ┌─────────────────┐                      │
-│  │ Income Insights │    │ Enhanced Monte  │                      │
-│  │    Dashboard    │    │ Carlo Forecast  │                      │
+│  │ Dashboard Card  │    │ Full Insights   │                      │
+│  │ (Summary)       │    │ Page (/insights)│                      │
 │  └─────────────────┘    └─────────────────┘                      │
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Implementation Plan
-
-**Files to Create:**
+**Files Created:**
 ```
-lib/income/
-├── patterns/
-│   ├── types.ts           # Pattern types
-│   ├── analyzer.ts        # Pattern detection engine
-│   ├── seasonality.ts     # Seasonal trend detection
-│   ├── forecast.ts        # Probabilistic income forecast
-│   └── index.ts           # Public exports
+lib/forecasting/
+├── types.ts                  # Core types (DataQuality, IncomeTrend, etc.)
+├── source-grouping.ts        # Group income by client/source
+├── metrics-calculator.ts     # Per-source statistics (CV, timing, frequency)
+├── trend-analyzer.ts         # Linear regression trend detection
+├── seasonality-detector.ts   # Quarterly pattern analysis
+├── forecast-generator.ts     # Monte Carlo P10/P50/P90 forecasts
+├── monte-carlo-integration.ts # Blend learned variance with defaults
+├── server.ts                 # Main entry point
+└── index.ts                  # Public exports
 
-components/income/
-├── income-insights.tsx    # Pattern visualization
-├── forecast-chart.tsx     # Income forecast chart
-└── index.ts               # Exports
+app/dashboard/insights/
+└── page.tsx                  # Full insights page (server component)
+
+components/dashboard/
+└── income-insights-card.tsx  # Dashboard summary card
+
+components/insights/
+├── insights-content.tsx      # Full page client component
+├── source-breakdown.tsx      # Per-client metrics display
+├── seasonality-section.tsx   # Quarterly pattern visualization
+├── forecast-chart.tsx        # P10/P50/P90 Recharts area chart
+└── index.ts                  # Exports
 ```
 
-**Files to Modify:**
-- `app/dashboard/page.tsx` - Add income insights section
-- `lib/calendar/monte-carlo/simulation.ts` - Incorporate learned patterns
+**Files Modified:**
+- `app/dashboard/page.tsx` - Fetch and pass pattern analysis
+- `components/dashboard/dashboard-content.tsx` - Add IncomeInsightsCard
+- `components/dashboard/nav.tsx` - Add Insights link to More dropdown
 
-### Minimum Data Requirements
+### Features Delivered
 
-| Data Points | Forecast Quality |
-|-------------|------------------|
-| < 3 months | Basic (use entered recurring) |
-| 3-6 months | Moderate (detect simple patterns) |
-| 6-12 months | Good (seasonality detection) |
-| 12+ months | Excellent (full pattern analysis) |
+**Dashboard Summary Card:**
+- Data quality badge (Basic/Moderate/Good/Excellent)
+- 90-day forecast headline with P10-P90 range
+- Monthly breakdown for next 3 months
+- Trend indicator (growing/stable/declining)
+- Source count and seasonality badge
+- Link to full insights page
+
+**Full Insights Page (`/dashboard/insights`):**
+- Data quality explanation with features list
+- Overview stats grid (forecast, trend, sources, history)
+- 90-day forecast chart with P10/P50/P90 confidence bands
+- Seasonality section (when detected, 6+ months data)
+- Income source breakdown with per-client metrics
+- Debug section showing forecast calculation transparency
+
+### Data Quality Levels
+
+| Months of Data | Quality | Features Enabled |
+|----------------|---------|------------------|
+| < 3 | Basic | Default estimates only |
+| 3-6 | Moderate | Basic pattern detection |
+| 6-12 | Good | Seasonality + trend analysis |
+| 12+ | Excellent | Full pattern analysis, high confidence |
+
+### Per-Source Metrics Calculated
+
+- Payment count
+- Average amount and coefficient of variation (CV)
+- Min/max amount range
+- Average days between payments
+- Timing standard deviation
+- Detected frequency (weekly, biweekly, monthly, quarterly, annually, irregular)
+- Trend direction with confidence
+- Reliability score (0-100)
 
 ### Why This Approach
 - Core differentiator for freelancer market
+- No API costs (statistical analysis only)
 - Improves forecast accuracy over time
-- No API costs (statistical analysis)
 - Builds on existing Monte Carlo infrastructure
+- Transparent debug section helps users understand forecasts
 
 ---
 
@@ -667,13 +676,13 @@ components/income/
 | Natural Language Queries | High | Medium | Medium | ✅ COMPLETED |
 | **Proactive AI Alerts** | High | Low | None | ✅ COMPLETED |
 | **Client Payment Risk Scoring** | High | Medium | None | ✅ COMPLETED |
-| **Income Pattern Forecasting** | High | High | None | 📋 PLANNED |
+| **Income Pattern Forecasting** | High | High | None | ✅ COMPLETED |
 
 ### Phase 2 Sequence
 
 1. ~~**Proactive AI Alerts**~~ — ✅ Completed April 9, 2026
 2. ~~**Client Payment Risk Scoring**~~ — ✅ Completed April 9, 2026
-3. **Income Pattern Forecasting** — Most complex, highest long-term value
+3. ~~**Income Pattern Forecasting**~~ — ✅ Completed April 10, 2026
 
 ---
 

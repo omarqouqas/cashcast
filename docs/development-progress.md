@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 10, 2026 (Day 67)
+**Last Updated:** April 10, 2026 (Day 68)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 67
-- **Commits:** 406+
+- **Days in Development:** 68
+- **Commits:** 407+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + **Proactive AI Alerts**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + **Income Pattern Forecasting**
 
 **Current Focus:**
 
@@ -28,7 +28,63 @@
 
 ---
 
-## Recent Development (Days 60-67)
+## Recent Development (Days 60-68)
+
+### Day 68: Income Pattern Forecasting (April 10, 2026)
+
+**Major Feature: Income Pattern Forecasting** - AI-powered income pattern analysis for smarter probabilistic forecasts.
+
+**User Value:**
+- See 90-day income forecasts with confidence ranges (P10/P50/P90)
+- Understand income patterns by client/source
+- Detect seasonality and trends automatically
+- Data quality indicator shows forecast reliability
+
+**Dashboard Integration:**
+- New Income Insights card with data quality badge
+- 90-day forecast headline with range
+- Monthly breakdown for next 3 months
+- Trend indicator (growing/stable/declining)
+- Link to full insights page
+
+**Full Insights Page (`/dashboard/insights`):**
+- Data quality explanation with features enabled at each level
+- Overview stats grid (forecast, trend, sources, history)
+- 90-day forecast chart with P10/P50/P90 confidence bands
+- Seasonality section for quarterly patterns (6+ months data required)
+- Income source breakdown with per-client metrics
+- Debug section showing forecast calculation transparency
+
+**Technical Implementation:**
+
+New analysis engine in `lib/forecasting/`:
+- `types.ts` - Core type definitions
+- `source-grouping.ts` - Group income by client/source
+- `metrics-calculator.ts` - Per-source statistics (CV, timing, frequency)
+- `trend-analyzer.ts` - Linear regression trend detection
+- `seasonality-detector.ts` - Quarterly pattern analysis
+- `forecast-generator.ts` - Monte Carlo P10/P50/P90 forecasts
+- `server.ts` - Main entry point
+
+New UI components:
+- `components/dashboard/income-insights-card.tsx` - Dashboard summary
+- `components/insights/insights-content.tsx` - Full page content
+- `components/insights/source-breakdown.tsx` - Per-client display
+- `components/insights/seasonality-section.tsx` - Quarterly patterns
+- `components/insights/forecast-chart.tsx` - Recharts P10/P50/P90 chart
+
+**Data Quality Levels:**
+| Months | Quality | Features |
+|--------|---------|----------|
+| < 3 | Basic | Default estimates |
+| 3-6 | Moderate | Pattern detection |
+| 6-12 | Good | Seasonality + trends |
+| 12+ | Excellent | Full analysis |
+
+**Navigation:**
+- Added Insights link to More dropdown (first item)
+
+---
 
 ### Day 67: Risk Filter for Invoices (April 10, 2026)
 
