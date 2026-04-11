@@ -274,6 +274,10 @@ export default async function Home({ searchParams }: HomeProps) {
                 <Brain className="h-4 w-4" />
                 <span>AI-powered insights</span>
               </div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-2 text-sm text-amber-300">
+                <Bell className="h-4 w-4" />
+                <span>Warns before cash crunches</span>
+              </div>
             </div>
 
             <h1 className="mt-6 text-4xl md:text-5xl font-bold text-white tracking-tight">
@@ -283,7 +287,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <p className="mt-5 text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
               See your real bank balance <span className="text-teal-300 font-semibold">90 days out</span> — no bank connection required.
               One number tells you what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today without overdrafting later.
-              Ask questions in plain English. <span className="text-violet-300 font-semibold">AI answers instantly.</span>
+              <span className="text-amber-300 font-semibold">AI warns you before cash crunches.</span> Ask questions in plain English. <span className="text-violet-300 font-semibold">No surprises.</span>
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
@@ -549,6 +553,10 @@ export default async function Home({ searchParams }: HomeProps) {
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5" />
                       <span><strong className="text-white">Payment → Balance sync</strong> — when paid, your cash flow updates automatically</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5" />
+                      <span><strong className="text-white">AI payment risk scoring</strong> — know which clients will pay late before they do</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5" />
@@ -926,6 +934,77 @@ export default async function Home({ searchParams }: HomeProps) {
                         <li className="flex items-start gap-2">
                           <CheckCircle2 className="h-4 w-4 text-violet-300 mt-0.5 flex-shrink-0" />
                           <span>Review and override before saving</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Second row of AI features */}
+                  <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Proactive AI Alerts */}
+                    <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-zinc-900/50 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="h-10 w-10 rounded-lg bg-amber-500/10 ring-1 ring-amber-500/25 flex items-center justify-center">
+                          <Bell className="h-5 w-5 text-amber-300" />
+                        </div>
+                        <span className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-full px-3 py-1">
+                          Proactive Alerts
+                        </span>
+                      </div>
+                      <h4 className="mt-4 font-semibold text-white">Warnings Before Problems</h4>
+                      <p className="mt-2 text-zinc-400">
+                        Don&apos;t wait until you&apos;re broke. AI detects cash crunches, bill pile-ups, and risky invoices — then warns you in time to act.
+                      </p>
+                      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5 flex-shrink-0" />
+                          <span>Cash crunch alerts 14 days ahead</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5 flex-shrink-0" />
+                          <span>Bill collision detection (3+ bills same day)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5 flex-shrink-0" />
+                          <span>At-risk invoice warnings</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5 flex-shrink-0" />
+                          <span>Opportunity windows for big purchases</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Income Pattern Forecasting */}
+                    <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/5 to-zinc-900/50 p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="h-10 w-10 rounded-lg bg-teal-500/10 ring-1 ring-teal-500/25 flex items-center justify-center">
+                          <Sparkles className="h-5 w-5 text-teal-300" />
+                        </div>
+                        <span className="text-xs text-teal-300 bg-teal-500/10 border border-teal-500/20 rounded-full px-3 py-1">
+                          Income Insights
+                        </span>
+                      </div>
+                      <h4 className="mt-4 font-semibold text-white">AI Learns Your Income Patterns</h4>
+                      <p className="mt-2 text-zinc-400">
+                        Irregular income? AI analyzes your payment history to forecast what&apos;s coming — with confidence ranges that improve over time.
+                      </p>
+                      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5 flex-shrink-0" />
+                          <span>90-day P10/P50/P90 income forecasts</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5 flex-shrink-0" />
+                          <span>Per-client payment pattern detection</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5 flex-shrink-0" />
+                          <span>Seasonal trend analysis (Q4 busy? Q1 slow?)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5 flex-shrink-0" />
+                          <span>Data quality improves as you use it</span>
                         </li>
                       </ul>
                     </div>
