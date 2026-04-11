@@ -286,6 +286,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
             <p className="mt-5 text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
               See your real bank balance <span className="text-teal-300 font-semibold">90 days out</span> — no bank connection required.
+            </p>
+            <p className="mt-2 text-lg text-zinc-300 max-w-2xl mx-auto">
               One number tells you what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today.
             </p>
             <p className="mt-3 text-lg text-zinc-400 max-w-xl mx-auto">
