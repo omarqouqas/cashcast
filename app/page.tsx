@@ -37,7 +37,7 @@ import { getUserSubscription } from '@/lib/stripe/subscription';
 export const metadata: Metadata = {
   title: 'Stop Guessing If You Can Afford It | Cashcast App',
   description:
-    'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for designers, developers & consultants with irregular income.',
+    'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for freelancers with irregular income.',
   keywords: [
     // Core product terms
     'cash flow calendar',
@@ -264,7 +264,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="flex flex-wrap justify-center gap-2">
               <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900/60 border border-zinc-800 px-4 py-2 text-sm text-zinc-200">
                 <Sparkles className="h-4 w-4 text-teal-400" />
-                <span>Built for designers, developers & consultants</span>
+                <span>Built for freelancers</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-teal-500/10 border border-teal-500/20 px-4 py-2 text-sm text-teal-300">
                 <FileText className="h-4 w-4" />
