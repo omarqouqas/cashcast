@@ -81,3 +81,9 @@ tmpclaude-*-cwd/
 
 # Claude temp files
 tmpclaude-*-cwd
+
+# ============================================================================
+# Personal/Sensitive Files (NEVER COMMIT!)
+# ============================================================================
+*.pdf
+sample-bank-export.xlsx

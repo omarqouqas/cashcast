@@ -534,22 +534,41 @@ export function ImportPageClient({ userId, usage }: Props) {
         )}
       </div>
 
-      {/* YNAB Quick Import Banner - only show before file is uploaded */}
+      {/* Quick Import Banners - only show before file is uploaded */}
       {!loaded && (
-        <Link
-          href="/dashboard/import/ynab"
-          className="block border border-teal-500/30 bg-teal-500/10 rounded-lg p-4 hover:bg-teal-500/15 transition-colors group"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-teal-200 font-medium">Importing from YNAB?</p>
-              <p className="text-sm text-teal-300/70 mt-0.5">
-                Use our dedicated YNAB importer for automatic format detection - no column mapping needed.
-              </p>
+        <div className="space-y-3">
+          {/* PDF Import Banner */}
+          <Link
+            href="/dashboard/import/pdf"
+            className="block border border-violet-500/30 bg-violet-500/10 rounded-lg p-4 hover:bg-violet-500/15 transition-colors group"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-violet-200 font-medium">Have a PDF bank statement?</p>
+                <p className="text-sm text-violet-300/70 mt-0.5">
+                  Upload your PDF and we&apos;ll automatically extract transactions - no manual mapping needed.
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-violet-400 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
             </div>
-            <ArrowRight className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
-          </div>
-        </Link>
+          </Link>
+
+          {/* YNAB Import Banner */}
+          <Link
+            href="/dashboard/import/ynab"
+            className="block border border-teal-500/30 bg-teal-500/10 rounded-lg p-4 hover:bg-teal-500/15 transition-colors group"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-teal-200 font-medium">Importing from YNAB?</p>
+                <p className="text-sm text-teal-300/70 mt-0.5">
+                  Use our dedicated YNAB importer for automatic format detection - no column mapping needed.
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform flex-shrink-0 ml-4" />
+            </div>
+          </Link>
+        </div>
       )}
 
       {/* Step Indicator */}

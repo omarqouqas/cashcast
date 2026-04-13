@@ -28,6 +28,10 @@ const nextConfig = {
     if (!process.env.VERCEL) {
       config.cache = false;
     }
+
+    // Handle pdfjs-dist canvas dependency (not needed for text extraction)
+    config.resolve.alias.canvas = false;
+
     return config;
   },
 
