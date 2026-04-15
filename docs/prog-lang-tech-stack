@@ -1,0 +1,7 @@
+which programming language is this app built with?                                                                                                                                                                                                                                                                                                                                                                                                        
+● TypeScript with the following stack:                                                                                                                                                                                                                                                                                                                                                                                                                      
+  - Framework: Next.js 14 (React 18)                                                                                                                                                                                            - Styling: Tailwind CSS
+  - Database: Supabase (PostgreSQL)                                                                                                                                                                                           
+  - Payments: Stripe
+  - Analytics: PostHog
+  - Email: Resend
