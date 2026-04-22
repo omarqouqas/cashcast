@@ -133,7 +133,10 @@ export function IncomeCard({ income, currency = 'USD' }: IncomeCardProps) {
   // Show next payment date if it's in the future, OR for one-time income (show historical date)
   const isOneTime = (income.frequency ?? '').toLowerCase() === 'one-time'
   const showNextPayment = actualNextDate && (actualNextDate >= today || isOneTime)
-  const nextDateString = actualNextDate ? actualNextDate.toISOString().split('T')[0] ?? '' : ''
+  // Use local date components to avoid timezone offset issues with toISOString()
+  const nextDateString = actualNextDate
+    ? `${actualNextDate.getFullYear()}-${String(actualNextDate.getMonth() + 1).padStart(2, '0')}-${String(actualNextDate.getDate()).padStart(2, '0')}`
+    : ''
   const dateLabel = isOneTime && actualNextDate && actualNextDate < today ? 'Date' : 'Next payment'
 
   return (

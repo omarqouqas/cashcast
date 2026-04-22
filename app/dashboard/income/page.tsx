@@ -257,7 +257,11 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
             }, firstIncome)
 
             const actualNextDate = getActualNextDate(nextIncome.next_date, nextIncome.frequency)
-            const dateString = actualNextDate.toISOString().split('T')[0] ?? ''
+            // Use local date components to avoid timezone offset issues with toISOString()
+            const year = actualNextDate.getFullYear()
+            const month = String(actualNextDate.getMonth() + 1).padStart(2, '0')
+            const day = String(actualNextDate.getDate()).padStart(2, '0')
+            const dateString = `${year}-${month}-${day}`
 
             return (
               <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">

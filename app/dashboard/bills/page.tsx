@@ -260,8 +260,11 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
   let nextBillDueDate = '';
   if (nextBill && nextBill.due_date) {
     const dueDateObj = getActualNextDueDate(nextBill.due_date, nextBill.frequency);
-    const parts = dueDateObj.toISOString().split('T');
-    nextBillDueDate = parts[0] || '';
+    // Use local date components to avoid timezone offset issues with toISOString()
+    const year = dueDateObj.getFullYear();
+    const month = String(dueDateObj.getMonth() + 1).padStart(2, '0');
+    const day = String(dueDateObj.getDate()).padStart(2, '0');
+    nextBillDueDate = `${year}-${month}-${day}`;
   }
 
   return (

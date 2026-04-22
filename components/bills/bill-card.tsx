@@ -315,7 +315,10 @@ export function BillCard({ bill, categories, currency = 'USD' }: BillCardProps) 
   // Show due date if it's in the future, OR for one-time bills (show historical date)
   const isOneTime = (bill.frequency ?? '').toLowerCase() === 'one-time'
   const showDueDate = actualDueDate && (actualDueDate >= today || isOneTime)
-  const dueDateString = actualDueDate ? actualDueDate.toISOString().split('T')[0] ?? '' : ''
+  // Use local date components to avoid timezone offset issues with toISOString()
+  const dueDateString = actualDueDate
+    ? `${actualDueDate.getFullYear()}-${String(actualDueDate.getMonth() + 1).padStart(2, '0')}-${String(actualDueDate.getDate()).padStart(2, '0')}`
+    : ''
   const dateLabel = isOneTime && actualDueDate && actualDueDate < today ? 'Date' : 'Due'
 
   return (
