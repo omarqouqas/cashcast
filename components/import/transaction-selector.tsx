@@ -24,6 +24,10 @@ export type NormalizedTransaction = {
     confidence: 'high' | 'medium' | 'low';
     source: 'rule' | 'ai' | 'default';
   };
+  suggestedRecurring?: {
+    frequency: string;
+    normalizedName: string;
+  };
 };
 
 export type ImportRow = NormalizedTransaction & {
@@ -42,6 +46,7 @@ type Props = {
   billsLimit: number | null; // null = unlimited
   incomeLimit: number | null; // null = unlimited
   onRequestUpgrade?: (feature: 'bills' | 'income' | 'general') => void;
+  appliedPatternIds?: Set<string>; // IDs of patterns that have been applied
 };
 
 function pad2(n: number) {
@@ -147,6 +152,7 @@ export function TransactionSelector({
   billsLimit,
   incomeLimit,
   onRequestUpgrade,
+  appliedPatternIds,
 }: Props) {
   const [query, setQuery] = useState('');
   const [direction, setDirection] = useState<'all' | 'in' | 'out'>('all');
@@ -160,6 +166,31 @@ export function TransactionSelector({
   const [selectedIds, setSelectedIds] = useState<Record<string, boolean>>(() => ({}));
   const [actions, setActions] = useState<Record<string, ImportAction>>(() => ({}));
   const [frequencies, setFrequencies] = useState<Record<string, RecurringFrequency>>(() => ({}));
+
+  // Apply pattern suggestions when appliedPatternIds changes
+  useEffect(() => {
+    if (!appliedPatternIds || appliedPatternIds.size === 0) return;
+
+    const newActions: Record<string, ImportAction> = {};
+    const newFrequencies: Record<string, RecurringFrequency> = {};
+    const newSelected: Record<string, boolean> = {};
+
+    for (const tx of transactions) {
+      if (tx.suggestedRecurring) {
+        // This transaction is part of an applied pattern
+        const baseAction = tx.amount >= 0 ? 'income' : 'bill';
+        newActions[tx.id] = `${baseAction}-recurring` as ImportAction;
+        newFrequencies[tx.id] = tx.suggestedRecurring.frequency as RecurringFrequency;
+        newSelected[tx.id] = true;
+      }
+    }
+
+    if (Object.keys(newActions).length > 0) {
+      setActions((prev) => ({ ...prev, ...newActions }));
+      setFrequencies((prev) => ({ ...prev, ...newFrequencies }));
+      setSelectedIds((prev) => ({ ...prev, ...newSelected }));
+    }
+  }, [appliedPatternIds, transactions]);
 
   // Auto-detect date range from transactions on first load
   useEffect(() => {

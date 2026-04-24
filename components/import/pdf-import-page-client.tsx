@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { PdfUpload } from '@/components/import/pdf-upload';
 import { PdfConfidenceBanner } from '@/components/import/pdf-confidence-banner';
+import { RecurringPatternsCard } from '@/components/import/recurring-patterns-card';
 import { TransactionSelector, type NormalizedTransaction, type ImportRow } from '@/components/import/transaction-selector';
 import { StepIndicator } from '@/components/import/step-indicator';
 import { createClient } from '@/lib/supabase/client';
@@ -15,6 +16,10 @@ import { UpgradePrompt } from '@/components/subscription/upgrade-prompt';
 import type { SubscriptionTier } from '@/lib/stripe/config';
 import type { PdfExtractionResult } from '@/lib/import/pdf-transaction-extractor';
 import { suggestActionFromAmount } from '@/lib/import/pdf-transaction-extractor';
+import {
+  detectRecurringPatterns,
+  type RecurringPattern,
+} from '@/lib/import/recurring-detector';
 
 type UsageForImport = {
   tier: SubscriptionTier;
@@ -46,6 +51,11 @@ export function PdfImportPageClient({ userId, usage }: Props) {
   const [existingTransactions, setExistingTransactions] = useState<
     Array<{ posted_at: string; description: string; amount: number }>
   >([]);
+
+  // Recurring pattern detection state
+  const [detectedPatterns, setDetectedPatterns] = useState<RecurringPattern[]>([]);
+  const [appliedPatternIds, setAppliedPatternIds] = useState<Set<string>>(new Set());
+  const [patternsCardDismissed, setPatternsCardDismissed] = useState(false);
 
   // Load existing imported transactions for duplicate detection
   useEffect(() => {
@@ -80,7 +90,7 @@ export function PdfImportPageClient({ userId, usage }: Props) {
   const normalizedTransactions = useMemo(() => {
     if (!parsed) return [];
 
-    return parsed.result.transactions.map((t, index) => {
+    const transactions = parsed.result.transactions.map((t, index) => {
       // Check for potential duplicate
       const isDuplicate = existingTransactions.some(
         (existing) =>
@@ -108,7 +118,81 @@ export function PdfImportPageClient({ userId, usage }: Props) {
 
       return normalized;
     });
+
+    return transactions;
   }, [parsed, existingTransactions, stableIds]);
+
+  // Detect recurring patterns when transactions change
+  useEffect(() => {
+    if (normalizedTransactions.length === 0) {
+      setDetectedPatterns([]);
+      setAppliedPatternIds(new Set());
+      setPatternsCardDismissed(false);
+      return;
+    }
+
+    const txForDetection = normalizedTransactions.map((t) => ({
+      id: t.id,
+      transaction_date: t.transaction_date,
+      description: t.description,
+      amount: t.amount,
+    }));
+
+    const patterns = detectRecurringPatterns(txForDetection);
+    setDetectedPatterns(patterns);
+  }, [normalizedTransactions]);
+
+  // Create pattern suggestions map for transactions
+  const patternSuggestions = useMemo(() => {
+    if (detectedPatterns.length === 0 || appliedPatternIds.size === 0) {
+      return new Map<string, { patternId: string; frequency: string; normalizedName: string }>();
+    }
+
+    const suggestions = new Map<string, { patternId: string; frequency: string; normalizedName: string }>();
+
+    for (const pattern of detectedPatterns) {
+      if (appliedPatternIds.has(pattern.patternId)) {
+        for (const txId of pattern.transactionIds) {
+          suggestions.set(txId, {
+            patternId: pattern.patternId,
+            frequency: pattern.frequency,
+            normalizedName: pattern.normalizedName,
+          });
+        }
+      }
+    }
+
+    return suggestions;
+  }, [detectedPatterns, appliedPatternIds]);
+
+  // Transactions with pattern suggestions applied
+  const transactionsWithPatterns = useMemo(() => {
+    return normalizedTransactions.map((t) => {
+      const patternSuggestion = patternSuggestions.get(t.id);
+
+      if (patternSuggestion) {
+        return {
+          ...t,
+          suggestedRecurring: {
+            frequency: patternSuggestion.frequency,
+            normalizedName: patternSuggestion.normalizedName,
+          },
+        };
+      }
+
+      return t;
+    });
+  }, [normalizedTransactions, patternSuggestions]);
+
+  // Handle applying patterns from the patterns card
+  const handleApplyPatterns = (selectedPatternIds: string[]) => {
+    setAppliedPatternIds(new Set(selectedPatternIds));
+    setPatternsCardDismissed(true);
+  };
+
+  const handleDismissPatterns = () => {
+    setPatternsCardDismissed(true);
+  };
 
   const openUpgrade = (feature: 'bills' | 'income' | 'general') => {
     setUpgradeFeature(feature);
@@ -331,6 +415,15 @@ export function PdfImportPageClient({ userId, usage }: Props) {
         />
       )}
 
+      {/* Recurring patterns detection */}
+      {parsed && detectedPatterns.length > 0 && !patternsCardDismissed && (
+        <RecurringPatternsCard
+          patterns={detectedPatterns}
+          onApplyPatterns={handleApplyPatterns}
+          onDismiss={handleDismissPatterns}
+        />
+      )}
+
       {/* Parsing errors from extractor */}
       {parsed && parsed.result.errors.length > 0 && (
         <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
@@ -351,10 +444,10 @@ export function PdfImportPageClient({ userId, usage }: Props) {
       )}
 
       {/* Transaction selector */}
-      {parsed && normalizedTransactions.length > 0 && (
+      {parsed && transactionsWithPatterns.length > 0 && (
         <TransactionSelector
           fileName={parsed.fileName}
-          transactions={normalizedTransactions}
+          transactions={transactionsWithPatterns}
           onImport={handleImport}
           tier={usage.tier}
           currentBills={usage.bills.current}
@@ -362,10 +455,11 @@ export function PdfImportPageClient({ userId, usage }: Props) {
           billsLimit={usage.bills.limit}
           incomeLimit={usage.income.limit}
           onRequestUpgrade={openUpgrade}
+          appliedPatternIds={appliedPatternIds}
         />
       )}
 
-      {parsed && normalizedTransactions.length === 0 && parsed.result.errors.length === 0 && (
+      {parsed && transactionsWithPatterns.length === 0 && parsed.result.errors.length === 0 && (
         <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6">
           <p className="text-base font-semibold text-zinc-100">No transactions found</p>
           <p className="text-sm text-zinc-400 mt-1">
