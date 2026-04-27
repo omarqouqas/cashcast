@@ -99,6 +99,7 @@ export function AskButton({ variant = 'fab', className }: AskButtonProps) {
   }
 
   // Default: FAB variant
+  // Positioned to the LEFT of the ScenarioButton FAB on pages that have both
   return (
     <>
       <button
@@ -106,9 +107,10 @@ export function AskButton({ variant = 'fab', className }: AskButtonProps) {
         onClick={() => setOpen(true)}
         className={cn(
           // Mobile FAB (above bottom nav) + desktop FAB
+          // Offset to the left of ScenarioButton ("Can I Afford It?") which is at right-5
           'fixed z-40 inline-flex',
-          'right-4 bottom-[calc(4rem+env(safe-area-inset-bottom,0px)+1rem)]',
-          'md:right-5 md:bottom-5',
+          'right-20 bottom-[calc(4rem+env(safe-area-inset-bottom,0px)+1rem)]',
+          'md:right-[13.5rem] md:bottom-5',
           'items-center justify-center',
           'bg-violet-500 hover:bg-violet-600 text-white font-semibold',
           'shadow-lg border border-violet-400/30',
