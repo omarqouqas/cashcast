@@ -64,8 +64,13 @@ async function sendFeedbackNotification({
   userEmail: string;
   pageUrl?: string;
 }) {
+  // Use environment variable for feedback recipient, fallback to support email
+  const feedbackEmail = process.env.FEEDBACK_EMAIL || process.env.SUPPORT_EMAIL || 'support@cashcast.money';
+
   const typeLabel = feedbackTypeLabels[type];
   const subject = `[Feedback] ${typeLabel} from ${userEmail}`;
+
+  console.log(`[Feedback] Sending notification to ${feedbackEmail} for feedback from ${userEmail}`);
 
   const htmlContent = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -105,11 +110,18 @@ async function sendFeedbackNotification({
     </div>
   `;
 
-  await resend.emails.send({
+  const result = await resend.emails.send({
     from: 'Cashcast <notifications@cashcast.money>',
-    to: 'support@cashcast.money', // Your support email
+    to: feedbackEmail,
     replyTo: userEmail,
     subject,
     html: htmlContent,
   });
+
+  if (result.error) {
+    console.error('[Feedback] Resend error:', result.error);
+    throw new Error(`Failed to send email: ${result.error.message}`);
+  }
+
+  console.log(`[Feedback] Email sent successfully, id: ${result.data?.id}`);
 }
