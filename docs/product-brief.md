@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.24
-**Last Updated:** April 9, 2026
-**Status:** Live - Proactive AI Alerts
+**Version:** 6.25
+**Last Updated:** April 24, 2026
+**Status:** Live - AI Recurring Pattern Detection
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -514,6 +514,35 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - **Email integration:** Proactive alerts included in weekly digest
 - Server-side generation during dashboard page load
 - Max 5 alerts to avoid overwhelming users
+
+**24. AI Recurring Pattern Detection for PDF Import ✅**
+- **Automatic detection** of recurring transactions from bank statement imports
+- **Detection algorithm:** Groups transactions by similar description and amount
+  - Fuzzy matching with Jaccard similarity for merchant names
+  - 10% amount variance tolerance
+  - Interval analysis to detect frequency (weekly to annually)
+- **40+ merchant normalizations:**
+  - Netflix, Spotify, Amazon, Apple Services, Google Services
+  - Adobe, Microsoft 365, AWS, Heroku, Vercel, DigitalOcean
+  - Planet Fitness, YMCA, Equinox
+- **Confidence scoring** based on:
+  - Number of occurrences (≥6 = +0.4)
+  - Amount consistency (<1% variance = +0.3)
+  - Interval regularity (>90% = +0.3)
+- **UI integration:**
+  - RecurringPatternsCard with collapsible pattern list
+  - Pre-selected high-confidence patterns (≥60%)
+  - Select all/none controls
+  - Confidence badges with percentage
+  - One-click "Apply X Patterns" to bulk-set recurring entries
+- **Frequency detection thresholds:**
+  - 5-9 days → Weekly
+  - 10-18 days → Bi-weekly
+  - ~15-20 days → Semi-monthly
+  - 25-35 days → Monthly
+  - 80-100 days → Quarterly
+  - 350-380 days → Annually
+- **Integration:** Patterns auto-apply to transaction selector when selected
 
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)

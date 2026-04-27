@@ -25,7 +25,7 @@ export type NormalizedTransaction = {
     source: 'rule' | 'ai' | 'default';
   };
   suggestedRecurring?: {
-    frequency: string;
+    frequency: RecurringFrequency;
     normalizedName: string;
   };
 };
@@ -180,7 +180,7 @@ export function TransactionSelector({
         // This transaction is part of an applied pattern
         const baseAction = tx.amount >= 0 ? 'income' : 'bill';
         newActions[tx.id] = `${baseAction}-recurring` as ImportAction;
-        newFrequencies[tx.id] = tx.suggestedRecurring.frequency as RecurringFrequency;
+        newFrequencies[tx.id] = tx.suggestedRecurring.frequency;
         newSelected[tx.id] = true;
       }
     }

@@ -7,7 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 import { PdfUpload } from '@/components/import/pdf-upload';
 import { PdfConfidenceBanner } from '@/components/import/pdf-confidence-banner';
 import { RecurringPatternsCard } from '@/components/import/recurring-patterns-card';
-import { TransactionSelector, type NormalizedTransaction, type ImportRow } from '@/components/import/transaction-selector';
+import { TransactionSelector, type NormalizedTransaction, type ImportRow, type RecurringFrequency } from '@/components/import/transaction-selector';
 import { StepIndicator } from '@/components/import/step-indicator';
 import { createClient } from '@/lib/supabase/client';
 import { showError, showSuccess } from '@/lib/toast';
@@ -145,10 +145,10 @@ export function PdfImportPageClient({ userId, usage }: Props) {
   // Create pattern suggestions map for transactions
   const patternSuggestions = useMemo(() => {
     if (detectedPatterns.length === 0 || appliedPatternIds.size === 0) {
-      return new Map<string, { patternId: string; frequency: string; normalizedName: string }>();
+      return new Map<string, { patternId: string; frequency: RecurringFrequency; normalizedName: string }>();
     }
 
-    const suggestions = new Map<string, { patternId: string; frequency: string; normalizedName: string }>();
+    const suggestions = new Map<string, { patternId: string; frequency: RecurringFrequency; normalizedName: string }>();
 
     for (const pattern of detectedPatterns) {
       if (appliedPatternIds.has(pattern.patternId)) {

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 10, 2026 (Day 68)
+**Last Updated:** April 24, 2026 (Day 69)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 68
+- **Days in Development:** 69
 - **Commits:** 407+
 - **Database Tables:** 15
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + **Income Pattern Forecasting**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + **AI Recurring Pattern Detection for PDF Import**
 
 **Current Focus:**
 
@@ -28,7 +28,97 @@
 
 ---
 
-## Recent Development (Days 60-68)
+## Recent Development (Days 60-69)
+
+### Day 69: AI Recurring Pattern Detection for PDF Import (April 24, 2026)
+
+**Major Feature: AI Recurring Pattern Detection** - Automatically detect and suggest recurring patterns from imported bank statement transactions.
+
+**User Value:**
+- Automatically identifies subscriptions, bills, and recurring income from bank statement imports
+- Pre-selects high-confidence patterns for one-click recurring setup
+- Normalizes merchant names (40+ known merchants: Netflix, Spotify, AWS, etc.)
+- Shows frequency detection (weekly to annually) with confidence scores
+- Streamlines import workflow by suggesting recurring entries
+
+**Detection Algorithm:**
+- Groups transactions by similar description and amount (within 10% variance)
+- Analyzes date intervals to detect frequency patterns
+- Calculates confidence scores based on occurrences, amount consistency, interval regularity
+- Suggests most common day of month for recurring entry scheduling
+
+**Frequency Detection Thresholds:**
+| Interval (days) | Detected Frequency |
+|-----------------|-------------------|
+| 5-9 | Weekly |
+| 10-18 | Bi-weekly |
+| ~15-20 | Semi-monthly |
+| 25-35 | Monthly |
+| 80-100 | Quarterly |
+| 350-380 | Annually |
+
+**UI Integration:**
+- New `RecurringPatternsCard` component in PDF import flow
+- Collapsible card showing detected patterns with:
+  - Normalized merchant name
+  - Amount and detected frequency
+  - Occurrence count
+  - Confidence badge (percentage)
+  - Checkbox selection with pre-selected high-confidence (≥60%) patterns
+- "Apply X Patterns" button to bulk-apply recurring settings
+- Select all/none controls
+
+**Technical Implementation:**
+
+New detection engine in `lib/import/`:
+- `recurring-detector.ts` - Core pattern detection with:
+  - `normalizeDescription()` - Strips bank prefixes, normalizes 40+ merchants
+  - `areSimilarDescriptions()` - Fuzzy matching with Jaccard similarity
+  - `areSimilarAmounts()` - Amount comparison with 10% tolerance
+  - `detectFrequency()` - Interval analysis with standard deviation check
+  - `detectRecurringPatterns()` - Main algorithm returning sorted patterns
+  - `createPatternSuggestions()` - Transaction-level pattern lookup
+
+New UI components:
+- `components/import/recurring-patterns-card.tsx` - Pattern selection UI
+  - `PatternRow` - Individual pattern display with checkbox
+  - `ConfidenceBadge` - Color-coded confidence indicator
+
+**Integration with Existing Import:**
+- Added to `pdf-import-page-client.tsx`:
+  - `detectedPatterns` state for storing detected patterns
+  - `appliedPatternIds` state for tracking applied patterns
+  - `useEffect` to detect patterns when transactions change
+  - `handleApplyPatterns()` handler to apply selected patterns
+  - `RecurringPatternsCard` rendered in UI
+- Modified `transaction-selector.tsx`:
+  - Extended `NormalizedTransaction` type with `suggestedRecurring`
+  - Added `appliedPatternIds` prop
+  - `useEffect` to auto-apply frequency and action based on patterns
+
+**Confidence Score Calculation:**
+| Factor | Weight |
+|--------|--------|
+| Occurrences (≥6) | +0.4 |
+| Low amount variance (<1%) | +0.3 |
+| Consistent intervals (>90%) | +0.3 |
+
+**Merchant Normalization Examples:**
+- `NETFLIX.COM/BILL` → "Netflix"
+- `SPOTIFY USA PREMIUM` → "Spotify"
+- `AMAZON PRIME*1234` → "Amazon"
+- `GOOGLE *YOUTUBE` → "Google Services"
+- `ADOBE CREATIVE CLOUD` → "Adobe"
+
+**Files Created:**
+- `lib/import/recurring-detector.ts` - Core detection algorithm
+- `components/import/recurring-patterns-card.tsx` - UI component
+
+**Files Modified:**
+- `components/import/pdf-import-page-client.tsx` - Integration with import flow
+- `components/import/transaction-selector.tsx` - Pattern application to transactions
+
+---
 
 ### Day 68: Income Pattern Forecasting (April 10, 2026)
 
