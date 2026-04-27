@@ -25,7 +25,8 @@ interface BillCardProps {
 }
 
 function getActualNextDueDate(dueDate: string, frequency: string | null | undefined): Date {
-  const storedDate = new Date(dueDate)
+  // Parse as local midnight to avoid timezone offset issues with date-only strings
+  const storedDate = new Date(dueDate + 'T00:00:00')
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 

@@ -25,7 +25,9 @@ export function getActualNextDate(
   nextDate: string,
   frequency: string | null | undefined
 ): Date {
-  const storedDate = new Date(nextDate);
+  // Parse as local midnight to avoid timezone offset issues with date-only strings
+  // (new Date("YYYY-MM-DD") is parsed as UTC, causing day shift for users west of UTC)
+  const storedDate = new Date(nextDate + 'T00:00:00');
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
