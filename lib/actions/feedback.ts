@@ -37,15 +37,19 @@ export async function createFeedback(input: CreateFeedbackInput): Promise<{ succ
     throw new Error('Failed to submit feedback. Please try again.');
   }
 
-  // Send email notification (fire and forget - don't block on email)
-  sendFeedbackNotification({
-    type,
-    message,
-    userEmail: user.email ?? 'Unknown',
-    pageUrl: page_url,
-  }).catch((err) => {
+  // Send email notification
+  // Note: We await this because serverless functions may terminate before async operations complete
+  try {
+    await sendFeedbackNotification({
+      type,
+      message,
+      userEmail: user.email ?? 'Unknown',
+      pageUrl: page_url,
+    });
+  } catch (err) {
+    // Log but don't fail the feedback submission if email fails
     console.error('Failed to send feedback notification email:', err);
-  });
+  }
 
   return { success: true };
 }
