@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.25
-**Last Updated:** April 24, 2026
-**Status:** Live - AI Recurring Pattern Detection
+**Version:** 6.26
+**Last Updated:** April 29, 2026
+**Status:** Live - Automated Payment Reminders
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -543,6 +543,16 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
   - 80-100 days → Quarterly
   - 350-380 days → Annually
 - **Integration:** Patterns auto-apply to transaction selector when selected
+
+**25. Automated Payment Reminders ✅**
+- **Automated reminder sequence** based on invoice due dates
+- Reminder stages: 3 days before, due day, 7 days overdue, 14 days overdue
+- Uses existing professional templates (friendly → firm → final)
+- Per-user toggle in Settings (Pro users)
+- Per-invoice override option
+- Daily cron job at 9 AM UTC
+- Unique index prevents duplicate reminders per stage
+- Coexists with manual reminder system
 
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
@@ -1112,6 +1122,30 @@ Canada represents a strategic expansion opportunity due to:
 ---
 
 ## Changelog
+
+### Version 6.26 (April 29, 2026)
+- **Automated Payment Reminders:**
+  - Automatic reminder emails based on invoice due dates
+  - 4-stage reminder sequence: pre-due (3 days), due day, overdue (7 days), final (14 days)
+  - Daily cron job at 9 AM UTC processes eligible invoices
+  - Per-user toggle in Settings (Pro users only)
+  - Per-invoice override option (null = inherit from user setting)
+  - Uses existing professional templates (friendly/firm/final)
+  - Unique index prevents duplicate reminders per stage
+  - Coexists with manual reminder system
+- **New Files:**
+  - `lib/reminders/` - Reminder scheduling and sending logic
+  - `app/api/cron/invoice-reminders/route.ts` - Daily cron endpoint
+  - `lib/actions/update-auto-reminder-settings.ts` - Settings server action
+  - `components/settings/auto-reminders-form.tsx` - Settings UI component
+- **Database Migration:**
+  - `user_settings.auto_reminders_enabled` - Global toggle
+  - `invoices.auto_reminders_enabled` - Per-invoice override
+  - `invoice_reminders.source` - Track manual vs auto
+  - `invoice_reminders.reminder_stage` - Track which stage was sent
+- **Modified Files:**
+  - `vercel.json` - Added cron job at 9 AM UTC
+  - `app/dashboard/settings/page.tsx` - Added AutoRemindersForm
 
 ### Version 6.24 (April 9, 2026)
 - **Proactive AI Alerts:**
@@ -1913,7 +1947,7 @@ Canada represents a strategic expansion opportunity due to:
 
 ---
 
-**Document Version:** 6.24
-**Last Updated:** April 9, 2026
-**Status:** Live - Proactive AI Alerts
+**Document Version:** 6.26
+**Last Updated:** April 29, 2026
+**Status:** Live - Automated Payment Reminders
 **Next Review:** May 2026

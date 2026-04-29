@@ -73,6 +73,33 @@ export type Database = {
           },
         ]
       }
+      ai_query_usage: {
+        Row: {
+          created_at: string | null
+          id: string
+          query_count: number
+          query_date: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          query_count?: number
+          query_date?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          query_count?: number
+          query_date?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       bills: {
         Row: {
           account_id: string | null
@@ -390,24 +417,30 @@ export type Database = {
           created_at: string
           id: string
           invoice_id: string
+          reminder_stage: string | null
           reminder_type: string
           sent_at: string
+          source: string | null
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           invoice_id: string
+          reminder_stage?: string | null
           reminder_type: string
           sent_at?: string
+          source?: string | null
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
           invoice_id?: string
+          reminder_stage?: string | null
           reminder_type?: string
           sent_at?: string
+          source?: string | null
           user_id?: string
         }
         Relationships: [
@@ -423,6 +456,7 @@ export type Database = {
       invoices: {
         Row: {
           amount: number
+          auto_reminders_enabled: boolean | null
           client_email: string | null
           client_name: string
           created_at: string | null
@@ -445,6 +479,7 @@ export type Database = {
         }
         Insert: {
           amount: number
+          auto_reminders_enabled?: boolean | null
           client_email?: string | null
           client_name: string
           created_at?: string | null
@@ -467,6 +502,7 @@ export type Database = {
         }
         Update: {
           amount?: number
+          auto_reminders_enabled?: boolean | null
           client_email?: string | null
           client_name?: string
           created_at?: string | null
@@ -830,55 +866,48 @@ export type Database = {
       }
       transfers: {
         Row: {
-          id: string
-          user_id: string
-          from_account_id: string
-          to_account_id: string
           amount: number
-          description: string | null
-          transfer_date: string
-          frequency: string
-          recurrence_day: number | null
-          is_active: boolean | null
           created_at: string | null
+          description: string | null
+          frequency: string
+          from_account_id: string
+          id: string
+          is_active: boolean | null
+          recurrence_day: number | null
+          to_account_id: string
+          transfer_date: string
           updated_at: string | null
+          user_id: string
         }
         Insert: {
-          id?: string
-          user_id: string
-          from_account_id: string
-          to_account_id: string
           amount: number
-          description?: string | null
-          transfer_date: string
-          frequency?: string
-          recurrence_day?: number | null
-          is_active?: boolean | null
           created_at?: string | null
+          description?: string | null
+          frequency?: string
+          from_account_id: string
+          id?: string
+          is_active?: boolean | null
+          recurrence_day?: number | null
+          to_account_id: string
+          transfer_date: string
           updated_at?: string | null
+          user_id: string
         }
         Update: {
-          id?: string
-          user_id?: string
-          from_account_id?: string
-          to_account_id?: string
           amount?: number
-          description?: string | null
-          transfer_date?: string
-          frequency?: string
-          recurrence_day?: number | null
-          is_active?: boolean | null
           created_at?: string | null
+          description?: string | null
+          frequency?: string
+          from_account_id?: string
+          id?: string
+          is_active?: boolean | null
+          recurrence_day?: number | null
+          to_account_id?: string
+          transfer_date?: string
           updated_at?: string | null
+          user_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "transfers_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "transfers_from_account_id_fkey"
             columns: ["from_account_id"]
@@ -927,6 +956,7 @@ export type Database = {
       }
       user_settings: {
         Row: {
+          auto_reminders_enabled: boolean | null
           business_name: string | null
           created_at: string | null
           currency: string | null
@@ -960,6 +990,7 @@ export type Database = {
           welcome_email_sent_at: string | null
         }
         Insert: {
+          auto_reminders_enabled?: boolean | null
           business_name?: string | null
           created_at?: string | null
           currency?: string | null
@@ -993,6 +1024,7 @@ export type Database = {
           welcome_email_sent_at?: string | null
         }
         Update: {
+          auto_reminders_enabled?: boolean | null
           business_name?: string | null
           created_at?: string | null
           currency?: string | null
@@ -1147,6 +1179,10 @@ export type Database = {
     }
     Functions: {
       get_user_tier: { Args: { uid: string }; Returns: string }
+      increment_ai_query_usage: {
+        Args: { p_query_date: string; p_user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

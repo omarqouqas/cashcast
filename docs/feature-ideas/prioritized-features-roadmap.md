@@ -2,7 +2,7 @@
 
 **Created:** April 23, 2026
 **Source:** Micro-SaaS Ideas Database (190+ products) + Market Research
-**Last Updated:** April 23, 2026
+**Last Updated:** April 29, 2026
 
 ---
 
@@ -13,7 +13,7 @@
 | **1** | PDF Bank Statement Import | $40,000 | 90 | High | Medium | ✅ DONE |
 | **2** | AI Smart Categorization | — | — | High | Low | ✅ DONE |
 | **3** | Time Tracking + Invoicing | $850 | 87 | High | High | 📋 Planned |
-| **4** | Automated Payment Reminders | $3,500 | 80 | High | Low | 🆕 New |
+| **4** | Automated Payment Reminders | $3,500 | 80 | High | Low | ✅ DONE |
 | **5** | Referral Program | — | — | High | Medium | 🆕 New |
 | **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | 🆕 New |
 | **7** | Email Signature Generator | $55,000 | 90 | Medium | Low | 🆕 New |
@@ -93,7 +93,7 @@
 
 ---
 
-### 4. Automated Payment Reminders 🆕 NEW
+### 4. Automated Payment Reminders ✅ COMPLETED
 
 **Database Reference:** Row 90 - "Automated email follow up software"
 
@@ -110,33 +110,39 @@
 - Ties directly into existing Runway Collect invoicing
 - Low effort: Leverage existing email infrastructure
 
-**Proposed Implementation:**
+**Implementation (Completed April 29, 2026):**
 
 ```
 Invoice Sent
     ↓
-Schedule reminder sequence:
-    • Day -3: "Friendly reminder: Invoice #123 due in 3 days"
-    • Day 0: "Invoice #123 is due today"
-    • Day +7: "Invoice #123 is 7 days overdue"
-    • Day +14: "Invoice #123 is 14 days overdue - please review"
+Daily cron (9 AM UTC) checks all sent/viewed invoices:
+    • Day -3: Friendly reminder ("Invoice due in 3 days")
+    • Day 0: Due day reminder ("Invoice due today")
+    • Day +7: Firm reminder ("7 days overdue")
+    • Day +14: Final reminder ("14 days overdue")
     ↓
-User can customize timing and toggle on/off per client
+User can toggle on/off globally or per-invoice
 ```
 
-**Files to Create:**
+**Files Created:**
 ```
 lib/reminders/
-├── types.ts              # Reminder schedule types
-├── scheduler.ts          # Cron job to check due invoices
-└── templates.ts          # Email templates for each stage
+├── types.ts              # Reminder types and constants
+├── scheduler.ts          # Determines which reminders are due
+├── sender.ts             # Sends emails via existing templates
+└── index.ts              # Re-exports
 
 app/api/cron/invoice-reminders/
-└── route.ts              # Vercel cron endpoint
+└── route.ts              # Vercel cron endpoint (9 AM UTC)
+
+lib/actions/
+└── update-auto-reminder-settings.ts
+
+components/settings/
+└── auto-reminders-form.tsx
 ```
 
-**Effort:** Low (2-3 days)
-**Impact:** High (directly reduces payment delays)
+**Database:** Migration added `auto_reminders_enabled` to user_settings and invoices, plus `source` and `reminder_stage` to invoice_reminders with unique index.
 
 ---
 
@@ -362,11 +368,11 @@ that are greater than $1000, excluding low-income months.
 
 ### Phase 1: Quick Wins (1-2 weeks)
 
-| Feature | Days | Dependencies |
-|---------|------|--------------|
-| AI Recurring Detection | 1-2 | PDF import (exists) |
-| Automated Payment Reminders | 2-3 | Runway Collect (exists) |
-| Email Signature Generator | 2-3 | None |
+| Feature | Days | Dependencies | Status |
+|---------|------|--------------|--------|
+| AI Recurring Detection | 1-2 | PDF import (exists) | ✅ Done |
+| Automated Payment Reminders | 2-3 | Runway Collect (exists) | ✅ Done |
+| Email Signature Generator | 2-3 | None | 🆕 Next |
 
 ### Phase 2: Core Features (2-4 weeks)
 
@@ -416,4 +422,5 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 | Apr 23, 2026 | Add Email Signature Generator as free tool | $55K revenue potential, 90 solopreneur score, SEO play |
 | Apr 23, 2026 | Deprioritize Telegram Bot | Niche appeal, focus on core features first |
 | Apr 23, 2026 | Add AI Recurring Detection | Low effort enhancement to existing PDF import |
+| Apr 29, 2026 | Implement Automated Payment Reminders | High impact on retention, reduces manual follow-up |
 

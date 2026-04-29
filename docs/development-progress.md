@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 24, 2026 (Day 69)
+**Last Updated:** April 29, 2026 (Day 70)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -17,7 +17,7 @@
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + **AI Recurring Pattern Detection for PDF Import**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + **Automated Payment Reminders**
 
 **Current Focus:**
 
@@ -28,7 +28,79 @@
 
 ---
 
-## Recent Development (Days 60-69)
+## Recent Development (Days 60-70)
+
+### Day 70: Automated Payment Reminders (April 29, 2026)
+
+**Major Feature: Automated Payment Reminders** - Automatically send payment reminder emails based on invoice due dates, reducing manual follow-up work.
+
+**User Value:**
+- Automated reminder sequence eliminates manual follow-up
+- Reduces late payments with proactive client communication
+- Configurable per-user and per-invoice settings
+- Uses existing professional email templates
+
+**Reminder Schedule:**
+| Stage | Timing | Reminder Type |
+|-------|--------|---------------|
+| `pre_due_3` | 3 days before due | Friendly |
+| `due_day` | On due date | Friendly |
+| `overdue_7` | 7 days overdue | Firm |
+| `overdue_14` | 14 days overdue | Final |
+
+**Technical Implementation:**
+
+New reminder engine in `lib/reminders/`:
+- `types.ts` - Types, constants, and reminder stage definitions
+- `scheduler.ts` - Determines which reminders are due for each invoice
+- `sender.ts` - Sends auto-reminder emails using existing templates
+- `index.ts` - Re-exports
+
+New cron endpoint:
+- `app/api/cron/invoice-reminders/route.ts` - Daily cron job (9 AM UTC)
+- Bearer token auth via `CRON_SECRET`
+- Processes users with `auto_reminders_enabled = true`
+- Concurrent processing (5 users at a time)
+- Unique index prevents duplicate reminders per stage
+
+**Database Migration (`20260428000001_add_auto_reminders.sql`):**
+```sql
+-- User settings
+ALTER TABLE user_settings ADD COLUMN auto_reminders_enabled BOOLEAN DEFAULT true;
+
+-- Per-invoice override
+ALTER TABLE invoices ADD COLUMN auto_reminders_enabled BOOLEAN DEFAULT NULL;
+
+-- Reminder tracking
+ALTER TABLE invoice_reminders ADD COLUMN source VARCHAR(10) DEFAULT 'manual';
+ALTER TABLE invoice_reminders ADD COLUMN reminder_stage VARCHAR(20);
+
+-- Prevent duplicate auto-reminders
+CREATE UNIQUE INDEX idx_invoice_reminders_unique_auto_stage
+ON invoice_reminders(invoice_id, reminder_stage) WHERE source = 'auto';
+```
+
+**Settings UI:**
+- New `AutoRemindersForm` component in Settings page (Pro users only)
+- Toggle to enable/disable automated reminders globally
+- Shows reminder schedule with color-coded stages
+- Server action: `lib/actions/update-auto-reminder-settings.ts`
+
+**Files Created:**
+- `supabase/migrations/20260428000001_add_auto_reminders.sql`
+- `lib/reminders/types.ts`
+- `lib/reminders/scheduler.ts`
+- `lib/reminders/sender.ts`
+- `lib/reminders/index.ts`
+- `app/api/cron/invoice-reminders/route.ts`
+- `lib/actions/update-auto-reminder-settings.ts`
+- `components/settings/auto-reminders-form.tsx`
+
+**Files Modified:**
+- `vercel.json` - Added invoice-reminders cron at 9 AM UTC
+- `app/dashboard/settings/page.tsx` - Added AutoRemindersForm for Pro users
+
+---
 
 ### Day 69: AI Recurring Pattern Detection for PDF Import (April 24, 2026)
 
