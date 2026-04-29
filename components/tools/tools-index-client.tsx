@@ -3,10 +3,18 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import posthog from 'posthog-js';
-import { BadgeDollarSign, Calendar, DollarSign, ArrowRight, TrendingUp, PiggyBank } from 'lucide-react';
+import { BadgeDollarSign, Calendar, DollarSign, ArrowRight, TrendingUp, PiggyBank, Mail } from 'lucide-react';
 import { GetStartedCTA } from '@/components/landing/get-started-cta';
 
 const TOOLS = [
+  {
+    slug: 'email-signature-generator',
+    title: 'Email Signature Generator',
+    description:
+      'Create a professional email signature in seconds. Choose from 4 templates and copy to Gmail, Outlook, or Apple Mail.',
+    href: '/tools/email-signature-generator',
+    icon: Mail,
+  },
   {
     slug: 'can-i-afford-it',
     title: 'Can I Afford It?',

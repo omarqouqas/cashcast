@@ -73,6 +73,17 @@ export function LandingFooter() {
             >
               Payment Predictor
             </Link>
+            <Link
+              href="/tools/email-signature-generator"
+              className="hover:text-zinc-200 transition-colors"
+              onClick={() => {
+                try {
+                  posthog.capture('footer_free_tools_clicked', { link: '/tools/email-signature-generator' });
+                } catch {}
+              }}
+            >
+              Email Signature
+            </Link>
           </div>
         </div>
 
