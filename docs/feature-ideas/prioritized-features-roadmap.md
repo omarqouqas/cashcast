@@ -12,7 +12,7 @@
 |----------|---------|---------------------------|-------------------|--------|--------|--------|
 | **1** | PDF Bank Statement Import | $40,000 | 90 | High | Medium | ✅ DONE |
 | **2** | AI Smart Categorization | — | — | High | Low | ✅ DONE |
-| **3** | Time Tracking + Invoicing | $850 | 87 | High | High | 📋 Planned |
+| **3** | Time Tracking + Invoicing | $850 | 87 | High | High | ✅ DONE |
 | **4** | Automated Payment Reminders | $3,500 | 80 | High | Low | ✅ DONE |
 | **5** | Referral Program | — | — | High | Medium | 🆕 New |
 | **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | 🆕 New |
@@ -67,7 +67,7 @@
 
 ---
 
-### 3. Time Tracking + Invoicing 📋 PLANNED
+### 3. Time Tracking + Invoicing ✅ COMPLETED
 
 **Database Reference:** Row 46 - "Time-Tracking And Invoicing Software"
 
@@ -79,15 +79,47 @@
 | ICP | Freelancers, Consultants, Small Business Owners |
 | Growth Tactics | Word of mouth, SEO |
 
-**Why It Matters:**
-- Increases daily product usage (sticky habit)
-- Completes freelancer workflow: Track time → Invoice → Forecast
-- Unique: No competitor has time tracking + forecasting + invoicing
+**Status:** Completed April 29, 2026
 
-**Integration Points:**
-- Time entries → Auto-populate invoice line items
-- Dashboard metric: "Uninvoiced Hours"
-- Timer widget in header (persistent across navigation)
+**Implementation:**
+- Timer widget in dashboard header (persistent, localStorage-backed)
+- Time entries page at `/dashboard/time` with filters
+- Manual time entry form with project, client, duration, rate
+- Invoice line items support (`invoice_items` table)
+- Create invoices from selected time entries
+- PDF template with line items table
+- Uninvoiced Time widget on dashboard
+- Time settings page at `/dashboard/time/settings`
+
+**Files Created:**
+```
+app/dashboard/time/
+├── page.tsx                    # Time entries page
+├── time-page-client.tsx        # Client wrapper
+└── settings/page.tsx           # Time settings
+
+components/time/
+├── timer-widget.tsx            # Header timer
+├── timer-context.tsx           # Timer state
+├── time-entry-list.tsx         # Entries list
+├── time-entry-row.tsx          # Single entry
+├── time-entry-form.tsx         # Manual entry
+├── time-filters.tsx            # Filters
+└── time-settings-form.tsx      # Settings
+
+components/invoices/
+└── invoice-line-items.tsx      # Line items editor
+
+components/dashboard/
+└── uninvoiced-time-widget.tsx  # Dashboard widget
+
+lib/time/
+└── format-duration.ts          # Duration helpers
+
+lib/actions/
+├── time-entries.ts             # Time CRUD
+└── time-settings.ts            # Settings CRUD
+```
 
 **Detailed Spec:** [time-tracking-invoicing.md](./time-tracking-invoicing.md)
 
@@ -392,10 +424,10 @@ that are greater than $1000, excluding low-income months.
 
 ### Phase 2: Core Features (2-4 weeks)
 
-| Feature | Days | Dependencies |
-|---------|------|--------------|
-| Referral Program | 3-5 | Stripe billing |
-| Time Tracking + Invoicing | 10-15 | Runway Collect (exists) |
+| Feature | Days | Dependencies | Status |
+|---------|------|--------------|--------|
+| Referral Program | 3-5 | Stripe billing | 🆕 New |
+| Time Tracking + Invoicing | 10-15 | Runway Collect (exists) | ✅ Done |
 
 ### Phase 3: Engagement (4-6 weeks)
 
@@ -440,4 +472,5 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 | Apr 23, 2026 | Add AI Recurring Detection | Low effort enhancement to existing PDF import |
 | Apr 29, 2026 | Implement Automated Payment Reminders | High impact on retention, reduces manual follow-up |
 | Apr 29, 2026 | Implement Email Signature Generator | Free SEO tool for lead generation, 4 templates, quick win |
+| Apr 29, 2026 | Implement Time Tracking + Invoicing | Completes freelancer workflow, high stickiness, unique differentiator |
 

@@ -14,6 +14,7 @@ import {
   Brain,
   Calendar,
   CheckCircle2,
+  Clock,
   Code2,
   CreditCard,
   DollarSign,
@@ -95,6 +96,9 @@ export const metadata: Metadata = {
     'predict bank balance',
     'avoid overdraft freelancer',
     // Feature terms
+    'freelancer time tracking',
+    'freelancer time tracking invoicing',
+    'billable hours tracker freelancer',
     'freelancer invoice payment links',
     'invoice to cash flow tracking',
     'freelancer tax tracking',
@@ -266,9 +270,9 @@ export default async function Home({ searchParams }: HomeProps) {
                 <Sparkles className="h-4 w-4 text-teal-400" />
                 <span>Built for freelancers</span>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-teal-500/10 border border-teal-500/20 px-4 py-2 text-sm text-teal-300">
-                <FileText className="h-4 w-4" />
-                <span>Invoice → Forecast sync</span>
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 text-sm text-emerald-300">
+                <Clock className="h-4 w-4" />
+                <span>Time → Invoice → Paid</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-violet-500/10 border border-violet-500/20 px-4 py-2 text-sm text-violet-300">
                 <Brain className="h-4 w-4" />
@@ -350,28 +354,33 @@ export default async function Home({ searchParams }: HomeProps) {
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <h2 className="text-xl md:text-2xl font-semibold text-white">
-                    The only cash flow app where invoicing updates your forecast
+                    The complete freelancer workflow — in one app
                   </h2>
                   <p className="mt-2 text-zinc-300">
-                    Other apps make you track invoices separately. We connect them: send an invoice, and expected income instantly appears in your cash flow calendar.
-                    When it&apos;s paid, your forecast updates automatically. <span className="text-teal-300 font-medium">Forecast + Get Paid</span> — in one place.
+                    Track your hours, create invoices, and watch your forecast update automatically.
+                    When clients pay, your balance updates. <span className="text-teal-300 font-medium">Time → Invoice → Forecast → Paid</span> — no other cash flow app does this.
                   </p>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="flex items-center gap-3 rounded-xl bg-zinc-900/60 border border-zinc-800 p-4">
+                  <div className="flex items-center gap-2 sm:gap-3 rounded-xl bg-zinc-900/60 border border-zinc-800 p-3 sm:p-4">
                     <div className="flex flex-col items-center text-center">
-                      <FileText className="h-8 w-8 text-teal-400" />
-                      <span className="mt-1 text-xs text-zinc-400">Invoice</span>
+                      <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-400" />
+                      <span className="mt-1 text-[10px] sm:text-xs text-zinc-400">Track</span>
                     </div>
-                    <div className="text-teal-500 text-2xl">→</div>
+                    <div className="text-teal-500 text-lg sm:text-2xl">→</div>
                     <div className="flex flex-col items-center text-center">
-                      <Calendar className="h-8 w-8 text-teal-400" />
-                      <span className="mt-1 text-xs text-zinc-400">Forecast</span>
+                      <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-teal-400" />
+                      <span className="mt-1 text-[10px] sm:text-xs text-zinc-400">Invoice</span>
                     </div>
-                    <div className="text-teal-500 text-2xl">→</div>
+                    <div className="text-teal-500 text-lg sm:text-2xl">→</div>
                     <div className="flex flex-col items-center text-center">
-                      <DollarSign className="h-8 w-8 text-emerald-400" />
-                      <span className="mt-1 text-xs text-zinc-400">Paid</span>
+                      <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-teal-400" />
+                      <span className="mt-1 text-[10px] sm:text-xs text-zinc-400">Forecast</span>
+                    </div>
+                    <div className="text-teal-500 text-lg sm:text-2xl">→</div>
+                    <div className="flex flex-col items-center text-center">
+                      <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-400" />
+                      <span className="mt-1 text-[10px] sm:text-xs text-zinc-400">Paid</span>
                     </div>
                   </div>
                 </div>
@@ -545,11 +554,15 @@ export default async function Home({ searchParams }: HomeProps) {
                   </div>
 
                   <p className="mt-4 text-zinc-300 leading-relaxed">
-                    <strong className="text-white">This is what makes us different:</strong> Send quotes, convert to invoices, and get paid—all while your forecast updates automatically.
+                    <strong className="text-white">This is what makes us different:</strong> Track your hours, create itemized invoices, and get paid—all while your forecast updates automatically.
                     The moment you send an invoice, expected income appears in your cash flow calendar. When it&apos;s paid, your balance updates. No other cash flow app does this.
                   </p>
 
                   <ul className="mt-6 space-y-3 text-sm text-zinc-300">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-300 mt-0.5" />
+                      <span><strong className="text-white">Built-in time tracking</strong> — one-click timer + manual entry, create invoices from tracked hours</span>
+                    </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-amber-300 mt-0.5" />
                       <span><strong className="text-white">Invoice → Forecast sync</strong> — send invoice, income appears in forecast instantly</span>
@@ -568,11 +581,7 @@ export default async function Home({ searchParams }: HomeProps) {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5" />
-                      <span>Professional quotes that convert to invoices</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5" />
-                      <span>Automated payment reminders (3 escalating templates)</span>
+                      <span>Automated payment reminders (4 escalating templates)</span>
                     </li>
                   </ul>
                 </div>

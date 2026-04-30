@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 69
-- **Commits:** 407+
-- **Database Tables:** 15
+- **Days in Development:** 70
+- **Commits:** 410+
+- **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + **Automated Payment Reminders**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + **Time Tracking + Invoicing**
 
 **Current Focus:**
 
@@ -30,7 +30,145 @@
 
 ## Recent Development (Days 60-70)
 
-### Day 70: Automated Payment Reminders (April 29, 2026)
+### Day 70: Time Tracking + Invoicing & Automated Payment Reminders (April 29, 2026)
+
+**Major Feature: Time Tracking + Invoicing** - Complete time tracking system with persistent timer, manual entry, and seamless invoice integration.
+
+**User Value:**
+- Track billable hours with one-click timer in header
+- Manual time entry for retroactive logging
+- Filter entries by client, date range, invoiced status
+- Create itemized invoices directly from time entries
+- See uninvoiced time on dashboard for quick action
+- Professional PDF invoices with line items table
+
+**Timer Widget:**
+- Persistent timer in dashboard header
+- Start/Stop/Reset controls
+- Project name input
+- localStorage persistence across navigation
+- Auto-saves entry when stopped
+
+**Time Entries Page (`/dashboard/time`):**
+| Component | Purpose |
+|-----------|---------|
+| Timer display | Current running timer status |
+| Manual entry form | Add entries with project, client, duration, rate |
+| Filters | Search, client dropdown, date range, invoiced status |
+| Entry list | Grouped by date with selection for invoicing |
+| Bulk actions | Create invoice from selected entries |
+
+**Invoice Line Items:**
+- New `invoice_items` table for itemized billing
+- Line items editor in invoice creation form
+- Simple/Itemized toggle for invoice type
+- Auto-calculate line totals and invoice total
+- PDF template updated with line items table
+
+**Time → Invoice Flow:**
+1. Select uninvoiced time entries (checkboxes)
+2. Click "Create Invoice" button
+3. Entries grouped by project + hourly rate
+4. Pre-filled invoice form with line items
+5. Create invoice → entries marked as invoiced
+
+**Dashboard Widget:**
+- Uninvoiced Time widget shows:
+  - Total hours pending
+  - Total amount pending
+  - Entry count
+  - Quick link to time page
+
+**Database Migration (`20260429000001_add_time_tracking.sql`):**
+```sql
+-- time_entries table
+CREATE TABLE time_entries (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  project_name VARCHAR(100) NOT NULL,
+  client_name VARCHAR(100),
+  description TEXT,
+  start_time TIMESTAMPTZ NOT NULL,
+  end_time TIMESTAMPTZ,
+  duration_minutes INTEGER,
+  hourly_rate DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  is_billable BOOLEAN DEFAULT true,
+  is_invoiced BOOLEAN DEFAULT false,
+  invoice_id UUID REFERENCES invoices(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- invoice_items table (for line items)
+CREATE TABLE invoice_items (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  invoice_id UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+  description VARCHAR(500) NOT NULL,
+  quantity DECIMAL(10, 2) NOT NULL DEFAULT 1,
+  unit_price DECIMAL(10, 2) NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  time_entry_id UUID REFERENCES time_entries(id) ON DELETE SET NULL,
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- user_time_settings table
+CREATE TABLE user_time_settings (
+  user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  default_hourly_rate DECIMAL(10, 2) DEFAULT 0,
+  round_to_minutes INTEGER DEFAULT 1,
+  default_billable BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+**Files Created:**
+```
+app/dashboard/time/
+├── page.tsx                    # Time entries page (server)
+├── time-page-client.tsx        # Client component wrapper
+└── settings/
+    └── page.tsx                # Time settings page
+
+components/time/
+├── timer-widget.tsx            # Header timer widget
+├── timer-context.tsx           # Timer state provider
+├── time-entry-list.tsx         # Entries list with selection
+├── time-entry-row.tsx          # Single entry row with edit/delete
+├── time-entry-form.tsx         # Manual entry form
+├── time-filters.tsx            # Filter controls
+└── time-settings-form.tsx      # Settings form
+
+components/invoices/
+└── invoice-line-items.tsx      # Line items editor (NEW)
+
+components/dashboard/
+└── uninvoiced-time-widget.tsx  # Dashboard widget
+
+lib/time/
+└── format-duration.ts          # Duration helpers (2h 15m)
+
+lib/actions/
+├── time-entries.ts             # Time CRUD + getUninvoicedSummary
+└── time-settings.ts            # Settings CRUD
+```
+
+**Files Modified:**
+- `app/dashboard/page.tsx` - Added uninvoicedTime data fetch
+- `components/dashboard/dashboard-content.tsx` - Added UninvoicedTimeWidget
+- `components/dashboard/nav.tsx` - Added Time to More dropdown + mobile menu
+- `components/invoices/new-invoice-form.tsx` - Added line items support
+- `lib/actions/invoices.ts` - Added createInvoiceWithLineItems
+- `lib/pdf/invoice-template.tsx` - Added line items table rendering
+- `app/api/invoices/[id]/pdf/route.ts` - Fetch and pass line items
+- `app/dashboard/invoices/new/page.tsx` - Pre-fill from time entries
+
+**Feature Gating:**
+- Free tier: No access (upgrade prompt)
+- Pro/Premium/Lifetime: Full access
+
+---
 
 **Major Feature: Automated Payment Reminders** - Automatically send payment reminder emails based on invoice due dates, reducing manual follow-up work.
 
@@ -1127,6 +1265,7 @@ Comparison terms:
 | User Currency Preference | All currency displays respect user_settings.currency |
 | Probabilistic Forecasting | Monte Carlo simulation with P10/P50/P90 confidence bands |
 | Natural Language Queries | "Ask Cashcast" chat with Claude-powered tool calling |
+| Time Tracking + Invoicing | Timer widget, manual entry, invoice line items, time → invoice flow |
 
 ### Upcoming
 
@@ -1175,6 +1314,13 @@ Comparison terms:
 - Tool calling with 6 financial tools (affordability, payment date, tax reserve, etc.)
 - Real-time streaming responses with conversation history
 - Rate limiting (5/day free, unlimited Pro)
+- **Time Tracking + Invoicing** - Complete freelancer workflow
+- Persistent timer widget in dashboard header
+- Manual time entry with project, client, duration, rate
+- Filter entries by client, date range, invoiced status
+- Create itemized invoices from selected time entries
+- Uninvoiced Time widget on dashboard
+- Time settings for default hourly rate and rounding
 
 ## What's Next
 
