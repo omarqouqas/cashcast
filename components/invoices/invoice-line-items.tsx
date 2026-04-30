@@ -32,6 +32,22 @@ function formatCurrency(amount: number, currency: string = 'USD'): string {
   }).format(amount);
 }
 
+function getCurrencySymbol(currency: string = 'USD'): string {
+  const symbols: Record<string, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    CAD: '$',
+    AUD: '$',
+    JPY: '¥',
+    CHF: 'CHF',
+    INR: '₹',
+    BRL: 'R$',
+    MXN: '$',
+  };
+  return symbols[currency] || '$';
+}
+
 export function InvoiceLineItems({
   items,
   onChange,
@@ -181,7 +197,7 @@ function LineItemRow({ item, currency, onUpdate, onRemove }: LineItemRowProps) {
       <div className="sm:col-span-2">
         <label className="sm:hidden text-xs text-zinc-500 mb-1 block">Rate</label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">{getCurrencySymbol(currency)}</span>
           <input
             type="number"
             value={item.unit_price}

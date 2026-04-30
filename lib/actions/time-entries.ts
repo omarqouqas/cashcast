@@ -30,10 +30,25 @@ export async function createTimeEntry(
     return { data: null, error: 'Not authenticated' };
   }
 
+  // Fetch user's time settings for rounding preference
+  let roundToMinutes: 1 | 5 | 15 | 30 = 1;
+  try {
+    const { data: settings } = await supabase
+      .from('user_time_settings')
+      .select('round_to_minutes')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    if (settings?.round_to_minutes) {
+      roundToMinutes = settings.round_to_minutes as 1 | 5 | 15 | 30;
+    }
+  } catch {
+    // Use default if settings don't exist
+  }
+
   // Calculate duration if both start and end times are provided
   let durationMinutes: number | null = null;
   if (data.start_time && data.end_time) {
-    durationMinutes = calculateDurationMinutes(data.start_time, data.end_time);
+    durationMinutes = calculateDurationMinutes(data.start_time, data.end_time, roundToMinutes);
   }
 
   const { data: entry, error } = await supabase
@@ -78,10 +93,27 @@ export async function updateTimeEntry(
     return { data: null, error: 'Not authenticated' };
   }
 
+  // Fetch user's time settings for rounding preference
+  let roundToMinutes: 1 | 5 | 15 | 30 = 1;
+  if (data.start_time && data.end_time) {
+    try {
+      const { data: settings } = await supabase
+        .from('user_time_settings')
+        .select('round_to_minutes')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (settings?.round_to_minutes) {
+        roundToMinutes = settings.round_to_minutes as 1 | 5 | 15 | 30;
+      }
+    } catch {
+      // Use default if settings don't exist
+    }
+  }
+
   // Calculate duration if both times are being updated
   const updates: Record<string, unknown> = { ...data };
   if (data.start_time && data.end_time) {
-    updates.duration_minutes = calculateDurationMinutes(data.start_time, data.end_time);
+    updates.duration_minutes = calculateDurationMinutes(data.start_time, data.end_time, roundToMinutes);
   }
 
   const { data: entry, error } = await supabase
