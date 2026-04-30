@@ -103,6 +103,13 @@ export async function canUseInvoicing(userId?: string): Promise<boolean> {
 }
 
 /**
+ * Check if user can use time tracking feature (Pro+)
+ */
+export async function canUseTimeTracking(userId?: string): Promise<boolean> {
+  return userHasAccess('pro', userId);
+}
+
+/**
  * Check if user can use bank sync feature (Premium only)
  */
 export async function canUseBankSync(_userId?: string): Promise<boolean> {

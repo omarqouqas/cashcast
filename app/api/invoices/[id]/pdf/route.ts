@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { renderToBuffer } from '@react-pdf/renderer';
-import { InvoiceTemplate } from '@/lib/pdf/invoice-template';
+import { InvoiceTemplate, type InvoiceLineItem } from '@/lib/pdf/invoice-template';
 import { canUseInvoicing } from '@/lib/stripe/subscription';
 import { rateLimiters } from '@/lib/utils/rate-limit';
+
+// Type helper for invoice_items table
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SupabaseClient = Awaited<ReturnType<typeof createClient>> & { from: (table: string) => any };
 
 export const runtime = 'nodejs';
 
@@ -13,7 +17,7 @@ export async function GET(
 ) {
   const { id } = params;
 
-  const supabase = await createClient();
+  const supabase = await createClient() as SupabaseClient;
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -38,8 +42,8 @@ export async function GET(
     );
   }
 
-  // Fetch invoice and branding settings in parallel
-  const [invoiceResult, brandingResult] = await Promise.all([
+  // Fetch invoice, branding settings, and line items in parallel
+  const [invoiceResult, brandingResult, lineItemsResult] = await Promise.all([
     supabase
       .from('invoices')
       .select('*')
@@ -51,10 +55,16 @@ export async function GET(
       .select('business_name, logo_url')
       .eq('user_id', user.id)
       .single(),
+    supabase
+      .from('invoice_items')
+      .select('description, quantity, unit_price, amount, sort_order')
+      .eq('invoice_id', id)
+      .order('sort_order', { ascending: true }),
   ]);
 
   const { data: invoice, error } = invoiceResult;
   const branding = brandingResult.data;
+  const lineItems = (lineItemsResult.data || []) as InvoiceLineItem[];
 
   if (error || !invoice) {
     // RLS + not found will typically look like a "no rows" error
@@ -66,6 +76,7 @@ export async function GET(
     fromEmail: user.email ?? 'Unknown',
     businessName: branding?.business_name,
     logoUrl: branding?.logo_url,
+    lineItems: lineItems.length > 0 ? lineItems : undefined,
   });
 
   const pdfBuffer = await renderToBuffer(doc);

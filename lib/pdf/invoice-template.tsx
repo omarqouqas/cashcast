@@ -13,6 +13,13 @@ import { formatCurrency, formatDateOnly } from '@/lib/utils/format';
 
 type Invoice = Tables<'invoices'>;
 
+export interface InvoiceLineItem {
+  description: string;
+  quantity: number;
+  unit_price: number;
+  amount: number;
+}
+
 const styles = StyleSheet.create({
   page: {
     paddingTop: 40,
@@ -109,6 +116,83 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#111827',
   },
+  // Line items table styles
+  table: {
+    marginTop: 6,
+    marginBottom: 16,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    backgroundColor: '#F9FAFB',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#E5E7EB',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  tableRowLast: {
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  colDescription: {
+    flexGrow: 1,
+    flexBasis: '45%',
+  },
+  colQty: {
+    width: 60,
+    textAlign: 'right',
+  },
+  colRate: {
+    width: 80,
+    textAlign: 'right',
+  },
+  colAmount: {
+    width: 90,
+    textAlign: 'right',
+  },
+  tableHeaderText: {
+    fontSize: 9,
+    color: '#6B7280',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    fontWeight: 700,
+  },
+  tableCellText: {
+    fontSize: 11,
+    color: '#111827',
+  },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingTop: 12,
+    paddingRight: 12,
+    borderTopWidth: 2,
+    borderTopColor: '#E5E7EB',
+    marginTop: 4,
+  },
+  totalLabel: {
+    fontSize: 12,
+    color: '#374151',
+    fontWeight: 700,
+    marginRight: 24,
+  },
+  totalAmount: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: '#111827',
+    width: 90,
+    textAlign: 'right',
+  },
   footer: {
     marginTop: 28,
     paddingTop: 14,
@@ -147,14 +231,17 @@ export function InvoiceTemplate({
   paymentUrl,
   businessName,
   logoUrl,
+  lineItems,
 }: {
   invoice: Invoice;
   fromEmail: string;
   paymentUrl?: string;
   businessName?: string | null;
   logoUrl?: string | null;
+  lineItems?: InvoiceLineItem[];
 }): React.ReactElement<DocumentProps> {
   const status = invoice.status ?? 'draft';
+  const hasLineItems = lineItems && lineItems.length > 0;
 
   return (
     <Document
@@ -195,24 +282,90 @@ export function InvoiceTemplate({
           </View>
         </View>
 
-        {/* Details */}
-        <View style={styles.detailsBox}>
-          <View style={styles.detailsRow}>
-            <Text style={styles.amount}>{formatCurrency(invoice.amount)}</Text>
-            <View>
-              <Text style={styles.meta}>Due: {formatDateOnly(invoice.due_date)}</Text>
+        {/* Line Items Table (if itemized) */}
+        {hasLineItems ? (
+          <View style={styles.table}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.colDescription}>
+                <Text style={styles.tableHeaderText}>Description</Text>
+              </View>
+              <View style={styles.colQty}>
+                <Text style={styles.tableHeaderText}>Qty</Text>
+              </View>
+              <View style={styles.colRate}>
+                <Text style={styles.tableHeaderText}>Rate</Text>
+              </View>
+              <View style={styles.colAmount}>
+                <Text style={styles.tableHeaderText}>Amount</Text>
+              </View>
+            </View>
+
+            {/* Table Rows */}
+            {lineItems.map((item, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.tableRow,
+                  ...(index === lineItems.length - 1 ? [styles.tableRowLast] : []),
+                ]}
+              >
+                <View style={styles.colDescription}>
+                  <Text style={styles.tableCellText}>{item.description}</Text>
+                </View>
+                <View style={styles.colQty}>
+                  <Text style={styles.tableCellText}>
+                    {item.quantity % 1 === 0 ? item.quantity : item.quantity.toFixed(2)}
+                  </Text>
+                </View>
+                <View style={styles.colRate}>
+                  <Text style={styles.tableCellText}>{formatCurrency(item.unit_price, invoice.currency)}</Text>
+                </View>
+                <View style={styles.colAmount}>
+                  <Text style={styles.tableCellText}>{formatCurrency(item.amount, invoice.currency)}</Text>
+                </View>
+              </View>
+            ))}
+
+            {/* Total */}
+            <View style={styles.totalRow}>
+              <Text style={styles.totalLabel}>Total</Text>
+              <Text style={styles.totalAmount}>{formatCurrency(invoice.amount, invoice.currency)}</Text>
             </View>
           </View>
+        ) : (
+          /* Simple invoice - single amount */
+          <View style={styles.detailsBox}>
+            <View style={styles.detailsRow}>
+              <Text style={styles.amount}>{formatCurrency(invoice.amount, invoice.currency)}</Text>
+              <View>
+                <Text style={styles.meta}>Due: {formatDateOnly(invoice.due_date)}</Text>
+              </View>
+            </View>
 
-          <View style={styles.divider} />
+            <View style={styles.divider} />
 
-          <Text style={styles.descriptionLabel}>Description</Text>
-          <Text style={styles.description}>
-            {invoice.description?.trim()
-              ? invoice.description
-              : 'No description provided.'}
-          </Text>
-        </View>
+            <Text style={styles.descriptionLabel}>Description</Text>
+            <Text style={styles.description}>
+              {invoice.description?.trim()
+                ? invoice.description
+                : 'No description provided.'}
+            </Text>
+          </View>
+        )}
+
+        {/* Due date for itemized invoices (shown separately) */}
+        {hasLineItems && (
+          <View style={{ marginTop: 8, marginBottom: 8 }}>
+            <Text style={styles.meta}>Due: {formatDateOnly(invoice.due_date)}</Text>
+            {invoice.description?.trim() && (
+              <View style={{ marginTop: 12 }}>
+                <Text style={styles.descriptionLabel}>Notes</Text>
+                <Text style={styles.description}>{invoice.description}</Text>
+              </View>
+            )}
+          </View>
+        )}
 
         {/* Payment URL */}
         {paymentUrl && (
@@ -228,5 +381,3 @@ export function InvoiceTemplate({
     </Document>
   );
 }
-
-

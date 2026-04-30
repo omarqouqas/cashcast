@@ -7,6 +7,15 @@ import type { Tables } from '@/types/supabase';
 
 export type InvoiceStatus = 'draft' | 'sent' | 'viewed' | 'paid';
 
+export type LineItemInput = {
+  description: string;
+  quantity: number;
+  unit_price: number;
+  amount: number;
+  sort_order?: number;
+  time_entry_id?: string | null;
+};
+
 export type CreateInvoiceInput = {
   invoice_number?: string | null;
   client_name: string;
@@ -15,6 +24,7 @@ export type CreateInvoiceInput = {
   currency?: string;
   due_date: string; // YYYY-MM-DD
   description?: string | null;
+  line_items?: LineItemInput[];
 };
 
 export type UpdateInvoiceInput = {
@@ -168,6 +178,127 @@ export async function createInvoice(input: CreateInvoiceInput): Promise<{ id: st
   }
 
   // All retries exhausted
+  throw lastError ?? new Error('Failed to create invoice after multiple attempts');
+}
+
+// Type helper for invoice_items table (until migration is applied and types regenerated)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SupabaseClientWithInvoiceItems = Awaited<ReturnType<typeof createClient>> & { from: (table: string) => any };
+
+export async function createInvoiceWithLineItems(input: CreateInvoiceInput): Promise<{ id: string }> {
+  const user = await requireAuth();
+  const hasAccess = await canUseInvoicing(user.id);
+  if (!hasAccess) {
+    throw new Error('Invoicing requires a Pro subscription');
+  }
+  const supabase = await createClient() as SupabaseClientWithInvoiceItems;
+
+  const requestedInvoiceNumber = input.invoice_number?.trim() || null;
+  const hasLineItems = input.line_items && input.line_items.length > 0;
+
+  // Retry logic for race condition handling
+  const MAX_RETRIES = 3;
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      // Generate invoice_number if not provided
+      const invoice_number = requestedInvoiceNumber ?? await getNextInvoiceNumber(supabase, user.id);
+
+      // 1) Create invoice
+      const { data: invoice, error: invoiceErr } = await supabase
+        .from('invoices')
+        .insert({
+          user_id: user.id,
+          invoice_number,
+          client_name: input.client_name,
+          client_email: input.client_email || null,
+          amount: input.amount,
+          currency: input.currency || 'USD',
+          due_date: input.due_date,
+          description: input.description || null,
+          status: 'draft',
+          has_line_items: hasLineItems,
+        })
+        .select('id, invoice_number')
+        .single();
+
+      if (invoiceErr) {
+        if (invoiceErr.code === '23505' && !requestedInvoiceNumber) {
+          lastError = new Error(invoiceErr.message);
+          continue;
+        }
+        throw new Error(invoiceErr.message);
+      }
+
+      // Enforce user's invoice number if DB trigger overwrote it
+      if (requestedInvoiceNumber && invoice.invoice_number !== requestedInvoiceNumber) {
+        const { error: enforceErr } = await supabase
+          .from('invoices')
+          .update({ invoice_number: requestedInvoiceNumber })
+          .eq('id', invoice.id)
+          .eq('user_id', user.id);
+
+        if (enforceErr) {
+          await supabase.from('invoices').delete().eq('id', invoice.id).eq('user_id', user.id);
+          throw new Error(enforceErr.message);
+        }
+      }
+
+      // 2) Create line items if provided
+      if (hasLineItems && input.line_items) {
+        const lineItemsData = input.line_items.map((item, index) => ({
+          invoice_id: invoice.id,
+          description: item.description,
+          quantity: item.quantity,
+          unit_price: item.unit_price,
+          amount: item.amount,
+          sort_order: item.sort_order ?? index,
+          time_entry_id: item.time_entry_id || null,
+        }));
+
+        const { error: lineItemsErr } = await supabase
+          .from('invoice_items')
+          .insert(lineItemsData);
+
+        if (lineItemsErr) {
+          // Rollback invoice
+          await supabase.from('invoices').delete().eq('id', invoice.id).eq('user_id', user.id);
+          throw new Error(lineItemsErr.message);
+        }
+      }
+
+      // 3) Create linked income entry
+      const { error: incomeErr } = await supabase.from('income').insert({
+        user_id: user.id,
+        name: `Invoice: ${input.client_name}`,
+        amount: input.amount,
+        frequency: 'one-time',
+        next_date: input.due_date,
+        status: 'pending',
+        invoice_id: invoice.id,
+        is_active: true,
+        notes: input.description || null,
+      });
+
+      if (incomeErr) {
+        // Rollback invoice and line items
+        if (hasLineItems) {
+          await supabase.from('invoice_items').delete().eq('invoice_id', invoice.id);
+        }
+        await supabase.from('invoices').delete().eq('id', invoice.id).eq('user_id', user.id);
+        throw new Error(incomeErr.message);
+      }
+
+      return { id: invoice.id };
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err));
+      if (!lastError.message.includes('duplicate') && !lastError.message.includes('unique')) {
+        throw lastError;
+      }
+    }
+  }
+
   throw lastError ?? new Error('Failed to create invoice after multiple attempts');
 }
 

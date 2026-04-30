@@ -22,6 +22,7 @@ import { TaxSavingsWidget } from '@/components/dashboard/tax-savings-widget';
 import { EmergencyFundWidget } from '@/components/dashboard/emergency-fund-widget';
 import { CreditCardsSection } from '@/components/dashboard/credit-cards-section';
 import { RiskMetrics } from '@/components/dashboard/risk-metrics';
+import { UninvoicedTimeWidget } from '@/components/dashboard/uninvoiced-time-widget';
 import {
   DashboardFilterBar,
   useDashboardFilters,
@@ -109,6 +110,11 @@ interface DashboardContentProps {
   isLifetimePurchase?: boolean;
   alerts?: SerializedAlert[];
   incomePatternAnalysis?: SerializedIncomePatternAnalysis | null;
+  uninvoicedTime?: {
+    totalMinutes: number;
+    totalAmount: number;
+    entryCount: number;
+  } | null;
 }
 
 /**
@@ -138,6 +144,7 @@ export function DashboardContent({
   isLifetimePurchase = false,
   alerts = [],
   incomePatternAnalysis = null,
+  uninvoicedTime = null,
 }: DashboardContentProps) {
   // Deserialize alerts (convert createdAt back to Date)
   const deserializedAlerts: Alert[] = React.useMemo(
@@ -793,6 +800,18 @@ export function DashboardContent({
           currency={currency}
         />
       </div>
+
+      {/* Uninvoiced Time Widget */}
+      {uninvoicedTime && uninvoicedTime.entryCount > 0 && (
+        <div className="mb-6">
+          <UninvoicedTimeWidget
+            totalMinutes={uninvoicedTime.totalMinutes}
+            totalAmount={uninvoicedTime.totalAmount}
+            entryCount={uninvoicedTime.entryCount}
+            currency={currency}
+          />
+        </div>
+      )}
 
       {/* Tax Savings Widget */}
       <div className="mb-6">

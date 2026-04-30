@@ -22,6 +22,7 @@ import {
   ArrowRightLeft,
   MoreHorizontal,
   Sparkles,
+  Clock,
 } from 'lucide-react';
 import { ScenarioButton } from '@/components/scenarios/scenario-button';
 import { createPortalSession } from '@/lib/actions/stripe';
@@ -29,7 +30,7 @@ import { createPortalSession } from '@/lib/actions/stripe';
 interface DashboardNavProps {
   userEmail: string;
   userName?: string;
-  userTier: 'free' | 'pro' | 'premium';
+  userTier: 'free' | 'pro' | 'premium' | 'lifetime';
 }
 
 function UserAvatar({
@@ -83,6 +84,7 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
 
   // Secondary features in "More" dropdown
   const moreLinks = [
+    { href: '/dashboard/time', label: 'Time Tracking', icon: Clock },
     { href: '/dashboard/insights', label: 'Insights', icon: Sparkles },
     { href: '/dashboard/transfers', label: 'Transfers', icon: ArrowRightLeft },
     { href: '/dashboard/debt-payoff', label: 'Debt Payoff', icon: TrendingDown },
@@ -194,6 +196,28 @@ export function DashboardNav({ userEmail, userName, userTier }: DashboardNavProp
                     </p>
                   </div>
                 </div>
+
+                {/* Divider */}
+                <div className="border-t border-zinc-700 my-1" />
+
+                {/* Quick Access */}
+                <Link
+                  href="/dashboard/time"
+                  onClick={() => setIsUserMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 min-h-[44px] text-sm text-zinc-200 hover:bg-zinc-700/50 rounded-md transition-colors"
+                >
+                  <Clock className="w-4 h-4 text-zinc-400" />
+                  Time Tracking
+                </Link>
+
+                <Link
+                  href="/dashboard/invoices"
+                  onClick={() => setIsUserMenuOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 min-h-[44px] text-sm text-zinc-200 hover:bg-zinc-700/50 rounded-md transition-colors"
+                >
+                  <Receipt className="w-4 h-4 text-zinc-400" />
+                  Invoices
+                </Link>
 
                 {/* Divider */}
                 <div className="border-t border-zinc-700 my-1" />

@@ -4,16 +4,19 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, List, DollarSign } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { CurrencyInput } from '@/components/ui/currency-input';
 import { Label } from '@/components/ui/label';
-import { createInvoice } from '@/lib/actions/invoices';
+import { createInvoiceWithLineItems } from '@/lib/actions/invoices';
+import { markAsInvoiced } from '@/lib/actions/time-entries';
 import { showError, showSuccess } from '@/lib/toast';
 import { optionalEmailSchema } from '@/lib/validations/email';
 import { trackInvoiceCreated } from '@/lib/posthog/events';
+import { InvoiceLineItems, type LineItem } from './invoice-line-items';
+import { cn } from '@/lib/utils';
 
 const CURRENCY_OPTIONS = [
   { value: 'USD', label: 'USD ($)' },
@@ -41,8 +44,7 @@ const invoiceSchema = z.object({
       required_error: 'Amount is required',
       invalid_type_error: 'Amount must be a number',
     })
-    .positive('Amount must be positive')
-    .refine((n) => n >= 0.01, 'Amount must be at least 0.01'),
+    .nonnegative('Amount must be zero or positive'),
   currency: z.string().min(1, 'Currency is required'),
   due_date: z
     .string()
@@ -66,12 +68,26 @@ function defaultDueDateString() {
 
 interface NewInvoiceFormProps {
   defaultCurrency?: string;
+  prefilledLineItems?: LineItem[];
+  prefilledClientName?: string;
+  timeEntryIds?: string[]; // IDs of time entries to mark as invoiced
 }
 
-export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps) {
+export function NewInvoiceForm({
+  defaultCurrency = 'USD',
+  prefilledLineItems,
+  prefilledClientName,
+  timeEntryIds,
+}: NewInvoiceFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Invoice mode: 'simple' (single amount) or 'itemized' (line items)
+  const [mode, setMode] = useState<'simple' | 'itemized'>(
+    prefilledLineItems && prefilledLineItems.length > 0 ? 'itemized' : 'simple'
+  );
+  const [lineItems, setLineItems] = useState<LineItem[]>(prefilledLineItems || []);
 
   const defaultDueDate = useMemo(() => defaultDueDateString(), []);
 
@@ -81,13 +97,26 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
     control,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<InvoiceFormData>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
       due_date: defaultDueDate,
       currency: defaultCurrency,
+      client_name: prefilledClientName || '',
+      amount: 0,
     },
   });
+
+  const currency = watch('currency');
+
+  // Update amount when line items change (in itemized mode)
+  useEffect(() => {
+    if (mode === 'itemized') {
+      const total = lineItems.reduce((sum, item) => sum + item.amount, 0);
+      setValue('amount', Math.round(total * 100) / 100);
+    }
+  }, [lineItems, mode, setValue]);
 
   const setPaymentTerm = (days: number) => {
     const d = new Date();
@@ -96,11 +125,37 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
   };
 
   const onSubmit = async (data: InvoiceFormData) => {
+    // Validate line items in itemized mode
+    if (mode === 'itemized') {
+      if (lineItems.length === 0) {
+        showError('Please add at least one line item');
+        return;
+      }
+
+      const hasEmptyDescription = lineItems.some((item) => !item.description.trim());
+      if (hasEmptyDescription) {
+        showError('All line items need a description');
+        return;
+      }
+
+      const total = lineItems.reduce((sum, item) => sum + item.amount, 0);
+      if (total <= 0) {
+        showError('Invoice total must be greater than zero');
+        return;
+      }
+    } else {
+      // Simple mode validation
+      if (!data.amount || data.amount <= 0) {
+        showError('Amount must be greater than zero');
+        return;
+      }
+    }
+
     setIsLoading(true);
     setError(null);
 
     try {
-      await createInvoice({
+      const result = await createInvoiceWithLineItems({
         invoice_number: data.invoice_number ? data.invoice_number.trim() : null,
         client_name: data.client_name,
         client_email: data.client_email ? data.client_email : null,
@@ -108,12 +163,25 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
         currency: data.currency,
         due_date: data.due_date,
         description: data.description ? data.description : null,
+        line_items: mode === 'itemized' ? lineItems.map((item, index) => ({
+          description: item.description,
+          quantity: item.quantity,
+          unit_price: item.unit_price,
+          amount: item.amount,
+          sort_order: index,
+          time_entry_id: item.time_entry_id || null,
+        })) : undefined,
       });
+
+      // Mark time entries as invoiced if we have any
+      if (timeEntryIds && timeEntryIds.length > 0) {
+        await markAsInvoiced(timeEntryIds, result.id);
+      }
 
       trackInvoiceCreated({
         amount: data.amount,
-        hasLineItems: false,
-        lineItemCount: 0,
+        hasLineItems: mode === 'itemized',
+        lineItemCount: mode === 'itemized' ? lineItems.length : 0,
       });
       showSuccess('Invoice created');
       router.refresh();
@@ -128,7 +196,7 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-2xl mx-auto">
       <Link
         href="/dashboard/invoices"
         className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group mb-6"
@@ -190,54 +258,120 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
             )}
           </div>
 
-          {/* Amount and Currency */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="col-span-2">
-              <Label htmlFor="amount" className="text-zinc-300 mb-1.5 block">
-                Amount<span className="text-rose-400 ml-0.5">*</span>
-              </Label>
-              <Controller
-                name="amount"
-                control={control}
-                render={({ field }) => (
-                  <CurrencyInput
-                    id="amount"
-                    placeholder="0.00"
-                    value={field.value}
-                    onChange={field.onChange}
-                    className={[
-                      'bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500',
-                      'focus:border-teal-500 focus:ring-teal-500/20',
-                      errors.amount ? 'border-rose-500 focus:ring-rose-500' : '',
-                    ].join(' ')}
-                  />
+          {/* Invoice type toggle */}
+          <div>
+            <Label className="text-zinc-300 mb-2 block">Invoice type</Label>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setMode('simple')}
+                className={cn(
+                  'flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-colors',
+                  mode === 'simple'
+                    ? 'bg-teal-500/20 border-teal-500/50 text-teal-300'
+                    : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
                 )}
-              />
-              {errors.amount?.message && (
-                <p className="text-sm text-rose-400 mt-1.5">{errors.amount.message}</p>
-              )}
-            </div>
-            <div>
-              <Label htmlFor="currency" className="text-zinc-300 mb-1.5 block">
-                Currency
-              </Label>
-              <select
-                id="currency"
-                {...register('currency')}
-                className={[
-                  'w-full h-10 bg-zinc-800 border border-zinc-700 rounded-md px-3 text-zinc-100',
-                  'focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent',
-                  errors.currency ? 'border-rose-500 focus:ring-rose-500' : '',
-                ].join(' ')}
               >
-                {CURRENCY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+                <DollarSign className="h-4 w-4" />
+                Simple
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode('itemized')}
+                className={cn(
+                  'flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-colors',
+                  mode === 'itemized'
+                    ? 'bg-teal-500/20 border-teal-500/50 text-teal-300'
+                    : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-300'
+                )}
+              >
+                <List className="h-4 w-4" />
+                Itemized
+              </button>
             </div>
+            <p className="text-xs text-zinc-500 mt-2">
+              {mode === 'simple'
+                ? 'Enter a single total amount'
+                : 'Add individual line items for detailed billing'}
+            </p>
           </div>
+
+          {/* Amount (Simple mode) or Line Items (Itemized mode) */}
+          {mode === 'simple' ? (
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-2">
+                <Label htmlFor="amount" className="text-zinc-300 mb-1.5 block">
+                  Amount<span className="text-rose-400 ml-0.5">*</span>
+                </Label>
+                <Controller
+                  name="amount"
+                  control={control}
+                  render={({ field }) => (
+                    <CurrencyInput
+                      id="amount"
+                      placeholder="0.00"
+                      value={field.value}
+                      onChange={field.onChange}
+                      className={[
+                        'bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500',
+                        'focus:border-teal-500 focus:ring-teal-500/20',
+                        errors.amount ? 'border-rose-500 focus:ring-rose-500' : '',
+                      ].join(' ')}
+                    />
+                  )}
+                />
+                {errors.amount?.message && (
+                  <p className="text-sm text-rose-400 mt-1.5">{errors.amount.message}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="currency" className="text-zinc-300 mb-1.5 block">
+                  Currency
+                </Label>
+                <select
+                  id="currency"
+                  {...register('currency')}
+                  className={[
+                    'w-full h-10 bg-zinc-800 border border-zinc-700 rounded-md px-3 text-zinc-100',
+                    'focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent',
+                    errors.currency ? 'border-rose-500 focus:ring-rose-500' : '',
+                  ].join(' ')}
+                >
+                  {CURRENCY_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex justify-end">
+                <div>
+                  <Label htmlFor="currency" className="text-zinc-300 mb-1.5 block">
+                    Currency
+                  </Label>
+                  <select
+                    id="currency"
+                    {...register('currency')}
+                    className="w-32 h-10 bg-zinc-800 border border-zinc-700 rounded-md px-3 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  >
+                    {CURRENCY_OPTIONS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <InvoiceLineItems
+                items={lineItems}
+                onChange={setLineItems}
+                currency={currency}
+              />
+            </div>
+          )}
 
           {/* Due date */}
           <div>
@@ -285,20 +419,20 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
           {/* Description */}
           <div>
             <Label htmlFor="description" className="text-zinc-300 mb-1.5 block">
-              Description <span className="text-zinc-500">(optional)</span>
+              Notes <span className="text-zinc-500">(optional)</span>
             </Label>
             <textarea
               id="description"
-              rows={4}
+              rows={3}
               {...register('description')}
               className={[
                 'w-full bg-zinc-800 border border-zinc-700 rounded-md px-3 py-2 text-zinc-100',
                 'placeholder:text-zinc-500',
                 'focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent',
-                'min-h-[96px]',
+                'min-h-[72px]',
                 errors.description ? 'border-rose-500 focus:ring-rose-500' : '',
               ].join(' ')}
-              placeholder="What is this invoice for?"
+              placeholder="Payment terms, thank you notes, etc."
             />
             {errors.description?.message && (
               <p className="text-sm text-rose-400 mt-1.5">{errors.description.message}</p>
@@ -329,5 +463,3 @@ export function NewInvoiceForm({ defaultCurrency = 'USD' }: NewInvoiceFormProps)
     </div>
   );
 }
-
-

@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import { IdentifyUser } from '@/components/analytics/identify-user'
 import { FeedbackButton } from '@/components/feedback/feedback-button'
 import { AskButton } from '@/components/ask'
+import { TimerProvider } from '@/components/time/timer-context'
+import { TimerWidget } from '@/components/time/timer-widget'
 import Link from 'next/link'
 /* eslint-disable @next/next/no-img-element */
 
@@ -41,6 +43,19 @@ export default async function DashboardLayout({
       .maybeSingle(),
   ])
 
+  // Fetch time settings separately (table may not exist yet)
+  let timeSettingsData: { default_hourly_rate?: number } | null = null
+  try {
+    const { data } = await (supabase as unknown as { from: (table: string) => { select: (cols: string) => { eq: (col: string, val: string) => { maybeSingle: () => Promise<{ data: { default_hourly_rate?: number } | null }> } } } })
+      .from('user_time_settings')
+      .select('default_hourly_rate')
+      .eq('user_id', user.id)
+      .maybeSingle()
+    timeSettingsData = data
+  } catch {
+    // Table doesn't exist yet, use default
+  }
+
   const settingsData = settingsRow.data as { onboarding_complete?: boolean } | null
   const userData = userRow.data as { full_name?: string } | null
   const subscriptionData = subscriptionRow.data as { tier?: string } | null
@@ -48,33 +63,41 @@ export default async function DashboardLayout({
   const isOnboarded = settingsData?.onboarding_complete === true
   const hasAccounts = (accountCount ?? 0) > 0
   const userName = userData?.full_name ?? undefined
-  const userTier = (subscriptionData?.tier as 'free' | 'pro' | 'premium') ?? 'free'
+  const userTier = (subscriptionData?.tier as 'free' | 'pro' | 'premium' | 'lifetime') ?? 'free'
+  const canUseTimeTracking = userTier !== 'free'
+  const defaultHourlyRate = timeSettingsData?.default_hourly_rate ?? 0
 
   if (!isOnboarded && !hasAccounts) {
     redirect('/onboarding')
   }
   
   return (
-    <div className="min-h-screen bg-zinc-950">
-      <IdentifyUser />
-      <EmailVerificationBanner user={user} />
+    <TimerProvider>
+      <div className="min-h-screen bg-zinc-950">
+        <IdentifyUser />
+        <EmailVerificationBanner user={user} />
 
-      <header className="bg-zinc-900 border-b border-zinc-800 relative z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/dashboard" className="flex-shrink-0">
-              <img
-                src="/cashcast-lockup.svg"
-                alt="Cashcast"
-                height={32}
-                width={180}
-                className="h-8 w-auto"
-              />
-            </Link>
-            <DashboardNav userEmail={user.email ?? ''} userName={userName} userTier={userTier} />
+        <header className="bg-zinc-900 border-b border-zinc-800 relative z-30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <Link href="/dashboard" className="flex-shrink-0">
+                <img
+                  src="/cashcast-lockup.svg"
+                  alt="Cashcast"
+                  height={32}
+                  width={180}
+                  className="h-8 w-auto"
+                />
+              </Link>
+              <div className="flex items-center gap-3">
+                {canUseTimeTracking && (
+                  <TimerWidget defaultHourlyRate={defaultHourlyRate} className="hidden sm:block" />
+                )}
+                <DashboardNav userEmail={user.email ?? ''} userName={userName} userTier={userTier} />
+              </div>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
       
       {/* 
         Main content area
@@ -85,9 +108,10 @@ export default async function DashboardLayout({
         {children}
       </main>
 
-      {/* Floating buttons */}
-      <AskButton variant="fab" />
-      <FeedbackButton />
-    </div>
+        {/* Floating buttons */}
+        <AskButton variant="fab" />
+        <FeedbackButton />
+      </div>
+    </TimerProvider>
   )
 }

@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import generateCalendar from '@/lib/calendar/generate';
 import { runMonteCarloSimulation } from '@/lib/calendar/monte-carlo';
 import { getInvoiceSummary } from '@/lib/actions/invoices';
+import { getUninvoicedSummary } from '@/lib/actions/time-entries';
 import { getForecastDaysLimit, getUserSubscription } from '@/lib/stripe/subscription';
 import { getQuarterForDate } from '@/lib/tax/calculations';
 import { generateAlerts, buildAlertContext } from '@/lib/alerts';
@@ -32,7 +33,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const supabase = await createClient();
 
   // Fetch accounts, income, bills, transfers, and user settings in parallel
-  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription, incomePatternAnalysis] = await Promise.all([
+  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription, incomePatternAnalysis, uninvoicedTimeSummary] = await Promise.all([
     supabase
       .from('accounts')
       .select('*')
@@ -80,6 +81,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     getForecastDaysLimit(user.id),
     getUserSubscription(user.id),
     generateIncomePatternAnalysis(user.id),
+    getUninvoicedSummary(),
   ]);
 
   const accounts = (accountsResult.data || []) as AccountRecord[];
@@ -386,6 +388,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       isLifetimePurchase={isLifetimePurchase}
       alerts={serializedAlerts}
       incomePatternAnalysis={serializedPatternAnalysis}
+      uninvoicedTime={uninvoicedTimeSummary.data ? {
+        totalMinutes: uninvoicedTimeSummary.data.uninvoiced_minutes,
+        totalAmount: uninvoicedTimeSummary.data.uninvoiced_amount,
+        entryCount: uninvoicedTimeSummary.data.entry_count,
+      } : null}
     />
   );
 }
