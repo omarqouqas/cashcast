@@ -295,6 +295,7 @@ export function IncomeFilterBar({
             onChange={({ min, max }) =>
               onChange({ ...filters, amountMin: min, amountMax: max })
             }
+            currency={currency}
           />
         )}
 

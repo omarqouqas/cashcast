@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { showError, showSuccess } from '@/lib/toast'
 import { CurrencyInput } from '@/components/ui/currency-input'
+import { getCurrencySymbol } from '@/lib/utils/format'
 
 type Frequency = 'weekly' | 'biweekly' | 'semi-monthly' | 'monthly' | 'one-time'
 
@@ -97,7 +98,7 @@ export function StepQuickSetup({
             Current balance <span className="text-rose-400">*</span>
           </label>
           <div className="mt-1 relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol('USD')}</span>
             <CurrencyInput
               value={balance}
               onChange={setBalance}
@@ -148,7 +149,7 @@ export function StepQuickSetup({
                     Amount <span className="text-rose-400">*</span>
                   </label>
                   <div className="mt-1 relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol('USD')}</span>
                     <CurrencyInput
                       value={incomeAmount}
                       onChange={setIncomeAmount}

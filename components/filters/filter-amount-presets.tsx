@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { ChevronDown, Check, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 interface AmountRange {
   min: number | null;
@@ -43,9 +44,10 @@ export function FilterAmountPresets({
   onChange,
   presets = defaultPresets,
   label = 'Amount',
-  currency = '$',
+  currency = 'USD',
   className,
 }: FilterAmountPresetsProps) {
+  const currencySymbol = getCurrencySymbol(currency);
   const [open, setOpen] = React.useState(false);
   const [showCustom, setShowCustom] = React.useState(false);
   const [customMin, setCustomMin] = React.useState<string>(
@@ -74,10 +76,10 @@ export function FilterAmountPresets({
     if (!hasValue) return label;
     if (matchingPreset) return matchingPreset.label;
     if (value.min !== null && value.max !== null) {
-      return `${currency}${value.min} - ${currency}${value.max}`;
+      return `${currencySymbol}${value.min} - ${currencySymbol}${value.max}`;
     }
-    if (value.min !== null) return `${currency}${value.min}+`;
-    if (value.max !== null) return `Under ${currency}${value.max}`;
+    if (value.min !== null) return `${currencySymbol}${value.min}+`;
+    if (value.max !== null) return `Under ${currencySymbol}${value.max}`;
     return label;
   };
 
@@ -175,7 +177,7 @@ export function FilterAmountPresets({
               <div className="flex items-center gap-2">
                 <div className="relative flex-1">
                   <span className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
-                    {currency}
+                    {currencySymbol}
                   </span>
                   <input
                     type="number"
@@ -188,7 +190,7 @@ export function FilterAmountPresets({
                 <span className="text-zinc-500 text-sm">to</span>
                 <div className="relative flex-1">
                   <span className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
-                    {currency}
+                    {currencySymbol}
                   </span>
                   <input
                     type="number"

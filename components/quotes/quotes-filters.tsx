@@ -79,6 +79,7 @@ interface QuotesFilterBarProps {
   resultCount: number;
   visibleFilters: string[];
   onVisibleFiltersChange: (filters: string[]) => void;
+  currency?: string;
 }
 
 /**
@@ -90,6 +91,7 @@ export function QuotesFilterBar({
   resultCount,
   visibleFilters,
   onVisibleFiltersChange,
+  currency = 'USD',
 }: QuotesFilterBarProps) {
   // Build active filter pills
   const activeFilterPills = React.useMemo((): ActiveFilter[] => {
@@ -236,6 +238,7 @@ export function QuotesFilterBar({
             onChange={({ min, max }) =>
               onChange({ ...filters, amountMin: min, amountMax: max })
             }
+            currency={currency}
           />
         )}
 

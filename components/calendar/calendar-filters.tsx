@@ -74,6 +74,7 @@ interface CalendarFilterBarProps {
   onChange: (filters: CalendarFilters) => void;
   visibleFilters: string[];
   onVisibleFiltersChange: (filters: string[]) => void;
+  currency?: string;
 }
 
 /**
@@ -84,6 +85,7 @@ export function CalendarFilterBar({
   onChange,
   visibleFilters,
   onVisibleFiltersChange,
+  currency = 'USD',
 }: CalendarFilterBarProps) {
   // Build active filter pills
   const activeFilterPills = React.useMemo((): ActiveFilter[] => {
@@ -276,6 +278,7 @@ export function CalendarFilterBar({
                 onChange={({ min, max }) =>
                   onChange({ ...filters, amountMin: min, amountMax: max })
                 }
+                currency={currency}
               />
             )}
 

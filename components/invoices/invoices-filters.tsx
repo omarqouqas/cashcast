@@ -91,6 +91,7 @@ interface InvoicesFilterBarProps {
   resultCount: number;
   visibleFilters: string[];
   onVisibleFiltersChange: (filters: string[]) => void;
+  currency?: string;
 }
 
 /**
@@ -102,6 +103,7 @@ export function InvoicesFilterBar({
   resultCount,
   visibleFilters,
   onVisibleFiltersChange,
+  currency = 'USD',
 }: InvoicesFilterBarProps) {
   // Build active filter pills
   const activeFilterPills = React.useMemo((): ActiveFilter[] => {
@@ -269,6 +271,7 @@ export function InvoicesFilterBar({
             onChange={({ min, max }) =>
               onChange({ ...filters, amountMin: min, amountMax: max })
             }
+            currency={currency}
           />
         )}
 

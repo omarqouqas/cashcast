@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
 import { showError, showSuccess } from '@/lib/toast'
 import { CurrencyInput } from '@/components/ui/currency-input'
+import { getCurrencySymbol } from '@/lib/utils/format'
 import { createClient } from '@/lib/supabase/client'
 import { seedDefaultCategories } from '@/lib/actions/manage-categories'
 import { DEFAULT_CATEGORIES, type UserCategory } from '@/lib/categories/constants'
@@ -323,7 +324,7 @@ export function StepBills({
                       <div>
                         <label className="block text-xs font-medium text-zinc-300">Amount</label>
                         <div className="mt-0.5 relative">
-                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">$</span>
+                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">{getCurrencySymbol('USD')}</span>
                           <CurrencyInput
                             value={b.amount}
                             onChange={(val) =>

@@ -31,7 +31,7 @@ export function formatCurrency(amount: number, currency: string = 'USD', compact
     // For compact notation, use custom formatting
     const absAmount = Math.abs(amount);
     const sign = amount < 0 ? '-' : '';
-    const currencySymbol = currency === 'USD' ? '$' : currency;
+    const currencySymbol = getCurrencySymbol(currency);
 
     if (absAmount >= 1000000) {
       return `${sign}${currencySymbol}${(absAmount / 1000000).toFixed(absAmount % 1000000 === 0 ? 0 : 1)}M`;

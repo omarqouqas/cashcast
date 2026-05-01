@@ -119,6 +119,7 @@ interface BillsFilterBarProps {
   onVisibleFiltersChange: (filters: string[]) => void;
   categoryOptions?: FilterDropdownOption[]; // Dynamic category options from user's categories
   excludedCategories?: string[]; // Categories that are being hidden/excluded
+  currency?: string;
 }
 
 /**
@@ -133,6 +134,7 @@ export function BillsFilterBar({
   onVisibleFiltersChange,
   categoryOptions = defaultCategoryOptions,
   excludedCategories = [],
+  currency = 'USD',
 }: BillsFilterBarProps) {
   // Build active filter pills
   const activeFilterPills = React.useMemo((): ActiveFilter[] => {
@@ -321,6 +323,7 @@ export function BillsFilterBar({
             onChange={({ min, max }) =>
               onChange({ ...filters, amountMin: min, amountMax: max })
             }
+            currency={currency}
           />
         )}
 

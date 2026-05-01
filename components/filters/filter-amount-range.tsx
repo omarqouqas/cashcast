@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 interface FilterAmountRangeProps {
   minValue: number | null;
@@ -20,9 +21,10 @@ export function FilterAmountRange({
   maxValue,
   onChange,
   label,
-  currency = '$',
+  currency = 'USD',
   placeholder = { min: 'Min', max: 'Max' },
 }: FilterAmountRangeProps) {
+  const currencySymbol = getCurrencySymbol(currency);
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === '' ? null : parseFloat(e.target.value);
     onChange(value, maxValue);
@@ -43,7 +45,7 @@ export function FilterAmountRange({
       <div className="flex items-center gap-2">
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
-            {currency}
+            {currencySymbol}
           </span>
           <input
             type="number"
@@ -62,7 +64,7 @@ export function FilterAmountRange({
         <span className="text-zinc-500 text-sm">to</span>
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">
-            {currency}
+            {currencySymbol}
           </span>
           <input
             type="number"
