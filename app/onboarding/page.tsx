@@ -182,11 +182,11 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-50">
-      <div className="mx-auto w-full max-w-lg px-4 pt-10 pb-32">
-        <div className="mb-8">
+      <div className="mx-auto w-full max-w-lg px-4 pt-6 sm:pt-8 pb-32">
+        <div className="mb-4 sm:mb-6">
           <p className="text-xs font-medium tracking-wide text-zinc-500">Setup</p>
-          <h1 className="mt-1 text-2xl font-semibold">{pageTitle}</h1>
-          <p className="mt-1 text-sm text-zinc-400">
+          <h1 className="mt-1 text-xl sm:text-2xl font-semibold">{pageTitle}</h1>
+          <p className="mt-0.5 text-sm text-zinc-400">
             See your first forecast in under 60 seconds.
           </p>
         </div>

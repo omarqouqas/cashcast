@@ -8,7 +8,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
@@ -45,6 +45,7 @@ type BillFormData = z.infer<typeof billSchema>;
 
 export default function NewBillPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -52,6 +53,9 @@ export default function NewBillPage() {
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [pendingCategory, setPendingCategory] = useState<PendingCategory | null>(null);
   const [currency, setCurrency] = useState('USD');
+
+  // Get pre-filled date from URL params (e.g., from calendar)
+  const prefilledDate = searchParams.get('date') || '';
 
   // Feature gating
   const { canAddBill, usage, limits, isLoading: subscriptionLoading } = useSubscriptionWithUsage();
@@ -65,6 +69,7 @@ export default function NewBillPage() {
     resolver: zodResolver(billSchema),
     defaultValues: {
       is_active: true,
+      due_date: prefilledDate,
     },
   });
 

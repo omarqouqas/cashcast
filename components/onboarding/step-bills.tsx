@@ -159,8 +159,7 @@ export function StepBills({
     loadCategories()
   }, [])
 
-  const canContinue = bills.length > 0 && !categoriesLoading
-  const allValid = useMemo(() => bills.length > 0 && bills.every(isValidBill), [bills])
+  const allValid = useMemo(() => bills.length > 0 && bills.every(isValidBill) && !categoriesLoading, [bills, categoriesLoading])
 
   const addedSuggestionKeys = useMemo(() => {
     const set = new Set<string>()
@@ -240,14 +239,24 @@ export function StepBills({
 
   return (
     <div className="relative">
-      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-        <h2 className="text-xl font-semibold text-zinc-50">What bills do you pay regularly?</h2>
-        <p className="mt-1 text-sm text-zinc-400">Add your biggest expenses first</p>
+      <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-5">
+        <h2 className="text-lg font-semibold text-zinc-50">What bills do you pay?</h2>
+        <p className="mt-0.5 text-sm text-zinc-400">Add your biggest expenses first</p>
 
-        {/* Suggestions */}
-        <div className="mt-6">
-          <p className="text-sm font-medium text-zinc-200">Suggestions</p>
-          <div className="mt-3 grid grid-cols-1 gap-3">
+        {/* Suggestions - Compact horizontal layout */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-zinc-200">Quick add</p>
+            <button
+              type="button"
+              onClick={addCustom}
+              className="inline-flex items-center gap-1 text-xs font-medium text-teal-400 hover:text-teal-300"
+            >
+              <Plus className="h-3 w-3" />
+              Custom
+            </button>
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => {
               const isAdded = addedSuggestionKeys.has(s.key)
               return (
@@ -257,102 +266,77 @@ export function StepBills({
                   onClick={() => addSuggestion(s)}
                   disabled={isAdded}
                   className={[
-                    'text-left rounded-xl border px-4 py-4 transition-colors',
+                    'rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors',
                     isAdded
-                      ? 'border-zinc-800 bg-zinc-950/40 opacity-60 cursor-not-allowed'
-                      : 'border-zinc-800 bg-zinc-950/40 hover:bg-zinc-950/70',
+                      ? 'border-zinc-800 bg-zinc-800 text-zinc-500 cursor-not-allowed'
+                      : 'border-zinc-700 bg-zinc-800 text-zinc-200 hover:border-teal-500 hover:text-teal-400',
                   ].join(' ')}
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-semibold text-zinc-100">{s.name}</p>
-                      <p className="mt-1 text-xs text-zinc-500">
-                        ${s.amount.toLocaleString()} / {s.frequency}
-                      </p>
-                    </div>
-                    <span
-                      className={[
-                        'text-xs font-medium rounded-full px-2 py-1',
-                        isAdded ? 'bg-zinc-800 text-zinc-300' : 'bg-teal-500 text-zinc-950',
-                      ].join(' ')}
-                    >
-                      {isAdded ? 'Added' : 'Add'}
-                    </span>
-                  </div>
+                  {s.name}
                 </button>
               )
             })}
           </div>
-
-          <button
-            type="button"
-            onClick={addCustom}
-            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-teal-400 hover:text-teal-300"
-          >
-            <Plus className="h-4 w-4" />
-            Add custom bill
-          </button>
         </div>
 
         {/* Added bills */}
-        <div className="mt-8">
+        <div className="mt-5">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-zinc-200">Added bills</p>
+            <p className="text-sm font-medium text-zinc-200">Your bills</p>
             <p className="text-xs text-zinc-500">{bills.length} total</p>
           </div>
 
           {bills.length === 0 ? (
-            <p className="mt-3 text-sm text-zinc-500">
+            <p className="mt-2 text-sm text-zinc-500">
               Add at least one bill, or skip this step.
             </p>
           ) : (
-            <div className="mt-3 space-y-4">
+            <div className="mt-2 space-y-3">
               {bills.map((b) => {
                 const ok = isValidBill(b)
                 return (
-                  <div key={b.id} className="rounded-xl border border-zinc-800 bg-zinc-950/40 p-4">
-                    <div className="flex items-start justify-between gap-3">
+                  <div key={b.id} className="rounded-lg border border-zinc-800 bg-zinc-950/40 p-3">
+                    <div className="flex items-start justify-between gap-2">
                       <p className="text-sm font-semibold text-zinc-100">{b.name || 'New bill'}</p>
                       <button
                         type="button"
                         onClick={() => removeBill(b.id)}
-                        className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200"
+                        className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-200"
                       >
-                        <Trash2 className="h-4 w-4" />
-                        Remove
+                        <Trash2 className="h-3 w-3" />
                       </button>
                     </div>
 
-                    <div className="mt-4 grid grid-cols-1 gap-4">
+                    <div className="mt-2 grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-sm font-medium text-zinc-200">Name</label>
+                        <label className="block text-xs font-medium text-zinc-300">Name</label>
                         <input
                           value={b.name}
                           onChange={(e) =>
                             setBills((prev) => prev.map((x) => (x.id === b.id ? { ...x, name: e.target.value } : x)))
                           }
                           placeholder="e.g., Rent"
-                          className="mt-1 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2.5 text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                          className="mt-0.5 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-2 py-1.5 text-sm text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-zinc-200">Amount</label>
-                        <div className="mt-1 relative">
-                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+                        <label className="block text-xs font-medium text-zinc-300">Amount</label>
+                        <div className="mt-0.5 relative">
+                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">$</span>
                           <CurrencyInput
                             value={b.amount}
                             onChange={(val) =>
                               setBills((prev) => prev.map((x) => (x.id === b.id ? { ...x, amount: val } : x)))
                             }
                             placeholder="0.00"
-                            className="w-full rounded-lg bg-zinc-800 border border-zinc-700 pl-8 pr-3 py-2.5 text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                            className="w-full rounded-lg bg-zinc-800 border border-zinc-700 pl-6 pr-2 py-1.5 text-sm text-zinc-50 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-zinc-200">Frequency</label>
+                        <label className="block text-xs font-medium text-zinc-300">Frequency</label>
                         <select
                           value={b.frequency}
                           onChange={(e) =>
@@ -360,7 +344,7 @@ export function StepBills({
                               prev.map((x) => (x.id === b.id ? { ...x, frequency: e.target.value as StepBillRow['frequency'] } : x))
                             )
                           }
-                          className="mt-1 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2.5 text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                          className="mt-0.5 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-2 py-1.5 text-sm text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         >
                           <option value="weekly">Weekly</option>
                           <option value="biweekly">Bi-weekly</option>
@@ -372,19 +356,19 @@ export function StepBills({
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-zinc-200">Next due date</label>
+                        <label className="block text-xs font-medium text-zinc-300">Due date</label>
                         <input
                           value={b.due_date}
                           onChange={(e) =>
                             setBills((prev) => prev.map((x) => (x.id === b.id ? { ...x, due_date: e.target.value } : x)))
                           }
                           type="date"
-                          className="mt-1 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2.5 text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                          className="mt-0.5 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-2 py-1.5 text-sm text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-zinc-200">Category</label>
+                      <div className="col-span-2">
+                        <label className="block text-xs font-medium text-zinc-300">Category</label>
                         <select
                           value={b.category}
                           onChange={(e) =>
@@ -392,7 +376,7 @@ export function StepBills({
                               prev.map((x) => (x.id === b.id ? { ...x, category: e.target.value } : x))
                             )
                           }
-                          className="mt-1 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2.5 text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                          className="mt-0.5 w-full rounded-lg bg-zinc-800 border border-zinc-700 px-2 py-1.5 text-sm text-zinc-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         >
                           {categories.length > 0 ? (
                             categories.map((cat) => (
@@ -412,7 +396,7 @@ export function StepBills({
                       </div>
                     </div>
 
-                    {!ok && <p className="mt-3 text-xs text-zinc-500">Fill out all fields to continue.</p>}
+                    {!ok && <p className="mt-2 text-xs text-zinc-500">Fill out all fields to continue.</p>}
                   </div>
                 )
               })}
@@ -429,13 +413,13 @@ export function StepBills({
 
       {/* Fixed footer */}
       <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-zinc-800 bg-zinc-950/90 backdrop-blur">
-        <div className="mx-auto w-full max-w-lg px-4 py-4">
+        <div className="mx-auto w-full max-w-lg px-4 py-3">
           <button
             type="button"
             onClick={handleContinue}
             disabled={!allValid || isSubmitting}
             className={[
-              'w-full rounded-xl bg-teal-500 text-zinc-950 font-semibold py-3.5',
+              'w-full rounded-xl bg-teal-500 text-zinc-950 font-semibold py-3',
               'transition-colors',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               'hover:bg-teal-400',
@@ -448,16 +432,10 @@ export function StepBills({
           <button
             type="button"
             onClick={onSkip}
-            className="mt-3 w-full text-center text-sm text-zinc-500 hover:text-zinc-300"
+            className="mt-2 w-full text-center text-sm text-zinc-500 hover:text-zinc-300"
           >
             Skip for now
           </button>
-
-          {!canContinue && (
-            <p className="mt-2 text-center text-xs text-zinc-600">
-              To continue without bills, use “Skip for now”.
-            </p>
-          )}
         </div>
       </div>
     </div>
