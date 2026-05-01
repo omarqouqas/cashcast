@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.26
-**Last Updated:** April 29, 2026
-**Status:** Live - Automated Payment Reminders
+**Version:** 6.27
+**Last Updated:** May 1, 2026
+**Status:** Live - Time Tracking + Invoicing Complete
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 

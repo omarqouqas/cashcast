@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** April 29, 2026 (Day 70)
+**Last Updated:** May 1, 2026 (Day 72)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,7 +10,7 @@
 
 ## Quick Stats
 
-- **Days in Development:** 70
+- **Days in Development:** 72
 - **Commits:** 410+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -28,7 +28,42 @@
 
 ---
 
-## Recent Development (Days 60-70)
+## Recent Development (Days 60-72)
+
+### Day 72: Currency Bug Fixes & UX Improvements (May 1, 2026)
+
+**Bug Fixes: Currency Symbol Support** - Fixed hardcoded $ symbols across 12 components to properly use user's currency preference.
+
+**Components Fixed:**
+| Component | Fix |
+|-----------|-----|
+| `debt-payoff-planner.tsx` | Added `getCurrencySymbol(currency)` |
+| `variability-calculator-form.tsx` | Added currency prop |
+| `calculator-form.tsx` | Added currency prop (4 occurrences) |
+| `tax-calculator-form.tsx` | Added currency prop (2 occurrences) |
+| `payment-predictor-form.tsx` | Added currency prop |
+| `rate-calculator-form.tsx` | Added currency prop (2 occurrences) |
+| `scenario-modal.tsx` | Used existing currency state |
+| `tax-settings-form.tsx` | Added currency prop |
+| `transaction-selector.tsx` | Added currency param to formatCurrency |
+| `recurring-patterns-card.tsx` | Added currency param to formatCurrency |
+
+**UX Improvements:**
+- Improved onboarding form layout for laptop screens (2-column layout)
+- Added "Add Income" and "Add Expense" buttons to calendar day modal
+- Pre-fill date when adding income/expense from calendar
+
+**Code Quality:**
+- Removed debug console.log from email-verification-banner.tsx
+
+**Commits:**
+- `fix: use proper currency symbols throughout the app`
+- `fix: add currency support to tools and import components`
+- `chore: remove debug console.log from email verification banner`
+- `feat: improve onboarding UX and add calendar expense shortcut`
+- `feat: add income button to calendar day modal`
+
+---
 
 ### Day 70: Time Tracking + Invoicing & Automated Payment Reminders (April 29, 2026)
 
@@ -1321,6 +1356,9 @@ Comparison terms:
 - Create itemized invoices from selected time entries
 - Uninvoiced Time widget on dashboard
 - Time settings for default hourly rate and rounding
+- **Currency support across all tools** - getCurrencySymbol() used consistently
+- Onboarding form optimized for laptop screens (2-column layout)
+- Calendar day modal with quick Add Income/Expense buttons
 
 ## What's Next
 
