@@ -8,7 +8,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
@@ -44,11 +44,15 @@ type Account = Pick<Tables<'accounts'>, 'id' | 'name' | 'account_type'>;
 
 export default function NewIncomePage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [currency, setCurrency] = useState('USD');
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
+  // Get pre-filled date from URL params (e.g., from calendar)
+  const prefilledDate = searchParams.get('date') || '';
 
   // Feature gating
   const { canAddIncome, usage, limits, isLoading: subscriptionLoading } = useSubscriptionWithUsage();
@@ -62,6 +66,7 @@ export default function NewIncomePage() {
     resolver: zodResolver(incomeSchema),
     defaultValues: {
       is_active: true,
+      next_date: prefilledDate,
     },
   });
 

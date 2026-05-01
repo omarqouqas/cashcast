@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { CalendarDay } from '@/lib/calendar/types';
 import { formatCurrency } from '@/lib/utils/format';
 import { format, differenceInDays } from 'date-fns';
-import { AlertTriangle, Clock, Layers, X, ArrowRightLeft, Plus } from 'lucide-react';
+import { AlertTriangle, Clock, Layers, X, ArrowRightLeft, TrendingUp, TrendingDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { getBalanceStatus } from '@/lib/calendar/constants';
@@ -353,17 +353,30 @@ export function DayDetailModal({ day, onClose, currency = 'USD' }: DayDetailModa
 
         {/* Footer */}
         <div className="p-6 border-t border-zinc-800 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] md:pb-6">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={() => {
-                onClose();
-                router.push(`/dashboard/bills/new?date=${dateForUrl}`);
-              }}
-              className="w-full h-11 px-4 text-sm font-medium rounded-md transition-colors duration-150 flex items-center justify-center gap-2 bg-zinc-800 border border-zinc-700 text-zinc-200 hover:bg-zinc-700 hover:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
-            >
-              <Plus className="w-4 h-4" />
-              Add Expense
-            </button>
+          <div className="flex flex-col gap-3">
+            {/* Add Income / Add Expense row */}
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => {
+                  onClose();
+                  router.push(`/dashboard/income/new?date=${dateForUrl}`);
+                }}
+                className="h-10 px-3 text-sm font-medium rounded-md transition-colors duration-150 flex items-center justify-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-500/50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
+              >
+                <TrendingUp className="w-4 h-4" />
+                Add Income
+              </button>
+              <button
+                onClick={() => {
+                  onClose();
+                  router.push(`/dashboard/bills/new?date=${dateForUrl}`);
+                }}
+                className="h-10 px-3 text-sm font-medium rounded-md transition-colors duration-150 flex items-center justify-center gap-1.5 bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500/20 hover:border-rose-500/50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
+              >
+                <TrendingDown className="w-4 h-4" />
+                Add Expense
+              </button>
+            </div>
             <Button variant="primary" onClick={onClose} fullWidth>
               Close
             </Button>
