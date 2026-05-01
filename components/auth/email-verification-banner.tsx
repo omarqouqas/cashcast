@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
 import { AlertCircle } from 'lucide-react'
@@ -10,13 +10,6 @@ interface EmailVerificationBannerProps {
 }
 
 export function EmailVerificationBanner({ user }: EmailVerificationBannerProps) {
-  // Debug logging (remove in production)
-  useEffect(() => {
-    console.log('EmailVerificationBanner - User:', user)
-    console.log('Email confirmed at:', user.email_confirmed_at)
-    console.log('Should show banner:', !user.email_confirmed_at)
-  }, [user])
-
   const [isResending, setIsResending] = useState(false)
   const [resent, setResent] = useState(false)
 
