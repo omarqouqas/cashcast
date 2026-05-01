@@ -60,13 +60,15 @@ export default async function TimePage({
 
   // Fetch user time settings
   let defaultHourlyRate = 0;
+  let defaultBillable = true;
   try {
-    const { data: settings } = await (supabase as unknown as { from: (table: string) => { select: (cols: string) => { eq: (col: string, val: string) => { maybeSingle: () => Promise<{ data: { default_hourly_rate?: number } | null }> } } } })
+    const { data: settings } = await (supabase as unknown as { from: (table: string) => { select: (cols: string) => { eq: (col: string, val: string) => { maybeSingle: () => Promise<{ data: { default_hourly_rate?: number; default_billable?: boolean } | null }> } } } })
       .from('user_time_settings')
-      .select('default_hourly_rate')
+      .select('default_hourly_rate, default_billable')
       .eq('user_id', user.id)
       .maybeSingle();
     defaultHourlyRate = settings?.default_hourly_rate ?? 0;
+    defaultBillable = settings?.default_billable ?? true;
   } catch {
     // Table may not exist yet
   }
@@ -94,6 +96,7 @@ export default async function TimePage({
       }>}
       initialClients={clients}
       defaultHourlyRate={defaultHourlyRate}
+      defaultBillable={defaultBillable}
       currency={currency}
       initialFilter={initialFilter}
     />

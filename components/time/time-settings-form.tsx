@@ -6,6 +6,7 @@ import { Save, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { updateTimeSettings } from '@/lib/actions/time-settings';
 import { showSuccess, showError } from '@/lib/toast';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 interface TimeSettingsFormProps {
   initialSettings: {
@@ -13,9 +14,10 @@ interface TimeSettingsFormProps {
     round_to_minutes: number;
     default_billable: boolean;
   };
+  currency?: string;
 }
 
-export function TimeSettingsForm({ initialSettings }: TimeSettingsFormProps) {
+export function TimeSettingsForm({ initialSettings, currency = 'USD' }: TimeSettingsFormProps) {
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -62,7 +64,7 @@ export function TimeSettingsForm({ initialSettings }: TimeSettingsFormProps) {
           </p>
           <div className="relative w-48">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-              $
+              {getCurrencySymbol(currency)}
             </span>
             <input
               type="number"

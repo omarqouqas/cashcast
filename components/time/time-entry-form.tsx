@@ -10,6 +10,7 @@ import posthog from 'posthog-js';
 
 interface TimeEntryFormProps {
   defaultHourlyRate?: number;
+  defaultBillable?: boolean;
   currency?: string;
   onSuccess?: () => void;
   className?: string;
@@ -17,6 +18,7 @@ interface TimeEntryFormProps {
 
 export function TimeEntryForm({
   defaultHourlyRate = 0,
+  defaultBillable = true,
   currency = 'USD',
   onSuccess,
   className,
@@ -35,7 +37,7 @@ export function TimeEntryForm({
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('10:00');
   const [hourlyRate, setHourlyRate] = useState(defaultHourlyRate);
-  const [isBillable, setIsBillable] = useState(true);
+  const [isBillable, setIsBillable] = useState(defaultBillable);
 
   const resetForm = () => {
     setProjectName('');
@@ -45,7 +47,7 @@ export function TimeEntryForm({
     setStartTime('09:00');
     setEndTime('10:00');
     setHourlyRate(defaultHourlyRate);
-    setIsBillable(true);
+    setIsBillable(defaultBillable);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

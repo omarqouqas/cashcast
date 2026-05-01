@@ -28,29 +28,41 @@ export default async function TimeSettingsPage() {
 
   const supabase = await createClient();
 
-  // Fetch user time settings
+  // Fetch user time settings and currency in parallel
   let settings = {
     default_hourly_rate: 0,
     round_to_minutes: 1,
     default_billable: true,
   };
+  let currency = 'USD';
 
   try {
-    const { data } = await (supabase as unknown as { from: (table: string) => { select: (cols: string) => { eq: (col: string, val: string) => { maybeSingle: () => Promise<{ data: { default_hourly_rate?: number; round_to_minutes?: number; default_billable?: boolean } | null }> } } } })
-      .from('user_time_settings')
-      .select('default_hourly_rate, round_to_minutes, default_billable')
-      .eq('user_id', user.id)
-      .maybeSingle();
+    const [timeSettingsResult, userSettingsResult] = await Promise.all([
+      (supabase as unknown as { from: (table: string) => { select: (cols: string) => { eq: (col: string, val: string) => { maybeSingle: () => Promise<{ data: { default_hourly_rate?: number; round_to_minutes?: number; default_billable?: boolean } | null }> } } } })
+        .from('user_time_settings')
+        .select('default_hourly_rate, round_to_minutes, default_billable')
+        .eq('user_id', user.id)
+        .maybeSingle(),
+      supabase
+        .from('user_settings')
+        .select('currency')
+        .eq('user_id', user.id)
+        .maybeSingle(),
+    ]);
 
-    if (data) {
+    if (timeSettingsResult.data) {
       settings = {
-        default_hourly_rate: data.default_hourly_rate ?? 0,
-        round_to_minutes: data.round_to_minutes ?? 1,
-        default_billable: data.default_billable ?? true,
+        default_hourly_rate: timeSettingsResult.data.default_hourly_rate ?? 0,
+        round_to_minutes: timeSettingsResult.data.round_to_minutes ?? 1,
+        default_billable: timeSettingsResult.data.default_billable ?? true,
       };
     }
+
+    if (userSettingsResult.data) {
+      currency = (userSettingsResult.data as { currency?: string }).currency ?? 'USD';
+    }
   } catch {
-    // Table may not exist yet
+    // Tables may not exist yet
   }
 
   return (
@@ -62,7 +74,7 @@ export default async function TimeSettingsPage() {
         </p>
       </div>
 
-      <TimeSettingsForm initialSettings={settings} />
+      <TimeSettingsForm initialSettings={settings} currency={currency} />
     </div>
   );
 }

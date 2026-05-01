@@ -12,6 +12,7 @@ interface TimePageClientProps {
   initialEntries: TimeEntry[];
   initialClients: string[];
   defaultHourlyRate: number;
+  defaultBillable?: boolean;
   currency?: string;
   initialFilter?: 'uninvoiced' | null;
 }
@@ -20,6 +21,7 @@ export function TimePageClient({
   initialEntries,
   initialClients,
   defaultHourlyRate,
+  defaultBillable = true,
   currency = 'USD',
   initialFilter = null,
 }: TimePageClientProps) {
@@ -62,6 +64,7 @@ export function TimePageClient({
           </Link>
           <TimeEntryForm
             defaultHourlyRate={defaultHourlyRate}
+            defaultBillable={defaultBillable}
             currency={currency}
             onSuccess={handleUpdate}
           />
