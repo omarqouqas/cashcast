@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 const rateCalculatorSchema = z.object({
   annualIncomeGoal: z.coerce
@@ -46,9 +47,10 @@ type Props = {
   defaultValues?: Partial<RateCalculatorFormValues>;
   onCalculate: (values: RateCalculatorFormValues) => void;
   onFirstInteraction?: () => void;
+  currency?: string;
 };
 
-export function RateCalculatorForm({ defaultValues, onCalculate, onFirstInteraction }: Props) {
+export function RateCalculatorForm({ defaultValues, onCalculate, onFirstInteraction, currency = 'USD' }: Props) {
   const defaults = useMemo<RateCalculatorFormValues>(() => {
     return {
       annualIncomeGoal: 75_000,
@@ -89,7 +91,7 @@ export function RateCalculatorForm({ defaultValues, onCalculate, onFirstInteract
           Annual income goal<span className="text-rose-400 ml-0.5">*</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="annualIncomeGoal"
             type="number"
@@ -112,7 +114,7 @@ export function RateCalculatorForm({ defaultValues, onCalculate, onFirstInteract
           Monthly business expenses<span className="text-rose-400 ml-0.5">*</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="monthlyExpenses"
             type="number"

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getCurrencySymbol } from '@/lib/utils/format';
 import type { ClientPaymentHistory, PaymentTerms } from '@/lib/tools/calculate-payment-date';
 
 export type PaymentPredictorFormAction = 'calculate' | 'add_invoice';
@@ -70,13 +71,14 @@ type Props = {
   defaultValues?: Partial<PaymentPredictorFormValues>;
   onAction: (values: PaymentPredictorFormValues, action: PaymentPredictorFormAction) => void;
   onFirstInteraction?: () => void;
+  currency?: string;
 };
 
 function todayDateOnly() {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function PaymentPredictorForm({ defaultValues, onAction, onFirstInteraction }: Props) {
+export function PaymentPredictorForm({ defaultValues, onAction, onFirstInteraction, currency = 'USD' }: Props) {
   const [submitMode, setSubmitMode] = useState<PaymentPredictorFormAction>('calculate');
 
   const defaults = useMemo<PaymentPredictorFormValues>(() => {
@@ -278,7 +280,7 @@ export function PaymentPredictorForm({ defaultValues, onAction, onFirstInteracti
               Invoice amount <span className="text-zinc-500">(optional)</span>
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
               <Input
                 id="invoiceAmount"
                 type="number"

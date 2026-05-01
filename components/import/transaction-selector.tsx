@@ -47,6 +47,7 @@ type Props = {
   incomeLimit: number | null; // null = unlimited
   onRequestUpgrade?: (feature: 'bills' | 'income' | 'general') => void;
   appliedPatternIds?: Set<string>; // IDs of patterns that have been applied
+  currency?: string;
 };
 
 function pad2(n: number) {
@@ -153,6 +154,7 @@ export function TransactionSelector({
   incomeLimit,
   onRequestUpgrade,
   appliedPatternIds,
+  currency = 'USD',
 }: Props) {
   const [query, setQuery] = useState('');
   const [direction, setDirection] = useState<'all' | 'in' | 'out'>('all');
@@ -669,7 +671,7 @@ export function TransactionSelector({
                     )}
                   </td>
                   <td className={`px-3 py-2 text-right font-medium tabular-nums ${amountColor}`}>
-                    {formatCurrency(t.amount)}
+                    {formatCurrency(t.amount, currency)}
                   </td>
                   <td className="px-3 py-2">
                     {t.suggestedCategory ? (

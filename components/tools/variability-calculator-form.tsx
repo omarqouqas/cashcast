@@ -8,6 +8,7 @@ import posthog from 'posthog-js';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, Trash2 } from 'lucide-react';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 const optionalPositiveNumber = z.preprocess((v) => {
   if (v === '' || v === null || v === undefined) return undefined;
@@ -72,9 +73,10 @@ type Props = {
   defaultValues?: Partial<VariabilityCalculatorFormValues>;
   onCalculate: (values: VariabilityCalculatorFormValues) => void;
   onFirstInteraction?: () => void;
+  currency?: string;
 };
 
-export function VariabilityCalculatorForm({ defaultValues, onCalculate, onFirstInteraction }: Props) {
+export function VariabilityCalculatorForm({ defaultValues, onCalculate, onFirstInteraction, currency = 'USD' }: Props) {
   const defaults = useMemo<VariabilityCalculatorFormValues>(() => {
     return {
       incomes: getDefaultMonths(),
@@ -167,7 +169,7 @@ export function VariabilityCalculatorForm({ defaultValues, onCalculate, onFirstI
                       Income amount<span className="text-rose-400 ml-0.5">*</span>
                     </Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
                       <Input
                         id={`incomes.${idx}.amount`}
                         type="number"
@@ -219,7 +221,7 @@ export function VariabilityCalculatorForm({ defaultValues, onCalculate, onFirstI
           Monthly expenses <span className="text-zinc-500">(optional)</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="monthlyExpenses"
             type="number"

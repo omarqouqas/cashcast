@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Calculator } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { getCurrencySymbol } from '@/lib/utils/format';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { showError, showSuccess } from '@/lib/toast';
@@ -327,7 +328,7 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
                       Amount<span className="text-rose-400 ml-0.5">*</span>
                     </Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">{getCurrencySymbol(currency)}</span>
                       <Input
                         id="scenario-amount"
                         type="number"

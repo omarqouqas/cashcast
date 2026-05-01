@@ -11,6 +11,7 @@ type Props = {
   patterns: RecurringPattern[];
   onApplyPatterns: (selectedPatternIds: string[]) => void;
   onDismiss: () => void;
+  currency?: string;
 };
 
 const FREQUENCY_LABELS: Record<RecurringFrequency, string> = {
@@ -43,10 +44,12 @@ function PatternRow({
   pattern,
   isSelected,
   onToggle,
+  currency = 'USD',
 }: {
   pattern: RecurringPattern;
   isSelected: boolean;
   onToggle: () => void;
+  currency?: string;
 }) {
   const isExpense = pattern.amount < 0;
 
@@ -80,7 +83,7 @@ function PatternRow({
             </div>
             <div className="flex flex-wrap items-center gap-2 mt-1">
               <span className="text-sm text-zinc-400">
-                {formatCurrency(Math.abs(pattern.amount))}/{FREQUENCY_LABELS[pattern.frequency].toLowerCase()}
+                {formatCurrency(Math.abs(pattern.amount), currency)}/{FREQUENCY_LABELS[pattern.frequency].toLowerCase()}
               </span>
               <span className="text-zinc-600">•</span>
               <span className="text-sm text-zinc-500">
@@ -102,7 +105,7 @@ function PatternRow({
             }`}
           >
             {isExpense ? '-' : '+'}
-            {formatCurrency(Math.abs(pattern.amount))}
+            {formatCurrency(Math.abs(pattern.amount), currency)}
           </span>
           <ConfidenceBadge confidence={pattern.confidence} />
         </div>
@@ -111,7 +114,7 @@ function PatternRow({
   );
 }
 
-export function RecurringPatternsCard({ patterns, onApplyPatterns, onDismiss }: Props) {
+export function RecurringPatternsCard({ patterns, onApplyPatterns, onDismiss, currency = 'USD' }: Props) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => {
     // Pre-select high-confidence patterns
     const initial = new Set<string>();
@@ -220,6 +223,7 @@ export function RecurringPatternsCard({ patterns, onApplyPatterns, onDismiss }: 
                 pattern={pattern}
                 isSelected={selectedIds.has(pattern.patternId)}
                 onToggle={() => togglePattern(pattern.patternId)}
+                currency={currency}
               />
             ))}
           </div>

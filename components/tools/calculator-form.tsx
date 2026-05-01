@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus, Trash2 } from 'lucide-react';
 import posthog from 'posthog-js';
+import { getCurrencySymbol } from '@/lib/utils/format';
 
 const billSchema = z.object({
   name: z.string().max(100, 'Name too long').optional().or(z.literal('')),
@@ -70,9 +71,10 @@ type Props = {
   defaultValues?: Partial<CalculatorFormValues>;
   onCalculate: (values: CalculatorFormValues) => void;
   onFirstInteraction?: () => void;
+  currency?: string;
 };
 
-export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction }: Props) {
+export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction, currency = 'USD' }: Props) {
   const defaults = useMemo<CalculatorFormValues>(() => {
     return {
       currentBalance: 0,
@@ -141,7 +143,7 @@ export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction 
           Current balance<span className="text-rose-400 ml-0.5">*</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="currentBalance"
             type="number"
@@ -173,7 +175,7 @@ export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction 
               Amount<span className="text-rose-400 ml-0.5">*</span>
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
               <Input
                 id="purchaseAmount"
                 type="number"
@@ -222,7 +224,7 @@ export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction 
               Amount<span className="text-rose-400 ml-0.5">*</span>
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
               <Input
                 id="nextIncomeAmount"
                 type="number"
@@ -346,7 +348,7 @@ export function CalculatorForm({ defaultValues, onCalculate, onFirstInteraction 
                         Amount<span className="text-rose-400 ml-0.5">*</span>
                       </Label>
                       <div className="relative">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
                         <Input
                           id={`upcomingBills.${idx}.amount`}
                           type="number"

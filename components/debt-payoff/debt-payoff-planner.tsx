@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import { CreditCard, TrendingDown, Calculator, Zap, Target, CheckCircle2, AlertTriangle, Plus, ArrowRight, BarChart3 } from 'lucide-react'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { formatCurrency } from '@/lib/utils/format'
+import { formatCurrency, getCurrencySymbol } from '@/lib/utils/format'
 import { CurrencyInput } from '@/components/ui/currency-input'
 import {
   compareStrategies,
@@ -323,7 +323,7 @@ export function DebtPayoffPlanner({ cards, currency = 'USD', totalCreditCardCoun
           How much extra can you pay each month above the minimum payments?
         </p>
         <div className="relative max-w-xs">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 z-10">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 z-10">{getCurrencySymbol(currency)}</span>
           <CurrencyInput
             value={extraPayment}
             onChange={setExtraPayment}

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { updateTaxSettings } from '@/lib/actions/update-tax-settings'
 import { usePostHog } from 'posthog-js/react'
 import { cn } from '@/lib/utils/cn'
+import { getCurrencySymbol } from '@/lib/utils/format'
 
 interface TaxSettingsFormProps {
   initialSettings: {
@@ -19,6 +20,7 @@ interface TaxSettingsFormProps {
     estimated_tax_q3_paid: number
     estimated_tax_q4_paid: number
   }
+  currency?: string
 }
 
 const QUARTERLY_DEADLINES = [
@@ -28,7 +30,7 @@ const QUARTERLY_DEADLINES = [
   { quarter: 'Q4', label: 'Q4 (Oct-Dec)', dueDate: 'January 15', months: 'Oct-Dec' },
 ]
 
-export function TaxSettingsForm({ initialSettings }: TaxSettingsFormProps) {
+export function TaxSettingsForm({ initialSettings, currency = 'USD' }: TaxSettingsFormProps) {
   const router = useRouter()
   const posthog = usePostHog()
   const [isPending, startTransition] = useTransition()
@@ -174,7 +176,7 @@ export function TaxSettingsForm({ initialSettings }: TaxSettingsFormProps) {
                       <p className="text-xs text-zinc-500">Due {q.dueDate}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-zinc-500">$</span>
+                      <span className="text-sm text-zinc-500">{getCurrencySymbol(currency)}</span>
                       <input
                         type="number"
                         id={`q${index + 1}-paid`}

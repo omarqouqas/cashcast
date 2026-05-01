@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ChevronDown } from 'lucide-react';
+import { getCurrencySymbol } from '@/lib/utils/format';
 import type { USFilingStatus, CAProvince } from '@/lib/tools/calculate-tax-reserve';
 
 const taxCalculatorSchema = z.object({
@@ -35,6 +36,7 @@ type Props = {
   defaultValues?: Partial<TaxCalculatorFormValues>;
   onCalculate: (values: TaxCalculatorFormValues) => void;
   onFirstInteraction?: () => void;
+  currency?: string;
 };
 
 const US_FILING_STATUSES: { value: USFilingStatus; label: string }[] = [
@@ -60,7 +62,7 @@ const CA_PROVINCES: { value: CAProvince; label: string }[] = [
   { value: 'NU', label: 'Nunavut' },
 ];
 
-export function TaxCalculatorForm({ defaultValues, onCalculate, onFirstInteraction }: Props) {
+export function TaxCalculatorForm({ defaultValues, onCalculate, onFirstInteraction, currency = 'USD' }: Props) {
   const defaults = useMemo<TaxCalculatorFormValues>(() => {
     return {
       country: 'US',
@@ -173,7 +175,7 @@ export function TaxCalculatorForm({ defaultValues, onCalculate, onFirstInteracti
           Annual Revenue (Gross)<span className="text-rose-400 ml-0.5">*</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="annualRevenue"
             type="number"
@@ -197,7 +199,7 @@ export function TaxCalculatorForm({ defaultValues, onCalculate, onFirstInteracti
           Business Expenses<span className="text-rose-400 ml-0.5">*</span>
         </Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">{getCurrencySymbol(currency)}</span>
           <Input
             id="businessExpenses"
             type="number"
