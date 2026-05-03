@@ -61,13 +61,11 @@ export async function createCheckoutSession(
       (existingSubscription.tier === 'free' && existingSubscription.status !== 'active');
 
     // Check if user was referred (for 30-day trial)
-    // Note: referred_by_code column is added via migration - use type assertion until types are regenerated
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: userSettings } = await (supabase as any)
+    const { data: userSettings } = await supabase
       .from('user_settings')
       .select('referred_by_code')
       .eq('user_id', user.id)
-      .single() as { data: { referred_by_code: string | null } | null };
+      .single();
 
     const referralCode = userSettings?.referred_by_code ?? null;
     const shouldApplyReferralTrial = referralCode && isFirstSubscription;

@@ -5,11 +5,6 @@ import { createClient } from '@/lib/supabase/server'
 import { generateReferralCode, sanitizeReferralCode } from '@/lib/referrals'
 import type { ReferralStats, ReferralCodeResult } from '@/lib/referrals'
 
-// Note: The 'referrals' table and 'referred_by_code' column are added via migration.
-// After applying the migration, regenerate Supabase types with:
-// npx supabase gen types typescript --project-id <project-id> > types/supabase.ts
-// Until then, we use type assertions to work around TypeScript errors.
-
 /**
  * Get or create a referral code for the current user.
  * Each user has exactly one referral code.
@@ -26,13 +21,12 @@ export async function getOrCreateReferralCode(): Promise<
     }
 
     // Check for existing code (where this user is referrer and no referee yet = template row)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: existing } = await (supabase as any)
+    const { data: existing } = await supabase
       .from('referrals')
       .select('referral_code')
       .eq('referrer_id', user.id)
       .is('referee_id', null)
-      .single() as { data: { referral_code: string } | null }
+      .single()
 
     if (existing?.referral_code) {
       return { success: true, data: { code: existing.referral_code, isNew: false } }
@@ -43,8 +37,7 @@ export async function getOrCreateReferralCode(): Promise<
     let attempts = 0
 
     while (attempts < 5) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error } = await (supabase as any)
+      const { error } = await supabase
         .from('referrals')
         .insert({
           referrer_id: user.id,
@@ -94,12 +87,11 @@ export async function getReferralStats(): Promise<
     }
 
     // Get all referrals where this user is the referrer (excluding the template row)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: referrals, error } = await (supabase as any)
+    const { data: referrals, error } = await supabase
       .from('referrals')
       .select('status, reward_given')
       .eq('referrer_id', user.id)
-      .not('referee_id', 'is', null) as { data: Array<{ status: string; reward_given: boolean }> | null; error: any }
+      .not('referee_id', 'is', null)
 
     if (error) {
       console.error('Error fetching referral stats:', error)
@@ -109,10 +101,10 @@ export async function getReferralStats(): Promise<
     const stats: ReferralStats = {
       code: codeResult.data.code,
       totalReferred: referrals?.length ?? 0,
-      signedUp: referrals?.filter((r: { status: string }) => r.status === 'signed_up').length ?? 0,
-      converted: referrals?.filter((r: { status: string }) => r.status === 'converted' || r.status === 'rewarded').length ?? 0,
-      rewarded: referrals?.filter((r: { status: string }) => r.status === 'rewarded').length ?? 0,
-      pendingRewards: referrals?.filter((r: { status: string; reward_given: boolean }) => r.status === 'converted' && !r.reward_given).length ?? 0,
+      signedUp: referrals?.filter(r => r.status === 'signed_up').length ?? 0,
+      converted: referrals?.filter(r => r.status === 'converted' || r.status === 'rewarded').length ?? 0,
+      rewarded: referrals?.filter(r => r.status === 'rewarded').length ?? 0,
+      pendingRewards: referrals?.filter(r => r.status === 'converted' && !r.reward_given).length ?? 0,
     }
 
     return { success: true, data: stats }
@@ -139,13 +131,12 @@ export async function validateReferralCode(code: string): Promise<
     const supabase = await createClient()
 
     // Find the referral code
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: referral } = await (supabase as any)
+    const { data: referral } = await supabase
       .from('referrals')
       .select('referrer_id')
       .eq('referral_code', sanitized)
       .is('referee_id', null)
-      .single() as { data: { referrer_id: string } | null }
+      .single()
 
     if (!referral) {
       return { success: true, data: { valid: false } }
@@ -193,25 +184,23 @@ export async function claimReferralCode(code: string): Promise<
     }
 
     // Check if user already used a referral code
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: settings } = await (supabase as any)
+    const { data: settings } = await supabase
       .from('user_settings')
       .select('referred_by_code')
       .eq('user_id', user.id)
-      .single() as { data: { referred_by_code: string | null } | null }
+      .single()
 
     if (settings?.referred_by_code) {
       return { success: false, error: 'You have already used a referral code' }
     }
 
     // Find the referral code and get referrer
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: referral } = await (supabase as any)
+    const { data: referral } = await supabase
       .from('referrals')
       .select('id, referrer_id')
       .eq('referral_code', sanitized)
       .is('referee_id', null)
-      .single() as { data: { id: string; referrer_id: string } | null }
+      .single()
 
     if (!referral) {
       return { success: false, error: 'Invalid or expired referral code' }
@@ -223,8 +212,7 @@ export async function claimReferralCode(code: string): Promise<
     }
 
     // Create the referral relationship
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error: insertError } = await (supabase as any)
+    const { error: insertError } = await supabase
       .from('referrals')
       .insert({
         referrer_id: referral.referrer_id,
@@ -240,8 +228,7 @@ export async function claimReferralCode(code: string): Promise<
     }
 
     // Store on user_settings
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error: updateError } = await (supabase as any)
+    const { error: updateError } = await supabase
       .from('user_settings')
       .upsert({
         user_id: user.id,

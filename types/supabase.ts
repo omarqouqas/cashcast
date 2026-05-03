@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "13.0.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       accounts: {
@@ -412,6 +437,57 @@ export type Database = {
           },
         ]
       }
+      invoice_items: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string
+          id: string
+          invoice_id: string
+          quantity: number
+          sort_order: number | null
+          time_entry_id: string | null
+          unit_price: number
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description: string
+          id?: string
+          invoice_id: string
+          quantity?: number
+          sort_order?: number | null
+          time_entry_id?: string | null
+          unit_price: number
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string
+          id?: string
+          invoice_id?: string
+          quantity?: number
+          sort_order?: number | null
+          time_entry_id?: string | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_items_time_entry_id_fkey"
+            columns: ["time_entry_id"]
+            isOneToOne: false
+            referencedRelation: "time_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoice_reminders: {
         Row: {
           created_at: string
@@ -463,6 +539,7 @@ export type Database = {
           currency: string
           description: string | null
           due_date: string
+          has_line_items: boolean | null
           id: string
           invoice_number: string
           last_reminder_at: string | null
@@ -486,6 +563,7 @@ export type Database = {
           currency?: string
           description?: string | null
           due_date: string
+          has_line_items?: boolean | null
           id?: string
           invoice_number: string
           last_reminder_at?: string | null
@@ -509,6 +587,7 @@ export type Database = {
           currency?: string
           description?: string | null
           due_date?: string
+          has_line_items?: boolean | null
           id?: string
           invoice_number?: string
           last_reminder_at?: string | null
@@ -715,6 +794,45 @@ export type Database = {
           },
         ]
       }
+      referrals: {
+        Row: {
+          converted_at: string | null
+          created_at: string | null
+          id: string
+          referee_id: string | null
+          referral_code: string
+          referrer_id: string
+          reward_given: boolean | null
+          rewarded_at: string | null
+          signed_up_at: string | null
+          status: string | null
+        }
+        Insert: {
+          converted_at?: string | null
+          created_at?: string | null
+          id?: string
+          referee_id?: string | null
+          referral_code: string
+          referrer_id: string
+          reward_given?: boolean | null
+          rewarded_at?: string | null
+          signed_up_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          converted_at?: string | null
+          created_at?: string | null
+          id?: string
+          referee_id?: string | null
+          referral_code?: string
+          referrer_id?: string
+          reward_given?: boolean | null
+          rewarded_at?: string | null
+          signed_up_at?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
       scenarios: {
         Row: {
           amount: number
@@ -864,6 +982,65 @@ export type Database = {
         }
         Relationships: []
       }
+      time_entries: {
+        Row: {
+          client_name: string | null
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          end_time: string | null
+          hourly_rate: number
+          id: string
+          invoice_id: string | null
+          is_billable: boolean | null
+          is_invoiced: boolean | null
+          project_name: string
+          start_time: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          client_name?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          end_time?: string | null
+          hourly_rate?: number
+          id?: string
+          invoice_id?: string | null
+          is_billable?: boolean | null
+          is_invoiced?: boolean | null
+          project_name: string
+          start_time: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          client_name?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          end_time?: string | null
+          hourly_rate?: number
+          id?: string
+          invoice_id?: string | null
+          is_billable?: boolean | null
+          is_invoiced?: boolean | null
+          project_name?: string
+          start_time?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_entries_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transfers: {
         Row: {
           amount: number
@@ -979,6 +1156,7 @@ export type Database = {
           low_balance_alert_enabled: boolean | null
           notification_preferences: Json | null
           onboarding_complete: boolean
+          referred_by_code: string | null
           safety_buffer: number | null
           safety_mode: boolean | null
           tax_rate: number | null
@@ -1013,6 +1191,7 @@ export type Database = {
           low_balance_alert_enabled?: boolean | null
           notification_preferences?: Json | null
           onboarding_complete?: boolean
+          referred_by_code?: string | null
           safety_buffer?: number | null
           safety_mode?: boolean | null
           tax_rate?: number | null
@@ -1047,6 +1226,7 @@ export type Database = {
           low_balance_alert_enabled?: boolean | null
           notification_preferences?: Json | null
           onboarding_complete?: boolean
+          referred_by_code?: string | null
           safety_buffer?: number | null
           safety_mode?: boolean | null
           tax_rate?: number | null
@@ -1080,6 +1260,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_time_settings: {
+        Row: {
+          created_at: string | null
+          default_billable: boolean | null
+          default_hourly_rate: number | null
+          round_to_minutes: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          default_billable?: boolean | null
+          default_hourly_rate?: number | null
+          round_to_minutes?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          default_billable?: boolean | null
+          default_hourly_rate?: number | null
+          round_to_minutes?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       users: {
         Row: {
@@ -1311,6 +1518,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {},
   },
