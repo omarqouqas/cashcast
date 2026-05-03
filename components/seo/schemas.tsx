@@ -14,10 +14,8 @@
 // SOCIAL PROFILES - Update these as profiles are created
 // ============================================================================
 export const socialProfiles = {
-  twitter: 'https://twitter.com/cashcastmoney',
-  linkedin: 'https://linkedin.com/company/cashcast',
-  youtube: 'https://youtube.com/@cashcast',
-  github: 'https://github.com/cashcast',
+  linkedin: 'https://www.linkedin.com/company/cashcast/',
+  youtube: 'https://www.youtube.com/channel/UCTHeSCHpXOGCN_Y1db5kfCg',
 } as const;
 
 // ============================================================================
@@ -32,10 +30,8 @@ export const organizationSchema = {
   description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead.',
   foundingDate: '2024',
   sameAs: [
-    socialProfiles.twitter,
     socialProfiles.linkedin,
     socialProfiles.youtube,
-    socialProfiles.github,
   ],
   contactPoint: {
     '@type': 'ContactPoint',
