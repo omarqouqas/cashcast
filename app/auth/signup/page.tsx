@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { Gift } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { GoogleSignInButton } from '@/components/auth/google-sign-in-button';
 import { OrDivider } from '@/components/auth/or-divider';
 import { signInWithGoogle } from '@/lib/auth/oauth';
 import { trackSignup } from '@/lib/posthog/events';
+import { claimReferralCode } from '@/lib/actions/referrals';
 
 const signupSchema = z
   .object({
@@ -34,8 +36,23 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
   const isBusy = isLoading || isOAuthLoading;
+
+  // Get referral code from URL
+  const refCode = searchParams.get('ref')?.toUpperCase() || null;
+
+  // Store referral code in sessionStorage for OAuth flow
+  useEffect(() => {
+    if (refCode && typeof window !== 'undefined') {
+      try {
+        sessionStorage.setItem('referralCode', refCode);
+      } catch {
+        // Ignore storage failures
+      }
+    }
+  }, [refCode]);
 
   const {
     register,
@@ -92,6 +109,19 @@ export default function SignupPage() {
             // Ignore storage failures (privacy mode, blocked storage, etc.)
           }
         }
+        // Claim referral code if present
+        const storedRefCode = refCode || (typeof window !== 'undefined' ? sessionStorage.getItem('referralCode') : null);
+        if (storedRefCode) {
+          claimReferralCode(storedRefCode).catch(() => {
+            // Ignore errors - referral claim is best-effort
+          });
+          // Clear the stored code
+          try {
+            sessionStorage.removeItem('referralCode');
+          } catch {
+            // Ignore
+          }
+        }
         // Trigger welcome email (will skip if email not verified yet, or if already sent)
         fetch('/api/email/welcome', { method: 'POST' }).catch(() => {
           // Ignore errors - welcome email is best-effort
@@ -137,6 +167,16 @@ export default function SignupPage() {
               Get started with Cashcast
             </p>
           </div>
+
+          {/* Referral Banner */}
+          {refCode && (
+            <div className="p-3 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 flex items-center gap-3">
+              <Gift className="w-5 h-5 text-teal-600 dark:text-teal-400 flex-shrink-0" />
+              <p className="text-sm text-teal-700 dark:text-teal-300">
+                You&apos;ve been referred! Sign up to get <strong>30 days of Pro free</strong>.
+              </p>
+            </div>
+          )}
 
           <div className="space-y-4">
             <GoogleSignInButton

@@ -23,6 +23,8 @@ import { EmergencyFundWidget } from '@/components/dashboard/emergency-fund-widge
 import { CreditCardsSection } from '@/components/dashboard/credit-cards-section';
 import { RiskMetrics } from '@/components/dashboard/risk-metrics';
 import { UninvoicedTimeWidget } from '@/components/dashboard/uninvoiced-time-widget';
+import { ReferralWidget } from '@/components/dashboard/referral-widget';
+import type { ReferralStats } from '@/lib/referrals';
 import {
   DashboardFilterBar,
   useDashboardFilters,
@@ -115,6 +117,7 @@ interface DashboardContentProps {
     totalAmount: number;
     entryCount: number;
   } | null;
+  referralStats?: ReferralStats | null;
 }
 
 /**
@@ -145,6 +148,7 @@ export function DashboardContent({
   alerts = [],
   incomePatternAnalysis = null,
   uninvoicedTime = null,
+  referralStats = null,
 }: DashboardContentProps) {
   // Deserialize alerts (convert createdAt back to Date)
   const deserializedAlerts: Alert[] = React.useMemo(
@@ -848,6 +852,11 @@ export function DashboardContent({
       {/* Scenario Tester */}
       <div className="mb-6">
         <ScenarioButton variant="card" source="dashboard" className="p-4 sm:p-6" />
+      </div>
+
+      {/* Referral Widget */}
+      <div className="mb-6">
+        <ReferralWidget stats={referralStats} />
       </div>
 
       {/* Import Transactions */}

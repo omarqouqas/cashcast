@@ -8,6 +8,7 @@ import { getForecastDaysLimit, getUserSubscription } from '@/lib/stripe/subscrip
 import { getQuarterForDate } from '@/lib/tax/calculations';
 import { generateAlerts, buildAlertContext } from '@/lib/alerts';
 import { generateIncomePatternAnalysis, serializeAnalysis } from '@/lib/forecasting';
+import { getReferralStats } from '@/lib/actions/referrals';
 import { DashboardContent } from '@/components/dashboard/dashboard-content';
 import type { Tables } from '@/types/supabase';
 
@@ -33,7 +34,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   const supabase = await createClient();
 
   // Fetch accounts, income, bills, transfers, and user settings in parallel
-  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription, incomePatternAnalysis, uninvoicedTimeSummary] = await Promise.all([
+  const [accountsResult, incomeResult, billsResult, transfersResult, settingsResult, invoiceSummaryResult, topInvoicesResult, allInvoicesResult, forecastDays, subscription, incomePatternAnalysis, uninvoicedTimeSummary, referralStatsResult] = await Promise.all([
     supabase
       .from('accounts')
       .select('*')
@@ -82,6 +83,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     getUserSubscription(user.id),
     generateIncomePatternAnalysis(user.id),
     getUninvoicedSummary(),
+    getReferralStats(),
   ]);
 
   const accounts = (accountsResult.data || []) as AccountRecord[];
@@ -393,6 +395,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         totalAmount: uninvoicedTimeSummary.data.uninvoiced_amount,
         entryCount: uninvoicedTimeSummary.data.entry_count,
       } : null}
+      referralStats={referralStatsResult.success ? referralStatsResult.data : null}
     />
   );
 }

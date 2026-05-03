@@ -30,31 +30,47 @@ export async function createCheckoutSession(
 
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    
+
     if (!user) {
       return { error: 'You must be logged in to subscribe' };
     }
     if (!user.email) {
       return { error: 'Missing email for your account. Please contact support.' };
     }
-    
+
     // Get the price ID based on tier and interval
     const priceId = STRIPE_PRICE_IDS[tier][interval === 'month' ? 'monthly' : 'yearly'];
-    
+
     // Check if price ID is configured (not a placeholder)
     if (isPlaceholderPriceId(priceId)) {
       console.error(`Stripe price ID not configured for ${tier}/${interval}:`, priceId);
       return { error: 'Pricing not configured. Please contact support.' };
     }
-    
+
     // Check if user already has a Stripe customer ID (billing data lives in `subscriptions`)
     const { data: existingSubscription } = await supabase
       .from('subscriptions')
-      .select('stripe_customer_id')
+      .select('stripe_customer_id, tier, status')
       .eq('user_id', user.id)
       .single();
 
     let customerId = existingSubscription?.stripe_customer_id ?? null;
+
+    // Check if this is a first-time subscriber (never had an active subscription)
+    const isFirstSubscription = !existingSubscription ||
+      (existingSubscription.tier === 'free' && existingSubscription.status !== 'active');
+
+    // Check if user was referred (for 30-day trial)
+    // Note: referred_by_code column is added via migration - use type assertion until types are regenerated
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: userSettings } = await (supabase as any)
+      .from('user_settings')
+      .select('referred_by_code')
+      .eq('user_id', user.id)
+      .single() as { data: { referred_by_code: string | null } | null };
+
+    const referralCode = userSettings?.referred_by_code ?? null;
+    const shouldApplyReferralTrial = referralCode && isFirstSubscription;
 
     // Verify customer exists in Stripe (handles dev/prod mismatch)
     if (customerId) {
@@ -94,7 +110,23 @@ export async function createCheckoutSession(
           { onConflict: 'user_id' }
         );
     }
-    
+
+    // Build subscription data with optional referral metadata
+    const subscriptionData: {
+      metadata: Record<string, string>;
+      trial_period_days?: number;
+    } = {
+      metadata: {
+        supabase_user_id: user.id,
+        ...(referralCode ? { referred_by_code: referralCode } : {}),
+      },
+    };
+
+    // Apply 30-day trial for referred users on their first subscription
+    if (shouldApplyReferralTrial) {
+      subscriptionData.trial_period_days = 30;
+    }
+
     // Create checkout session
     const checkoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
@@ -108,11 +140,7 @@ export async function createCheckoutSession(
       ],
       success_url: `${getURL()}/dashboard?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${getURL()}/pricing?checkout=canceled`,
-      subscription_data: {
-        metadata: {
-          supabase_user_id: user.id,
-        },
-      },
+      subscription_data: subscriptionData,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
     });

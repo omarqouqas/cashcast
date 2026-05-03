@@ -277,6 +277,12 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   }
   
   console.log(`Checkout completed for user ${userId}, tier: ${tier}, period_end: ${periodDates.end}, canceling: ${isCanceling}`);
+
+  // Handle referral conversion if applicable
+  const referralCode = subscription.metadata?.referred_by_code;
+  if (referralCode) {
+    await handleReferralConversion(userId, referralCode);
+  }
 }
 
 /**
@@ -707,6 +713,185 @@ async function handleInvoicePaymentCompleted(session: Stripe.Checkout.Session) {
   }
 
   console.log(`Invoice ${invoiceNumber || invoiceId} marked as paid via Stripe`);
+}
+
+/**
+ * Handle referral conversion when a referred user subscribes
+ */
+async function handleReferralConversion(refereeId: string, referralCode: string) {
+  try {
+    // Find the referral record for this referee
+    const { data: referral, error: findError } = await supabaseAdmin
+      .from('referrals')
+      .select('id, referrer_id, status')
+      .eq('referee_id', refereeId)
+      .eq('referral_code', referralCode)
+      .single();
+
+    if (findError || !referral) {
+      console.log(`No referral found for referee ${refereeId} with code ${referralCode}`);
+      return;
+    }
+
+    // Skip if already converted or rewarded
+    if (referral.status === 'converted' || referral.status === 'rewarded') {
+      console.log(`Referral ${referral.id} already processed (status: ${referral.status})`);
+      return;
+    }
+
+    // Update referral status to converted
+    const { error: updateError } = await supabaseAdmin
+      .from('referrals')
+      .update({
+        status: 'converted',
+        converted_at: new Date().toISOString(),
+      })
+      .eq('id', referral.id);
+
+    if (updateError) {
+      console.error('Failed to update referral status:', updateError);
+      return;
+    }
+
+    console.log(`Referral ${referral.id} marked as converted`);
+
+    // Now reward the referrer
+    await rewardReferrer(referral.id, referral.referrer_id);
+  } catch (error) {
+    console.error('Error handling referral conversion:', error);
+  }
+}
+
+/**
+ * Reward the referrer with 1 month of Pro
+ * - Lifetime users: Mark rewarded, no action needed
+ * - Free users: Grant 30-day Pro access directly
+ * - Pro users: Add 1 month credit to Stripe subscription
+ */
+async function rewardReferrer(referralId: string, referrerId: string) {
+  try {
+    // Get referrer's subscription info
+    const { data: referrerSub, error: subError } = await supabaseAdmin
+      .from('subscriptions')
+      .select('tier, status, stripe_customer_id, stripe_subscription_id, current_period_end')
+      .eq('user_id', referrerId)
+      .single();
+
+    if (subError) {
+      console.error('Failed to get referrer subscription:', subError);
+      return;
+    }
+
+    const tier = referrerSub?.tier ?? 'free';
+
+    // Case 1: Lifetime user - just mark as rewarded
+    if (tier === 'lifetime') {
+      await supabaseAdmin
+        .from('referrals')
+        .update({
+          status: 'rewarded',
+          reward_given: true,
+          rewarded_at: new Date().toISOString(),
+        })
+        .eq('id', referralId);
+
+      console.log(`Referrer ${referrerId} is lifetime - marked rewarded (no additional benefit)`);
+      return;
+    }
+
+    // Case 2: Active Pro subscriber - add 1 month credit via Stripe
+    if (tier === 'pro' && referrerSub?.status === 'active' && referrerSub?.stripe_subscription_id) {
+      try {
+        // Get the subscription to find the price
+        const subscription = await stripe.subscriptions.retrieve(referrerSub.stripe_subscription_id);
+        const priceId = subscription.items.data[0]?.price.id;
+        const price = subscription.items.data[0]?.price;
+
+        if (priceId && price) {
+          // Calculate credit amount based on their plan
+          // For monthly: 1 month worth, for yearly: 1/12 of yearly price
+          let creditAmount: number;
+          if (price.recurring?.interval === 'year') {
+            creditAmount = Math.round((price.unit_amount ?? 0) / 12);
+          } else {
+            creditAmount = price.unit_amount ?? 0;
+          }
+
+          if (creditAmount > 0 && referrerSub.stripe_customer_id) {
+            // Add credit to customer's balance (negative = credit)
+            await stripe.customers.update(referrerSub.stripe_customer_id, {
+              balance: (await stripe.customers.retrieve(referrerSub.stripe_customer_id) as Stripe.Customer).balance - creditAmount,
+            });
+
+            console.log(`Added ${creditAmount} cents credit to referrer ${referrerId}`);
+          }
+        }
+
+        await supabaseAdmin
+          .from('referrals')
+          .update({
+            status: 'rewarded',
+            reward_given: true,
+            rewarded_at: new Date().toISOString(),
+          })
+          .eq('id', referralId);
+
+        console.log(`Referrer ${referrerId} (Pro) rewarded with 1 month credit`);
+        return;
+      } catch (stripeError) {
+        console.error('Failed to add Stripe credit:', stripeError);
+        // Continue to fallback
+      }
+    }
+
+    // Case 3: Free user or fallback - grant 30-day Pro access directly in database
+    const thirtyDaysFromNow = new Date();
+    thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+
+    // If they have existing Pro time remaining, extend it
+    let newEndDate = thirtyDaysFromNow;
+    if (referrerSub?.current_period_end) {
+      const existingEnd = new Date(referrerSub.current_period_end);
+      if (existingEnd > new Date()) {
+        // Extend from current end date
+        newEndDate = new Date(existingEnd);
+        newEndDate.setDate(newEndDate.getDate() + 30);
+      }
+    }
+
+    const { error: updateSubError } = await supabaseAdmin
+      .from('subscriptions')
+      .upsert({
+        user_id: referrerId,
+        tier: 'pro',
+        status: 'active',
+        current_period_start: new Date().toISOString(),
+        current_period_end: newEndDate.toISOString(),
+        // Keep existing Stripe data if any
+        stripe_customer_id: referrerSub?.stripe_customer_id ?? null,
+        stripe_subscription_id: referrerSub?.stripe_subscription_id ?? null,
+      }, {
+        onConflict: 'user_id',
+      });
+
+    if (updateSubError) {
+      console.error('Failed to grant Pro access to referrer:', updateSubError);
+      return;
+    }
+
+    await supabaseAdmin
+      .from('referrals')
+      .update({
+        status: 'rewarded',
+        reward_given: true,
+        rewarded_at: new Date().toISOString(),
+      })
+      .eq('id', referralId);
+
+    console.log(`Referrer ${referrerId} (free) granted 30-day Pro access until ${newEndDate.toISOString()}`);
+  } catch (error) {
+    console.error('Error rewarding referrer:', error);
+  }
 }
 
 /**

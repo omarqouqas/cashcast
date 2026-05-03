@@ -21,6 +21,25 @@ export default function OAuthSuccessPage() {
       }
     }
 
+    // Claim referral code if present in sessionStorage
+    if (typeof window !== 'undefined') {
+      try {
+        const refCode = sessionStorage.getItem('referralCode');
+        if (refCode) {
+          fetch('/api/referrals/claim', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: refCode }),
+          }).catch(() => {
+            // Ignore errors - referral claim is best-effort
+          });
+          sessionStorage.removeItem('referralCode');
+        }
+      } catch {
+        // Ignore storage failures
+      }
+    }
+
     // Trigger welcome email (fire-and-forget, will skip if already sent)
     fetch('/api/email/welcome', { method: 'POST' }).catch(() => {
       // Ignore errors - welcome email is best-effort
