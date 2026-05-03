@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { requireAuth } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/server'
 import { EmailVerificationBanner } from '@/components/auth/email-verification-banner'
@@ -10,6 +11,18 @@ import { TimerProvider } from '@/components/time/timer-context'
 import { TimerWidget } from '@/components/time/timer-widget'
 import Link from 'next/link'
 /* eslint-disable @next/next/no-img-element */
+
+// Prevent search engines from indexing authenticated dashboard pages
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+}
 
 export default async function DashboardLayout({
   children,

@@ -1,9 +1,28 @@
 /**
- * Structured data schemas for SEO/AEO optimization
+ * Structured data schemas for SEO/AEO/AIEO optimization
  * These schemas help search engines and AI assistants understand the content better
+ *
+ * AIEO (AI Engine Optimization) focuses on:
+ * - Clear, citable definitions
+ * - Speakable content for voice assistants
+ * - Author expertise signals (E-E-A-T)
+ * - FAQ schemas for AI knowledge extraction
+ * - HowTo schemas for instructional content
  */
 
-// Organization schema for brand recognition
+// ============================================================================
+// SOCIAL PROFILES - Update these as profiles are created
+// ============================================================================
+export const socialProfiles = {
+  twitter: 'https://twitter.com/cashcastmoney',
+  linkedin: 'https://linkedin.com/company/cashcast',
+  youtube: 'https://youtube.com/@cashcast',
+  github: 'https://github.com/cashcast',
+} as const;
+
+// ============================================================================
+// ORGANIZATION SCHEMA - Brand recognition and trust signals
+// ============================================================================
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -13,9 +32,10 @@ export const organizationSchema = {
   description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead.',
   foundingDate: '2024',
   sameAs: [
-    // Add social profiles as they become available
-    // 'https://twitter.com/cashcast',
-    // 'https://linkedin.com/company/cashcast',
+    socialProfiles.twitter,
+    socialProfiles.linkedin,
+    socialProfiles.youtube,
+    socialProfiles.github,
   ],
   contactPoint: {
     '@type': 'ContactPoint',
@@ -29,6 +49,15 @@ export const organizationSchema = {
     price: '0',
     priceCurrency: 'USD',
   },
+  // Knowledge panel signals
+  knowsAbout: [
+    'Cash flow forecasting',
+    'Freelancer finances',
+    'Irregular income management',
+    'Personal finance',
+    'Budgeting for self-employed',
+    'Invoice tracking',
+  ],
 } as const;
 
 // WebSite schema for sitelinks search box
@@ -105,7 +134,329 @@ export const definitions = {
   },
 } as const;
 
-// Product schema for software application
+// ============================================================================
+// AUTHOR/PERSON SCHEMA - E-E-A-T signals for blog content
+// ============================================================================
+export interface AuthorInfo {
+  name: string;
+  jobTitle?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+}
+
+export const defaultAuthor: AuthorInfo = {
+  name: 'Cashcast Team',
+  jobTitle: 'Personal Finance Experts',
+  description: 'The Cashcast team specializes in cash flow management and financial planning for freelancers, consultants, and self-employed professionals.',
+  url: 'https://cashcast.money/about',
+};
+
+export function generateAuthorSchema(author: AuthorInfo = defaultAuthor) {
+  return {
+    '@type': 'Person',
+    name: author.name,
+    jobTitle: author.jobTitle,
+    description: author.description,
+    url: author.url,
+    image: author.image,
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Cashcast',
+      url: 'https://cashcast.money',
+    },
+  };
+}
+
+// ============================================================================
+// SPEAKABLE SCHEMA - AIEO for voice assistants (Alexa, Siri, Google Assistant)
+// ============================================================================
+export interface SpeakableContent {
+  headline: string;
+  summary: string;
+  url: string;
+}
+
+export function generateSpeakableSchema(content: SpeakableContent) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: content.headline,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+    },
+    url: content.url,
+  };
+}
+
+// ============================================================================
+// HOWTO SCHEMA - For tutorial/guide content (AIEO-optimized)
+// ============================================================================
+export interface HowToStep {
+  name: string;
+  text: string;
+  image?: string;
+}
+
+export interface HowToSchema {
+  name: string;
+  description: string;
+  totalTime?: string; // ISO 8601 duration format, e.g., "PT30M" for 30 minutes
+  estimatedCost?: { currency: string; value: string };
+  steps: HowToStep[];
+  url: string;
+}
+
+export function generateHowToSchema(howTo: HowToSchema) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: howTo.name,
+    description: howTo.description,
+    totalTime: howTo.totalTime,
+    estimatedCost: howTo.estimatedCost ? {
+      '@type': 'MonetaryAmount',
+      currency: howTo.estimatedCost.currency,
+      value: howTo.estimatedCost.value,
+    } : undefined,
+    step: howTo.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      image: step.image,
+    })),
+    url: howTo.url,
+  };
+}
+
+// ============================================================================
+// ARTICLE SCHEMA WITH ENHANCED AUTHOR - For blog posts
+// ============================================================================
+export interface ArticleSchemaProps {
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: AuthorInfo;
+  url: string;
+  image?: string;
+  keywords?: string[];
+}
+
+export function generateArticleSchema(article: ArticleSchemaProps) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified || article.datePublished,
+    author: generateAuthorSchema(article.author),
+    publisher: {
+      '@type': 'Organization',
+      name: 'Cashcast',
+      url: 'https://cashcast.money',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://cashcast.money/icon-512x512.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': article.url,
+    },
+    image: article.image || 'https://cashcast.money/og-image.png',
+    keywords: article.keywords?.join(', '),
+    // Speakable specification for voice assistants
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+    },
+  };
+}
+
+// ============================================================================
+// SOFTWARE APPLICATION SCHEMAS - For each tool
+// ============================================================================
+export const toolSchemas = {
+  canIAffordIt: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Can I Afford It? Calculator',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description: 'Free cash flow projection calculator to check if you can afford a purchase without going negative.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/can-i-afford-it',
+    creator: organizationSchema,
+  },
+  freelanceRateCalculator: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Freelance Rate Calculator',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description: 'Calculate your ideal freelance hourly rate based on expenses, desired income, and billable hours.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/freelance-rate-calculator',
+    creator: organizationSchema,
+  },
+  incomeVariabilityCalculator: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Income Variability Calculator',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description: 'Analyze how variable your freelance income is and plan for low-income months.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/income-variability-calculator',
+    creator: organizationSchema,
+  },
+  invoicePaymentPredictor: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Invoice Payment Predictor',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description: 'Predict when your invoices will be paid based on client payment patterns and terms.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/invoice-payment-predictor',
+    creator: organizationSchema,
+  },
+  taxReserveCalculator: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Tax Reserve Calculator',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    description: 'Calculate how much to set aside for quarterly estimated taxes as a freelancer or 1099 contractor.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/tax-reserve-calculator',
+    creator: organizationSchema,
+  },
+  emailSignatureGenerator: {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Email Signature Generator',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    description: 'Create a professional email signature for freelancers with payment links and contact info.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    isAccessibleForFree: true,
+    url: 'https://cashcast.money/tools/email-signature-generator',
+    creator: organizationSchema,
+  },
+} as const;
+
+// ============================================================================
+// AGGREGATE OFFER SCHEMA - For pricing page
+// ============================================================================
+export const pricingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Cashcast',
+  description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead.',
+  brand: {
+    '@type': 'Brand',
+    name: 'Cashcast',
+  },
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '0',
+    highPrice: '149',
+    priceCurrency: 'USD',
+    offerCount: 3,
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free Plan',
+        price: '0',
+        priceCurrency: 'USD',
+        description: '90-day cash flow forecast, track up to 10 bills and 10 income sources',
+        availability: 'https://schema.org/InStock',
+        url: 'https://cashcast.money/pricing',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro Plan (Monthly)',
+        price: '7.99',
+        priceCurrency: 'USD',
+        priceValidUntil: '2026-12-31',
+        description: '365-day forecast, unlimited bills and income, invoicing with Runway Collect, tax tracking',
+        availability: 'https://schema.org/InStock',
+        url: 'https://cashcast.money/pricing',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Lifetime Deal',
+        price: '149',
+        priceCurrency: 'USD',
+        priceValidUntil: '2026-12-31',
+        description: 'All Pro features forever with a one-time payment. No recurring fees.',
+        availability: 'https://schema.org/InStock',
+        url: 'https://cashcast.money/pricing',
+      },
+    ],
+  },
+} as const;
+
+// ============================================================================
+// FAQ SCHEMA HELPER - Reusable across pages
+// ============================================================================
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function generateFAQSchema(faqs: FAQItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
+// ============================================================================
+// PRODUCT SCHEMA - Main app (legacy export for compatibility)
+// ============================================================================
 export const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',

@@ -28,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/compare/cash-flow-calendar-apps`, lastModified, priority: 0.7 },
     { url: `${baseUrl}/compare/ynab`, lastModified, priority: 0.8 },
     { url: `${baseUrl}/compare/mint`, lastModified, priority: 0.8 },
+    { url: `${baseUrl}/compare/float`, lastModified, priority: 0.7 },
+    { url: `${baseUrl}/compare/pulse`, lastModified, priority: 0.7 },
 
     // Free tools
     { url: `${baseUrl}/tools`, lastModified, priority: 0.6 },
@@ -35,6 +37,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/tools/freelance-rate-calculator`, lastModified, priority: 0.6 },
     { url: `${baseUrl}/tools/invoice-payment-predictor`, lastModified, priority: 0.6 },
     { url: `${baseUrl}/tools/income-variability-calculator`, lastModified, priority: 0.6 },
+    { url: `${baseUrl}/tools/tax-reserve-calculator`, lastModified, priority: 0.6 },
+    { url: `${baseUrl}/tools/email-signature-generator`, lastModified, priority: 0.6 },
 
     // Auth & legal
     { url: `${baseUrl}/auth/login`, lastModified, priority: 0.5 },

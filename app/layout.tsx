@@ -109,6 +109,9 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
+        {/* RSS Feed for blog - helps with SEO/AIEO content syndication */}
+        <link rel="alternate" type="application/rss+xml" title="Cashcast Blog RSS Feed" href="/feed.xml" />
+
         {/* Organization and Website structured data for SEO/AEO */}
         <script
           type="application/ld+json"
