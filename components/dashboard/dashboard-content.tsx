@@ -175,6 +175,25 @@ export function DashboardContent({
     }
   }, [accounts, activeBillsCount, incomeCount]);
 
+  // Claim referral code if present in localStorage (fallback for auth flow issues)
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const refCode = localStorage.getItem('referralCode');
+      if (refCode) {
+        fetch('/api/referrals/claim', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: refCode }),
+        }).finally(() => {
+          localStorage.removeItem('referralCode');
+        });
+      }
+    } catch {
+      // Ignore storage errors
+    }
+  }, []);
+
   // Filter accounts based on selection
   const filteredAccounts = React.useMemo(() => {
     if (filters.selectedAccountIds.length === 0) {
