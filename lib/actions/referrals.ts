@@ -212,7 +212,7 @@ export async function claimReferralCode(code: string): Promise<
     }
 
     // Update the existing referral row to claim it
-    const { error: updateError } = await supabase
+    const { error: claimError } = await supabase
       .from('referrals')
       .update({
         referee_id: user.id,
@@ -221,8 +221,8 @@ export async function claimReferralCode(code: string): Promise<
       })
       .eq('id', referral.id)
 
-    if (updateError) {
-      console.error('Error claiming referral:', updateError)
+    if (claimError) {
+      console.error('Error claiming referral:', claimError)
       return { success: false, error: 'Failed to claim referral code' }
     }
 
