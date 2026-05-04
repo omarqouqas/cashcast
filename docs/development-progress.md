@@ -1,16 +1,16 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 3, 2026 (Day 73)
+**Last Updated:** May 4, 2026 (Day 74)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
-**Live URL:** https://cashcast.io
+**Live URL:** https://cashcast.money
 
 ---
 
 ## Quick Stats
 
-- **Days in Development:** 73
+- **Days in Development:** 74
 - **Commits:** 410+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -28,7 +28,52 @@
 
 ---
 
-## Recent Development (Days 60-73)
+## Recent Development (Days 60-74)
+
+### Day 74: Referral Program Bug Fixes (May 4, 2026)
+
+**Critical Bug Fixes** - Fixed 4 bugs preventing the referral program from working correctly in production.
+
+**Bugs Fixed:**
+
+| Bug | Problem | Fix |
+|-----|---------|-----|
+| sessionStorage persistence | Email verification opens in new tab, sessionStorage is per-tab | Changed to localStorage |
+| UNIQUE constraint violation | Claiming tried to INSERT a new row with same referral_code | Changed to UPDATE existing row |
+| Anonymous code validation | RLS policies required auth for SELECT, blocking `/r/[code]` | Added public SELECT policy |
+| Missing UPDATE policy | UPDATE operations were blocked by RLS | Added UPDATE policy for claiming |
+
+**Database Migrations Added:**
+```
+20260504000001_referral_update_policy.sql   # UPDATE policy for claiming
+20260504000002_referral_public_select.sql   # Public SELECT for validation
+```
+
+**Files Modified:**
+- `app/auth/signup/page.tsx` - sessionStorage → localStorage
+- `app/auth/oauth-success/page.tsx` - sessionStorage → localStorage
+- `lib/actions/referrals.ts` - INSERT → UPDATE for claiming
+- `components/dashboard/dashboard-content.tsx` - Fallback claim on dashboard visit
+
+**Testing Verified:**
+- [x] Anonymous user can click referral link and see signup banner
+- [x] Email verification flow preserves referral code
+- [x] Referral code successfully claimed (status = 'signed_up')
+- [x] referee_id correctly set in database
+
+**Documentation Updated:**
+- `docs/REFERRAL-PROGRAM.md` - Complete rewrite with bug fixes
+- `docs/feature-ideas/referral-program.md` - Added bug fixes section
+
+**Commits:**
+- `863e62a` fix: referral code claim now works for email signup
+- `d94ddc4` fix: add fallback referral claim on dashboard visit
+- `9ce2a3a` fix: use UPDATE instead of INSERT for referral claiming
+- `954a6a9` fix: rename duplicate updateError variable to claimError
+- `43d8c9d` fix: allow anonymous users to validate referral codes
+- `780dd97` docs: update referral program documentation with bug fixes
+
+---
 
 ### Day 73: Referral Program Implementation (May 3, 2026)
 
@@ -102,8 +147,8 @@ components/dashboard/referral-widget.tsx  # Dashboard widget with copy button, s
 ```
 
 **Files Modified:**
-- `app/auth/signup/page.tsx` - Read `?ref=` param, show referral banner, store code in sessionStorage
-- `app/auth/oauth-success/page.tsx` - Claim referral code from sessionStorage after OAuth
+- `app/auth/signup/page.tsx` - Read `?ref=` param, show referral banner, store code
+- `app/auth/oauth-success/page.tsx` - Claim referral code after auth
 - `lib/actions/stripe.ts` - Apply 30-day trial for referred users at checkout
 - `app/api/webhooks/stripe/route.ts` - Handle referral conversion, reward referrer
 - `components/dashboard/dashboard-content.tsx` - Display referral widget
