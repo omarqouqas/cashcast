@@ -159,6 +159,37 @@ This stores which code a user signed up with, used to:
 - Apply 30-day trial at checkout
 - Prevent using multiple referral codes
 
+### RLS Policies
+
+The `referrals` table has Row Level Security enabled with these policies:
+
+```sql
+-- Users can view referrals where they are the referrer
+CREATE POLICY "Users can view own referrals as referrer" ON referrals
+  FOR SELECT USING (auth.uid() = referrer_id);
+
+-- Users can view referrals where they are the referee
+CREATE POLICY "Users can view referrals as referee" ON referrals
+  FOR SELECT USING (auth.uid() = referee_id);
+
+-- Users can create their own referral code (template row)
+CREATE POLICY "Users can create own referral code" ON referrals
+  FOR INSERT WITH CHECK (auth.uid() = referrer_id AND referee_id IS NULL);
+
+-- Users can claim a referral (insert with themselves as referee)
+CREATE POLICY "Users can claim referral as referee" ON referrals
+  FOR INSERT WITH CHECK (auth.uid() = referee_id);
+```
+
+**Important:** UPDATE and DELETE operations are handled by the service role in webhook/API routes (bypasses RLS).
+
+### Migration Files
+
+| Migration | Purpose |
+|-----------|---------|
+| `20260503000001_add_referrals.sql` | Create referrals table, indexes, base RLS policies |
+| `20260503000002_fix_referral_rls.sql` | Add policy for referee claiming |
+
 ---
 
 ## Key Files
