@@ -13,7 +13,6 @@ import { GoogleSignInButton } from '@/components/auth/google-sign-in-button';
 import { OrDivider } from '@/components/auth/or-divider';
 import { signInWithGoogle } from '@/lib/auth/oauth';
 import { trackSignup } from '@/lib/posthog/events';
-import { claimReferralCode } from '@/lib/actions/referrals';
 
 const signupSchema = z
   .object({
@@ -43,11 +42,11 @@ export default function SignupPage() {
   // Get referral code from URL
   const refCode = searchParams.get('ref')?.toUpperCase() || null;
 
-  // Store referral code in sessionStorage for OAuth flow
+  // Store referral code in localStorage (persists through email verification)
   useEffect(() => {
     if (refCode && typeof window !== 'undefined') {
       try {
-        sessionStorage.setItem('referralCode', refCode);
+        localStorage.setItem('referralCode', refCode);
       } catch {
         // Ignore storage failures
       }
@@ -109,19 +108,7 @@ export default function SignupPage() {
             // Ignore storage failures (privacy mode, blocked storage, etc.)
           }
         }
-        // Claim referral code if present
-        const storedRefCode = refCode || (typeof window !== 'undefined' ? sessionStorage.getItem('referralCode') : null);
-        if (storedRefCode) {
-          claimReferralCode(storedRefCode).catch(() => {
-            // Ignore errors - referral claim is best-effort
-          });
-          // Clear the stored code
-          try {
-            sessionStorage.removeItem('referralCode');
-          } catch {
-            // Ignore
-          }
-        }
+        // Note: Referral code is claimed in /auth/callback after email verification
         // Trigger welcome email (will skip if email not verified yet, or if already sent)
         fetch('/api/email/welcome', { method: 'POST' }).catch(() => {
           // Ignore errors - welcome email is best-effort

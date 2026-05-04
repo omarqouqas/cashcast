@@ -21,10 +21,10 @@ export default function OAuthSuccessPage() {
       }
     }
 
-    // Claim referral code if present in sessionStorage
+    // Claim referral code if present in localStorage (persists through email verification)
     if (typeof window !== 'undefined') {
       try {
-        const refCode = sessionStorage.getItem('referralCode');
+        const refCode = localStorage.getItem('referralCode');
         if (refCode) {
           fetch('/api/referrals/claim', {
             method: 'POST',
@@ -33,7 +33,7 @@ export default function OAuthSuccessPage() {
           }).catch(() => {
             // Ignore errors - referral claim is best-effort
           });
-          sessionStorage.removeItem('referralCode');
+          localStorage.removeItem('referralCode');
         }
       } catch {
         // Ignore storage failures
