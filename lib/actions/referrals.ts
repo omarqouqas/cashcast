@@ -211,19 +211,18 @@ export async function claimReferralCode(code: string): Promise<
       return { success: false, error: 'You cannot use your own referral code' }
     }
 
-    // Create the referral relationship
-    const { error: insertError } = await supabase
+    // Update the existing referral row to claim it
+    const { error: updateError } = await supabase
       .from('referrals')
-      .insert({
-        referrer_id: referral.referrer_id,
+      .update({
         referee_id: user.id,
-        referral_code: sanitized,
         status: 'signed_up',
         signed_up_at: new Date().toISOString(),
       })
+      .eq('id', referral.id)
 
-    if (insertError) {
-      console.error('Error creating referral:', insertError)
+    if (updateError) {
+      console.error('Error claiming referral:', updateError)
       return { success: false, error: 'Failed to claim referral code' }
     }
 
