@@ -14,7 +14,7 @@
 | **2** | AI Smart Categorization | — | — | High | Low | ✅ DONE |
 | **3** | Time Tracking + Invoicing | $850 | 87 | High | High | ✅ DONE |
 | **4** | Automated Payment Reminders | $3,500 | 80 | High | Low | ✅ DONE |
-| **5** | Referral Program | — | — | High | Medium | 🆕 New |
+| **5** | Referral Program | — | — | High | Medium | ✅ DONE |
 | **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | 🆕 New |
 | **7** | Email Signature Generator | $55,000 | 90 | Medium | Low | ✅ DONE |
 | **8** | SMS/Push Low Balance Alerts | $50,000 | 72 | Medium | Medium | 🆕 New |
@@ -178,41 +178,44 @@ components/settings/
 
 ---
 
-### 5. Referral Program 🆕 NEW
+### 5. Referral Program ✅ COMPLETED
 
 **Database Insight:** "Referral Program" appears as a growth tactic in 25+ successful micro-SaaS products, including Row 79 (PDF extraction) which matches our ICP exactly.
 
-**Why It Matters:**
-- Word of mouth is #1 growth tactic for our ICP
-- No competitor (Cash Flow Calendar, YNAB, Monarch) has referral program
-- Low CAC acquisition channel
+**Status:** Completed May 3, 2026
 
-**Proposed Implementation:**
+**Implementation:**
+- **Referrer Reward**: 1 month free Pro when referee converts to paid
+- **Referee Reward**: 30-day Pro trial when signing up with referral code
+- **Trigger**: Referrer gets reward only when referee pays for Pro
 
+**Key Components:**
 | Component | Description |
 |-----------|-------------|
-| Referral Link | Unique link per user: `cashcast.money/r/ABC123` |
-| Reward (Referrer) | 1 month free Pro OR $5 credit |
-| Reward (Referee) | Extended 30-day Pro trial (vs 14-day) |
-| Dashboard Widget | "Invite friends, get free months" |
-| Tracking | `referrals` table with status tracking |
+| Referral Link | Unique 8-char code: `cashcast.io/r/ABC123XY` |
+| Landing Page | `/r/[code]` redirects to signup with ref param |
+| Dashboard Widget | Shows link, stats (signed up, subscribed, rewards) |
+| Signup Banner | "You've been referred! Get 30 days Pro free" |
+| Checkout Trial | Auto-applies 30-day trial for referred users |
+| Webhook Rewards | Grants Pro credit/access when referee converts |
 
-**Database Schema:**
-```sql
-CREATE TABLE referrals (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  referrer_id UUID NOT NULL REFERENCES auth.users(id),
-  referee_id UUID REFERENCES auth.users(id),
-  referral_code VARCHAR(10) UNIQUE NOT NULL,
-  status VARCHAR(20) DEFAULT 'pending', -- pending, signed_up, converted, rewarded
-  reward_given BOOLEAN DEFAULT false,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  converted_at TIMESTAMPTZ
-);
+**Reward Logic:**
+- Lifetime users: Marked as rewarded (already have max benefits)
+- Pro subscribers: Add 1-month Stripe credit
+- Free users: Grant 30-day Pro directly in database
+
+**Files Created:**
+```
+supabase/migrations/20260503000001_add_referrals.sql
+lib/referrals/types.ts
+lib/referrals/generate-code.ts
+lib/actions/referrals.ts
+app/api/referrals/claim/route.ts
+app/r/[code]/page.tsx
+components/dashboard/referral-widget.tsx
 ```
 
-**Effort:** Medium (3-5 days)
-**Impact:** High (compounds over time)
+**Detailed Spec:** [referral-program.md](./referral-program.md)
 
 ---
 
@@ -426,7 +429,7 @@ that are greater than $1000, excluding low-income months.
 
 | Feature | Days | Dependencies | Status |
 |---------|------|--------------|--------|
-| Referral Program | 3-5 | Stripe billing | 🆕 New |
+| Referral Program | 3-5 | Stripe billing | ✅ Done |
 | Time Tracking + Invoicing | 10-15 | Runway Collect (exists) | ✅ Done |
 
 ### Phase 3: Engagement (4-6 weeks)
@@ -473,4 +476,5 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 | Apr 29, 2026 | Implement Automated Payment Reminders | High impact on retention, reduces manual follow-up |
 | Apr 29, 2026 | Implement Email Signature Generator | Free SEO tool for lead generation, 4 templates, quick win |
 | Apr 29, 2026 | Implement Time Tracking + Invoicing | Completes freelancer workflow, high stickiness, unique differentiator |
+| May 3, 2026 | Implement Referral Program | Low CAC acquisition, compounds over time, no competitor has it |
 

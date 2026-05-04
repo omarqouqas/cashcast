@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 1, 2026 (Day 72)
+**Last Updated:** May 3, 2026 (Day 73)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 72
+- **Days in Development:** 73
 - **Commits:** 410+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + **Time Tracking + Invoicing**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + **Referral Program**
 
 **Current Focus:**
 
@@ -28,7 +28,107 @@
 
 ---
 
-## Recent Development (Days 60-72)
+## Recent Development (Days 60-73)
+
+### Day 73: Referral Program Implementation (May 3, 2026)
+
+**Major Feature: Referral Program** - Complete referral system where users can invite friends and earn rewards when those friends become paying customers.
+
+**User Value:**
+- Share unique referral link with friends
+- Friends get 30-day Pro trial when signing up
+- Earn 1 month free Pro when friends subscribe
+- Track referral stats on dashboard (signed up, subscribed, rewards)
+
+**Rewards Structure:**
+
+| Party | Reward | Trigger |
+|-------|--------|---------|
+| Referrer | 1 month free Pro | Referee subscribes to Pro |
+| Referee | 30-day Pro trial | Signs up via referral link |
+
+**Referral Flow:**
+```
+User shares link: cashcast.io/r/ABC123XY
+    ↓
+Friend clicks link → redirects to /auth/signup?ref=ABC123XY
+    ↓
+Friend sees banner: "Get 30 days of Pro free"
+    ↓
+Friend signs up (email or Google OAuth)
+    ↓
+Referral code claimed and stored
+    ↓
+When friend subscribes → 30-day trial applied automatically
+    ↓
+Stripe webhook triggers → referrer rewarded
+```
+
+**Reward Logic (Webhook):**
+- **Lifetime users**: Marked as rewarded (already have max benefits)
+- **Pro subscribers**: Add 1-month Stripe credit to balance
+- **Free users**: Grant 30-day Pro access directly in database
+
+**Database Migration (`20260503000001_add_referrals.sql`):**
+```sql
+CREATE TABLE referrals (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  referrer_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  referee_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  referral_code VARCHAR(8) UNIQUE NOT NULL,
+  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'signed_up', 'converted', 'rewarded')),
+  reward_given BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  signed_up_at TIMESTAMPTZ,
+  converted_at TIMESTAMPTZ,
+  rewarded_at TIMESTAMPTZ
+);
+
+-- Add referred_by_code to user_settings
+ALTER TABLE user_settings ADD COLUMN IF NOT EXISTS referred_by_code VARCHAR(8);
+```
+
+**Files Created:**
+```
+supabase/migrations/20260503000001_add_referrals.sql
+lib/referrals/
+├── types.ts              # TypeScript types (ReferralStats, ReferralCodeResult)
+├── generate-code.ts      # 8-char code generation (no confusing chars)
+└── index.ts              # Exports
+lib/actions/referrals.ts  # Server actions (getOrCreateReferralCode, getReferralStats, validateReferralCode, claimReferralCode)
+app/api/referrals/claim/route.ts    # POST endpoint for claiming codes
+app/r/[code]/page.tsx               # Referral landing page with SEO metadata
+components/dashboard/referral-widget.tsx  # Dashboard widget with copy button, stats
+```
+
+**Files Modified:**
+- `app/auth/signup/page.tsx` - Read `?ref=` param, show referral banner, store code in sessionStorage
+- `app/auth/oauth-success/page.tsx` - Claim referral code from sessionStorage after OAuth
+- `lib/actions/stripe.ts` - Apply 30-day trial for referred users at checkout
+- `app/api/webhooks/stripe/route.ts` - Handle referral conversion, reward referrer
+- `components/dashboard/dashboard-content.tsx` - Display referral widget
+- `app/dashboard/page.tsx` - Fetch referral stats
+
+**Dashboard Widget Features:**
+- Unique referral link with copy button
+- Stats: Signed up, Subscribed, Rewards earned
+- Pending rewards banner when friends have converted
+- Expandable "How it works" section
+
+**Edge Cases Handled:**
+| Scenario | Handling |
+|----------|----------|
+| Self-referral | Blocked in claim API |
+| Reuse code | Each user can only use one code ever |
+| Invalid code | Graceful redirect to signup without code |
+| OAuth flow | Code stored in sessionStorage, claimed after OAuth |
+| Referrer on free tier | Grant 30-day Pro directly in database |
+
+**Commits:**
+- `8f9684d` feat: implement referral program with rewards system
+- `943c9a4` chore: regenerate Supabase types and remove type assertions
+
+---
 
 ### Day 72: Currency Bug Fixes & UX Improvements (May 1, 2026)
 
@@ -1301,6 +1401,7 @@ Comparison terms:
 | Probabilistic Forecasting | Monte Carlo simulation with P10/P50/P90 confidence bands |
 | Natural Language Queries | "Ask Cashcast" chat with Claude-powered tool calling |
 | Time Tracking + Invoicing | Timer widget, manual entry, invoice line items, time → invoice flow |
+| Referral Program | Invite friends, 30-day trial for referee, 1-month Pro for referrer |
 
 ### Upcoming
 
@@ -1359,6 +1460,12 @@ Comparison terms:
 - **Currency support across all tools** - getCurrencySymbol() used consistently
 - Onboarding form optimized for laptop screens (2-column layout)
 - Calendar day modal with quick Add Income/Expense buttons
+- **Referral Program** - Complete viral growth loop
+- Unique 8-char referral codes per user
+- Dashboard widget with copy button and stats
+- 30-day Pro trial for referred signups
+- 1-month Pro credit when referral converts
+- Handles OAuth flow via sessionStorage
 
 ## What's Next
 

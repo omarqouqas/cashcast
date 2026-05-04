@@ -1,408 +1,151 @@
-# Referral Program - Implementation Plan
+# Referral Program
 
-## Market Research
-
-**Source:** Micro-SaaS Ideas Database Analysis
-
-"Referral Program" appears as a growth tactic in 25+ successful micro-SaaS products, including:
-- Row 79: PDF bank statement extraction ($40K/mo) — exact ICP match
-- Row 53: Shopify bundles app ($55K/mo)
-- Row 76: Airtable connector ($23K/mo)
-- Row 80: SMS marketing for eCommerce ($12K/mo)
-
-**Competitive Analysis:**
-- Cash Flow Calendar: No referral program
-- YNAB: No referral program
-- Monarch Money: No referral program
-- Copilot: No referral program
-
-**Opportunity:** First-mover advantage in our category.
+**Status:** IMPLEMENTED (May 3, 2026)
 
 ---
 
 ## Overview
 
-Implement a referral system where existing users can invite friends and earn rewards when those friends become paying customers.
+A referral system where existing users can invite friends and earn rewards when those friends become paying customers.
 
-**Problem it solves:** User acquisition is expensive. Word of mouth is our #1 growth tactic (per database analysis). A structured referral program amplifies organic growth.
-
----
-
-## Strategic Fit
-
-1. **Low CAC acquisition** — Referrals cost less than paid ads
-2. **High-quality leads** — Referred users have higher LTV
-3. **Compounds over time** — Each new user can refer more
-4. **No competitor has it** — Differentiation opportunity
+**Rewards:**
+- **Referrer**: 1 month free Pro when referee converts to paid
+- **Referee**: 30-day Pro trial when signing up with referral code
+- **Trigger**: Referrer gets reward only when referee pays for Pro
 
 ---
 
-## Reward Structure
+## Implementation Summary
 
-### Option A: Credit-Based (Recommended)
+### Database Schema
 
-| Party | Reward | Trigger |
-|-------|--------|---------|
-| Referrer | 1 month free Pro ($7.99 value) | Referee subscribes to Pro |
-| Referee | 30-day Pro trial (vs 14-day) | Signs up via referral link |
-
-**Why this works:**
-- Low cost to us (extending existing subscription)
-- Clear value to both parties
-- Encourages conversion to Pro
-
-### Option B: Cash-Based (Alternative)
-
-| Party | Reward | Trigger |
-|-------|--------|---------|
-| Referrer | $5 credit toward subscription | Referee subscribes to Pro |
-| Referee | $5 off first month | Signs up via referral link |
-
-**Considerations:**
-- Higher perceived value
-- More complex accounting
-- Potential for abuse
-
-**Decision:** Start with Option A (credit-based) for simplicity.
-
----
-
-## User Flow
-
-### Referrer Journey
-
-```
-1. User visits /dashboard/referrals (or clicks "Invite Friends" in nav)
-2. Sees unique referral link: cashcast.money/r/ABC123
-3. Sees stats: invites sent, signups, conversions, rewards earned
-4. Shares link via email, social, or copy
-5. When referee converts, referrer sees reward credited
-```
-
-### Referee Journey
-
-```
-1. Clicks referral link: cashcast.money/r/ABC123
-2. Lands on homepage with banner: "You've been invited by [Name]!"
-3. Gets 30-day Pro trial instead of 14-day
-4. Signs up normally
-5. If converts to Pro, referrer gets rewarded
-```
-
----
-
-## Database Schema
-
-### New Table: `referral_codes`
-
-```sql
-CREATE TABLE referral_codes (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  code VARCHAR(10) UNIQUE NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  UNIQUE(user_id) -- One code per user
-);
-
-CREATE INDEX idx_referral_codes_code ON referral_codes(code);
-```
-
-### New Table: `referrals`
-
+**Table: `referrals`**
 ```sql
 CREATE TABLE referrals (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   referrer_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   referee_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-  referral_code VARCHAR(10) NOT NULL,
-  status VARCHAR(20) DEFAULT 'pending',
-  -- pending: link clicked but no signup
-  -- signed_up: referee created account
-  -- converted: referee became paying customer
-  -- rewarded: referrer received reward
-  referee_email VARCHAR(255), -- Track before signup
-  clicked_at TIMESTAMPTZ DEFAULT NOW(),
+  referral_code VARCHAR(8) UNIQUE NOT NULL,
+  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'signed_up', 'converted', 'rewarded')),
+  reward_given BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
   signed_up_at TIMESTAMPTZ,
   converted_at TIMESTAMPTZ,
-  rewarded_at TIMESTAMPTZ,
-  reward_type VARCHAR(20), -- 'free_month', 'credit'
-  reward_amount DECIMAL(10, 2),
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  rewarded_at TIMESTAMPTZ
 );
-
-CREATE INDEX idx_referrals_referrer ON referrals(referrer_id);
-CREATE INDEX idx_referrals_referee ON referrals(referee_id);
-CREATE INDEX idx_referrals_code ON referrals(referral_code);
-CREATE INDEX idx_referrals_status ON referrals(status);
-
--- RLS
-ALTER TABLE referrals ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Users can view own referrals"
-  ON referrals FOR SELECT USING (
-    auth.uid() = referrer_id OR auth.uid() = referee_id
-  );
 ```
 
-### Modify: `profiles` table
+**Column Added: `user_settings.referred_by_code`**
+- Stores which referral code a user signed up with
+- Used to check if user is eligible for 30-day trial
 
-```sql
-ALTER TABLE profiles
-  ADD COLUMN referred_by UUID REFERENCES auth.users(id),
-  ADD COLUMN referral_trial_extended BOOLEAN DEFAULT false;
-```
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `supabase/migrations/20260503000001_add_referrals.sql` | Database schema |
+| `lib/referrals/types.ts` | TypeScript types |
+| `lib/referrals/generate-code.ts` | 8-char code generation |
+| `lib/referrals/index.ts` | Exports |
+| `lib/actions/referrals.ts` | Server actions |
+| `app/api/referrals/claim/route.ts` | Claim API endpoint |
+| `app/r/[code]/page.tsx` | Referral landing page |
+| `components/dashboard/referral-widget.tsx` | Dashboard widget |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `app/auth/signup/page.tsx` | Read `?ref=` param, show banner, store in sessionStorage |
+| `app/auth/oauth-success/page.tsx` | Claim code after OAuth login |
+| `lib/actions/stripe.ts` | Apply 30-day trial for referred users |
+| `app/api/webhooks/stripe/route.ts` | Handle conversion, reward referrer |
+| `components/dashboard/dashboard-content.tsx` | Display referral widget |
+| `app/dashboard/page.tsx` | Fetch referral stats |
 
 ---
 
-## File Structure
+## User Flows
 
-```
-lib/referrals/
-├── types.ts              # Referral types and statuses
-├── generate-code.ts      # Generate unique referral codes
-├── track.ts              # Track clicks, signups, conversions
-├── rewards.ts            # Process reward distribution
-└── index.ts              # Exports
+### Referrer Journey
 
-app/dashboard/referrals/
-└── page.tsx              # Referral dashboard
+1. User visits dashboard
+2. Sees "Refer & Earn" widget with their unique referral link
+3. Copies link: `cashcast.io/r/ABC123XY`
+4. Shares with friends
+5. When friend subscribes, referrer gets 1 month Pro credit
 
-app/r/[code]/
-└── page.tsx              # Referral landing redirect
+### Referee Journey
 
-components/referrals/
-├── referral-card.tsx     # Dashboard widget
-├── referral-stats.tsx    # Stats display
-├── share-buttons.tsx     # Social share buttons
-└── referral-banner.tsx   # Banner for referred signups
-
-app/api/referrals/
-├── track-click/route.ts  # Track link clicks
-└── webhook/route.ts      # Stripe webhook for conversions
-```
+1. Clicks referral link: `cashcast.io/r/ABC123XY`
+2. Redirects to `/auth/signup?ref=ABC123XY`
+3. Sees banner: "You've been referred! Sign up to get 30 days of Pro free."
+4. Signs up (email or Google OAuth)
+5. Code is claimed and stored
+6. When checking out for Pro, gets 30-day trial applied automatically
 
 ---
 
-## Implementation Details
+## Referral Code Generation
 
-### Referral Code Generation
-
-```typescript
-function generateReferralCode(): string {
-  // 6 characters: alphanumeric, no confusing chars (0/O, 1/l)
-  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 6; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return code;
-}
-```
-
-### Tracking Flow
-
-```typescript
-// 1. Link click: /r/[code]
-async function trackClick(code: string, req: Request) {
-  const referral = await db.referrals.create({
-    referral_code: code,
-    referrer_id: await getReferrerByCode(code),
-    status: 'pending',
-    clicked_at: new Date(),
-  });
-
-  // Set cookie for attribution
-  setCookie('referral_code', code, { maxAge: 30 * 24 * 60 * 60 }); // 30 days
-}
-
-// 2. Signup: check for referral cookie
-async function handleSignup(userId: string) {
-  const referralCode = getCookie('referral_code');
-  if (referralCode) {
-    await db.referrals.update({
-      where: { referral_code: referralCode, status: 'pending' },
-      data: {
-        referee_id: userId,
-        status: 'signed_up',
-        signed_up_at: new Date(),
-      },
-    });
-
-    // Extend trial to 30 days
-    await extendTrial(userId, 30);
-  }
-}
-
-// 3. Conversion: Stripe webhook
-async function handleConversion(userId: string) {
-  const referral = await db.referrals.findFirst({
-    where: { referee_id: userId, status: 'signed_up' },
-  });
-
-  if (referral) {
-    // Update referral status
-    await db.referrals.update({
-      where: { id: referral.id },
-      data: {
-        status: 'converted',
-        converted_at: new Date(),
-      },
-    });
-
-    // Grant reward to referrer
-    await grantFreeMonth(referral.referrer_id);
-
-    // Mark as rewarded
-    await db.referrals.update({
-      where: { id: referral.id },
-      data: {
-        status: 'rewarded',
-        rewarded_at: new Date(),
-        reward_type: 'free_month',
-        reward_amount: 7.99,
-      },
-    });
-
-    // Notify referrer
-    await sendEmail(referral.referrer_id, 'referral-reward');
-  }
-}
-```
+- 8 characters, alphanumeric (no confusing chars like 0/O, 1/l)
+- Characters: `ABCDEFGHJKMNPQRSTUVWXYZ23456789`
+- Example: `ABC123XY`
+- Collision handling: Up to 5 retries on unique constraint violation
 
 ---
 
-## UI Components
+## Reward Logic (Webhook)
 
-### Referral Dashboard
+When a referee subscribes to Pro:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ Invite Friends, Earn Free Months                            │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Your Referral Link:                                        │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ cashcast.money/r/ABC123                    [Copy]   │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  [Share on Twitter] [Share on LinkedIn] [Email]             │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Your Stats                                                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
-│  │    12    │ │    5     │ │    2     │ │  $15.98  │       │
-│  │  Clicks  │ │ Signups  │ │Conversions│ │ Earned  │       │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Recent Referrals                                           │
-│  ─────────────────────────────────────────────────────────  │
-│  j***@email.com    Signed up    Apr 20    Pending          │
-│  m***@email.com    Converted    Apr 18    +1 month free    │
-│  s***@email.com    Signed up    Apr 15    Pending          │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Dashboard Widget
-
-Small card on main dashboard:
-
-```
-┌─────────────────────────────────────┐
-│ 🎁 Invite friends, get free months │
-│                                     │
-│ 2 friends have signed up            │
-│ Earn 1 month free per conversion    │
-│                                     │
-│ [Share Your Link →]                 │
-└─────────────────────────────────────┘
-```
+1. **Referral Status Update**: `signed_up` → `converted`
+2. **Reward Determination**:
+   - **Lifetime users**: Mark as rewarded (already have max benefits)
+   - **Pro subscribers**: Add 1-month Stripe credit to balance
+   - **Free users**: Grant 30-day Pro access directly in database
 
 ---
 
-## Feature Gating
+## Dashboard Widget
 
-| Tier | Access |
-|------|--------|
-| Free | Can refer, but rewards only on Pro conversion |
-| Pro | Full access to referral program |
-| Premium | Full access |
-| Lifetime | Full access |
+Shows in dashboard:
+- Unique referral link with copy button
+- Stats: Signed up, Subscribed, Rewards earned
+- "How it works" expandable section
 
 ---
 
-## Implementation Sequence
+## Edge Cases Handled
 
-### Phase 1: Database & Core (Day 1)
-1. Create database tables
-2. Generate referral code on user creation
-3. Build code generation and lookup functions
-
-### Phase 2: Tracking (Day 2)
-4. Create /r/[code] redirect page
-5. Set attribution cookie
-6. Track clicks and signups
-7. Extend trial for referred users
-
-### Phase 3: Rewards (Day 3)
-8. Add Stripe webhook for conversion tracking
-9. Implement free month granting logic
-10. Send reward notification emails
-
-### Phase 4: UI (Day 4-5)
-11. Create referral dashboard page
-12. Add dashboard widget
-13. Add share buttons (Twitter, LinkedIn, Email)
-14. Add referral banner for referred users
+| Scenario | Handling |
+|----------|----------|
+| Self-referral | Blocked in claim API |
+| Reuse code | Each user can only use one code ever |
+| Invalid code | Graceful redirect to signup without code |
+| OAuth flow | Code stored in sessionStorage, claimed after OAuth |
+| Referrer on free tier | Grant 30-day Pro directly in database |
 
 ---
 
 ## Verification Checklist
 
-- [ ] Referral code generated for each user
-- [ ] /r/[code] redirects correctly with attribution
-- [ ] Cookie persists for 30 days
-- [ ] Signup correctly links referee to referrer
-- [ ] Trial extended to 30 days for referred users
-- [ ] Stripe webhook triggers conversion tracking
-- [ ] Free month correctly added to referrer account
-- [ ] Email sent on successful referral
-- [ ] Dashboard shows accurate stats
-- [ ] Share buttons work correctly
-- [ ] Privacy-safe email display (j***@email.com)
-
----
-
-## Fraud Prevention
-
-| Risk | Mitigation |
-|------|------------|
-| Self-referral | Block same email domain, IP check |
-| Disposable emails | Block known disposable domains |
-| Multiple accounts | Require unique payment method |
-| Click farming | Rate limit, require signup for tracking |
-
----
-
-## Success Metrics
-
-| Metric | Target (3 months) |
-|--------|-------------------|
-| Referral participation | 20% of Pro users share link |
-| Signup conversion | 30% of clicks become signups |
-| Pro conversion | 15% of referred signups convert |
-| Referral-sourced revenue | 10% of new MRR |
+- [x] Referral code generated for each user on first visit to widget
+- [x] /r/[code] redirects correctly with referral param
+- [x] Signup page shows referral banner when code present
+- [x] OAuth flow preserves referral code via sessionStorage
+- [x] Trial extended to 30 days for referred users at checkout
+- [x] Stripe webhook triggers conversion tracking
+- [x] Reward correctly applied to referrer based on their tier
+- [x] Dashboard widget shows accurate stats
 
 ---
 
 ## Future Enhancements
 
+- Email notification when referral converts
 - Tiered rewards (more referrals = better rewards)
 - Leaderboard for top referrers
 - Custom referral links (/r/yourname)
 - Partner program for affiliates
-- Referral contests/campaigns
-- In-app notifications for referral activity
+- Social share buttons in widget
