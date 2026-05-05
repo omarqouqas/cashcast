@@ -306,20 +306,23 @@ lib/tools/
 **Status:** Completed May 4, 2026
 
 **Implementation:**
-- **SMS Alerts (via Twilio):** Phone verification with 6-digit code, critical alerts only
-- **Web Push Notifications:** Browser notifications for all alert types, service worker
-- **Unified Notification Router:** Routes alerts to enabled channels based on user preferences
-- **Settings UI:** Phone verification flow, push permission request, channel toggles
+- **SMS Alerts (via Twilio):** Pro-only feature, phone verification with 6-digit code, critical alerts only
+- **Web Push Notifications:** Free for all users, browser notifications for all alert types, service worker
+- **Unified Notification Router:** Routes alerts to enabled channels based on user preferences and subscription tier
+- **Settings UI:** Phone verification flow (Pro), push permission request (all), channel toggles
 
 **Channel Matrix:**
 
-| Alert Type | Email | SMS | Push |
-|------------|-------|-----|------|
+| Alert Type | Email | SMS (Pro) | Push |
+|------------|-------|-----------|------|
 | Cash crunch (<7 days) | ✅ | ✅ | ✅ |
 | Invoice overdue | ✅ | ❌ | ✅ |
 | Bill collision | ✅ | ❌ | ❌ |
 
-**Design Decision:** SMS reserved for critical alerts only (cash crunch) to avoid alert fatigue and minimize costs (~$0.0075/SMS).
+**Design Decisions:**
+- SMS is **Pro-only** due to per-message costs (~$0.0075/SMS)
+- SMS reserved for critical alerts only (cash crunch) to avoid alert fatigue
+- Push notifications are free for all users (browser-native, no cost)
 
 **Files Created:**
 ```

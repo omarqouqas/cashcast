@@ -593,20 +593,21 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 
 **28. SMS/Push Low Balance Alerts ✅**
 - **Multi-channel notification system** for critical alerts
-- **SMS Alerts (via Twilio):**
+- **SMS Alerts (via Twilio) - Pro Only:**
   - Phone number verification with 6-digit SMS code
   - Reserved for critical alerts only (cash crunch) to avoid fatigue
-  - Cost: ~$0.0075/message
-- **Web Push Notifications:**
+  - Cost: ~$0.0075/message (reason for Pro-only restriction)
+  - Free users see "Upgrade to Pro" prompt in settings
+- **Web Push Notifications - Free for All:**
   - Browser notifications for all alert types
   - Service worker (`public/sw.js`) for background delivery
   - Works even when app is closed
   - Free (Web Push API)
 - **Unified notification router:**
-  - Routes based on alert type and user preferences
-  - Channels: Email (default), SMS (critical only), Push (all types)
+  - Routes based on alert type, user preferences, and subscription tier
+  - Channels: Email (default, all), SMS (Pro only, critical), Push (all, all types)
   - Per-alert-type channel preferences stored in user_settings
-- **Settings UI:** Phone verification flow, push permission request, channel toggles
+- **Settings UI:** Phone verification flow (Pro), push permission request (all), channel toggles
 - **Integration:** Low balance cron job sends to all enabled channels after email
 
 **13. Weekly Email Digest ✅**
@@ -669,22 +670,22 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 
 **16. SMS/Push Notification Channels ✅**
 - **Multi-channel notification system** for critical alerts
-- **SMS Alerts (via Twilio):**
+- **SMS Alerts (via Twilio) - Pro Only:**
   - Phone number verification with 6-digit SMS code
   - Reserved for critical alerts only (cash crunch) to avoid fatigue
-  - ~$0.0075/message cost
-- **Web Push Notifications:**
+  - ~$0.0075/message cost (reason for Pro restriction)
+- **Web Push Notifications - Free for All:**
   - Browser notifications for all alert types
   - Service worker for background delivery
   - Works even when app is closed
   - Free (Web Push API)
 - **Notification Router:**
-  - Unified routing based on alert type and user preferences
-  - Channels: Email (default), SMS (critical only), Push (all types)
+  - Unified routing based on alert type, preferences, and subscription tier
+  - Channels: Email (all), SMS (Pro only, critical), Push (all)
   - Per-alert-type channel preferences in settings
 - **Settings UI:**
-  - Phone verification flow with countdown timer
-  - Push notification permission request
+  - Phone verification flow (Pro users only)
+  - Push notification permission request (all users)
   - Enable/disable toggles per channel
 - **Integration:** Low balance cron job sends to all enabled channels
 

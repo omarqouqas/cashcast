@@ -30,23 +30,25 @@
 
 ## Recent Development (Days 60-75)
 
-### Day 75: SMS/Push Low Balance Alerts (May 4, 2026)
+### Day 75: SMS/Push Low Balance Alerts (May 4-5, 2026)
 
 **Major Feature: Multi-Channel Notifications** - Added SMS and Web Push notification channels for critical alerts. Users can now receive low balance warnings via SMS (Twilio) and browser push notifications in addition to email.
 
 **User Value:**
-- Receive immediate SMS alerts for cash crunch warnings (critical alerts only)
-- Enable browser push notifications for all alert types
+- Receive immediate SMS alerts for cash crunch warnings (Pro feature, critical alerts only)
+- Enable browser push notifications for all alert types (free for all users)
 - Phone number verification via 6-digit SMS code
 - Control notification preferences in Settings
 
 **Architecture:**
 
-| Channel | Provider | Cost | Use Case |
-|---------|----------|------|----------|
-| Email | Resend | ~$0.001/msg | All notifications (default) |
-| SMS | Twilio | ~$0.0075/msg | Critical alerts only (cash crunch) |
-| Push | Web Push API | Free | All alert types |
+| Channel | Provider | Cost | Use Case | Tier |
+|---------|----------|------|----------|------|
+| Email | Resend | ~$0.001/msg | All notifications (default) | All |
+| SMS | Twilio | ~$0.0075/msg | Critical alerts only (cash crunch) | **Pro only** |
+| Push | Web Push API | Free | All alert types | All |
+
+**May 5 Update: SMS is now Pro-only** - Due to per-message costs (~$0.0075/SMS), SMS alerts are restricted to Pro, Premium, and Lifetime subscribers. Free users see an "Upgrade to Pro" prompt. Push notifications remain free for all users.
 
 **Notification Flow:**
 ```
@@ -56,11 +58,11 @@ Check user notification settings
     ↓
 Send Email (existing, always enabled)
     ↓
-If SMS enabled + phone verified + critical alert:
+If Pro subscriber + SMS enabled + phone verified + critical alert:
     → Send SMS via Twilio
     ↓
 If Push enabled + subscribed:
-    → Send Push notification
+    → Send Push notification (all users)
 ```
 
 **Database Migration (`20260504000003_add_notification_channels.sql`):**

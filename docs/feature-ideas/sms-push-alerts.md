@@ -69,11 +69,12 @@ Multi-channel notification system that sends critical alerts via SMS and Web Pus
 - **Use case:** All notifications (always enabled)
 - **Existing:** Was already implemented
 
-### SMS (Critical Only)
+### SMS (Critical Only) - Pro Feature
 - **Provider:** Twilio
 - **Cost:** ~$0.0075/message (US)
 - **Use case:** Cash crunch warnings only
-- **Requires:** Phone verification (6-digit code)
+- **Requires:** Pro subscription + Phone verification (6-digit code)
+- **Tier restriction:** Pro, Premium, or Lifetime subscribers only
 
 ### Web Push (All Alerts)
 - **Provider:** Web Push API (browser-native)
@@ -148,12 +149,16 @@ components/settings/
 
 ---
 
-## Phone Verification Flow
+## Phone Verification Flow (Pro Users Only)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                 PHONE VERIFICATION FLOW                       │
+│           PHONE VERIFICATION FLOW (PRO ONLY)                 │
 ├──────────────────────────────────────────────────────────────┤
+│                                                              │
+│  0. User must have Pro, Premium, or Lifetime subscription    │
+│     - Free users see "Upgrade to Pro" prompt instead         │
+│     - API returns 403 Forbidden for free users               │
 │                                                              │
 │  1. User enters phone number in Settings                     │
 │     ┌─────────────────────────────────┐                      │
@@ -267,13 +272,17 @@ self.addEventListener('notificationclick', (event) => {
 
 ## Alert Types & Channels
 
-| Alert Type | Email | SMS | Push | Priority |
-|------------|-------|-----|------|----------|
+| Alert Type | Email | SMS (Pro) | Push | Priority |
+|------------|-------|-----------|------|----------|
 | Cash Crunch | ✅ | ✅ | ✅ | Critical |
 | Invoice Overdue | ✅ | ❌ | ✅ | Warning |
 | Bill Collision | ✅ | ❌ | ❌ | Info |
 
-**Design Decision:** SMS is reserved for critical alerts only (cash crunch) to avoid alert fatigue and minimize costs.
+**Design Decisions:**
+- SMS is a **Pro-only feature** due to per-message costs (~$0.0075/SMS)
+- SMS is reserved for critical alerts only (cash crunch) to avoid alert fatigue
+- Push notifications are **free for all users** (browser-native, no cost)
+- Free users see an "Upgrade to Pro" prompt in the SMS section
 
 ---
 
@@ -319,6 +328,7 @@ Action: Opens /dashboard
 
 Location: `components/settings/notification-channels-form.tsx`
 
+### Pro User View
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  🔔 Notification Channels                                   │
@@ -341,13 +351,35 @@ Location: `components/settings/notification-channels-form.tsx`
 │  │ ✓ Push notifications enabled         [Disable]     │    │
 │  └─────────────────────────────────────────────────────┘    │
 │                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Free User View
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🔔 Notification Channels                                   │
+│  Choose how you want to receive critical alerts             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  📱 SMS Alerts                              [🔒 Pro]        │
+│  Receive SMS for critical alerts like cash crunch warnings. │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │ SMS alerts are available for Pro subscribers.       │    │
+│  │ Get instant notifications when your balance is      │    │
+│  │ projected to drop below your safety buffer.         │    │
+│  │                                                     │    │
+│  │              [Upgrade to Pro]                       │    │
+│  └─────────────────────────────────────────────────────┘    │
+│                                                             │
 │  ─────────────────────────────────────────────────────────  │
 │                                                             │
-│  ℹ️ SMS is reserved for critical alerts only (cash crunch  │
-│  warnings) to avoid alert fatigue.                          │
+│  📲 Push Notifications                                      │
+│  Receive browser notifications for all alert types.        │
 │                                                             │
-│  Push notifications can be enabled for all alert types      │
-│  including invoice reminders and bill collisions.           │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │        [Enable Push Notifications]                  │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
