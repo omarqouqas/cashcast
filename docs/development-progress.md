@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 4, 2026 (Day 74)
+**Last Updated:** May 4, 2026 (Day 75)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 74
+- **Days in Development:** 75
 - **Commits:** 410+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + **Referral Program**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + **SMS/Push Low Balance Alerts**
 
 **Current Focus:**
 
@@ -28,7 +28,115 @@
 
 ---
 
-## Recent Development (Days 60-74)
+## Recent Development (Days 60-75)
+
+### Day 75: SMS/Push Low Balance Alerts (May 4, 2026)
+
+**Major Feature: Multi-Channel Notifications** - Added SMS and Web Push notification channels for critical alerts. Users can now receive low balance warnings via SMS (Twilio) and browser push notifications in addition to email.
+
+**User Value:**
+- Receive immediate SMS alerts for cash crunch warnings (critical alerts only)
+- Enable browser push notifications for all alert types
+- Phone number verification via 6-digit SMS code
+- Control notification preferences in Settings
+
+**Architecture:**
+
+| Channel | Provider | Cost | Use Case |
+|---------|----------|------|----------|
+| Email | Resend | ~$0.001/msg | All notifications (default) |
+| SMS | Twilio | ~$0.0075/msg | Critical alerts only (cash crunch) |
+| Push | Web Push API | Free | All alert types |
+
+**Notification Flow:**
+```
+Low Balance Detected (cron job)
+    ↓
+Check user notification settings
+    ↓
+Send Email (existing, always enabled)
+    ↓
+If SMS enabled + phone verified + critical alert:
+    → Send SMS via Twilio
+    ↓
+If Push enabled + subscribed:
+    → Send Push notification
+```
+
+**Database Migration (`20260504000003_add_notification_channels.sql`):**
+```sql
+-- SMS settings
+sms_alerts_enabled BOOLEAN DEFAULT false,
+phone_number VARCHAR(20),
+phone_verified BOOLEAN DEFAULT false,
+phone_verification_code VARCHAR(6),
+phone_verification_expires_at TIMESTAMPTZ,
+
+-- Push settings
+push_alerts_enabled BOOLEAN DEFAULT false,
+push_subscription JSONB
+```
+
+**Files Created (16 new files):**
+```
+lib/sms/
+├── types.ts              # SMS result types
+├── twilio.ts             # Twilio client setup
+├── send-sms.ts           # SMS sending + phone validation
+├── verify-phone.ts       # 6-digit code verification flow
+└── index.ts              # Exports
+
+lib/push/
+├── types.ts              # Push subscription types
+├── vapid.ts              # VAPID key configuration
+├── send-push.ts          # Send push notifications
+├── subscribe.ts          # Subscription management
+└── index.ts              # Exports
+
+lib/notifications/
+├── types.ts              # Notification channel types
+├── router.ts             # Unified notification router
+└── index.ts              # Exports
+
+app/api/sms/
+├── send-verification/route.ts   # Send verification code
+└── verify/route.ts              # Verify code
+
+app/api/push/
+└── subscribe/route.ts           # Manage push subscriptions
+
+public/sw.js                     # Service worker for push
+components/settings/notification-channels-form.tsx
+supabase/migrations/20260504000003_add_notification_channels.sql
+```
+
+**Files Modified:**
+- `app/dashboard/settings/page.tsx` - Added NotificationChannelsForm
+- `lib/email/send-low-balance-alert.ts` - Added SMS/Push sending after email
+- `docs/feature-ideas/prioritized-features-roadmap.md` - Updated statuses
+
+**Dependencies Added:**
+```json
+"twilio": "^5.x",
+"web-push": "^3.x",
+"@types/web-push": "^3.x"
+```
+
+**Environment Variables Required:**
+```
+TWILIO_ACCOUNT_SID=xxx
+TWILIO_AUTH_TOKEN=xxx
+TWILIO_PHONE_NUMBER=+1234567890
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=xxx
+VAPID_PRIVATE_KEY=xxx
+VAPID_SUBJECT=mailto:support@cashcast.io
+```
+
+**Roadmap Updates:**
+- AI Recurring Detection (PDF) marked as ✅ DONE (was already implemented)
+- SMS/Push Low Balance Alerts marked as 🚧 In Progress
+
+---
 
 ### Day 74: Referral Program Bug Fixes (May 4, 2026)
 

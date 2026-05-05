@@ -2,7 +2,7 @@
 
 **Created:** April 23, 2026
 **Source:** Micro-SaaS Ideas Database (190+ products) + Market Research
-**Last Updated:** May 1, 2026
+**Last Updated:** May 4, 2026
 
 ---
 
@@ -15,9 +15,9 @@
 | **3** | Time Tracking + Invoicing | $850 | 87 | High | High | ✅ DONE |
 | **4** | Automated Payment Reminders | $3,500 | 80 | High | Low | ✅ DONE |
 | **5** | Referral Program | — | — | High | Medium | ✅ DONE |
-| **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | 🆕 New |
+| **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | ✅ DONE |
 | **7** | Email Signature Generator | $55,000 | 90 | Medium | Low | ✅ DONE |
-| **8** | SMS/Push Low Balance Alerts | $50,000 | 72 | Medium | Medium | 🆕 New |
+| **8** | SMS/Push Low Balance Alerts | $50,000 | 72 | Medium | Medium | 🚧 In Progress |
 | **9** | Telegram/WhatsApp Bot | $8,000 | 90 | Low | Medium | 🆕 New |
 | **10** | AI Excel Formula Helper | $23,000 | 91 | Low | Medium | 🆕 New |
 
@@ -219,46 +219,30 @@ components/dashboard/referral-widget.tsx
 
 ---
 
-### 6. AI Recurring Detection (PDF Enhancement) 🆕 NEW
+### 6. AI Recurring Detection (PDF Enhancement) ✅ COMPLETED
 
-**Why It Matters:**
-- PDF import already exists; this makes it smarter
-- Auto-detects recurring patterns from bank statements
-- Reduces manual categorization further
+**Status:** Completed (implemented alongside PDF import)
 
-**Proposed Implementation:**
+**Implementation:**
+- `lib/import/recurring-detector.ts` - Full pattern detection algorithm (460+ lines)
+- `components/import/recurring-patterns-card.tsx` - UI for displaying detected patterns
+- Integrated into PDF import flow at `components/import/pdf-import-page-client.tsx`
 
-When importing PDF transactions:
-1. Group similar transactions by description + amount
-2. Check if dates follow a pattern (monthly, weekly, etc.)
-3. If confidence > 80%, prompt user:
-   > "We found SPOTIFY PREMIUM ($9.99) on the 18th of each month. Import as recurring bill?"
+**Features:**
+- Groups transactions by similar description + amount (±10% variance)
+- 40+ merchant normalizations (Netflix, Spotify, AWS, etc.)
+- Detects frequencies: weekly, biweekly, semi-monthly, monthly, quarterly, annually
+- Confidence scoring with badges (High ≥70%, Medium 50-69%, Low <50%)
+- Auto-pre-selects high-confidence patterns (≥60%)
+- User can select/deselect patterns before applying
 
-**Algorithm:**
-```typescript
-interface RecurringPattern {
-  description: string;
-  amount: number;
-  frequency: 'weekly' | 'biweekly' | 'monthly' | 'quarterly';
-  confidence: number;
-  occurrences: Date[];
-}
-
-function detectRecurring(transactions: Transaction[]): RecurringPattern[] {
-  // 1. Group by similar description (fuzzy match) + same amount (±5%)
-  // 2. Check if date intervals are consistent
-  // 3. Return patterns with confidence > 70%
-}
+**Files Created:**
+```
+lib/import/recurring-detector.ts
+components/import/recurring-patterns-card.tsx
 ```
 
-**Files to Create:**
-```
-lib/import/
-└── recurring-detector.ts    # Pattern detection algorithm
-```
-
-**Effort:** Low (1-2 days)
-**Impact:** Medium (improves existing feature)
+**Impact:** Medium (improves existing PDF import feature)
 
 ---
 
@@ -477,4 +461,6 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 | Apr 29, 2026 | Implement Email Signature Generator | Free SEO tool for lead generation, 4 templates, quick win |
 | Apr 29, 2026 | Implement Time Tracking + Invoicing | Completes freelancer workflow, high stickiness, unique differentiator |
 | May 3, 2026 | Implement Referral Program | Low CAC acquisition, compounds over time, no competitor has it |
+| May 4, 2026 | Mark AI Recurring Detection as done | Was already implemented with PDF import, roadmap updated |
+| May 4, 2026 | Start SMS/Push Low Balance Alerts | Next priority feature for immediate critical notifications |
 

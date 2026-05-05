@@ -5,6 +5,9 @@ import { buildLowBalanceAlertEmail } from '@/lib/email/templates/low-balance-ale
 import { createAdminClient } from '@/lib/supabase/admin';
 import { captureServerEvent } from '@/lib/posthog/server';
 import generateCalendar from '@/lib/calendar/generate';
+import { sendLowBalanceAlertSMS, isTwilioConfigured } from '@/lib/sms';
+import { sendLowBalanceAlertPush, isWebPushConfigured } from '@/lib/push';
+import type { PushSubscription } from '@/lib/push';
 
 interface SendAlertResult {
   success: boolean;
@@ -50,6 +53,84 @@ function isWithinCooldown(lastSentAt: string | null): boolean {
   const lastSent = new Date(lastSentAt);
   const cooldownMs = ALERT_COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
   return Date.now() - lastSent.getTime() < cooldownMs;
+}
+
+/**
+ * Send SMS and Push notifications for low balance alert
+ * This is called after the email is sent successfully
+ */
+async function sendAdditionalAlertChannels(
+  userId: string,
+  amount: string,
+  daysUntil: number,
+  currency: string
+): Promise<void> {
+  const supabase = createAdminClient();
+
+  // Get user's notification settings
+  // Note: These columns are added by migration 20260504000003_add_notification_channels.sql
+  const { data: rawSettings } = await supabase
+    .from('user_settings')
+    .select('phone_number, phone_verified, sms_alerts_enabled, push_subscription, push_alerts_enabled')
+    .eq('user_id', userId)
+    .single();
+
+  const settings = rawSettings as {
+    phone_number: string | null;
+    phone_verified: boolean;
+    sms_alerts_enabled: boolean;
+    push_subscription: PushSubscription | null;
+    push_alerts_enabled: boolean;
+  } | null;
+
+  if (!settings) return;
+
+  // Send SMS if enabled and configured
+  if (
+    isTwilioConfigured() &&
+    settings.sms_alerts_enabled &&
+    settings.phone_verified &&
+    settings.phone_number
+  ) {
+    try {
+      const result = await sendLowBalanceAlertSMS(
+        settings.phone_number,
+        amount,
+        daysUntil,
+        currency
+      );
+      if (result.success) {
+        console.log(`SMS alert sent to user ${userId}`);
+      } else {
+        console.error(`SMS alert failed for user ${userId}:`, result.error);
+      }
+    } catch (err) {
+      console.error(`SMS alert error for user ${userId}:`, err);
+    }
+  }
+
+  // Send Push if enabled and configured
+  if (
+    isWebPushConfigured() &&
+    settings.push_alerts_enabled &&
+    settings.push_subscription
+  ) {
+    try {
+      const result = await sendLowBalanceAlertPush(
+        settings.push_subscription as PushSubscription,
+        amount,
+        daysUntil,
+        currency
+      );
+      if (result.success) {
+        console.log(`Push alert sent to user ${userId}`);
+      } else {
+        console.error(`Push alert failed for user ${userId}:`, result.error);
+      }
+    } catch (err) {
+      console.error(`Push alert error for user ${userId}:`, err);
+    }
+  }
 }
 
 export async function sendLowBalanceAlert(userData: UserAlertData): Promise<SendAlertResult> {
@@ -175,6 +256,14 @@ export async function sendLowBalanceAlert(userData: UserAlertData): Promise<Send
         is_overdraft: lowBalanceDay.balance < 0,
       },
     });
+
+    // Send SMS and Push notifications if configured
+    await sendAdditionalAlertChannels(
+      userData.userId,
+      Math.abs(lowBalanceDay.balance).toFixed(2),
+      daysUntilLow,
+      userData.currency
+    );
 
     return { success: true, messageId };
   } catch (e) {

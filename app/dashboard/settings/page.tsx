@@ -22,6 +22,7 @@ import { CurrencyForm } from '@/components/settings/currency-form';
 import { EmailDigestForm } from '@/components/settings/email-digest-form';
 import { LowBalanceAlertForm } from '@/components/settings/low-balance-alert-form';
 import { AutoRemindersForm } from '@/components/settings/auto-reminders-form';
+import { NotificationChannelsForm } from '@/components/settings/notification-channels-form';
 import { TaxSettingsForm } from '@/components/settings/tax-settings-form';
 import { EmergencyFundForm } from '@/components/settings/emergency-fund-form';
 import { SubscriptionStatus } from '@/components/subscription/subscription-status';
@@ -49,7 +50,7 @@ export default async function SettingsPage() {
     supabase
       .from('user_settings')
       .select(
-        'currency, safety_buffer, timezone, email_digest_enabled, email_digest_day, low_balance_alert_enabled, auto_reminders_enabled, tax_rate, tax_tracking_enabled, tax_year, estimated_tax_q1_paid, estimated_tax_q2_paid, estimated_tax_q3_paid, estimated_tax_q4_paid, emergency_fund_enabled, emergency_fund_goal_months, emergency_fund_account_id, business_name, logo_url'
+        'currency, safety_buffer, timezone, email_digest_enabled, email_digest_day, low_balance_alert_enabled, auto_reminders_enabled, tax_rate, tax_tracking_enabled, tax_year, estimated_tax_q1_paid, estimated_tax_q2_paid, estimated_tax_q3_paid, estimated_tax_q4_paid, emergency_fund_enabled, emergency_fund_goal_months, emergency_fund_account_id, business_name, logo_url, phone_number, phone_verified, sms_alerts_enabled, push_alerts_enabled, push_subscription'
       )
       .eq('user_id', user.id)
       .single(),
@@ -98,6 +99,13 @@ export default async function SettingsPage() {
   // Invoice branding settings
   const businessName = settingsData?.business_name ?? null;
   const logoUrl = settingsData?.logo_url ?? null;
+
+  // Notification channel settings
+  const phoneNumber = settingsData?.phone_number ?? null;
+  const phoneVerified = settingsData?.phone_verified ?? false;
+  const smsEnabled = settingsData?.sms_alerts_enabled ?? false;
+  const pushEnabled = settingsData?.push_alerts_enabled ?? false;
+  const pushSubscribed = settingsData?.push_subscription != null;
 
   // Calculate monthly expenses from bills
   const monthlyExpenses = bills.reduce((total: number, bill: any) => {
@@ -234,6 +242,13 @@ export default async function SettingsPage() {
           <div className="space-y-4">
             <EmailDigestForm initialEnabled={digestEnabled} initialDay={digestDay} />
             <LowBalanceAlertForm initialEnabled={lowBalanceAlertEnabled} safetyBuffer={safetyBuffer} currency={currency} />
+            <NotificationChannelsForm
+              initialPhoneNumber={phoneNumber}
+              initialPhoneVerified={phoneVerified}
+              initialSmsEnabled={smsEnabled}
+              initialPushEnabled={pushEnabled}
+              initialPushSubscribed={pushSubscribed}
+            />
             {subscription.tier !== 'free' && (
               <AutoRemindersForm initialEnabled={autoRemindersEnabled} />
             )}
