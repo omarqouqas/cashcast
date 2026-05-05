@@ -186,7 +186,7 @@ const howToSchema = {
       '@type': 'HowToStep',
       position: 4,
       name: 'Stay Informed',
-      text: 'Receive weekly digests and alerts delivered to your inbox to stay on top of your cash flow.',
+      text: 'Receive alerts via email, push notifications, or SMS when your balance needs attention.',
     },
   ],
 } as const;
@@ -458,7 +458,7 @@ export default async function Home({ searchParams }: HomeProps) {
                   </div>
                 </div>
                 <h3 className="mt-4 font-semibold text-white">Stay Informed</h3>
-                <p className="mt-2 text-zinc-400">Get weekly digests and alerts delivered to your inbox.</p>
+                <p className="mt-2 text-zinc-400">Get alerts via email, push notifications, or SMS (Pro) when it matters.</p>
               </div>
             </div>
 
@@ -631,7 +631,11 @@ export default async function Home({ searchParams }: HomeProps) {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5" />
-                      <span>Upcoming expense warnings</span>
+                      <span>Push notifications (free for all)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-teal-300 mt-0.5" />
+                      <span>SMS alerts for cash crunch (Pro)</span>
                     </li>
                   </ul>
                 </div>

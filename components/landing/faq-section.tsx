@@ -46,6 +46,10 @@ const faqs: FAQItem[] = [
     answer: "Every week, you'll receive an email summarizing your upcoming cash flow: total income expected, bills due, your lowest balance day, and any alerts like bill collisions or overdraft risks. You can customize which day and time you receive it in your settings."
   },
   {
+    question: "How do SMS and Push notifications work?",
+    answer: "Cashcast offers three notification channels for critical alerts. Email notifications are always on for all users. Push notifications (browser-based) are free for all users—enable them in Settings and receive alerts even when the app is closed. SMS alerts are a Pro feature for critical cash crunch warnings only—verify your phone number in Settings to receive a text when your balance is projected to drop below your safety buffer. We limit SMS to critical alerts to avoid notification fatigue and keep costs down. You can manage all notification preferences in your Settings page."
+  },
+  {
     question: "How is this different from Mint or YNAB?",
     answer: "Traditional budgeting apps like Mint and YNAB focus on tracking where your money went—they're backward-looking. Cashcast is forward-looking. Instead of categorizing past expenses, we show you your projected daily balance for up to a full year ahead. The calendar interface answers the real question freelancers have: 'Can I afford this expense before my next paycheck arrives?' Plus, our 'Can I Afford It?' feature lets you test hypothetical purchases and see exactly how they'd impact your future balance."
   },
@@ -59,7 +63,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What's the difference between Free and Pro?",
-    answer: "The Free plan gives you the core experience: up to 10 bills, 10 income sources, 90-day forecast, AI risk analysis with confidence bands, 5 Ask Cashcast queries per day, auto-categorization for 10 transactions per import, CSV & Excel import, and CSV export. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), gives you unlimited Ask Cashcast queries, increases auto-categorization to 50 transactions per import, adds full Reports & Export with Excel and JSON formats, credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
+    answer: "The Free plan gives you the core experience: up to 10 bills, 10 income sources, 90-day forecast, AI risk analysis with confidence bands, 5 Ask Cashcast queries per day, auto-categorization for 10 transactions per import, CSV & Excel import, CSV export, and low balance alerts via email and push notifications. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), gives you unlimited Ask Cashcast queries, increases auto-categorization to 50 transactions per import, adds SMS alerts for critical cash crunch warnings, full Reports & Export with Excel and JSON formats, credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
   },
   {
     question: "Do you offer a lifetime deal?",
