@@ -248,6 +248,7 @@ export default async function SettingsPage() {
               initialSmsEnabled={smsEnabled}
               initialPushEnabled={pushEnabled}
               initialPushSubscribed={pushSubscribed}
+              isPro={subscription.tier !== 'free'}
             />
             {subscription.tier !== 'free' && (
               <AutoRemindersForm initialEnabled={autoRemindersEnabled} />

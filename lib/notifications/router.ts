@@ -19,6 +19,8 @@ import {
   SMS_ALLOWED_ALERT_TYPES,
 } from './types';
 
+type SubscriptionTier = 'free' | 'pro' | 'premium' | 'lifetime';
+
 type UserNotificationSettings = {
   phone_number: string | null;
   phone_verified: boolean;
@@ -28,6 +30,28 @@ type UserNotificationSettings = {
   notification_preferences: ChannelPreferences | null;
   currency: string;
 };
+
+/**
+ * Get user's subscription tier
+ */
+async function getUserSubscriptionTier(userId: string): Promise<SubscriptionTier> {
+  const supabase = createAdminClient();
+
+  const { data } = await supabase
+    .from('subscriptions')
+    .select('tier, status')
+    .eq('user_id', userId)
+    .single();
+
+  if (!data) return 'free';
+
+  // Only active or trialing subscriptions count
+  if (data.status !== 'active' && data.status !== 'trialing') {
+    return 'free';
+  }
+
+  return (data.tier as SubscriptionTier) || 'free';
+}
 
 /**
  * Get user notification settings from database
@@ -128,6 +152,13 @@ export async function sendNotification(
 
         // Check if Twilio is configured
         if (!isTwilioConfigured()) {
+          skipped.push('sms');
+          break;
+        }
+
+        // Check if user has Pro subscription (SMS is Pro-only)
+        const tier = await getUserSubscriptionTier(userId);
+        if (tier === 'free') {
           skipped.push('sms');
           break;
         }

@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useTransition, useEffect } from 'react';
-import { Bell, Phone, Smartphone, Check, X, Loader2 } from 'lucide-react';
+import { Bell, Phone, Smartphone, Check, X, Loader2, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
   initialPhoneNumber?: string | null;
@@ -11,6 +12,7 @@ type Props = {
   initialSmsEnabled?: boolean;
   initialPushEnabled?: boolean;
   initialPushSubscribed?: boolean;
+  isPro?: boolean;
 };
 
 export function NotificationChannelsForm({
@@ -19,6 +21,7 @@ export function NotificationChannelsForm({
   initialSmsEnabled = false,
   initialPushEnabled = false,
   initialPushSubscribed = false,
+  isPro = false,
 }: Props) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -215,7 +218,13 @@ export function NotificationChannelsForm({
           <div className="flex items-center gap-3 mb-3">
             <Phone className="w-5 h-5 text-zinc-400" />
             <h4 className="font-medium text-zinc-100">SMS Alerts</h4>
-            {phoneVerified && (
+            {!isPro && (
+              <span className="text-xs bg-teal-500/20 text-teal-400 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Lock className="w-3 h-3" />
+                Pro
+              </span>
+            )}
+            {isPro && phoneVerified && (
               <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">
                 Verified
               </span>
@@ -225,7 +234,18 @@ export function NotificationChannelsForm({
             Receive SMS for critical alerts like cash crunch warnings. Standard messaging rates apply.
           </p>
 
-          {!phoneVerified ? (
+          {!isPro ? (
+            <div className="bg-zinc-800/50 rounded-lg p-4">
+              <p className="text-sm text-zinc-300 mb-3">
+                SMS alerts are available for Pro subscribers. Get instant notifications when your balance is projected to drop below your safety buffer.
+              </p>
+              <Link href="/pricing">
+                <Button size="sm" variant="secondary">
+                  Upgrade to Pro
+                </Button>
+              </Link>
+            </div>
+          ) : !phoneVerified ? (
             <div className="space-y-3">
               <div className="flex gap-2">
                 <input
