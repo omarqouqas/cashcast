@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.27
-**Last Updated:** May 1, 2026
-**Status:** Live - Time Tracking + Invoicing Complete
+**Version:** 6.28
+**Last Updated:** May 4, 2026
+**Status:** Live - SMS/Push Alerts + Referral Program Complete
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -554,6 +554,61 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - Unique index prevents duplicate reminders per stage
 - Coexists with manual reminder system
 
+**26. Time Tracking + Invoicing ✅**
+- **Persistent timer widget** in dashboard header
+  - Start/stop/reset controls
+  - Current session display with running time
+  - Client/project dropdown (optional)
+  - Rate input for billable tracking
+  - localStorage-backed for persistence across pages
+- **Time entries page** (`/dashboard/time`)
+  - List of all time entries with filters (date range, client, project, billable)
+  - Manual time entry form
+  - Edit/delete functionality
+  - Bulk selection for invoice creation
+- **Invoice integration:**
+  - Create invoice from selected time entries
+  - Auto-calculates line items (hours × rate)
+  - `invoice_items` table for detailed breakdown
+  - PDF template with line items section
+- **Dashboard widget:** Uninvoiced time summary
+- **Settings page** (`/dashboard/time/settings`)
+  - Default hourly rate
+  - Default billable status
+  - Rounding preferences (1, 5, 15, 30 min)
+
+**27. Referral Program ✅**
+- **Unique referral links:** 8-character codes (e.g., `cashcast.io/r/ABC123XY`)
+- **Referrer reward:** 1 month free Pro when referee subscribes
+- **Referee reward:** 30-day Pro trial on signup
+- **Referral flow:**
+  - Share link → Friend signs up → 30-day trial applied
+  - When friend pays → Referrer gets 1 month credit
+- **Reward logic (Stripe webhook):**
+  - Lifetime users: Marked as rewarded (already have max benefits)
+  - Pro subscribers: 1-month Stripe credit added to balance
+  - Free users: 30-day Pro access granted in database
+- **Dashboard widget:** Link sharing with copy button, stats (signed up, subscribed, rewards)
+- **Database:** `referrals` table with status tracking (pending → signed_up → converted → rewarded)
+
+**28. SMS/Push Low Balance Alerts ✅**
+- **Multi-channel notification system** for critical alerts
+- **SMS Alerts (via Twilio):**
+  - Phone number verification with 6-digit SMS code
+  - Reserved for critical alerts only (cash crunch) to avoid fatigue
+  - Cost: ~$0.0075/message
+- **Web Push Notifications:**
+  - Browser notifications for all alert types
+  - Service worker (`public/sw.js`) for background delivery
+  - Works even when app is closed
+  - Free (Web Push API)
+- **Unified notification router:**
+  - Routes based on alert type and user preferences
+  - Channels: Email (default), SMS (critical only), Push (all types)
+  - Per-alert-type channel preferences stored in user_settings
+- **Settings UI:** Phone verification flow, push permission request, channel toggles
+- **Integration:** Low balance cron job sends to all enabled channels after email
+
 **13. Weekly Email Digest ✅**
 - Weekly summary of next 7 days (income, bills, net change)
 - Alerts: low balance, overdraft risk, bill collisions
@@ -612,10 +667,26 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - Automatic transaction import
 - Real-time balance updates
 
-**16. Notifications** (Planned)
-- Low balance alerts
-- Bill due reminders
-- SMS alerts (Premium)
+**16. SMS/Push Notification Channels ✅**
+- **Multi-channel notification system** for critical alerts
+- **SMS Alerts (via Twilio):**
+  - Phone number verification with 6-digit SMS code
+  - Reserved for critical alerts only (cash crunch) to avoid fatigue
+  - ~$0.0075/message cost
+- **Web Push Notifications:**
+  - Browser notifications for all alert types
+  - Service worker for background delivery
+  - Works even when app is closed
+  - Free (Web Push API)
+- **Notification Router:**
+  - Unified routing based on alert type and user preferences
+  - Channels: Email (default), SMS (critical only), Push (all types)
+  - Per-alert-type channel preferences in settings
+- **Settings UI:**
+  - Phone verification flow with countdown timer
+  - Push notification permission request
+  - Enable/disable toggles per channel
+- **Integration:** Low balance cron job sends to all enabled channels
 
 ---
 
@@ -640,11 +711,15 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 | "Can I Afford It?" | ✅ | ✅ | ✅ |
 | Weekly Email Digest | ✅ | ✅ | ✅ |
 | Bill Collision Alerts | ✅ | ✅ | ✅ |
+| Push Notifications | ✅ | ✅ | ✅ |
+| SMS Alerts (Critical) | ❌ | ✅ | ✅ |
 | CSV Import | ✅ | ✅ | ✅ |
 | Onboarding Wizard | ✅ | ✅ | ✅ |
 | Runway Collect Invoicing | ❌ | ✅ | ✅ |
 | PDF Invoices | ❌ | ✅ | ✅ |
 | Payment Reminders | ❌ | ✅ | ✅ |
+| Time Tracking | ❌ | ✅ | ✅ |
+| Referral Rewards | ✅ | ✅ | ✅ |
 | CSV Export | ✅ | ✅ | ✅ |
 | Excel/JSON Export | ❌ | ✅ | ✅ |
 | Export History | 5 items | Unlimited | Unlimited |
