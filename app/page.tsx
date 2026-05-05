@@ -36,9 +36,9 @@ import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
 
 export const metadata: Metadata = {
-  title: 'Stop Guessing If You Can Afford It | Cashcast App',
+  title: 'Freelancers: See Your Bank Balance 90 Days Out | Cashcast',
   description:
-    'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later. Built for freelancers with irregular income.',
+    'Enter your bills and income. See exactly what you can afford today without overdrafting next month. Cash flow forecasting built for freelancers with irregular income.',
   keywords: [
     // Core product terms
     'cash flow calendar',
@@ -121,9 +121,9 @@ export const metadata: Metadata = {
     canonical: 'https://www.cashcast.money',
   },
   openGraph: {
-    title: 'Stop Guessing If You Can Afford It | Cashcast App',
+    title: 'Freelancers: See Your Bank Balance 90 Days Out | Cashcast',
     description:
-      'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
+      'Enter your bills and income. See exactly what you can afford today without overdrafting next month. Cash flow forecasting for freelancers.',
     url: 'https://www.cashcast.money',
     siteName: 'Cashcast',
     type: 'website',
@@ -132,15 +132,15 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Cashcast - See your bank balance 90 days ahead and know exactly what you can afford',
+        alt: 'Cashcast - Cash flow forecasting for freelancers. See your bank balance 90 days out.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stop Guessing If You Can Afford It | Cashcast App',
+    title: 'Freelancers: See Your Bank Balance 90 Days Out | Cashcast',
     description:
-      'See your real bank balance 90 days out — no bank connection required. One number tells you what\'s safe to spend today without overdrafting later.',
+      'Enter your bills and income. See exactly what you can afford today without overdrafting next month. Cash flow forecasting for freelancers.',
     images: ['/og-image.png'],
   },
 };
@@ -265,37 +265,17 @@ export default async function Home({ searchParams }: HomeProps) {
       <main>
         <section className="px-6 pt-16 pb-10">
           <div className="mx-auto max-w-5xl text-center">
-            <div className="flex flex-wrap justify-center gap-2">
-              <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900/60 border border-zinc-800 px-4 py-2 text-sm text-zinc-200">
-                <Sparkles className="h-4 w-4 text-teal-400" />
-                <span>Built for freelancers</span>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 text-sm text-emerald-300">
-                <Clock className="h-4 w-4" />
-                <span>Time → Invoice → Paid</span>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-violet-500/10 border border-violet-500/20 px-4 py-2 text-sm text-violet-300">
-                <Brain className="h-4 w-4" />
-                <span>AI-powered insights</span>
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-2 text-sm text-amber-300">
-                <Bell className="h-4 w-4" />
-                <span>Warns before cash crunches</span>
-              </div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900/60 border border-zinc-800 px-4 py-2 text-sm text-zinc-200">
+              <Calendar className="h-4 w-4 text-teal-400" />
+              <span>Cash flow forecasting for freelancers</span>
             </div>
 
             <h1 className="mt-6 text-4xl md:text-5xl font-bold text-white tracking-tight">
-              Stop guessing if you can afford it.
+              Freelancers: See your bank balance<br className="hidden sm:block" /> 90 days from now.
             </h1>
 
-            <p className="mt-5 text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
-              See your real bank balance <span className="text-teal-300 font-semibold">90 days out</span> — no bank connection required.
-            </p>
-            <p className="mt-2 text-lg text-zinc-300 max-w-2xl mx-auto">
-              Know exactly what&apos;s <span className="text-teal-300 font-semibold">safe to spend</span> today.
-            </p>
-            <p className="mt-3 text-lg text-zinc-400 max-w-xl mx-auto">
-              <span className="text-amber-300 font-medium">AI warns you before cash crunches hit.</span>
+            <p className="mt-5 text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+              Enter your bills and income. See exactly what you can afford today without overdrafting next month.
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-3">
