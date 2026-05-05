@@ -154,3 +154,48 @@ Interested?
 - "No pitch, just listening" disarms people
 - $20 for 20 min is a fair rate and shows you value their time
 - Keep it casual — Twitter isn't LinkedIn
+
+---
+
+## Async Survey (Online Form)
+
+For async research, keep it to 5-6 questions max or people drop off.
+
+**Recommended tool:** [Tally.so](https://tally.so) (free, clean, conversational) or Typeform (prettier, free tier limited)
+
+### The 6 Questions That Matter
+
+**1. What kind of freelance work do you do?**
+*(Context — who they are)*
+
+**2. How would you describe your income? (steady, irregular, feast-or-famine, etc.)**
+*(Their words matter — use them in your copy later)*
+
+**3. Think about the last time you felt stressed about money. What was happening?**
+*(This surfaces the real pain — let them tell a story)*
+
+**4. How do you currently figure out if you can afford something?**
+*(Current solution — spreadsheets, gut feel, checking bank app)*
+
+**5. What's the most frustrating part of managing money with irregular income?**
+*(The core problem in their words)*
+
+**6. If a tool could show you your bank balance 90 days from now, would that be useful? Why or why not?**
+*(Validates your positioning — the "why not" reveals objections)*
+
+### Optional Bonus Question
+
+> Would you be open to a 15-min call to tell me more? (Leave your email)
+
+*(Converts your best respondents to live interviews)*
+
+### Async vs Live Trade-offs
+
+| Async (Form) | Live (Call) |
+|--------------|-------------|
+| Scales to more people | Deeper insights |
+| Lower commitment | Can follow up on answers |
+| Surface-level answers | Hear emotion and hesitation |
+| Good for initial screening | Good for real understanding |
+
+**Recommendation:** Use async to find people with real pain, then convert them to live calls with the bonus question.
