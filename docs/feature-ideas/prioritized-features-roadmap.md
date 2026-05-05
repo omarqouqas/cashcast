@@ -17,7 +17,7 @@
 | **5** | Referral Program | — | — | High | Medium | ✅ DONE |
 | **6** | AI Recurring Detection (PDF) | — | — | Medium | Low | ✅ DONE |
 | **7** | Email Signature Generator | $55,000 | 90 | Medium | Low | ✅ DONE |
-| **8** | SMS/Push Low Balance Alerts | $50,000 | 72 | Medium | Medium | 🚧 In Progress |
+| **8** | SMS/Push Low Balance Alerts | $50,000 | 72 | Medium | Medium | ✅ DONE |
 | **9** | Telegram/WhatsApp Bot | $8,000 | 90 | Low | Medium | 🆕 New |
 | **10** | AI Excel Formula Helper | $23,000 | 91 | Low | Medium | 🆕 New |
 
@@ -292,7 +292,7 @@ lib/tools/
 
 ---
 
-### 8. SMS/Push Low Balance Alerts 🆕 NEW
+### 8. SMS/Push Low Balance Alerts ✅ COMPLETED
 
 **Database Reference:** Row 39 - "SMS messaging services" + Row 70 - "Business texting services"
 
@@ -303,26 +303,60 @@ lib/tools/
 | ICP | SMBs, Small Business Owners, Entrepreneurs |
 | Growth Tactics | Word of mouth, SEO |
 
-**Why It Matters:**
-- Proactive alerts already exist (dashboard + email)
-- SMS/push reaches users immediately
-- Critical alerts (cash crunch) need immediate attention
+**Status:** Completed May 4, 2026
 
-**Proposed Implementation:**
+**Implementation:**
+- **SMS Alerts (via Twilio):** Phone verification with 6-digit code, critical alerts only
+- **Web Push Notifications:** Browser notifications for all alert types, service worker
+- **Unified Notification Router:** Routes alerts to enabled channels based on user preferences
+- **Settings UI:** Phone verification flow, push permission request, channel toggles
 
-| Alert Type | Channel | Timing |
-|------------|---------|--------|
-| Cash crunch (<7 days) | SMS + Push | Immediate |
-| Bill collision | Push only | 3 days before |
-| Invoice overdue | Push only | Day of |
-| Opportunity window | Email only | Weekly digest |
+**Channel Matrix:**
 
-**Provider Options:**
-- Twilio (~$0.0075/SMS)
-- Web Push (free with service worker)
+| Alert Type | Email | SMS | Push |
+|------------|-------|-----|------|
+| Cash crunch (<7 days) | ✅ | ✅ | ✅ |
+| Invoice overdue | ✅ | ❌ | ✅ |
+| Bill collision | ✅ | ❌ | ❌ |
 
-**Effort:** Medium (4-5 days)
-**Impact:** Medium (engagement/retention)
+**Design Decision:** SMS reserved for critical alerts only (cash crunch) to avoid alert fatigue and minimize costs (~$0.0075/SMS).
+
+**Files Created:**
+```
+lib/sms/
+├── types.ts              # SMS result types
+├── twilio.ts             # Twilio client
+├── send-sms.ts           # SMS sending + validation
+├── verify-phone.ts       # Phone verification flow
+└── index.ts
+
+lib/push/
+├── types.ts              # Push subscription types
+├── vapid.ts              # VAPID configuration
+├── send-push.ts          # Push notifications
+├── subscribe.ts          # Subscription management
+└── index.ts
+
+lib/notifications/
+├── types.ts              # Channel types
+├── router.ts             # Unified notification router
+└── index.ts
+
+app/api/sms/
+├── send-verification/route.ts
+└── verify/route.ts
+
+app/api/push/
+└── subscribe/route.ts
+
+public/sw.js                              # Service worker
+components/settings/notification-channels-form.tsx
+supabase/migrations/20260504000003_add_notification_channels.sql
+```
+
+**Cost Estimate:** ~$7/month for 100 active users (SMS + Push)
+
+**Detailed Spec:** [sms-push-alerts.md](./sms-push-alerts.md)
 
 ---
 
@@ -418,11 +452,11 @@ that are greater than $1000, excluding low-income months.
 
 ### Phase 3: Engagement (4-6 weeks)
 
-| Feature | Days | Dependencies |
-|---------|------|--------------|
-| SMS/Push Alerts | 4-5 | Proactive alerts (exists) |
-| Telegram Bot | 5-7 | AI chat (exists) |
-| AI Excel Formula Helper | 3-4 | None |
+| Feature | Days | Dependencies | Status |
+|---------|------|--------------|--------|
+| SMS/Push Alerts | 4-5 | Proactive alerts (exists) | ✅ Done |
+| Telegram Bot | 5-7 | AI chat (exists) | 🆕 New |
+| AI Excel Formula Helper | 3-4 | None | 🆕 New |
 
 ---
 
@@ -434,7 +468,7 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 |--------|----------------------|-------------------|
 | SEO (blog posts, organic) | 80%+ | Free tools, comparison pages |
 | Word of mouth | 70%+ | Referral program |
-| Referral Program | 25%+ | 🆕 To implement |
+| Referral Program | 25%+ | ✅ Implemented |
 | Email marketing | 40%+ | Weekly digest (exists) |
 | Direct sales | 30%+ | Not applicable (self-serve) |
 
@@ -462,5 +496,5 @@ Based on the Micro-SaaS database, the most effective tactics for our ICP:
 | Apr 29, 2026 | Implement Time Tracking + Invoicing | Completes freelancer workflow, high stickiness, unique differentiator |
 | May 3, 2026 | Implement Referral Program | Low CAC acquisition, compounds over time, no competitor has it |
 | May 4, 2026 | Mark AI Recurring Detection as done | Was already implemented with PDF import, roadmap updated |
-| May 4, 2026 | Start SMS/Push Low Balance Alerts | Next priority feature for immediate critical notifications |
+| May 4, 2026 | Complete SMS/Push Low Balance Alerts | Multi-channel notifications: Twilio SMS (critical only), Web Push (all alerts), unified router |
 
