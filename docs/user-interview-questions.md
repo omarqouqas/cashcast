@@ -105,3 +105,52 @@ Log answers in a spreadsheet with columns:
 - Referrals given
 
 After 10 interviews, patterns will emerge. After 20, you'll know who this is for.
+
+---
+
+## Outreach Templates (Twitter/X)
+
+### Public Post
+
+```
+Building a cash flow app for freelancers. Need to talk to 20 people about how you manage irregular income.
+
+20 min call. $20 for your time.
+
+DM me or grab a slot: [calendly link]
+```
+
+### Shorter Public Post
+
+```
+Freelancers: I'll pay you $20 for 20 minutes of your time.
+
+Building something to help with irregular income. Just want to hear how you currently manage it.
+
+DM me if interested.
+```
+
+### DM to Freelancer Communities/Pages
+
+```
+Hey — I'm building a cash flow tool for freelancers and trying to understand how people actually manage irregular income.
+
+Would you (or anyone in your community) be open to a quick 20-min chat? No pitch, just listening. Happy to pay $20 for your time.
+```
+
+### DM to Individual Freelancers
+
+```
+Hey [name] — saw you're a freelance [designer/dev/etc]. I'm researching how freelancers manage their finances and would love to hear your experience.
+
+20 min, $20 for your time. No pitch. Just trying to learn.
+
+Interested?
+```
+
+### Tips
+
+- Don't mention Cashcast by name in cold outreach — it sounds like a pitch
+- "No pitch, just listening" disarms people
+- $20 for 20 min is a fair rate and shows you value their time
+- Keep it casual — Twitter isn't LinkedIn
