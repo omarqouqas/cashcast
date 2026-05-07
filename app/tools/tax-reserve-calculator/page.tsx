@@ -231,7 +231,7 @@ export default function TaxReserveCalculatorPage() {
           {/* Related Content */}
           <section className="mt-12 max-w-3xl">
             <h2 className="text-lg font-semibold text-white mb-4">Related Resources</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <Link
                 href="/blog/quarterly-tax-savings-1099-contractors"
                 className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
@@ -258,6 +258,20 @@ export default function TaxReserveCalculatorPage() {
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
                   Try calculator <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+              <Link
+                href="/glossary#S"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  Freelance Finance Glossary
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  Definitions of self-employment tax, tax reserve, and more.
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+                  View glossary <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </Link>
             </div>

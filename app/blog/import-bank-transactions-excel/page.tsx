@@ -39,6 +39,14 @@ const articleSchema = {
     name: 'Cashcast',
     url: 'https://cashcast.money',
   },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://cashcast.money/blog/${post.slug}`,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+  },
 };
 
 const howToSchema = {
@@ -113,10 +121,10 @@ export default function ImportBankTransactionsExcelPage() {
               })}
             </time>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+          <h1 className="speakable-headline text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
             {post.title}
           </h1>
-          <p className="text-xl text-zinc-400 leading-relaxed">{post.description}</p>
+          <p className="speakable-summary text-xl text-zinc-400 leading-relaxed">{post.description}</p>
         </div>
 
         {/* Author */}

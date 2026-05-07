@@ -60,6 +60,10 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': `https://cashcast.money/blog/${post.slug}`,
   },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+  },
 };
 
 const faqSchema = {
@@ -123,11 +127,11 @@ export default function CashFlowForecastingPage() {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+          <h1 className="speakable-headline text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
             {post.title}
           </h1>
 
-          <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
+          <p className="speakable-summary mt-4 text-lg text-zinc-300 leading-relaxed">
             {post.description}
           </p>
 
@@ -150,7 +154,7 @@ export default function CashFlowForecastingPage() {
         {/* Article content */}
         <div className="prose prose-invert prose-zinc max-w-none">
           {/* Definition box for AEO */}
-          <div className="not-prose mb-10 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
+          <div className="definition-box not-prose mb-10 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
             <h2 className="text-xl font-semibold text-white mb-3">
               {definitions.cashFlowForecast.term}
             </h2>

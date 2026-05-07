@@ -58,6 +58,10 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': `https://cashcast.money/blog/${post.slug}`,
   },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+  },
 };
 
 const definitionListSchema = {
@@ -119,11 +123,11 @@ export default function InvoicePaymentTermsPage() {
               <time dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+            <h1 className="speakable-headline text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
               {post.title}
             </h1>
 
-            <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
+            <p className="speakable-summary mt-4 text-lg text-zinc-300 leading-relaxed">
               {post.description}
             </p>
 

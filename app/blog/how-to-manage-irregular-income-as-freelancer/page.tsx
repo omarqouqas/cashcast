@@ -60,6 +60,10 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': `https://cashcast.money/blog/${post.slug}`,
   },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+  },
 };
 
 const howToSchema = {
@@ -131,11 +135,11 @@ export default function IrregularIncomeGuidePage() {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+          <h1 className="speakable-headline text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
             {post.title}
           </h1>
 
-          <p className="mt-4 text-lg text-zinc-300 leading-relaxed">
+          <p className="speakable-summary mt-4 text-lg text-zinc-300 leading-relaxed">
             {post.description}
           </p>
 
@@ -202,7 +206,7 @@ export default function IrregularIncomeGuidePage() {
         {/* Article content */}
         <div className="prose prose-invert prose-zinc max-w-none">
           {/* Definition box for AEO */}
-          <div className="not-prose mb-10 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
+          <div className="definition-box not-prose mb-10 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
             <h3 className="text-lg font-semibold text-white mb-2">
               {definitions.irregularIncome.term}
             </h3>
@@ -395,7 +399,7 @@ export default function IrregularIncomeGuidePage() {
             </h2>
 
             {/* Definition box for AEO */}
-            <div className="not-prose mb-6 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
+            <div className="definition-box not-prose mb-6 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
               <h3 className="text-lg font-semibold text-white mb-2">
                 {definitions.cashFlowCalendar.term}
               </h3>

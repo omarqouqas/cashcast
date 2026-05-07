@@ -56,6 +56,10 @@ const articleSchema = {
     '@type': 'WebPage',
     '@id': `https://cashcast.money/blog/${post.slug}`,
   },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
+  },
 };
 
 const faqSchema = {
@@ -126,11 +130,11 @@ export default function QuarterlyTaxSavingsPage() {
           </time>
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+        <h1 className="speakable-headline text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
           {post.title}
         </h1>
 
-        <p className="mt-4 text-lg text-zinc-300 leading-relaxed">{post.description}</p>
+        <p className="speakable-summary mt-4 text-lg text-zinc-300 leading-relaxed">{post.description}</p>
 
         <div className="mt-6 flex items-center gap-3">
           <div className="h-10 w-10 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-zinc-950 font-bold text-sm">
@@ -392,8 +396,32 @@ export default function QuarterlyTaxSavingsPage() {
 
       {/* Related Content */}
       <section className="mt-16 pt-10 border-t border-zinc-800">
-        <h2 className="text-xl font-semibold text-white mb-6">Related Articles</h2>
-        <div className="grid gap-4">
+        <h2 className="text-xl font-semibold text-white mb-6">Related Resources</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Link
+            href="/tools/tax-reserve-calculator"
+            className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5 hover:border-teal-500/50 transition-colors group"
+          >
+            <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+              Tax Reserve Calculator
+            </p>
+            <p className="mt-1 text-sm text-zinc-400">Calculate exactly how much to set aside for quarterly taxes.</p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+              Try free calculator <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
+          <Link
+            href="/glossary#Q"
+            className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+          >
+            <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+              Freelance Finance Glossary
+            </p>
+            <p className="mt-1 text-sm text-zinc-400">Definitions of quarterly taxes, tax reserve, and more.</p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+              View glossary <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
           <Link
             href="/blog/how-to-track-freelance-income-expenses"
             className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
