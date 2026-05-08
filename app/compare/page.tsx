@@ -34,6 +34,24 @@ const comparePages = [
     description:
       'A freelancer-focused breakdown of free tiers, forecasting length, and why built-in invoicing + invoice-to-forecast sync matters.',
   },
+  {
+    href: '/compare/pocketsmith',
+    title: 'PocketSmith Alternative for Freelancers',
+    description:
+      '20% cheaper than PocketSmith with invoicing and tax bucketing that PocketSmith lacks. Built for irregular income.',
+  },
+  {
+    href: '/compare/float',
+    title: 'Float Alternative for Freelancers',
+    description:
+      '87% cheaper than Float ($7.99 vs $59/mo), built for freelancers instead of SMBs, and includes invoicing at no extra cost.',
+  },
+  {
+    href: '/compare/pulse',
+    title: 'Pulse Alternative for Freelancers',
+    description:
+      '73% cheaper than Pulse with guided forms instead of spreadsheets. Includes invoicing and tax tracking that Pulse lacks.',
+  },
 ] as const;
 
 export default function CompareIndexPage() {

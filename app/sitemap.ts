@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/compare/mint`, lastModified, priority: 0.8 },
     { url: `${baseUrl}/compare/float`, lastModified, priority: 0.7 },
     { url: `${baseUrl}/compare/pulse`, lastModified, priority: 0.7 },
+    { url: `${baseUrl}/compare/pocketsmith`, lastModified, priority: 0.7 },
 
     // Free tools
     { url: `${baseUrl}/tools`, lastModified, priority: 0.6 },

@@ -184,6 +184,17 @@ export function LandingFooter() {
             >
               Mint Alternative
             </Link>
+            <Link
+              href="/compare/pocketsmith"
+              className="hover:text-zinc-200 transition-colors"
+              onClick={() => {
+                try {
+                  posthog.capture('footer_compare_clicked', { link: '/compare/pocketsmith' });
+                } catch {}
+              }}
+            >
+              vs PocketSmith
+            </Link>
           </div>
         </div>
 
