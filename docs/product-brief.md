@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.29
-**Last Updated:** May 8, 2026
-**Status:** Live - PocketSmith Comparison + Competitive Analysis Update
+**Version:** 6.30
+**Last Updated:** May 10, 2026
+**Status:** Live - Desktop Sidebar Navigation + Pro Feature Visibility
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 8, 2026 (Day 76)
+**Last Updated:** May 10, 2026 (Day 77)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 76
+- **Days in Development:** 77
 - **Commits:** 410+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + **CurrencyInput Bug Fix**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + **Desktop Sidebar Navigation**
 
 **Current Focus:**
 
@@ -28,7 +28,108 @@
 
 ---
 
-## Recent Development (Days 60-76)
+## Recent Development (Days 60-77)
+
+### Day 77: Desktop Sidebar Navigation (May 10, 2026)
+
+**Major UX Overhaul: Sidebar Navigation** - Replaced the horizontal top navigation with a collapsible left sidebar on desktop to better expose Pro features and improve navigation discoverability.
+
+**User Value:**
+- All 14 navigation items visible at once (no more "More" dropdown hiding 7 items)
+- Pro features clearly visible with lock icons for free users
+- Collapsible sidebar (icons-only mode) for more content space
+- Persistent "Upgrade to Pro" CTA for free users
+- Mobile experience unchanged (bottom nav + top user dropdown)
+
+**Sidebar Structure:**
+```
+CASHCAST (logo + collapse toggle)
+
+Dashboard
+Calendar
+
+── MONEY ──
+Accounts
+Income
+Bills
+Transfers
+
+── TOOLS ──
+Invoices (PRO badge)
+Time Tracking (PRO badge)
+Import
+
+── PRO ── (for free users)
+Insights (locked)
+Debt Payoff (locked)
+Quotes (locked)
+Reports (locked)
+Ask AI (locked)
+
+[Afford it?] button
+[Upgrade to Pro] CTA
+Settings
+User Profile
+```
+
+**Technical Implementation:**
+
+| Component | Purpose |
+|-----------|---------|
+| `SidebarProvider` | React Context for collapse state + localStorage persistence |
+| `Sidebar` | Main sidebar with nav items, sections, user profile |
+| `SidebarNavItem` | Individual nav link with Pro badges/lock icons |
+| `SidebarSection` | Section headers (MONEY, TOOLS, PRO) |
+| `SidebarUpgrade` | Upgrade CTA for free users |
+| `SidebarUser` | User profile dropdown at bottom |
+| `SidebarTooltip` | Hover tooltips for collapsed mode |
+| `SidebarContentWrapper` | Responsive content wrapper that adjusts margin |
+| `SidebarTopBar` | Timer widget bar for Pro users |
+| `MobileNav` | Extracted mobile navigation (unchanged) |
+
+**Files Created (10 new files):**
+```
+components/dashboard/sidebar/
+├── index.ts                    # Barrel export
+├── sidebar-context.tsx         # Collapse state + localStorage
+├── sidebar-tooltip.tsx         # Hover tooltips
+├── sidebar-nav-item.tsx        # Nav link with Pro badges/locks
+├── sidebar-section.tsx         # Section headers
+├── sidebar-upgrade.tsx         # Upgrade CTA
+├── sidebar-user.tsx            # User profile dropdown
+├── sidebar-content-wrapper.tsx # Responsive content wrapper
+└── sidebar.tsx                 # Main sidebar component
+
+components/dashboard/mobile-nav.tsx  # Extracted mobile navigation
+```
+
+**Files Modified:**
+- `app/dashboard/layout.tsx` - Uses new sidebar + mobile nav components
+- `lib/posthog/events.ts` - Added 'sidebar' as upgrade click location
+
+**Files Removed:**
+- `components/dashboard/nav.tsx` - Replaced by sidebar + mobile-nav
+
+**Key Features:**
+- **Collapsible**: Toggle to icons-only mode, persists in localStorage
+- **Pro feature visibility**: Free users see locked features with lock icons
+- **Upgrade CTA**: Persistent button in sidebar for free users
+- **"Afford it?"**: Now a dedicated button in sidebar
+- **Responsive top bar**: Timer widget adjusts when sidebar collapses
+- **Mobile unchanged**: Bottom nav + top user dropdown remain the same
+
+**Dimensions:**
+- Expanded: 240px (`w-60`)
+- Collapsed: 64px (`w-16`)
+- Transition: 200ms smooth animation
+
+**Why Sidebar Over Top Nav:**
+- Sacred Seven PM review identified feature overload and identity crisis
+- 14 nav items couldn't fit in horizontal nav (7 hidden in "More" dropdown)
+- Pro features were buried and not driving upgrades
+- Sidebar allows visual grouping and Pro feature prominence
+
+---
 
 ### Day 76: PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix (May 8, 2026)
 

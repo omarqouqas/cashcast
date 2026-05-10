@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { requireAuth } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/server'
 import { EmailVerificationBanner } from '@/components/auth/email-verification-banner'
-import { DashboardNav } from '@/components/dashboard/nav'
+import { MobileNav } from '@/components/dashboard/mobile-nav'
+import { Sidebar, SidebarProvider, SidebarContentWrapper, SidebarTopBar } from '@/components/dashboard/sidebar'
 import { redirect } from 'next/navigation'
 import { IdentifyUser } from '@/components/analytics/identify-user'
 import { FeedbackButton } from '@/components/feedback/feedback-button'
@@ -83,48 +84,62 @@ export default async function DashboardLayout({
   if (!isOnboarded && !hasAccounts) {
     redirect('/onboarding')
   }
-  
+
   return (
     <TimerProvider>
-      <div className="min-h-screen bg-zinc-950">
-        <IdentifyUser />
-        <EmailVerificationBanner user={user} />
+      <SidebarProvider>
+        <div className="min-h-screen bg-zinc-950">
+          <IdentifyUser />
+          <EmailVerificationBanner user={user} />
 
-        <header className="bg-zinc-900 border-b border-zinc-800 relative z-30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <Link href="/dashboard" className="flex-shrink-0">
-                <img
-                  src="/cashcast-lockup.svg"
-                  alt="Cashcast"
-                  height={32}
-                  width={180}
-                  className="h-8 w-auto"
+          {/* Desktop Sidebar - Hidden on mobile */}
+          <div className="hidden md:block">
+            <Sidebar
+              userEmail={user.email ?? ''}
+              userName={userName}
+              userTier={userTier}
+            />
+          </div>
+
+          {/* Mobile Header - Visible only on mobile */}
+          <header className="md:hidden bg-zinc-900 border-b border-zinc-800 relative z-30">
+            <div className="px-4">
+              <div className="flex justify-between items-center h-16">
+                <Link href="/dashboard" className="flex-shrink-0">
+                  <img
+                    src="/cashcast-lockup.svg"
+                    alt="Cashcast"
+                    height={32}
+                    width={180}
+                    className="h-8 w-auto"
+                  />
+                </Link>
+                <MobileNav
+                  userEmail={user.email ?? ''}
+                  userName={userName}
+                  userTier={userTier}
                 />
-              </Link>
-              <div className="flex items-center gap-3">
-                {canUseTimeTracking && (
-                  <TimerWidget defaultHourlyRate={defaultHourlyRate} className="hidden sm:block" />
-                )}
-                <DashboardNav userEmail={user.email ?? ''} userName={userName} userTier={userTier} />
               </div>
             </div>
-          </div>
-        </header>
-      
-      {/* 
-        Main content area
-        - Bottom padding accounts for fixed bottom nav (64px) + iPhone safe area
-        - md:pb-8 on desktop (no bottom nav)
-      */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-8">
-        {children}
-      </main>
+          </header>
 
-        {/* Floating buttons */}
-        <AskButton variant="fab" />
-        <FeedbackButton />
-      </div>
+          {/* Desktop Top Bar - Timer widget for Pro users */}
+          {canUseTimeTracking && (
+            <SidebarTopBar>
+              <TimerWidget defaultHourlyRate={defaultHourlyRate} />
+            </SidebarTopBar>
+          )}
+
+          {/* Main content area */}
+          <SidebarContentWrapper hasTopBar={canUseTimeTracking}>
+            {children}
+          </SidebarContentWrapper>
+
+          {/* Floating buttons */}
+          <AskButton variant="fab" />
+          <FeedbackButton />
+        </div>
+      </SidebarProvider>
     </TimerProvider>
   )
 }

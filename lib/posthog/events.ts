@@ -229,7 +229,7 @@ export const trackUpgradeClicked = (data: {
   fromTier: 'free' | 'pro' | 'premium'
   toTier: 'pro' | 'premium'
   interval: 'month' | 'year'
-  location: 'pricing_page' | 'settings' | 'feature_gate' | 'dashboard'
+  location: 'pricing_page' | 'settings' | 'feature_gate' | 'dashboard' | 'sidebar'
 }) => {
   posthog.capture('upgrade_clicked', {
     from_tier: data.fromTier,
