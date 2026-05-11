@@ -306,7 +306,7 @@ export function DashboardContent({
   }, [filteredCalendarDays, totalBalance]);
 
   const dailyBudgetColorClass = (() => {
-    if (!dailyBudgetData) return 'text-zinc-100';
+    if (!dailyBudgetData) return 'text-zinc-900 dark:text-zinc-100';
     if (dailyBudgetData.dailyBudget >= 50) return 'text-teal-400';
     if (dailyBudgetData.dailyBudget >= 20) return 'text-amber-400';
     return 'text-rose-400';
@@ -351,7 +351,7 @@ export function DashboardContent({
       {/* Lifetime Deal Banner */}
       <LifetimeDealBanner currentTier={subscriptionTier} />
 
-      <div className="bg-zinc-900 rounded-lg border border-zinc-800 p-4 sm:p-6">
+      <div className="bg-white dark:bg-zinc-50 dark:bg-zinc-900rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 sm:p-6">
         {/* Checkout Success Messages */}
         {checkoutSuccess && (
           <div className="mb-6">
@@ -435,15 +435,15 @@ export function DashboardContent({
         {/* Daily Budget */}
         <div className="flex flex-col gap-2 h-full">
           <Link href="/dashboard/calendar" className="flex-1">
-            <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-700/60 transition-colors">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+                <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
                   {dailyBudgetData && dailyBudgetData.dailyBudget < 0
                     ? 'Daily Shortfall'
                     : 'Daily Budget'}
                 </p>
-                <div className="w-8 h-8 bg-zinc-700/50 rounded-lg flex items-center justify-center">
-                  <DollarSign className="w-4 h-4 text-zinc-400" />
+                <div className="w-8 h-8 bg-zinc-100 dark:bg-zinc-700/50 rounded-lg flex items-center justify-center">
+                  <DollarSign className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
                 </div>
               </div>
               <div>
@@ -462,7 +462,7 @@ export function DashboardContent({
                         )}/day`
                     : '—'}
                 </p>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   {dailyBudgetData
                     ? dailyBudgetData.dailyBudget < 0
                       ? `Need extra income before ${format(
@@ -482,7 +482,7 @@ export function DashboardContent({
           </Link>
           <Link
             href="/dashboard/settings#safety-buffer"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-700 hover:border-teal-500/30 rounded text-xs font-medium text-zinc-300 hover:text-teal-400 transition-colors"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700hover:border-teal-500/30 rounded text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-teal-400 transition-colors"
           >
             Adjust Buffer
           </Link>
@@ -491,20 +491,20 @@ export function DashboardContent({
         {/* Accounts Card (Cash - excludes credit cards) */}
         <div className="flex flex-col gap-2 h-full">
           <Link href="/dashboard/accounts" className="flex-1">
-            <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-700/60 transition-colors">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+                <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
                   Cash
                 </p>
-                <div className="w-8 h-8 bg-zinc-700/50 rounded-lg flex items-center justify-center">
-                  <Wallet className="w-4 h-4 text-zinc-400" />
+                <div className="w-8 h-8 bg-zinc-100 dark:bg-zinc-700/50 rounded-lg flex items-center justify-center">
+                  <Wallet className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-zinc-100">
+                <p className="text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-zinc-100">
                   {formatCurrency(totalBalance, currency)}
                 </p>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   {spendableAccounts.length > 0
                     ? `Across ${spendableAccounts.length} ${
                         spendableAccounts.length === 1 ? 'account' : 'accounts'
@@ -516,7 +516,7 @@ export function DashboardContent({
           </Link>
           <Link
             href="/dashboard/accounts/new"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-700 hover:border-teal-500/30 rounded text-xs font-medium text-zinc-300 hover:text-teal-400 transition-colors"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700hover:border-teal-500/30 rounded text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-teal-400 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Account
@@ -526,9 +526,9 @@ export function DashboardContent({
         {/* Income Card */}
         <div className="flex flex-col gap-2 h-full">
           <Link href="/dashboard/income" className="flex-1">
-            <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-700/60 transition-colors">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+                <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
                   Income
                 </p>
                 <div className="w-8 h-8 bg-emerald-500/10 rounded-lg flex items-center justify-center">
@@ -540,7 +540,7 @@ export function DashboardContent({
                   {formatCurrency(monthlyIncome, currency)}
                   <span className="text-xs sm:text-sm md:text-base font-normal text-emerald-400/70">/mo</span>
                 </p>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   {incomeCount > 0
                     ? `Monthly avg • ${incomeCount} ${
                         incomeCount === 1 ? 'source' : 'sources'
@@ -552,7 +552,7 @@ export function DashboardContent({
           </Link>
           <Link
             href="/dashboard/income/new"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-700 hover:border-teal-500/30 rounded text-xs font-medium text-zinc-300 hover:text-teal-400 transition-colors"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700hover:border-teal-500/30 rounded text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-teal-400 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Income
@@ -562,9 +562,9 @@ export function DashboardContent({
         {/* Bills Card */}
         <div className="flex flex-col gap-2 h-full">
           <Link href="/dashboard/bills" className="flex-1">
-            <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-700/60 transition-colors">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-4 sm:p-5 cursor-pointer h-full hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+                <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
                   Bills
                 </p>
                 <div className="w-8 h-8 bg-rose-500/10 rounded-lg flex items-center justify-center">
@@ -576,7 +576,7 @@ export function DashboardContent({
                   {formatCurrency(monthlyBills, currency)}
                   <span className="text-xs sm:text-sm md:text-base font-normal text-rose-400/70">/mo</span>
                 </p>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   {activeBillsCount > 0
                     ? `Monthly avg • ${activeBillsCount} ${
                         activeBillsCount === 1 ? 'active bill' : 'active bills'
@@ -588,7 +588,7 @@ export function DashboardContent({
           </Link>
           <Link
             href="/dashboard/bills/new"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-700 hover:border-teal-500/30 rounded text-xs font-medium text-zinc-300 hover:text-teal-400 transition-colors"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-zinc-100 dark:bg-zinc-700/50 hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700hover:border-teal-500/30 rounded text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:text-teal-400 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add Bill
@@ -607,17 +607,17 @@ export function DashboardContent({
       {forecastMetrics && (
         <div className="mb-6">
           <Link href="/dashboard/calendar">
-            <div className="bg-zinc-800 border border-zinc-800 rounded-lg p-6 hover:bg-zinc-700/60 hover:border-teal-500/30 transition-all duration-200 cursor-pointer">
+            <div className="bg-zinc-800 border border-zinc-800 rounded-lg p-6 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 hover:border-teal-500/30 transition-all duration-200 cursor-pointer">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-teal-500/10 rounded-lg flex items-center justify-center">
                     <Calendar className="w-6 h-6 text-teal-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-zinc-100">
+                    <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                       {horizonTitle} Forecast
                     </h3>
-                    <p className="text-xs text-zinc-400 mt-0.5">
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                       Your cash flow outlook
                     </p>
                   </div>
@@ -635,7 +635,7 @@ export function DashboardContent({
 
               {/* Forecast Chart */}
               {filteredCalendarDays && filteredCalendarDays.length > 0 && (
-                <div className="py-4 border-t border-zinc-700/50">
+                <div className="py-4 border-t border-zinc-200 dark:border-zinc-700/50">
                   <ForecastBalanceChart
                     days={filteredCalendarDays}
                     currency={currency}
@@ -648,7 +648,7 @@ export function DashboardContent({
 
               {/* Risk Metrics from Monte Carlo simulation */}
               {calendarData?.monteCarlo?.riskMetrics && (
-                <div className="py-3 border-t border-zinc-700/50">
+                <div className="py-3 border-t border-zinc-200 dark:border-zinc-700/50">
                   <RiskMetrics
                     riskMetrics={calendarData.monteCarlo.riskMetrics}
                     currency={currency}
@@ -657,9 +657,9 @@ export function DashboardContent({
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 py-4 border-t border-b border-zinc-700/50">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 py-4 border-t border-b border-zinc-200 dark:border-zinc-700/50">
                 <div className="min-w-0">
-                  <p className="text-xs text-zinc-400 mb-1">Lowest Balance</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Lowest Balance</p>
                   <p
                     className={`text-base sm:text-xl md:text-2xl font-bold truncate ${getBalanceColor(
                       forecastMetrics.lowestBalance,
@@ -668,28 +668,28 @@ export function DashboardContent({
                   >
                     {formatCurrency(forecastMetrics.lowestBalance, currency)}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
                     on {format(forecastMetrics.lowestBalanceDay, 'MMM d')}
                   </p>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-zinc-400 mb-1">Total Income</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Total Income</p>
                   <p className="text-base sm:text-xl md:text-2xl font-bold text-emerald-400 truncate">
                     {formatCurrency(forecastMetrics.totalIncome, currency)}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">{horizonPeriod}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">{horizonPeriod}</p>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-zinc-400 mb-1">Total Bills</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Total Bills</p>
                   <p className="text-base sm:text-xl md:text-2xl font-bold text-rose-400 truncate">
                     {formatCurrency(forecastMetrics.totalBills, currency)}
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">{horizonPeriod}</p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">{horizonPeriod}</p>
                 </div>
               </div>
 
               <div className="mt-4 flex items-center justify-between">
-                <p className="text-sm text-zinc-400">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   Click to view day-by-day breakdown
                 </p>
                 <svg
@@ -717,17 +717,17 @@ export function DashboardContent({
           invoiceSummary.unpaidCount === 0 ? 'hidden sm:block mb-6' : 'mb-6'
         }
       >
-        <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-6">
+        <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-6">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-teal-500/10 rounded-lg flex items-center justify-center">
                 <Receipt className="w-5 h-5 text-teal-400" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
                   Outstanding Invoices
                 </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                   {invoiceSummary.unpaidCount === 0
                     ? 'All caught up'
                     : `${invoiceSummary.unpaidCount} unpaid invoice${
@@ -744,15 +744,15 @@ export function DashboardContent({
           </div>
 
           {invoiceSummary.unpaidCount === 0 ? (
-            <div className="flex items-center gap-2 text-zinc-300 py-4 border-t border-zinc-700/50">
+            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 py-4 border-t border-zinc-200 dark:border-zinc-700/50">
               <CheckCircle2 className="w-5 h-5 text-teal-400" />
               <p className="text-sm font-medium">No outstanding invoices</p>
             </div>
           ) : (
             <>
-              <div className="flex items-baseline justify-between py-3 border-t border-zinc-700/50 mb-4">
-                <p className="text-xs text-zinc-400">Total Outstanding</p>
-                <p className="text-2xl font-bold tabular-nums text-zinc-100">
+              <div className="flex items-baseline justify-between py-3 border-t border-zinc-200 dark:border-zinc-700/50 mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">Total Outstanding</p>
+                <p className="text-2xl font-bold tabular-nums text-zinc-900 dark:text-zinc-100">
                   {formatCurrency(invoiceSummary.totalOutstanding, currency)}
                 </p>
               </div>
@@ -776,13 +776,13 @@ export function DashboardContent({
                       <Link
                         key={invoice.id}
                         href={`/dashboard/invoices/${invoice.id}`}
-                        className="flex items-center justify-between p-3 bg-zinc-900 rounded-md hover:bg-zinc-700/60 transition-colors border border-zinc-800 hover:border-teal-500/30"
+                        className="flex items-center justify-between p-3 bg-zinc-50 dark:bg-zinc-900rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors border border-zinc-800 hover:border-teal-500/30"
                       >
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium text-zinc-100 truncate">
+                          <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">
                             {invoice.client_name}
                           </p>
-                          <p className="text-xs text-zinc-400 mt-0.5">
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                             {invoice.invoice_number || 'No number'} • Due{' '}
                             {format(dueDate, 'MMM d')}
                             {isOverdue && (
@@ -794,7 +794,7 @@ export function DashboardContent({
                         </div>
                         <p
                           className={`text-sm font-semibold tabular-nums ml-3 ${
-                            isOverdue ? 'text-rose-400' : 'text-zinc-100'
+                            isOverdue ? 'text-rose-400' : 'text-zinc-900 dark:text-zinc-100'
                           }`}
                         >
                           {formatCurrency(invoice.amount, currency)}
@@ -881,16 +881,16 @@ export function DashboardContent({
       {/* Import Transactions */}
       <div className="mb-6">
         <Link href="/dashboard/import" className="block">
-          <div className="border border-zinc-800 bg-zinc-800 rounded-lg p-5 hover:bg-zinc-700/60 transition-colors">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800 rounded-lg p-5 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 bg-zinc-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Upload className="w-5 h-5 text-zinc-300" />
+                <Upload className="w-5 h-5 text-zinc-700 dark:text-zinc-300" />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-zinc-100">
+                <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                   Import Transactions
                 </p>
-                <p className="text-sm text-zinc-400 mt-1">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                   Upload a bank CSV to quickly add bills and income
                 </p>
               </div>
