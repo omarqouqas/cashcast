@@ -83,11 +83,10 @@ export async function POST(request: NextRequest) {
     if (!usageCheck.allowed) {
       return new Response(
         JSON.stringify({
-          error: "You've used your 5 free questions today. Upgrade to Pro for unlimited access.",
-          resetAt: usageCheck.resetAt?.toISOString(),
-          limit: usageCheck.limit,
+          error: "Ask Cashcast AI is a Pro feature. Upgrade to Pro for unlimited AI queries.",
+          proRequired: true,
         }),
-        { status: 429, headers: { 'Content-Type': 'application/json' } }
+        { status: 403, headers: { 'Content-Type': 'application/json' } }
       );
     }
 

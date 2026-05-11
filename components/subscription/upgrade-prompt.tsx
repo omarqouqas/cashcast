@@ -14,7 +14,7 @@ import { trackUpgradeClicked, trackFeatureGateHit } from '@/lib/posthog/events';
 interface UpgradePromptProps {
   isOpen: boolean;
   onClose: () => void;
-  feature: 'bills' | 'income' | 'invoices' | 'forecast' | 'general';
+  feature: 'bills' | 'income' | 'invoices' | 'forecast' | 'ai' | 'general';
   currentCount?: number;
   limit?: number;
 }
@@ -35,6 +35,10 @@ const FEATURE_COPY: Record<UpgradePromptProps['feature'], { title: string; descr
   forecast: {
     title: "Extended forecasting is a Pro feature",
     description: "Free accounts get 90-day forecasts. Upgrade to Pro for a full year (365 days).",
+  },
+  ai: {
+    title: "Ask Cashcast AI is a Pro feature",
+    description: "Get instant answers about your finances using AI. Ask questions like 'Can I afford a $500 purchase?' or 'When will my balance be lowest?'",
   },
   general: {
     title: "Upgrade to unlock more features",

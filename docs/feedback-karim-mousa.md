@@ -49,7 +49,12 @@
 ### Issue: Configuration Error
 - User encountered "AI not configured" error when using chat feature
 
-**Status:** Bug - needs investigation
+### Resolution
+- AI Chat is now a Pro-only feature
+- Free users see a lock icon and upgrade prompt when clicking Ask AI
+- Pricing page updated to reflect AI is Pro-only
+
+**Status:** Resolved - AI Chat restricted to Pro users only
 
 ---
 
@@ -102,7 +107,7 @@
 | Calendar | Visual clutter, hard to distinguish colors | Show only balance, flip card for details on hover | Not implemented |
 | Settings | Mixed settings types, too many saves | Separate app/profile settings, combine related toggles | Not implemented |
 | Emergency Fund | Treats all account money as emergency fund | Make it a separate reserve excluded from spending | Not implemented |
-| AI Chat | "AI not configured" error | Debug configuration | Bug |
+| AI Chat | "AI not configured" error | Made Pro-only feature | Resolved |
 | Navigation | Too many items, paid tools hidden | Simplify menu, highlight premium features | In progress |
 | Dashboard | Needs own menu item | Access via logo click | In progress |
 | Can I Afford It? | Confusing display | Add "When can I afford it?" | Not implemented |
@@ -118,7 +123,7 @@ User provided screenshot showing calendar view with red/orange color scheme issu
 
 ## Priority Recommendations
 
-1. **High:** Fix AI chat configuration issue (bug)
+1. ~~**High:** Fix AI chat configuration issue (bug)~~ **DONE** - Made Pro-only
 2. **High:** Simplify navigation and highlight premium features (in progress)
 3. **Medium:** Redesign calendar tiles to reduce visual clutter
 4. **Medium:** Reorganize settings page

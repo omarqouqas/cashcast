@@ -1,6 +1,6 @@
 /**
  * AI Query usage tracking for rate limiting.
- * Free tier: 5 queries per day
+ * Free tier: No access (Pro feature only)
  * Pro tier: Unlimited
  *
  * Note: The ai_query_usage table is created via migration.
@@ -8,14 +8,13 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
-import type { QueryUsageResult, AIQueryUsageRow } from './types';
-
-const FREE_DAILY_LIMIT = 5;
+import type { QueryUsageResult } from './types';
 
 type SubscriptionTier = 'free' | 'pro' | 'premium' | 'lifetime';
 
 /**
- * Check if a user can make an AI query based on their subscription tier and daily usage.
+ * Check if a user can make an AI query based on their subscription tier.
+ * AI Chat is a Pro-only feature - free users have no access.
  */
 export async function checkQueryUsage(
   userId: string,
@@ -26,46 +25,13 @@ export async function checkQueryUsage(
     return { allowed: true, remaining: Infinity, limit: null };
   }
 
-  const supabase = await createClient();
-  const today = new Date().toISOString().split('T')[0] ?? '';
-
-  // Use type assertion since ai_query_usage table may not be in generated types yet
-  const { data: usage } = await (supabase as unknown as {
-    from: (table: string) => {
-      select: (columns: string) => {
-        eq: (col: string, val: string) => {
-          eq: (col: string, val: string) => {
-            single: () => Promise<{ data: AIQueryUsageRow | null }>;
-          };
-        };
-      };
-    };
-  })
-    .from('ai_query_usage')
-    .select('query_count')
-    .eq('user_id', userId)
-    .eq('query_date', today)
-    .single();
-
-  const currentCount = usage?.query_count ?? 0;
-  const remaining = Math.max(0, FREE_DAILY_LIMIT - currentCount);
-
-  if (currentCount >= FREE_DAILY_LIMIT) {
-    // Calculate reset time (midnight UTC of next day)
-    const tomorrow = new Date();
-    tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
-    tomorrow.setUTCHours(0, 0, 0, 0);
-
-    return {
-      allowed: false,
-      remaining: 0,
-      limit: FREE_DAILY_LIMIT,
-      resetAt: tomorrow,
-      reason: 'limit_reached',
-    };
-  }
-
-  return { allowed: true, remaining, limit: FREE_DAILY_LIMIT };
+  // Free users have no access to AI Chat
+  return {
+    allowed: false,
+    remaining: 0,
+    limit: 0,
+    reason: 'pro_required',
+  };
 }
 
 /**
@@ -92,36 +58,25 @@ export async function incrementQueryUsage(userId: string): Promise<void> {
 
 /**
  * Get the current daily usage for a user.
+ * Note: AI Chat is Pro-only, so free users will always have 0 remaining.
  */
 export async function getQueryUsage(
-  userId: string
+  userId: string,
+  tier: SubscriptionTier = 'free'
 ): Promise<{ count: number; limit: number | null; remaining: number }> {
-  const supabase = await createClient();
-  const today = new Date().toISOString().split('T')[0] ?? '';
-
-  // Use type assertion since ai_query_usage table may not be in generated types yet
-  const { data: usage } = await (supabase as unknown as {
-    from: (table: string) => {
-      select: (columns: string) => {
-        eq: (col: string, val: string) => {
-          eq: (col: string, val: string) => {
-            single: () => Promise<{ data: AIQueryUsageRow | null }>;
-          };
-        };
-      };
+  // Pro users have unlimited access
+  if (tier !== 'free') {
+    return {
+      count: 0,
+      limit: null,
+      remaining: Infinity,
     };
-  })
-    .from('ai_query_usage')
-    .select('query_count')
-    .eq('user_id', userId)
-    .eq('query_date', today)
-    .single();
+  }
 
-  const count = usage?.query_count ?? 0;
-
+  // Free users have no access
   return {
-    count,
-    limit: FREE_DAILY_LIMIT,
-    remaining: Math.max(0, FREE_DAILY_LIMIT - count),
+    count: 0,
+    limit: 0,
+    remaining: 0,
   };
 }
