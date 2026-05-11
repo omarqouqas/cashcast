@@ -3,13 +3,11 @@ import { requireAuth } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/server'
 import { EmailVerificationBanner } from '@/components/auth/email-verification-banner'
 import { MobileNav } from '@/components/dashboard/mobile-nav'
-import { Sidebar, SidebarProvider, SidebarContentWrapper, SidebarTopBar } from '@/components/dashboard/sidebar'
+import { Sidebar, SidebarProvider, SidebarContentWrapper } from '@/components/dashboard/sidebar'
 import { redirect } from 'next/navigation'
 import { IdentifyUser } from '@/components/analytics/identify-user'
-import { FeedbackButton } from '@/components/feedback/feedback-button'
 import { AskButton } from '@/components/ask'
 import { TimerProvider } from '@/components/time/timer-context'
-import { TimerWidget } from '@/components/time/timer-widget'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import Link from 'next/link'
 /* eslint-disable @next/next/no-img-element */
@@ -90,7 +88,7 @@ export default async function DashboardLayout({
     <ThemeProvider>
       <TimerProvider>
         <SidebarProvider>
-          <div className="min-h-screen bg-zinc-950 dark:bg-zinc-950">
+          <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
             <IdentifyUser />
             <EmailVerificationBanner user={user} />
 
@@ -100,11 +98,13 @@ export default async function DashboardLayout({
                 userEmail={user.email ?? ''}
                 userName={userName}
                 userTier={userTier}
+                canUseTimeTracking={canUseTimeTracking}
+                defaultHourlyRate={defaultHourlyRate}
               />
             </div>
 
             {/* Mobile Header - Visible only on mobile */}
-            <header className="md:hidden bg-zinc-900 border-b border-zinc-800 relative z-30">
+            <header className="md:hidden bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 relative z-30">
               <div className="px-4">
                 <div className="flex justify-between items-center h-16">
                   <Link href="/dashboard" className="flex-shrink-0">
@@ -125,21 +125,13 @@ export default async function DashboardLayout({
               </div>
             </header>
 
-            {/* Desktop Top Bar - Timer widget for Pro users */}
-            {canUseTimeTracking && (
-              <SidebarTopBar>
-                <TimerWidget defaultHourlyRate={defaultHourlyRate} />
-              </SidebarTopBar>
-            )}
-
             {/* Main content area */}
-            <SidebarContentWrapper hasTopBar={canUseTimeTracking}>
+            <SidebarContentWrapper>
               {children}
             </SidebarContentWrapper>
 
-            {/* Floating buttons */}
+            {/* Floating button */}
             <AskButton variant="fab" />
-            <FeedbackButton />
           </div>
         </SidebarProvider>
       </TimerProvider>

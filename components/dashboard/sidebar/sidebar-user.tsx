@@ -6,9 +6,11 @@ import {
   Settings,
   CreditCard,
   HelpCircle,
+  MessageSquare,
   LogOut,
   ChevronUp,
 } from 'lucide-react';
+import { FeedbackModal } from '@/components/feedback/feedback-modal';
 import { createPortalSession } from '@/lib/actions/stripe';
 import { SidebarTooltip } from './sidebar-tooltip';
 
@@ -56,6 +58,7 @@ export function SidebarUser({ userEmail, userName, userTier, isCollapsed }: Side
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBillingLoading, setIsBillingLoading] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   const getPlanLabel = () => {
     switch (userTier) {
@@ -183,6 +186,17 @@ export function SidebarUser({ userEmail, userName, userTier, isCollapsed }: Side
               Help & Support
             </a>
 
+            <button
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsFeedbackOpen(true);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-zinc-300 hover:bg-zinc-700/50 hover:text-zinc-100 transition-colors"
+            >
+              <MessageSquare className="w-4 h-4" />
+              Send Feedback
+            </button>
+
             <div className="border-t border-zinc-700 my-1" />
 
             <button
@@ -196,6 +210,9 @@ export function SidebarUser({ userEmail, userName, userTier, isCollapsed }: Side
           </div>
         </>
       )}
+
+      {/* Feedback Modal */}
+      <FeedbackModal isOpen={isFeedbackOpen} onClose={() => setIsFeedbackOpen(false)} />
     </div>
   );
 }

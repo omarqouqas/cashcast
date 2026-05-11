@@ -27,6 +27,7 @@ import { SidebarSection } from './sidebar-section';
 import { SidebarUpgrade } from './sidebar-upgrade';
 import { SidebarUser } from './sidebar-user';
 import { SidebarTooltip } from './sidebar-tooltip';
+import { SidebarTimer } from './sidebar-timer';
 import { UpgradePrompt } from '@/components/subscription/upgrade-prompt';
 import { ScenarioModal } from '@/components/scenarios/scenario-modal';
 
@@ -34,9 +35,11 @@ interface SidebarProps {
   userEmail: string;
   userName?: string;
   userTier: 'free' | 'pro' | 'premium' | 'lifetime';
+  canUseTimeTracking?: boolean;
+  defaultHourlyRate?: number;
 }
 
-export function Sidebar({ userEmail, userName, userTier }: SidebarProps) {
+export function Sidebar({ userEmail, userName, userTier, canUseTimeTracking = false, defaultHourlyRate = 0 }: SidebarProps) {
   const pathname = usePathname();
   const { isCollapsed, toggleCollapsed } = useSidebar();
   const [upgradeOpen, setUpgradeOpen] = useState(false);
@@ -65,7 +68,7 @@ export function Sidebar({ userEmail, userName, userTier }: SidebarProps) {
       <aside
         className={[
           'fixed left-0 top-0 h-screen z-40',
-          'bg-zinc-900 border-r border-zinc-800',
+          'bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800',
           'flex flex-col',
           'transition-all duration-200',
           isCollapsed ? 'w-16' : 'w-60',
@@ -73,7 +76,7 @@ export function Sidebar({ userEmail, userName, userTier }: SidebarProps) {
       >
         {/* Header */}
         <div className={[
-          'flex items-center h-16 px-3 border-b border-zinc-800',
+          'flex items-center h-16 px-3 border-b border-zinc-200 dark:border-zinc-800',
           isCollapsed ? 'justify-center' : 'justify-between',
         ].join(' ')}>
           {!isCollapsed && (
@@ -90,7 +93,7 @@ export function Sidebar({ userEmail, userName, userTier }: SidebarProps) {
           <SidebarTooltip content={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} show={isCollapsed}>
             <button
               onClick={toggleCollapsed}
-              className="p-2 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition-colors"
+              className="p-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {isCollapsed ? (
@@ -241,6 +244,13 @@ export function Sidebar({ userEmail, userName, userTier }: SidebarProps) {
 
         {/* Footer */}
         <div className="mt-auto">
+          {/* Timer - only for Pro users */}
+          {canUseTimeTracking && (
+            <div className="border-t border-zinc-800">
+              <SidebarTimer defaultHourlyRate={defaultHourlyRate} isCollapsed={isCollapsed} />
+            </div>
+          )}
+
           {/* Upgrade CTA - only for free users */}
           {isFree && <SidebarUpgrade isCollapsed={isCollapsed} />}
 
