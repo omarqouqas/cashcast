@@ -41,25 +41,25 @@ export function ReferralWidget({ stats, isLoading = false }: ReferralWidgetProps
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6 animate-pulse">
-        <div className="h-6 bg-zinc-800 rounded w-1/3 mb-4"></div>
-        <div className="h-4 bg-zinc-800 rounded w-2/3 mb-6"></div>
-        <div className="h-10 bg-zinc-800 rounded mb-4"></div>
+      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 animate-pulse">
+        <div className="h-6 bg-zinc-100 dark:bg-zinc-800 rounded w-1/3 mb-4"></div>
+        <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-2/3 mb-6"></div>
+        <div className="h-10 bg-zinc-100 dark:bg-zinc-800 rounded mb-4"></div>
         <div className="grid grid-cols-3 gap-4">
-          <div className="h-16 bg-zinc-800 rounded"></div>
-          <div className="h-16 bg-zinc-800 rounded"></div>
-          <div className="h-16 bg-zinc-800 rounded"></div>
+          <div className="h-16 bg-zinc-100 dark:bg-zinc-800 rounded"></div>
+          <div className="h-16 bg-zinc-100 dark:bg-zinc-800 rounded"></div>
+          <div className="h-16 bg-zinc-100 dark:bg-zinc-800 rounded"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-zinc-100">Refer &amp; Earn</h3>
-          <p className="mt-1 text-sm text-zinc-400">
+          <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Refer &amp; Earn</h3>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             Give friends 30 days free, get 1 month Pro when they subscribe
           </p>
         </div>
@@ -69,11 +69,11 @@ export function ReferralWidget({ stats, isLoading = false }: ReferralWidgetProps
       {/* Referral Link */}
       {stats?.code && (
         <div className="mt-4">
-          <label className="block text-xs font-medium text-zinc-400 mb-2">
+          <label className="block text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2">
             Your referral link
           </label>
           <div className="flex items-center gap-2">
-            <div className="flex-1 px-3 py-2 bg-zinc-800 rounded-lg text-sm text-zinc-300 font-mono truncate">
+            <div className="flex-1 px-3 py-2 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-sm text-zinc-700 dark:text-zinc-300 font-mono truncate">
               {referralUrl}
             </div>
             <button
@@ -90,25 +90,25 @@ export function ReferralWidget({ stats, isLoading = false }: ReferralWidgetProps
       {/* Stats */}
       <div className="mt-6 grid grid-cols-3 gap-4">
         <div className="text-center">
-          <div className="flex items-center justify-center w-10 h-10 mx-auto rounded-full bg-zinc-800 mb-2">
-            <Users className="h-5 w-5 text-zinc-400" />
+          <div className="flex items-center justify-center w-10 h-10 mx-auto rounded-full bg-zinc-100 dark:bg-zinc-800 mb-2">
+            <Users className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
           </div>
-          <p className="text-2xl font-semibold text-zinc-100">{stats?.signedUp ?? 0}</p>
-          <p className="text-xs text-zinc-400">Signed up</p>
+          <p className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">{stats?.signedUp ?? 0}</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Signed up</p>
         </div>
         <div className="text-center">
-          <div className="flex items-center justify-center w-10 h-10 mx-auto rounded-full bg-zinc-800 mb-2">
-            <CreditCard className="h-5 w-5 text-zinc-400" />
+          <div className="flex items-center justify-center w-10 h-10 mx-auto rounded-full bg-zinc-100 dark:bg-zinc-800 mb-2">
+            <CreditCard className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
           </div>
-          <p className="text-2xl font-semibold text-zinc-100">{stats?.converted ?? 0}</p>
-          <p className="text-xs text-zinc-400">Subscribed</p>
+          <p className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">{stats?.converted ?? 0}</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Subscribed</p>
         </div>
         <div className="text-center">
           <div className="flex items-center justify-center w-10 h-10 mx-auto rounded-full bg-teal-500/20 mb-2">
             <Award className="h-5 w-5 text-teal-400" />
           </div>
           <p className="text-2xl font-semibold text-teal-400">{stats?.rewarded ?? 0}</p>
-          <p className="text-xs text-zinc-400">Rewards</p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">Rewards</p>
         </div>
       </div>
 
@@ -128,15 +128,15 @@ export function ReferralWidget({ stats, isLoading = false }: ReferralWidgetProps
           How it works
           <span className="text-xs transition-transform group-open:rotate-180">▼</span>
         </summary>
-        <div className="mt-3 space-y-3 text-sm text-zinc-400">
+        <div className="mt-3 space-y-3 text-sm text-zinc-500 dark:text-zinc-400">
           <div className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-medium text-zinc-300">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-medium text-zinc-700 dark:text-zinc-300">
               1
             </span>
             <p>Share your referral link with friends</p>
           </div>
           <div className="flex items-start gap-3">
-            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-800 flex items-center justify-center text-xs font-medium text-zinc-300">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-xs font-medium text-zinc-700 dark:text-zinc-300">
               2
             </span>
             <p>They sign up and get 30 days of Pro free</p>
