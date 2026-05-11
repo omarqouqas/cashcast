@@ -94,7 +94,7 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group"
+          className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Dashboard
@@ -104,8 +104,8 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
       {/* Page Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-zinc-100">Income Sources</h2>
-          <p className="text-sm text-zinc-400 mt-1">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Income Sources</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mt-1">
             Track your regular and one-time income
           </p>
         </div>
@@ -193,7 +193,7 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
       {/* Quick Summary */}
       {!error && incomesList.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-zinc-100 mb-3">Quick Summary</h3>
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Quick Summary</h3>
 
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
@@ -282,14 +282,14 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
         <>
           {!incomes || incomes.length === 0 ? (
             /* Empty State */
-            <div className="border border-zinc-800 bg-zinc-900 rounded-lg overflow-hidden">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg overflow-hidden">
               <div className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center py-10">
                 <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6">
                   <TrendingUp className="w-10 h-10 text-emerald-500" />
                 </div>
 
-                <h2 className="text-xl font-semibold text-zinc-100 mb-2">Track your income</h2>
-                <p className="text-zinc-400 mb-8 max-w-xs">
+                <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Track your income</h2>
+                <p className="text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mb-8 max-w-xs">
                   Add your salary, freelance work, or other income sources to see how they impact your cash flow forecast.
                 </p>
 
@@ -300,7 +300,7 @@ export default async function IncomePage({ searchParams }: IncomePageProps) {
                   Add your first income source
                 </Link>
 
-                <p className="text-zinc-500 text-sm mt-6">Takes less than a minute to set up</p>
+                <p className="text-zinc-600 dark:text-zinc-500 text-sm mt-6">Takes less than a minute to set up</p>
               </div>
             </div>
           ) : (

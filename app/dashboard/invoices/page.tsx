@@ -79,7 +79,7 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group"
+          className="inline-flex items-center text-sm text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Dashboard
@@ -96,8 +96,8 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
       {/* Page Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-zinc-100">Invoices</h2>
-          <p className="text-sm text-zinc-400 mt-1">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Invoices</h2>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
             Create invoices and track who has paid
           </p>
         </div>
@@ -122,12 +122,12 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
       {!error && (
         <>
           {invoices.length === 0 ? (
-            <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-12 text-center">
-              <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-12 text-center">
+              <div className="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Receipt className="w-8 h-8 text-teal-400" />
               </div>
-              <p className="text-zinc-100 font-semibold text-lg mb-2">No invoices yet</p>
-              <p className="text-sm text-zinc-400 mb-6 max-w-md mx-auto">
+              <p className="text-zinc-900 dark:text-zinc-100 font-semibold text-lg mb-2">No invoices yet</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6 max-w-md mx-auto">
                 Create your first invoice to get paid faster and automatically sync it with your cash flow forecast.
               </p>
               <Link href="/dashboard/invoices/new">
@@ -152,20 +152,20 @@ export default async function InvoicesPage({ searchParams }: InvoicesPageProps) 
               <>
                 {/* Summary Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                  <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-                    <p className="text-xs font-medium text-zinc-400 mb-1">Total Outstanding</p>
-                    <p className="text-2xl font-bold text-zinc-100 tabular-nums">
+                  <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+                    <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Total Outstanding</p>
+                    <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">
                       {formatCurrency(totalOutstanding, currency)}
                     </p>
                   </div>
-                  <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-                    <p className="text-xs font-medium text-zinc-400 mb-1">Awaiting Payment</p>
-                    <p className="text-2xl font-bold text-zinc-100 tabular-nums">
+                  <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+                    <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Awaiting Payment</p>
+                    <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tabular-nums">
                       {awaitingPaymentCount}
                     </p>
                   </div>
-                  <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-                    <p className="text-xs font-medium text-zinc-400 mb-1">Overdue</p>
+                  <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+                    <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-1">Overdue</p>
                     <p className="text-2xl font-bold text-rose-400 tabular-nums">
                       {overdueCount}
                     </p>

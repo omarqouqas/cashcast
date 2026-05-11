@@ -50,7 +50,7 @@ export function ReportsPageContent({
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group"
+          className="inline-flex items-center text-sm text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Dashboard
@@ -60,8 +60,8 @@ export function ReportsPageContent({
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-100">Reports & Export</h1>
-          <p className="text-sm text-zinc-400 mt-1">
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Reports & Export</h1>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
             Generate reports and export your financial data
           </p>
         </div>

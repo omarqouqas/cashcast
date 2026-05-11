@@ -45,11 +45,11 @@ export function TimePageClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-white flex items-center gap-3">
             <Clock className="h-7 w-7 text-teal-400" />
             Time Tracking
           </h1>
-          <p className="text-zinc-400 mt-1">
+          <p className="text-zinc-500 dark:text-zinc-400 mt-1">
             Track your hours and create invoices from time entries
           </p>
         </div>
@@ -57,7 +57,7 @@ export function TimePageClient({
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard/time/settings"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-700 text-zinc-300 text-sm hover:bg-zinc-800"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800"
           >
             <Settings className="h-4 w-4" />
             <span className="hidden sm:inline">Settings</span>

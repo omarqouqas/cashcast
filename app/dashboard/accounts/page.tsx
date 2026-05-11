@@ -57,7 +57,7 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group"
+          className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Dashboard
@@ -67,8 +67,8 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
       {/* Page Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-zinc-100">Accounts</h2>
-          <p className="text-sm text-zinc-400 mt-1">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Accounts</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mt-1">
             Track your bank accounts and balances
           </p>
         </div>
@@ -106,7 +106,7 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
       {/* Quick Summary */}
       {!error && accountList.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-zinc-100 mb-3">Quick Summary</h3>
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Quick Summary</h3>
 
           {/* Balance Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
@@ -173,7 +173,7 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
 
           {/* Debt Payoff Planner Link - for 2+ cards */}
           {creditCardsWithDebt.length >= 2 && (
-            <div className="mt-4 pt-4 border-t border-zinc-800">
+            <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
               <Link href="/dashboard/debt-payoff">
                 <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 hover:bg-amber-500/15 transition-colors cursor-pointer">
                   <div className="flex items-center justify-between">
@@ -199,16 +199,16 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
 
           {/* Debt Payoff Teaser - for exactly 1 card */}
           {creditCardsWithDebt.length === 1 && (
-            <div className="mt-4 pt-4 border-t border-zinc-800">
-              <div className="bg-zinc-800/50 border border-zinc-700 rounded-lg p-4">
+            <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+              <div className="bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-300 dark:border-zinc-700 rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-zinc-700 rounded-full flex items-center justify-center">
-                      <CreditCard className="w-5 h-5 text-zinc-400" />
+                    <div className="w-10 h-10 bg-zinc-200 dark:bg-zinc-700 rounded-full flex items-center justify-center">
+                      <CreditCard className="w-5 h-5 text-zinc-600 dark:text-zinc-500 dark:text-zinc-400" />
                     </div>
                     <div>
-                      <p className="font-medium text-zinc-300">Debt Payoff Planner</p>
-                      <p className="text-xs text-zinc-500">
+                      <p className="font-medium text-zinc-700 dark:text-zinc-300">Debt Payoff Planner</p>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-500">
                         Add another credit card to compare Snowball vs Avalanche strategies
                       </p>
                     </div>
@@ -230,9 +230,9 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
         <>
           {accountList.length === 0 ? (
             <div className="text-center py-12">
-              <Wallet className="w-10 h-10 mx-auto mb-3 text-zinc-500" />
-              <p className="text-zinc-200 font-medium">No accounts yet</p>
-              <p className="text-sm text-zinc-400 mt-1 mb-6">
+              <Wallet className="w-10 h-10 mx-auto mb-3 text-zinc-600 dark:text-zinc-500" />
+              <p className="text-zinc-800 dark:text-zinc-200 font-medium">No accounts yet</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mt-1 mb-6">
                 Add your checking account to start tracking your cash flow.
               </p>
               <Link href="/dashboard/accounts/new">

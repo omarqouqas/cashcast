@@ -54,7 +54,7 @@ export function RiskMetrics({ riskMetrics, currency, safetyBuffer }: RiskMetrics
               {overdraftPct}% chance of overdraft
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
             Based on {riskMetrics.expectedDaysAtRisk.toFixed(0)} days projected below your safety buffer
           </p>
         </div>
@@ -81,19 +81,19 @@ export function RiskMetrics({ riskMetrics, currency, safetyBuffer }: RiskMetrics
               Low risk forecast
             </span>
           </div>
-          <p className="text-xs text-zinc-400 mt-1">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
             Based on 500 simulations with income and bill timing variations
           </p>
         </div>
       )}
 
       {/* Worst case balance */}
-      <div className="flex items-center justify-between text-xs text-zinc-400">
+      <div className="flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
         <div className="flex items-center gap-1.5">
           <Shield className="h-3.5 w-3.5" />
           <span>Worst case balance (P10)</span>
         </div>
-        <span className={riskMetrics.worstCaseBalance < 0 ? 'text-rose-400' : 'text-zinc-300'}>
+        <span className={riskMetrics.worstCaseBalance < 0 ? 'text-rose-400' : 'text-zinc-700 dark:text-zinc-300'}>
           {formatCurrency(riskMetrics.worstCaseBalance, currency)}
         </span>
       </div>

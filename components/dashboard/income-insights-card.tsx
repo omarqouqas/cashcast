@@ -20,8 +20,8 @@ const DATA_QUALITY_CONFIG: Record<
 > = {
   basic: {
     label: 'Basic',
-    color: 'text-zinc-400',
-    bg: 'bg-zinc-700',
+    color: 'text-zinc-500 dark:text-zinc-400',
+    bg: 'bg-zinc-200 dark:bg-zinc-700',
     description: 'Less than 3 months of payment history. Forecasts use default estimates.',
     nextLevel: 'Track more invoices to reach Moderate (3+ months).',
   },
@@ -62,7 +62,7 @@ const TREND_CONFIG: Record<
   },
   stable: {
     icon: Minus,
-    color: 'text-zinc-400',
+    color: 'text-zinc-500 dark:text-zinc-400',
     label: 'Stable',
   },
   declining: {
@@ -77,11 +77,11 @@ const TREND_CONFIG: Record<
  */
 function EmptyState() {
   return (
-    <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6">
+    <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-6">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-zinc-100">Income Insights</h3>
-          <p className="mt-1 text-sm text-zinc-400">
+          <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Income Insights</h3>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             AI-powered income pattern analysis
           </p>
         </div>
@@ -89,10 +89,10 @@ function EmptyState() {
       </div>
 
       <div className="mt-6 text-center py-4">
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-zinc-500 dark:text-zinc-600 dark:text-zinc-500">
           No income data available yet.
         </p>
-        <p className="text-xs text-zinc-600 mt-1">
+        <p className="text-xs text-zinc-500 dark:text-zinc-600 mt-1">
           Start tracking invoices or income to see patterns.
         </p>
       </div>
@@ -125,13 +125,13 @@ export function IncomeInsightsCard({
   const TrendIcon = trendConfig.icon;
 
   return (
-    <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6">
+    <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-6">
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div>
-            <h3 className="text-lg font-semibold text-zinc-100">Income Insights</h3>
-            <p className="mt-1 text-sm text-zinc-400">
+            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Income Insights</h3>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
               AI-powered income pattern analysis
             </p>
           </div>
@@ -150,11 +150,11 @@ export function IncomeInsightsCard({
               <HelpCircle className="h-3 w-3 opacity-60" />
             </button>
             {showQualityTooltip && (
-              <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-zinc-800 border border-zinc-700 rounded-lg shadow-lg z-10">
-                <p className="text-xs text-zinc-300 mb-2">
+              <div className="absolute right-0 top-full mt-2 w-64 p-3 bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg shadow-lg z-10">
+                <p className="text-xs text-zinc-700 dark:text-zinc-300 mb-2">
                   <span className="font-medium">{analysis.monthsOfData} months</span> of payment data
                 </p>
-                <p className="text-xs text-zinc-400 mb-2">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-2">
                   {qualityConfig.description}
                 </p>
                 {qualityConfig.nextLevel && (
@@ -171,16 +171,16 @@ export function IncomeInsightsCard({
 
       {/* 90-Day Forecast */}
       <div className="mt-6">
-        <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide mb-2">
+        <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wide mb-2">
           90-Day Forecast
         </p>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-semibold text-zinc-100">
+          <span className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
             {formatCurrency(analysis.forecast90DaysP50, currency)}
           </span>
-          <span className="text-sm text-zinc-500">expected</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-600 dark:text-zinc-500">expected</span>
         </div>
-        <p className="text-sm text-zinc-500 mt-1">
+        <p className="text-sm text-zinc-500 dark:text-zinc-600 dark:text-zinc-500 mt-1">
           Range: {formatCurrency(analysis.forecast90DaysP10, currency)} &ndash;{' '}
           {formatCurrency(analysis.forecast90DaysP90, currency)}
         </p>
@@ -192,10 +192,10 @@ export function IncomeInsightsCard({
           {analysis.forecast.map((month) => (
             <div
               key={month.label}
-              className="bg-zinc-800/50 rounded-lg p-2 text-center"
+              className="bg-zinc-100 dark:bg-zinc-800/50 rounded-lg p-2 text-center"
             >
-              <p className="text-xs text-zinc-500">{month.label.split(' ')[0]}</p>
-              <p className="text-sm font-medium text-zinc-200 mt-0.5">
+              <p className="text-xs text-zinc-500 dark:text-zinc-600 dark:text-zinc-500">{month.label.split(' ')[0]}</p>
+              <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 mt-0.5">
                 {formatCurrency(month.p50, currency)}
               </p>
             </div>
@@ -215,7 +215,7 @@ export function IncomeInsightsCard({
           </div>
 
           {/* Source count */}
-          <span className="text-sm text-zinc-500">
+          <span className="text-sm text-zinc-500 dark:text-zinc-600 dark:text-zinc-500">
             {analysis.sourceCount} source{analysis.sourceCount !== 1 ? 's' : ''}
           </span>
 
@@ -229,7 +229,7 @@ export function IncomeInsightsCard({
       </div>
 
       {/* View Details Link */}
-      <div className="mt-5 pt-4 border-t border-zinc-800">
+      <div className="mt-5 pt-4 border-t border-zinc-200 dark:border-zinc-800">
         <Link
           href="/dashboard/insights"
           className="inline-flex items-center text-sm font-medium text-teal-400 hover:text-teal-300 transition-colors"

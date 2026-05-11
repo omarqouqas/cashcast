@@ -55,7 +55,7 @@ export default async function DebtPayoffPage() {
     <div className="max-w-4xl mx-auto">
       <Link
         href="/dashboard/accounts"
-        className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group mb-6"
+        className="inline-flex items-center text-sm text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group mb-6"
       >
         <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
         Back to Accounts

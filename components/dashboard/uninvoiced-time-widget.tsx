@@ -41,10 +41,10 @@ export function UninvoicedTimeWidget({
             <h3 className="text-sm font-medium text-amber-300">
               Uninvoiced Time
             </h3>
-            <p className="text-2xl font-bold text-white mt-1">
+            <p className="text-2xl font-bold text-zinc-900 dark:text-white mt-1">
               {formatCurrency(totalAmount, currency)}
             </p>
-            <p className="text-sm text-zinc-400 mt-0.5">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
               {formatDuration(totalMinutes)} across {entryCount} {entryCount === 1 ? 'entry' : 'entries'}
             </p>
           </div>

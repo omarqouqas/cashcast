@@ -25,8 +25,8 @@ const DATA_QUALITY_CONFIG: Record<
     description: 'Less than 3 months of payment history',
     features: ['Basic forecasting using default estimates'],
     nextLevel: 'Track more invoices to reach Moderate (3+ months)',
-    color: 'text-zinc-400',
-    bg: 'bg-zinc-700',
+    color: 'text-zinc-600 dark:text-zinc-500 dark:text-zinc-400',
+    bg: 'bg-zinc-200 dark:bg-zinc-700',
   },
   moderate: {
     label: 'Moderate',
@@ -69,7 +69,7 @@ const TREND_CONFIG: Record<
   },
   stable: {
     icon: Minus,
-    color: 'text-zinc-400',
+    color: 'text-zinc-600 dark:text-zinc-500 dark:text-zinc-400',
     label: 'Stable',
     description: 'Income is relatively consistent',
   },
@@ -89,10 +89,10 @@ function EmptyState() {
     <div className="min-h-[60vh] flex items-center justify-center">
       <div className="text-center max-w-md">
         <Sparkles className="h-12 w-12 text-violet-400 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-zinc-100 mb-2">
+        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
           No Income Data Yet
         </h2>
-        <p className="text-zinc-400 mb-6">
+        <p className="text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mb-6">
           Start tracking invoices and income to see AI-powered insights about your earning patterns.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -104,7 +104,7 @@ function EmptyState() {
           </Link>
           <Link
             href="/dashboard/income"
-            className="inline-flex items-center justify-center px-4 py-2 bg-zinc-700 text-zinc-100 rounded-lg hover:bg-zinc-600 transition-colors"
+            className="inline-flex items-center justify-center px-4 py-2 bg-zinc-200 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 rounded-lg hover:bg-zinc-600 transition-colors"
           >
             Add income
           </Link>
@@ -129,12 +129,12 @@ export function InsightsContent({
           <div className="mb-6">
             <Link
               href="/dashboard"
-              className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group mb-4"
+              className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
               Back to Dashboard
             </Link>
-            <h1 className="text-2xl font-bold text-zinc-100">Income Insights</h1>
+            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Income Insights</h1>
           </div>
           <EmptyState />
         </div>
@@ -153,15 +153,15 @@ export function InsightsContent({
         <div className="mb-6">
           <Link
             href="/dashboard"
-            className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group mb-4"
+            className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Dashboard
           </Link>
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-zinc-100">Income Insights</h1>
-              <p className="text-zinc-400 mt-1">
+              <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Income Insights</h1>
+              <p className="text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mt-1">
                 AI-powered analysis of your income patterns
               </p>
             </div>
@@ -177,26 +177,26 @@ export function InsightsContent({
         </div>
 
         {/* Data Quality Explanation */}
-        <div className="mb-6 border border-zinc-800 bg-zinc-800/50 rounded-lg p-4">
+        <div className="mb-6 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-100 dark:bg-zinc-800/50 rounded-lg p-4">
           <div className="flex items-start gap-3">
             <Info className="h-5 w-5 text-teal-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-medium text-zinc-200">
+                <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                   Data Quality: {qualityConfig.label}
                 </span>
-                <span className="text-xs text-zinc-500">
+                <span className="text-xs text-zinc-600 dark:text-zinc-500">
                   ({analysis.monthsOfData} month{analysis.monthsOfData !== 1 ? 's' : ''} of data)
                 </span>
               </div>
-              <p className="text-sm text-zinc-400 mb-2">
+              <p className="text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mb-2">
                 {qualityConfig.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-2">
                 {qualityConfig.features.map((feature) => (
                   <span
                     key={feature}
-                    className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-zinc-700 text-zinc-300"
+                    className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300"
                   >
                     {feature}
                   </span>
@@ -214,22 +214,22 @@ export function InsightsContent({
         {/* Overview Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {/* 90-Day Forecast */}
-          <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-            <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+            <p className="text-xs font-medium text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
               90-Day Forecast
             </p>
-            <p className="text-2xl font-semibold text-zinc-100 mt-1">
+            <p className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100 mt-1">
               {formatCurrency(analysis.forecast90DaysP50, currency)}
             </p>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
               {formatCurrency(analysis.forecast90DaysP10, currency)} &ndash;{' '}
               {formatCurrency(analysis.forecast90DaysP90, currency)}
             </p>
           </div>
 
           {/* Overall Trend */}
-          <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-            <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+            <p className="text-xs font-medium text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
               Overall Trend
             </p>
             <div className="flex items-center gap-2 mt-1">
@@ -238,47 +238,47 @@ export function InsightsContent({
                 {trendConfig.label}
               </span>
             </div>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
               {Math.round(analysis.overallTrendConfidence * 100)}% confidence
             </p>
           </div>
 
           {/* Income Sources */}
-          <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-            <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+            <p className="text-xs font-medium text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
               Income Sources
             </p>
             <div className="flex items-center gap-2 mt-1">
               <Users className="h-5 w-5 text-teal-400" />
-              <span className="text-2xl font-semibold text-zinc-100">
+              <span className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
                 {analysis.sourceCount}
               </span>
             </div>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
               Clients & income streams
             </p>
           </div>
 
           {/* Data History */}
-          <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-4">
-            <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide">
+          <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-4">
+            <p className="text-xs font-medium text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
               Data History
             </p>
             <div className="flex items-center gap-2 mt-1">
               <Calendar className="h-5 w-5 text-violet-400" />
-              <span className="text-2xl font-semibold text-zinc-100">
+              <span className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
                 {analysis.monthsOfData}
               </span>
             </div>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
               months of payment data
             </p>
           </div>
         </div>
 
         {/* 90-Day Forecast Chart */}
-        <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6 mb-8">
-          <h2 className="text-lg font-semibold text-zinc-100 mb-4">
+        <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-6 mb-8">
+          <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
             90-Day Income Forecast
           </h2>
           <ForecastChart forecast={analysis.forecast} currency={currency} />
@@ -292,8 +292,8 @@ export function InsightsContent({
         )}
 
         {/* Source Breakdown */}
-        <div className="border border-zinc-800 bg-zinc-900 rounded-lg p-6 mb-8">
-          <h2 className="text-lg font-semibold text-zinc-100 mb-4">
+        <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg p-6 mb-8">
+          <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
             Income Source Breakdown
           </h2>
           <SourceBreakdown
@@ -314,25 +314,25 @@ export function InsightsContent({
             This section shows how the monthly baseline is calculated for debugging purposes.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-zinc-800/50 rounded-lg p-4">
-              <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">
+            <div className="bg-zinc-100 dark:bg-zinc-800/50 rounded-lg p-4">
+              <p className="text-xs text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide mb-1">
                 From Recurring Income
               </p>
-              <p className="text-xl font-semibold text-zinc-100">
+              <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 {formatCurrency(analysis.debugFromRecurring, currency)}
               </p>
-              <p className="text-xs text-zinc-500 mt-1">
+              <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
                 Monthly from Income page entries
               </p>
             </div>
-            <div className="bg-zinc-800/50 rounded-lg p-4">
-              <p className="text-xs text-zinc-400 uppercase tracking-wide mb-1">
+            <div className="bg-zinc-100 dark:bg-zinc-800/50 rounded-lg p-4">
+              <p className="text-xs text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 uppercase tracking-wide mb-1">
                 From Invoice History
               </p>
-              <p className="text-xl font-semibold text-zinc-100">
+              <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 {formatCurrency(analysis.debugFromSources, currency)}
               </p>
-              <p className="text-xs text-zinc-500 mt-1">
+              <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
                 Monthly from paid invoices (2+ payments)
               </p>
             </div>
@@ -343,12 +343,12 @@ export function InsightsContent({
               <p className="text-xl font-semibold text-teal-300">
                 {formatCurrency(analysis.debugBaselineMonthly, currency)}
               </p>
-              <p className="text-xs text-zinc-500 mt-1">
+              <p className="text-xs text-zinc-600 dark:text-zinc-500 mt-1">
                 Used for Monte Carlo simulation
               </p>
             </div>
           </div>
-          <div className="mt-4 p-3 bg-zinc-800/30 rounded text-xs text-zinc-400">
+          <div className="mt-4 p-3 bg-zinc-800/30 rounded text-xs text-zinc-600 dark:text-zinc-500 dark:text-zinc-400">
             <p className="mb-1">
               <strong>Expected 90-day forecast:</strong>{' '}
               {formatCurrency(analysis.debugBaselineMonthly * 3, currency)} (baseline × 3 months)
@@ -366,23 +366,23 @@ export function InsightsContent({
               {analysis.sourceMetrics
                 .filter(s => s.paymentCount >= 2)
                 .map(source => (
-                  <div key={source.sourceId} className="p-3 bg-zinc-800/50 rounded text-xs">
-                    <p className="font-medium text-zinc-200">{source.name}</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 text-zinc-400">
+                  <div key={source.sourceId} className="p-3 bg-zinc-100 dark:bg-zinc-800/50 rounded text-xs">
+                    <p className="font-medium text-zinc-800 dark:text-zinc-200">{source.name}</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 text-zinc-600 dark:text-zinc-500 dark:text-zinc-400">
                       <div>
-                        <span className="text-zinc-500">Payments:</span> {source.paymentCount}
+                        <span className="text-zinc-600 dark:text-zinc-500">Payments:</span> {source.paymentCount}
                       </div>
                       <div>
-                        <span className="text-zinc-500">Avg Amount:</span> {formatCurrency(source.avgAmount, currency)}
+                        <span className="text-zinc-600 dark:text-zinc-500">Avg Amount:</span> {formatCurrency(source.avgAmount, currency)}
                       </div>
                       <div>
-                        <span className="text-zinc-500">Avg Days Between:</span> {source.avgDaysBetween.toFixed(1)}
+                        <span className="text-zinc-600 dark:text-zinc-500">Avg Days Between:</span> {source.avgDaysBetween.toFixed(1)}
                       </div>
                       <div>
-                        <span className="text-zinc-500">Frequency:</span> {source.detectedFrequency}
+                        <span className="text-zinc-600 dark:text-zinc-500">Frequency:</span> {source.detectedFrequency}
                       </div>
                     </div>
-                    <p className="mt-2 text-zinc-500">
+                    <p className="mt-2 text-zinc-600 dark:text-zinc-500">
                       Monthly contribution: {formatCurrency(
                         source.detectedFrequency === 'weekly' ? source.avgAmount * (52 / 12) :
                         source.detectedFrequency === 'biweekly' ? source.avgAmount * (26 / 12) :
@@ -398,7 +398,7 @@ export function InsightsContent({
                   </div>
                 ))}
               {analysis.sourceMetrics.filter(s => s.paymentCount >= 2).length === 0 && (
-                <p className="text-zinc-500 italic">No sources with 2+ payments</p>
+                <p className="text-zinc-600 dark:text-zinc-500 italic">No sources with 2+ payments</p>
               )}
             </div>
           </div>

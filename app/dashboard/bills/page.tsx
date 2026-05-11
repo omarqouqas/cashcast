@@ -274,7 +274,7 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
       <div className="mb-6">
         <Link
           href="/dashboard"
-          className="inline-flex items-center text-sm text-zinc-400 hover:text-teal-400 transition-colors group"
+          className="inline-flex items-center text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 hover:text-teal-400 transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Dashboard
@@ -284,8 +284,8 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
       {/* Page Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-zinc-100">Bills</h2>
-          <p className="text-sm text-zinc-400 mt-1">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Bills</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mt-1">
             Track your recurring and one-time bills
           </p>
         </div>
@@ -373,7 +373,7 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
       {/* Quick Summary */}
       {!error && billsList.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-semibold text-zinc-100 mb-3">Quick Summary</h3>
+          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Quick Summary</h3>
 
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
@@ -431,14 +431,14 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
         <>
           {!bills || bills.length === 0 ? (
             /* Empty State */
-            <div className="border border-zinc-800 bg-zinc-900 rounded-lg overflow-hidden">
+            <div className="border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-lg overflow-hidden">
               <div className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center py-10">
                 <div className="w-20 h-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-6">
                   <Receipt className="w-10 h-10 text-rose-500" />
                 </div>
 
-                <h2 className="text-xl font-semibold text-zinc-100 mb-2">Track your bills</h2>
-                <p className="text-zinc-400 mb-8 max-w-xs">
+                <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Track your bills</h2>
+                <p className="text-zinc-600 dark:text-zinc-500 dark:text-zinc-400 mb-8 max-w-xs">
                   Add your recurring and one-time bills to stay on top of your expenses and improve your cash flow.
                 </p>
 
@@ -449,7 +449,7 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
                   Add your first bill
                 </Link>
 
-                <p className="text-zinc-500 text-sm mt-6">Get started in seconds</p>
+                <p className="text-zinc-600 dark:text-zinc-500 text-sm mt-6">Get started in seconds</p>
               </div>
             </div>
           ) : (
