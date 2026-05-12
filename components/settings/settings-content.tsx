@@ -10,13 +10,12 @@ import { ChangePasswordButton } from './change-password-button';
 // Preferences tab components
 import { CurrencyForm } from './currency-form';
 import { TimezoneForm } from './timezone-form';
-import { SafetyBufferForm } from './safety-buffer-form';
+import { SafetyBufferAlertForm } from './safety-buffer-alert-form';
 import { CategoryManagementForm } from './category-management-form';
 import { ThemeForm } from './theme-form';
 
 // Notifications tab components
 import { EmailDigestForm } from './email-digest-form';
-import { LowBalanceAlertForm } from './low-balance-alert-form';
 import { NotificationChannelsForm } from './notification-channels-form';
 import { AutoRemindersForm } from './auto-reminders-form';
 
@@ -171,8 +170,16 @@ function SettingsContentInner(props: SettingsContentProps) {
             <div className="space-y-4">
               <CurrencyForm initialValue={props.currency} />
               <TimezoneForm initialValue={props.timezone} />
-              <SafetyBufferForm initialValue={props.safetyBuffer} />
             </div>
+          </section>
+
+          {/* Safety Buffer & Alerts - Combined */}
+          <section>
+            <SafetyBufferAlertForm
+              initialSafetyBuffer={props.safetyBuffer}
+              initialAlertEnabled={props.lowBalanceAlertEnabled}
+              currency={props.currency}
+            />
           </section>
 
           {/* Categories */}
@@ -189,11 +196,6 @@ function SettingsContentInner(props: SettingsContentProps) {
           <SectionHeader icon={Bell} title="Notification Settings" />
           <div className="space-y-4">
             <EmailDigestForm initialEnabled={props.digestEnabled} initialDay={props.digestDay} />
-            <LowBalanceAlertForm
-              initialEnabled={props.lowBalanceAlertEnabled}
-              safetyBuffer={props.safetyBuffer}
-              currency={props.currency}
-            />
             <NotificationChannelsForm
               initialPhoneNumber={props.phoneNumber}
               initialPhoneVerified={props.phoneVerified}
