@@ -203,6 +203,12 @@ export default function EditAccountPage() {
       showError(updateError.message);
       setError(updateError.message);
     } else {
+      // If changing to credit card and this was the emergency fund, clear it
+      if (data.account_type === 'credit_card' && isEmergencyFund) {
+        await clearEmergencyFund();
+        setIsEmergencyFund(false);
+      }
+
       // Success - redirect to accounts list
       showSuccess('Changes saved');
       router.refresh();
@@ -562,6 +568,14 @@ export default function EditAccountPage() {
                       disabled={isTogglingEmergencyFund || needsSaveFirst}
                       onChange={async (e) => {
                         const newValue = e.target.checked;
+
+                        // Extra safety: prevent setting emergency fund if DB still has credit_card type
+                        if (newValue && account?.account_type === 'credit_card') {
+                          showError('Save account type change first, then set as emergency fund');
+                          e.target.checked = false;
+                          return;
+                        }
+
                         setIsTogglingEmergencyFund(true);
 
                         if (newValue) {
