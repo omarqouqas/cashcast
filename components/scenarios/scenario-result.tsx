@@ -94,11 +94,43 @@ export function ScenarioResult({
             <div className="min-w-0">
               <p className="text-base font-semibold text-emerald-200">Yes, you can afford this!</p>
               <p className="text-sm text-emerald-100/80 mt-1">
-                Your lowest balance would be{' '}
-                <span className="font-semibold">
-                  {formatCurrency(result.lowestBalance, currency)}
-                </span>{' '}
-                on <span className="font-semibold">{formatDateOnly(result.lowestDate)}</span>.
+                {(() => {
+                  // Check if the lowest balance date is on or after the expense date
+                  const expenseDate = new Date(scenarioDate + 'T00:00:00');
+                  const lowestDate = new Date(result.lowestDate + 'T00:00:00');
+                  const lowestIsAfterExpense = lowestDate >= expenseDate;
+
+                  // Find the balance on the expense date from preview
+                  const expenseDayPreview = preview.find(p => p.date === scenarioDate);
+                  const balanceAfterExpense = expenseDayPreview?.scenarioBalance;
+
+                  if (lowestIsAfterExpense) {
+                    // Lowest balance is caused by or after this expense - show it
+                    return (
+                      <>
+                        Your lowest balance would be{' '}
+                        <span className="font-semibold">
+                          {formatCurrency(result.lowestBalance, currency)}
+                        </span>{' '}
+                        on <span className="font-semibold">{formatDateOnly(result.lowestDate)}</span>.
+                      </>
+                    );
+                  } else if (balanceAfterExpense !== undefined) {
+                    // Lowest balance is before the expense - show the expense impact instead
+                    return (
+                      <>
+                        After this expense, your balance would be{' '}
+                        <span className="font-semibold">
+                          {formatCurrency(balanceAfterExpense, currency)}
+                        </span>{' '}
+                        on <span className="font-semibold">{formatDateOnly(scenarioDate)}</span>.
+                      </>
+                    );
+                  } else {
+                    // Fallback - just confirm it's affordable
+                    return <>You have enough buffer to handle this expense.</>;
+                  }
+                })()}
               </p>
             </div>
           </div>
