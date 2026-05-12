@@ -31,6 +31,8 @@ interface IncomeRecord {
   start_date?: string;
   /** End date (optional, stops recurring income after this date) */
   end_date?: string | null;
+  /** Whether taxes are already withheld (W-2) or not (contractor/freelance) */
+  taxes_withheld?: boolean | null;
 }
 
 /**
@@ -148,6 +150,7 @@ export function calculateIncomeOccurrences(
           frequency: income.frequency,
           status: income.status ?? null,
           invoice_id: income.invoice_id ?? null,
+          taxes_withheld: income.taxes_withheld ?? false,
         });
 
         // Get next weekly occurrence - create new Date object before incrementing
@@ -188,6 +191,7 @@ export function calculateIncomeOccurrences(
           frequency: income.frequency,
           status: income.status ?? null,
           invoice_id: income.invoice_id ?? null,
+          taxes_withheld: income.taxes_withheld ?? false,
         });
 
         // Get next biweekly occurrence - create new Date object before incrementing
@@ -477,6 +481,7 @@ export function calculateIncomeOccurrences(
           frequency: income.frequency,
           status: income.status ?? null,
           invoice_id: income.invoice_id ?? null,
+          taxes_withheld: income.taxes_withheld ?? false,
         });
       }
       // If no, return empty array (already initialized as empty)
@@ -500,6 +505,7 @@ export function calculateIncomeOccurrences(
           frequency: income.frequency,
           status: income.status ?? null,
           invoice_id: income.invoice_id ?? null,
+          taxes_withheld: income.taxes_withheld ?? false,
         });
       }
       break;

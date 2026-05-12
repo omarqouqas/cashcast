@@ -363,6 +363,7 @@ export type Database = {
           source_import_id: string | null
           status: string | null
           status_updated_at: string | null
+          taxes_withheld: boolean | null
           updated_at: string | null
           user_id: string
         }
@@ -383,6 +384,7 @@ export type Database = {
           source_import_id?: string | null
           status?: string | null
           status_updated_at?: string | null
+          taxes_withheld?: boolean | null
           updated_at?: string | null
           user_id: string
         }
@@ -403,6 +405,7 @@ export type Database = {
           source_import_id?: string | null
           status?: string | null
           status_updated_at?: string | null
+          taxes_withheld?: boolean | null
           updated_at?: string | null
           user_id?: string
         }

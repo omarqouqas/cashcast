@@ -30,6 +30,11 @@ export interface Transaction {
   status?: string | null;
   /** Optional linked invoice id (for invoice-linked income) */
   invoice_id?: string | null;
+  /**
+   * For income: whether taxes are already withheld (true = W-2, false = contractor/freelance).
+   * When false, tax rate will be applied to reduce Safe to Spend.
+   */
+  taxes_withheld?: boolean | null;
 }
 
 /**

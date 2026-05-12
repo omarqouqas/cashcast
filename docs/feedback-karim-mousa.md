@@ -102,17 +102,20 @@
 
 ---
 
-## Tax Calculation (Onboarding)
+## Tax Calculation (Per-Income Source)
 
 ### Issue: Tax Component in Available to Spend
 - For users with salary or contractor income, taxes should be handled differently
 - Tax component should be removed from "available to spend" calculation
 
-### Suggested Flow
-- During onboarding, determine if income is salary or contractor
-- Automatically account for tax obligations in spendable balance
+### Implemented Solution
+- Each income source has a "Taxes already withheld" toggle
+- W-2/salary income: User checks the toggle (taxes already deducted by employer)
+- Freelance/contractor income: User leaves toggle unchecked
+- "Safe to Spend" calculation automatically reserves estimated tax amount for pre-tax income
+- Tax amount calculated using user's configured tax rate from Settings
 
-**Status:** Not implemented - requires onboarding flow changes
+**Status:** Implemented - per-income tax status toggle with Safe to Spend adjustment
 
 ---
 
@@ -127,7 +130,7 @@
 | Navigation | Too many items, paid tools hidden | Simplify menu, highlight premium features | Resolved |
 | Dashboard | Needs own menu item | Access via logo click | Resolved |
 | Can I Afford It? | Confusing display | Add "When can I afford it?" | Implemented (with income context, comma formatting) |
-| Tax Calculation | Taxes in available to spend | Exclude taxes based on income type | Not implemented |
+| Tax Calculation | Taxes in available to spend | Per-income tax toggle + Safe to Spend adjustment | Implemented |
 
 ---
 
@@ -145,4 +148,4 @@ User provided screenshot showing calendar view with red/orange color scheme issu
 4. **Medium:** Redesign calendar tiles to reduce visual clutter (flip cards)
 5. ~~**Medium:** Combine safety buffer + low balance alert settings (currently in different tabs)~~ **DONE** - Combined into single form
 6. ~~**Medium:** Add "When can I afford it?" feature~~ **DONE** - Context-aware messaging + first affordable date
-7. **Low:** Tax calculation in onboarding (income type detection)
+7. ~~**Low:** Tax calculation in onboarding (income type detection)~~ **DONE** - Per-income tax toggle with Safe to Spend adjustment

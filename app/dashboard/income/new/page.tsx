@@ -37,6 +37,7 @@ const incomeSchema = z.object({
   next_date: z.string().min(1, 'Next payment date is required'),
   account_id: z.string().nullable().optional(),
   is_active: z.boolean().default(true),
+  taxes_withheld: z.boolean().default(false),
 });
 
 type IncomeFormData = z.infer<typeof incomeSchema>;
@@ -66,6 +67,7 @@ export default function NewIncomePage() {
     resolver: zodResolver(incomeSchema),
     defaultValues: {
       is_active: true,
+      taxes_withheld: false,
       next_date: prefilledDate,
     },
   });
@@ -150,6 +152,7 @@ export default function NewIncomePage() {
       account_id: data.account_id || null,
       is_active: data.is_active,
       status: data.is_active ? 'active' : 'paused',
+      taxes_withheld: data.taxes_withheld,
     });
 
     if (insertError) {
@@ -362,6 +365,27 @@ export default function NewIncomePage() {
               <ChevronDown className="w-5 h-5 text-zinc-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
             <p className="text-sm text-zinc-400 mt-1.5">Which account does this income go into?</p>
+          </div>
+
+          {/* Tax Status */}
+          <div className="flex items-start gap-3 p-3 rounded-md bg-zinc-900/50 border border-zinc-700/50">
+            <input
+              type="checkbox"
+              id="taxes_withheld"
+              {...register('taxes_withheld')}
+              className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-teal-500 focus:ring-2 focus:ring-teal-500/20 focus:ring-offset-0 cursor-pointer"
+            />
+            <div>
+              <Label
+                htmlFor="taxes_withheld"
+                className="text-zinc-300 cursor-pointer"
+              >
+                Taxes already withheld
+              </Label>
+              <p className="text-sm text-zinc-400 mt-1">
+                Check if this is W-2/salary income where taxes are deducted by employer. Leave unchecked for freelance/contractor income.
+              </p>
+            </div>
           </div>
 
           {/* Is Active Checkbox */}

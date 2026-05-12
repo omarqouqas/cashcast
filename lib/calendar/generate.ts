@@ -109,7 +109,8 @@ export default function generateCalendar(
   timezone?: string,
   forecastDays: number = 60,
   transfers: TransferRecord[] = [],
-  emergencyFundAccountId?: string | null
+  emergencyFundAccountId?: string | null,
+  taxRate: number = 25
 ): CalendarData {
   try {
     // Step 1: Calculate starting balance
@@ -277,11 +278,28 @@ export default function generateCalendar(
     }
 
     // Step 7: Safe to Spend (next 14 days)
-    // safeToSpend = lowestBalanceInNext14Days - safetyBuffer (capped at 0)
+    // safeToSpend = lowestBalanceInNext14Days - safetyBuffer - taxLiability (capped at 0)
+    // Tax liability is calculated for income where taxes_withheld is false (freelance/contractor income)
     const next14Days = days.slice(0, 14);
     const lowestIn14Days =
       next14Days.length === 0 ? startingBalance : Math.min(...next14Days.map((d) => d.balance));
-    const safeToSpend = Math.max(0, lowestIn14Days - safetyBuffer);
+
+    // Calculate tax liability for pre-tax income in next 14 days
+    // Sum income where taxes_withheld is false and apply the user's tax rate
+    const preTaxIncomeIn14Days = next14Days.reduce((total, day) => {
+      return total + day.income.reduce((dayTotal, inc) => {
+        // Only count income where taxes are NOT withheld (freelance/contractor)
+        if (inc.taxes_withheld === false) {
+          return dayTotal + (Number.isFinite(inc.amount) ? inc.amount : 0);
+        }
+        return dayTotal;
+      }, 0);
+    }, 0);
+
+    // Calculate tax liability using the user's configured tax rate
+    const taxLiability = preTaxIncomeIn14Days * (taxRate / 100);
+
+    const safeToSpend = Math.max(0, lowestIn14Days - safetyBuffer - taxLiability);
 
     // Step 8: Detect bill collisions (multiple bills due on the same day)
     const collisions = detectBillCollisions(days);

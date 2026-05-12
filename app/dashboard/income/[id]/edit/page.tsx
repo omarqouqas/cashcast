@@ -29,6 +29,7 @@ const incomeSchema = z.object({
   next_date: z.string().min(1, 'Next payment date is required'),
   account_id: z.string().nullable().optional(),
   is_active: z.boolean().default(true),
+  taxes_withheld: z.boolean().default(false),
 });
 
 type IncomeFormData = z.infer<typeof incomeSchema>;
@@ -117,6 +118,7 @@ export default function EditIncomePage() {
         next_date: formattedDate,
         account_id: incomeData.account_id || '',
         is_active: incomeData.is_active ?? true,
+        taxes_withheld: incomeData.taxes_withheld ?? false,
       });
 
       setIsLoading(false);
@@ -140,6 +142,7 @@ export default function EditIncomePage() {
         next_date: data.next_date,
         account_id: data.account_id || null,
         is_active: data.is_active,
+        taxes_withheld: data.taxes_withheld,
         updated_at: new Date().toISOString(),
       })
       .eq('id', incomeId);
@@ -360,8 +363,26 @@ export default function EditIncomePage() {
             <p className="text-sm text-zinc-400 mt-1.5">Which account does this income go into?</p>
           </div>
 
+          {/* Tax Status */}
+          <div className="flex items-start gap-3 p-3 rounded-md bg-zinc-800/50 border border-zinc-700/50">
+            <input
+              type="checkbox"
+              id="taxes_withheld"
+              {...register('taxes_withheld')}
+              className="mt-1 h-4 w-4 rounded border-zinc-600 bg-zinc-800 text-teal-500 focus:ring-2 focus:ring-teal-500 focus:ring-offset-0 checked:bg-teal-500"
+            />
+            <div>
+              <Label htmlFor="taxes_withheld" className="text-zinc-300 cursor-pointer">
+                Taxes already withheld
+              </Label>
+              <p className="text-sm text-zinc-400 mt-1">
+                Check if this is W-2/salary income where taxes are deducted by employer. Leave unchecked for freelance/contractor income.
+              </p>
+            </div>
+          </div>
+
           {/* Is Active Checkbox */}
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3 p-3 rounded-md bg-zinc-800/50 border border-zinc-700/50">
             <input
               type="checkbox"
               id="is_active"
