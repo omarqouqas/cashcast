@@ -95,9 +95,10 @@
 
 **Status:** Implemented - Scenario tool now has:
 - Context-aware messaging (different text for already-negative vs would-go-negative)
-- "When can I afford it?" shows first affordable date with prominent teal highlight
+- "When can I afford it?" shows first affordable date with income context (e.g., "after Salary on Jun 19")
 - Impact preview only shows expense dates (not empty/unchanged days)
-- Removed confusing far-future date references
+- Fixed messaging when lowest balance date is before expense date (shows expense impact instead)
+- Amount input uses comma formatting for thousands (e.g., "5,100" instead of "5100")
 
 ---
 
@@ -125,7 +126,7 @@
 | AI Chat | "AI not configured" error | Made Pro-only feature | Resolved |
 | Navigation | Too many items, paid tools hidden | Simplify menu, highlight premium features | Resolved |
 | Dashboard | Needs own menu item | Access via logo click | Resolved |
-| Can I Afford It? | Confusing display | Add "When can I afford it?" | Implemented |
+| Can I Afford It? | Confusing display | Add "When can I afford it?" | Implemented (with income context, comma formatting) |
 | Tax Calculation | Taxes in available to spend | Exclude taxes based on income type | Not implemented |
 
 ---

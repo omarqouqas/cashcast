@@ -57,10 +57,18 @@
 
 **"Can I Afford It?" Improvements:**
 - Context-aware messaging (different text for already-negative vs would-go-negative)
-- "When can I afford it?" shows first affordable date with prominent teal highlight
+- "When can I afford it?" shows first affordable date with income context (e.g., "after Salary on Jun 19")
+- Server action finds the income that makes the date affordable and returns reason
 - Impact preview only shows expense dates (not empty/unchanged days)
+- Fixed messaging when lowest balance date is before expense date (shows expense impact instead)
+- Amount input now uses CurrencyInput with comma formatting (e.g., "5,100" instead of "5100")
 - Fixed sampling bug that skipped days 14-29 when checking future dates
 - Fixed saved scenarios showing wrong recurring status (used form state instead of saved data)
+
+**Emergency Fund Bug Fixes:**
+- Fixed: Changing account type from credit card required saving before setting emergency fund
+- Fixed: Changing emergency fund account to credit card now auto-clears emergency fund designation
+- Added extra safety check in onChange handler to prevent server validation errors
 
 **Files Created:**
 - None
@@ -69,12 +77,13 @@
 - `components/calendar/sticky-header.tsx` - Added emergency fund note to Safe to Spend tooltips
 - `components/accounts/account-card.tsx` - Show button on all non-credit-card accounts
 - `components/settings/emergency-fund-form.tsx` - Made account dropdown read-only
-- `app/dashboard/accounts/[id]/edit/page.tsx` - Added emergency fund toggle
+- `app/dashboard/accounts/[id]/edit/page.tsx` - Added emergency fund toggle, save-first requirement for type changes, auto-clear on CC conversion
 - `lib/actions/update-emergency-fund.ts` - Added clearEmergencyFund, credit card validation
-- `components/scenarios/scenario-result.tsx` - Context-aware messaging
-- `components/scenarios/scenario-modal.tsx` - Fixed saved scenarios recurring display
-- `lib/actions/scenarios.ts` - Fixed sampling logic for "When can I afford it?"
+- `components/scenarios/scenario-result.tsx` - Context-aware messaging, relevant date display when lowest is before expense
+- `components/scenarios/scenario-modal.tsx` - Fixed saved scenarios recurring display, CurrencyInput for amount field
+- `lib/actions/scenarios.ts` - Fixed sampling logic, added nextAffordableReason with income context
 - `docs/feedback-karim-mousa.md` - Updated all status fields
+- `docs/product-brief.md` - Updated sections 7 and 15 with new features
 
 ---
 
