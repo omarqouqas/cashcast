@@ -83,6 +83,7 @@ export type CalculateScenarioResponse =
         delta: number;
       }>;
       nextAffordableDate: string | null; // YYYY-MM-DD
+      nextAffordableReason: string | null; // e.g., "after Salary" or "after Client Payment"
     }
   | { ok: false; error: string };
 
@@ -161,26 +162,48 @@ export async function calculateScenario(
     });
 
     // Find the first date after the chosen date when this purchase would be affordable.
-    // Check every day to find the earliest possible date.
-    const nextAffordableDate = (() => {
+    // Also find the income that makes it affordable (the "reason").
+    const { nextAffordableDate, nextAffordableReason } = (() => {
       // Only search if the purchase isn't already affordable
-      if (result.canAfford) return null;
+      if (result.canAfford) return { nextAffordableDate: null, nextAffordableReason: null };
 
       const futureDays = calendarData.days.filter((d) => d.date > chosenDate);
 
       // Check every day - accuracy is more important than performance here
       // since we return on first match
-      for (const d of futureDays) {
+      for (let i = 0; i < futureDays.length; i++) {
+        const d = futureDays[i]!;
         const test = calculateScenarioImpact(calendarData, {
           name: cleanedName,
           amount,
           date: d.date,
           frequency: isRecurring ? 'monthly' : 'one-time',
         }).result;
-        if (test.canAfford) return toISODateString(d.date);
+
+        if (test.canAfford) {
+          const affordableDate = toISODateString(d.date);
+
+          // Find income that occurred between original date and this affordable date
+          // Look for the most recent income that contributed to affordability
+          let reason: string | null = null;
+          const daysBetween = futureDays.slice(0, i + 1);
+          for (let j = daysBetween.length - 1; j >= 0; j--) {
+            const dayWithIncome = daysBetween[j]!;
+            if (dayWithIncome.income && dayWithIncome.income.length > 0) {
+              // Found income - use the first (or largest) income name
+              const primaryIncome = dayWithIncome.income.reduce((a, b) =>
+                b.amount > a.amount ? b : a
+              );
+              reason = `after ${primaryIncome.name}`;
+              break;
+            }
+          }
+
+          return { nextAffordableDate: affordableDate, nextAffordableReason: reason };
+        }
       }
 
-      return null;
+      return { nextAffordableDate: null, nextAffordableReason: null };
     })();
 
     return {
@@ -209,6 +232,7 @@ export async function calculateScenario(
         delta: p.delta,
       })),
       nextAffordableDate,
+      nextAffordableReason,
     };
   } catch (e: any) {
     return { ok: false, error: e?.message ?? 'Failed to calculate scenario.' };

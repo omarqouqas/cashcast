@@ -6,6 +6,7 @@ import { X, Calculator } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getCurrencySymbol } from '@/lib/utils/format';
 import { Input } from '@/components/ui/input';
+import { CurrencyInput } from '@/components/ui/currency-input';
 import { Label } from '@/components/ui/label';
 import { showError, showSuccess } from '@/lib/toast';
 import { createClient } from '@/lib/supabase/client';
@@ -55,6 +56,7 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
   const [result, setResult] = useState<ScenarioResultViewModel | null>(null);
   const [preview, setPreview] = useState<ScenarioPreviewViewModel>([]);
   const [nextAffordableDate, setNextAffordableDate] = useState<string | null>(null);
+  const [nextAffordableReason, setNextAffordableReason] = useState<string | null>(null);
 
   const [saved, setSaved] = useState<ScenarioRow[]>([]);
   const [loadingSaved, setLoadingSaved] = useState(false);
@@ -90,6 +92,7 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
     setResult(null);
     setPreview([]);
     setNextAffordableDate(null);
+    setNextAffordableReason(null);
 
     let cancelled = false;
 
@@ -168,6 +171,7 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
     setResult(res.result);
     setPreview(res.preview);
     setNextAffordableDate(res.nextAffordableDate);
+    setNextAffordableReason(res.nextAffordableReason);
     setStep('result');
     setIsWorking(false);
   };
@@ -328,14 +332,12 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
                       Amount<span className="text-rose-400 ml-0.5">*</span>
                     </Label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">{getCurrencySymbol(currency)}</span>
-                      <Input
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 z-10">{getCurrencySymbol(currency)}</span>
+                      <CurrencyInput
                         id="scenario-amount"
-                        type="number"
-                        step="0.01"
                         placeholder="0.00"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
+                        value={parsedAmount || undefined}
+                        onChange={(val) => setAmount(val?.toString() ?? '')}
                         className={cn(
                           'pl-8 bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:ring-teal-500',
                           error && !Number.isFinite(parsedAmount) ? 'border-rose-500 focus:ring-rose-500' : ''
@@ -479,6 +481,7 @@ export function ScenarioModal({ open, onClose, source }: ScenarioModalProps) {
                 result={result}
                 preview={preview}
                 nextAffordableDate={nextAffordableDate}
+                nextAffordableReason={nextAffordableReason}
                 isWorking={isWorking}
                 onAddToBills={handleAddToBills}
                 onSaveForLater={handleSaveForLater}

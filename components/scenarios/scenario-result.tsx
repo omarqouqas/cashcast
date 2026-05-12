@@ -31,6 +31,7 @@ export interface ScenarioResultProps {
   result: ScenarioResultViewModel;
   preview: ScenarioPreviewViewModel;
   nextAffordableDate: string | null;
+  nextAffordableReason: string | null; // e.g., "after Salary"
   onAddToBills: () => Promise<void> | void;
   onSaveForLater: () => Promise<void> | void;
   onDone: () => void;
@@ -60,6 +61,7 @@ export function ScenarioResult({
   result,
   preview,
   nextAffordableDate,
+  nextAffordableReason,
   onAddToBills,
   onSaveForLater,
   onDone,
@@ -171,8 +173,17 @@ export function ScenarioResult({
               {nextAffordableDate && (
                 <div className="mt-3 rounded-md border border-teal-500/30 bg-teal-500/10 p-3">
                   <p className="text-sm font-medium text-teal-200">
-                    You could afford this after{' '}
-                    <span className="font-semibold">{formatDateOnly(nextAffordableDate)}</span>
+                    You could afford this{' '}
+                    {nextAffordableReason ? (
+                      <>
+                        <span className="font-semibold">{nextAffordableReason}</span>
+                        {' '}on <span className="font-semibold">{formatDateOnly(nextAffordableDate)}</span>
+                      </>
+                    ) : (
+                      <>
+                        after <span className="font-semibold">{formatDateOnly(nextAffordableDate)}</span>
+                      </>
+                    )}
                   </p>
                 </div>
               )}
