@@ -108,38 +108,40 @@ export function ScenarioResult({
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-rose-300 mt-0.5" />
             <div className="min-w-0">
-              <p className="text-base font-semibold text-rose-200">This purchase would cause issues</p>
-
-              {result.causesOverdraft ? (
-                <p className="text-sm text-rose-100/80 mt-1">
-                  You&apos;d go negative (lowest:{' '}
-                  <span className="font-semibold">{formatCurrency(result.lowestBalance, currency)}</span>) on{' '}
-                  <span className="font-semibold">{formatDateOnly(result.lowestDate)}</span>.
-                </p>
+              {/* Context-aware headline based on current financial state */}
+              {result.previousLowest < 0 ? (
+                <>
+                  <p className="text-base font-semibold text-rose-200">This would add to your deficit</p>
+                  <p className="text-sm text-rose-100/80 mt-1">
+                    You&apos;re already projected to be in the negative ({formatCurrency(result.previousLowest, currency)}).
+                    This {formatCurrency(scenarioAmount, currency)} purchase would increase your deficit by that amount.
+                  </p>
+                </>
+              ) : result.causesOverdraft ? (
+                <>
+                  <p className="text-base font-semibold text-rose-200">This would take you negative</p>
+                  <p className="text-sm text-rose-100/80 mt-1">
+                    Your balance would drop to{' '}
+                    <span className="font-semibold">{formatCurrency(result.lowestBalance, currency)}</span>.
+                  </p>
+                </>
               ) : (
-                <p className="text-sm text-rose-100/80 mt-1">
-                  Your balance would drop to{' '}
-                  <span className="font-semibold">{formatCurrency(result.lowestBalance, currency)}</span> on{' '}
-                  <span className="font-semibold">{formatDateOnly(result.lowestDate)}</span>.
-                </p>
+                <>
+                  <p className="text-base font-semibold text-rose-200">This would cut it close</p>
+                  <p className="text-sm text-rose-100/80 mt-1">
+                    Your balance would drop to{' '}
+                    <span className="font-semibold">{formatCurrency(result.lowestBalance, currency)}</span>.
+                  </p>
+                </>
               )}
 
-              <div className="mt-3 rounded-md border border-zinc-800 bg-zinc-950/40 p-3">
-                <p className="text-xs uppercase tracking-wide text-zinc-400">Comparison</p>
-                <p className="text-sm text-zinc-200 mt-1">
-                  Current lowest:{' '}
-                  <span className="font-semibold tabular-nums">{formatCurrency(result.previousLowest, currency)}</span>{' '}
-                  <span className="text-zinc-500">→</span>{' '}
-                  <span className="font-semibold tabular-nums text-rose-200">
-                    {formatCurrency(result.lowestBalance, currency)}
-                  </span>
-                </p>
-              </div>
-
+              {/* When Can I Afford It? - Show prominently if available */}
               {nextAffordableDate && (
-                <div className="mt-3 text-sm text-rose-100/80">
-                  Suggestion: You could afford this after{' '}
-                  <span className="font-semibold">{formatDateOnly(nextAffordableDate)}</span>.
+                <div className="mt-3 rounded-md border border-teal-500/30 bg-teal-500/10 p-3">
+                  <p className="text-sm font-medium text-teal-200">
+                    You could afford this after{' '}
+                    <span className="font-semibold">{formatDateOnly(nextAffordableDate)}</span>
+                  </p>
                 </div>
               )}
             </div>
@@ -147,46 +149,50 @@ export function ScenarioResult({
         </div>
       )}
 
-      {preview.length > 0 && (
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-          <p className="text-xs uppercase tracking-wide text-zinc-400">Impact preview</p>
-          <div className="mt-3 space-y-2">
-            {preview.map((p) => {
-              const worsened = p.scenarioBalance < p.baselineBalance;
-              const isProblem = p.scenarioBalance < 100;
-              return (
-                <div
-                  key={p.date}
-                  className={cn(
-                    'flex items-center justify-between rounded-md border px-3 py-2',
-                    isProblem
-                      ? 'border-rose-500/30 bg-rose-500/10'
-                      : worsened
-                        ? 'border-zinc-800 bg-zinc-950/40'
-                        : 'border-zinc-800 bg-zinc-950/30'
-                  )}
-                >
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-zinc-200">{formatDateOnly(p.date)}</p>
-                    <p className="text-xs text-zinc-400">
-                      {formatCurrency(p.baselineBalance, currency)}{' '}
-                      <ArrowRight className="inline w-3 h-3 mx-1 text-zinc-500" />
-                      <span className={cn('font-semibold tabular-nums', isProblem ? 'text-rose-200' : 'text-zinc-100')}>
-                        {formatCurrency(p.scenarioBalance, currency)}
-                      </span>
-                    </p>
+      {/* Only show preview if there are meaningful changes (delta > 0) */}
+      {(() => {
+        // Filter to only show days where the expense actually impacts (delta > 0)
+        const meaningfulDays = preview.filter((p) => p.delta > 0);
+        if (meaningfulDays.length === 0) return null;
+
+        return (
+          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+            <p className="text-xs uppercase tracking-wide text-zinc-400">Impact on expense date{meaningfulDays.length > 1 ? 's' : ''}</p>
+            <div className="mt-3 space-y-2">
+              {meaningfulDays.map((p) => {
+                const isProblem = p.scenarioBalance < 100;
+                return (
+                  <div
+                    key={p.date}
+                    className={cn(
+                      'flex items-center justify-between rounded-md border px-3 py-2',
+                      isProblem
+                        ? 'border-rose-500/30 bg-rose-500/10'
+                        : 'border-zinc-800 bg-zinc-950/40'
+                    )}
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-zinc-200">{formatDateOnly(p.date)}</p>
+                      <p className="text-xs text-zinc-400">
+                        {formatCurrency(p.baselineBalance, currency)}{' '}
+                        <ArrowRight className="inline w-3 h-3 mx-1 text-zinc-500" />
+                        <span className={cn('font-semibold tabular-nums', isProblem ? 'text-rose-200' : 'text-zinc-100')}>
+                          {formatCurrency(p.scenarioBalance, currency)}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold tabular-nums text-rose-200">
+                        -{formatCurrency(p.delta, currency)}
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className={cn('text-sm font-semibold tabular-nums', worsened ? 'text-rose-200' : 'text-zinc-300')}>
-                      -{formatCurrency(p.delta, currency)}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       <div className="flex flex-col gap-2">
         {safe ? (

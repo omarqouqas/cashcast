@@ -160,14 +160,24 @@ export async function calculateScenario(
       frequency: isRecurring ? 'monthly' : 'one-time',
     });
 
-    // Suggestion: next income day where moving the expense to that date would be safe.
-    // (For recurring expenses, we still test using the selected recurrence starting that income date.)
+    // Find the first date after the chosen date when this purchase would be affordable.
+    // Check every day (not just income days) to find the earliest possible date.
     const nextAffordableDate = (() => {
-      const incomeDays = calendarData.days
-        .filter((d) => d.income && d.income.length > 0)
-        .filter((d) => d.date > chosenDate);
+      // Only search if the purchase isn't already affordable
+      if (result.canAfford) return null;
 
-      for (const d of incomeDays) {
+      const futureDays = calendarData.days.filter((d) => d.date > chosenDate);
+
+      // For efficiency, sample days: check every day for the first 14 days,
+      // then every 3rd day after that, then every 7th day after 30 days
+      const daysToCheck: typeof futureDays = [];
+      for (let i = 0; i < futureDays.length; i++) {
+        if (i < 14 || i % 3 === 0 || (i > 30 && i % 7 === 0)) {
+          daysToCheck.push(futureDays[i]!);
+        }
+      }
+
+      for (const d of daysToCheck) {
         const test = calculateScenarioImpact(calendarData, {
           name: cleanedName,
           amount,

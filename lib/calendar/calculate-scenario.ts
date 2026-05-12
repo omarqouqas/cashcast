@@ -1,6 +1,6 @@
 import type { CalendarData } from './types';
 import { LOW_BALANCE_THRESHOLD } from './constants';
-import { getNextMonthlyDate, isSameDay, normalizeToNoon } from './utils';
+import { getNextMonthlyDate, normalizeToNoon } from './utils';
 
 export interface ScenarioResult {
   canAfford: boolean;
@@ -192,27 +192,23 @@ export function calculateScenario(calendarData: CalendarData, input: ScenarioExp
     }. Lowest balance would be ${lowestBalance.toFixed(2)} on ${dateLabel}.`;
   })();
 
-  // Anchor preview around first problem day, else around lowest day.
-  const anchorIndex = (() => {
-    if (firstProblemDay) {
-      const idx = days.findIndex((d) => isSameDay(d.date, firstProblemDay));
-      if (idx >= 0) return idx;
-    }
-    const idx = days.findIndex((d) => isSameDay(d.date, lowestDate));
-    return idx >= 0 ? idx : 0;
-  })();
-
-  const startIdx = Math.max(0, anchorIndex - 3);
-  const endIdx = Math.min(days.length - 1, anchorIndex + 3);
+  // Build preview showing only expense dates (where the scenario amount is applied)
+  // This gives meaningful context instead of showing unchanged days
   const preview: ScenarioPreviewDay[] = [];
-  for (let i = startIdx; i <= endIdx; i++) {
-    preview.push({
-      date: new Date(days[i]!.date),
-      baselineBalance: days[i]!.balance,
-      scenarioBalance: scenarioBalances[i]!,
-      delta: days[i]!.balance - scenarioBalances[i]!,
-    });
+  for (let i = 0; i < days.length; i++) {
+    // Only include days where an expense occurs (delta > 0)
+    if ((delta[i] ?? 0) > 0) {
+      preview.push({
+        date: new Date(days[i]!.date),
+        baselineBalance: days[i]!.balance,
+        scenarioBalance: scenarioBalances[i]!,
+        delta: days[i]!.balance - scenarioBalances[i]!,
+      });
+    }
   }
+
+  // Limit preview to first 6 expense occurrences (for recurring)
+  const limitedPreview = preview.slice(0, 6);
 
   return {
     result: {
@@ -225,7 +221,7 @@ export function calculateScenario(calendarData: CalendarData, input: ScenarioExp
       firstProblemDay,
       impactSummary,
     },
-    preview,
+    preview: limitedPreview,
   };
 }
 
