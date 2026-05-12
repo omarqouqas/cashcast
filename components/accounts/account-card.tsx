@@ -68,7 +68,8 @@ export function AccountCard({ account, isEmergencyFund = false }: { account: Acc
   const [showSimulator, setShowSimulator] = useState(false)
   const [isPending, startTransition] = useTransition()
 
-  const isSavings = account.account_type === 'savings'
+  // Emergency fund can be any non-credit-card account (checking or savings)
+  const canBeEmergencyFund = account.account_type !== 'credit_card'
 
   async function handleSetAsEmergencyFund() {
     startTransition(async () => {
@@ -232,8 +233,8 @@ export function AccountCard({ account, isEmergencyFund = false }: { account: Acc
                 </Button>
               </>
             )}
-            {/* Set as Emergency Fund - for savings accounts not already set */}
-            {isSavings && !isEmergencyFund && (
+            {/* Set as Emergency Fund - for checking/savings accounts not already set */}
+            {canBeEmergencyFund && !isEmergencyFund && (
               <Button
                 variant="outline"
                 size="sm"

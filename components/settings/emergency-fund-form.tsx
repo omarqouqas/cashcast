@@ -53,7 +53,8 @@ export function EmergencyFundForm({
   const [accountId, setAccountId] = useState<string | null>(initialAccountId);
 
   const goalAmount = monthlyExpenses * goalMonths;
-  const savingsAccounts = accounts.filter((a) => a.account_type === 'savings');
+  // Allow any non-credit-card account to be designated as emergency fund
+  const eligibleAccounts = accounts.filter((a) => a.account_type !== 'credit_card');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -168,11 +169,11 @@ export function EmergencyFundForm({
               </p>
             </div>
 
-            {/* Savings Account Selection (Optional) */}
-            {savingsAccounts.length > 0 && (
+            {/* Emergency Fund Account Selection (Optional) */}
+            {eligibleAccounts.length > 0 && (
               <div>
                 <label className="block text-sm font-medium text-zinc-200 mb-2">
-                  Designated Savings Account (Optional)
+                  Designated Account (Optional)
                 </label>
                 <select
                   value={accountId ?? ''}
@@ -180,14 +181,14 @@ export function EmergencyFundForm({
                   className="w-full rounded-lg bg-zinc-800 border border-zinc-700 px-3 py-2.5 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 >
                   <option value="">Use total balance (all accounts)</option>
-                  {savingsAccounts.map((account) => (
+                  {eligibleAccounts.map((account) => (
                     <option key={account.id} value={account.id}>
                       {account.name} ({formatCurrency(account.current_balance)})
                     </option>
                   ))}
                 </select>
                 <p className="text-xs text-zinc-500 mt-1.5">
-                  If selected, only this account&apos;s balance will count toward your emergency fund.
+                  If selected, this account will be excluded from &quot;Available to Spend&quot; and tracked separately as your emergency fund.
                 </p>
               </div>
             )}
