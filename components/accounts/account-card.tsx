@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import type { Tables } from '@/types/supabase'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Edit, Wallet, PiggyBank, CreditCard, AlertCircle, TrendingUp, Calculator, DollarSign, Shield } from 'lucide-react'
+import { Edit, Wallet, PiggyBank, CreditCard, AlertCircle, TrendingUp, Calculator, DollarSign, Shield, ShieldPlus } from 'lucide-react'
 import { formatCurrency, formatRelativeTime } from '@/lib/utils/format'
 import { DeleteAccountButton } from '@/components/accounts/delete-account-button'
 import { SpendableToggleButton } from '@/components/accounts/spendable-toggle-button'
@@ -12,6 +13,8 @@ import { InfoTooltip } from '@/components/ui/tooltip'
 import { PaymentSimulator } from '@/components/accounts/payment-simulator'
 import { differenceInDays } from 'date-fns'
 import { calculateUtilization, getUtilizationStatus } from '@/lib/types/credit-card'
+import { setAccountAsEmergencyFund } from '@/lib/actions/update-emergency-fund'
+import toast from 'react-hot-toast'
 
 // Tables<'accounts'> already includes all CC fields from DB schema
 type Account = Tables<'accounts'>
@@ -61,7 +64,23 @@ function accountTypeBadge(type: string | null | undefined) {
 }
 
 export function AccountCard({ account, isEmergencyFund = false }: { account: Account; isEmergencyFund?: boolean }) {
+  const router = useRouter()
   const [showSimulator, setShowSimulator] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
+  const isSavings = account.account_type === 'savings'
+
+  async function handleSetAsEmergencyFund() {
+    startTransition(async () => {
+      const result = await setAccountAsEmergencyFund(account.id)
+      if (result.success) {
+        toast.success(`${account.name} set as emergency fund`)
+        router.refresh()
+      } else {
+        toast.error(result.error || 'Failed to set emergency fund')
+      }
+    })
+  }
 
   const badge = accountTypeBadge(account.account_type)
   const currency = account.currency || 'USD'
@@ -212,6 +231,21 @@ export function AccountCard({ account, isEmergencyFund = false }: { account: Acc
                   <Calculator className="w-4 h-4" />
                 </Button>
               </>
+            )}
+            {/* Set as Emergency Fund - for savings accounts not already set */}
+            {isSavings && !isEmergencyFund && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSetAsEmergencyFund}
+                disabled={isPending}
+                className="border-teal-500/30 bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 hover:text-teal-200 transition-all"
+                aria-label="Set as emergency fund"
+                title="Set as emergency fund - this account will be excluded from available to spend"
+              >
+                <ShieldPlus className="w-4 h-4 mr-1" />
+                {isPending ? '...' : 'Emergency Fund'}
+              </Button>
             )}
             {!isCreditCard && (
               <div className="flex items-center gap-1">
