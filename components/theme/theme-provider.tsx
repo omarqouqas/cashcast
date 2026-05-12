@@ -14,10 +14,11 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 const STORAGE_KEY = 'cashcast-theme';
 
-function getSystemTheme(): 'light' | 'dark' {
-  if (typeof window === 'undefined') return 'dark';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
+// Temporarily disabled - uncomment when light mode is ready
+// function getSystemTheme(): 'light' | 'dark' {
+//   if (typeof window === 'undefined') return 'dark';
+//   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+// }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('dark');
