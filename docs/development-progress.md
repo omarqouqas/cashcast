@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 11, 2026 (Day 78)
+**Last Updated:** May 12, 2026 (Day 79)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 78
-- **Commits:** 410+
+- **Days in Development:** 79
+- **Commits:** 415+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + **Tabbed Settings Interface + Full-Width Layout + Theme Toggle**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (16 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + **Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign Demo**
 
 **Current Focus:**
 
@@ -28,7 +28,48 @@
 
 ---
 
-## Recent Development (Days 60-78)
+## Recent Development (Days 60-79)
+
+### Day 79: Light Mode Disabled + Settings UX Improvements + Calendar Redesign Demo (May 12, 2026)
+
+**Light Mode Temporarily Disabled** - User testing revealed light mode had poor contrast, inconsistent styling, and readability issues. Disabled until properly fixed.
+
+**Changes:**
+- Hid Light and System options from theme settings (dark mode only)
+- ThemeProvider now forces dark mode regardless of stored preference
+- Simplified ThemeForm to show "Dark mode enabled" indicator only
+
+**Combined Safety Buffer + Low Balance Alert Settings** - Per user feedback, these related settings were in different tabs (Preferences vs Notifications). Now combined into single form.
+
+**New Component:** `SafetyBufferAlertForm`
+- Safety buffer amount input with threshold preview
+- Low balance alert toggle
+- Single save action for both settings
+- Removed separate LowBalanceAlertForm from Notifications tab
+
+**Calendar Redesign Demo Page** - Created comparison page at `/dashboard/calendar-demo` showing two design approaches for reducing visual clutter (per Karim Mousa feedback).
+
+| Option | Description |
+|--------|-------------|
+| **Option 1** | Left border status indicator, transaction details on active days only |
+| **Option 4** | Minimal two-line cards (balance + net change), click for details |
+
+**Recommendation:** Option 1 - solves visual clutter without hiding important transaction context.
+
+**Files Created:**
+- `components/settings/safety-buffer-alert-form.tsx` - Combined settings form
+- `app/dashboard/calendar-demo/page.tsx` - Design comparison demo
+
+**Files Modified:**
+- `components/settings/theme-form.tsx` - Simplified to dark-only indicator
+- `components/theme/theme-provider.tsx` - Force dark mode
+- `components/settings/settings-content.tsx` - Use combined form, remove LowBalanceAlertForm
+
+**Feedback Doc Updated:**
+- Settings organization: Partially done → **Implemented**
+- Calendar flip cards: Not implemented → **Demo created, pending decision**
+
+---
 
 ### Day 78: User Feedback Review & Implementation - Karim Mousa (May 11, 2026)
 
@@ -41,9 +82,9 @@
 | AI Chat Pro-only | Resolved | **Confirmed** - Lock icon + upgrade prompt for free users |
 | Navigation simplification | In progress | **Resolved** - Sidebar with sections, lock icons, upgrade CTA |
 | Dashboard via logo click | In progress | **Resolved** - Logo links to `/dashboard` |
-| Settings organization | Not implemented | **Partially done** - Tabs exist but related settings still in different tabs |
+| Settings organization | Not implemented | **Implemented** - Tabs + combined Safety Buffer/Alert form (Day 79) |
 | Emergency fund exclusion | Not implemented | **Implemented** - Full exclusion from spendable balance + UI improvements |
-| Calendar flip cards | Not implemented | **Not implemented** - `day-card.tsx` still uses background colors + dots |
+| Calendar flip cards | Not implemented | **Demo created** - `/dashboard/calendar-demo` with 2 options, pending decision |
 | "When can I afford it?" | Not implemented | **Implemented** - Context-aware messaging + first affordable date |
 | Tax in onboarding | Not implemented | **Not implemented** - No income type (salary vs contractor) question |
 
