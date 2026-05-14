@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Free tools
     { url: `${baseUrl}/tools`, lastModified, priority: 0.6 },
     { url: `${baseUrl}/tools/can-i-afford-it`, lastModified, priority: 0.6 },
-    { url: `${baseUrl}/tools/freelance-rate-calculator`, lastModified, priority: 0.6 },
+    { url: `${baseUrl}/tools/freelance-rate-calculator`, lastModified, priority: 0.9 },
     { url: `${baseUrl}/tools/invoice-payment-predictor`, lastModified, priority: 0.6 },
     { url: `${baseUrl}/tools/income-variability-calculator`, lastModified, priority: 0.6 },
     { url: `${baseUrl}/tools/tax-reserve-calculator`, lastModified, priority: 0.6 },
