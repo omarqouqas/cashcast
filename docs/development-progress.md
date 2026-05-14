@@ -10,7 +10,7 @@
 
 ## Quick Stats
 
-- **Days in Development:** 79
+- **Days in Development:** 81
 - **Commits:** 415+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -63,6 +63,14 @@
 - More entry points for "freelance rate" related keywords
 - Build topical authority around freelance pricing
 - Internal links to boost tool page rankings
+
+**Medium Priority SEO Fixes (same day):**
+- Added canonical URLs to 7 pages missing them:
+  - `/privacy`, `/terms`, `/glossary`
+  - 4 blog posts: import-bank-transactions-excel, lifetime-deal-no-subscription, export-cash-flow-data-tax-season, migrate-from-ynab
+- Verified RSS feed already properly implemented
+- Verified breadcrumbs already on all tool pages
+- Auth pages (`/auth/login`, `/auth/signup`) correctly set to `noindex`
 
 ---
 
