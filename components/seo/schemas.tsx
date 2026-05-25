@@ -399,7 +399,7 @@ export const pricingSchema = {
         name: 'Free Plan',
         price: '0',
         priceCurrency: 'USD',
-        description: '90-day cash flow forecast, track up to 10 bills and 10 income sources',
+        description: '90-day cash flow forecast, track up to 5 bills and 5 income sources',
         availability: 'https://schema.org/InStock',
         url: 'https://cashcast.money/pricing',
       },
@@ -468,7 +468,7 @@ export const productSchema = {
       name: 'Free Plan',
       price: '0',
       priceCurrency: 'USD',
-      description: '90-day forecast, 10 bills, 10 income sources',
+      description: '90-day forecast, 5 bills, 5 income sources',
       availability: 'https://schema.org/InStock',
     },
     {

@@ -48,7 +48,7 @@ const TIERS: TierConfig[] = [
       { text: 'Low Balance Alerts (email + push)' },
       { text: 'CSV & Excel Import' },
       { text: 'CSV Export' },
-      { text: 'Up to 10 bills & income sources' },
+      { text: 'Up to 5 bills & income sources' },
       { text: 'Email support (48hr)' },
     ],
   },

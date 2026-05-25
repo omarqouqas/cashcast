@@ -22,11 +22,11 @@ interface UpgradePromptProps {
 const FEATURE_COPY: Record<UpgradePromptProps['feature'], { title: string; description: string }> = {
   bills: {
     title: "You've reached your bills limit",
-    description: "Free accounts can track up to 10 bills. Upgrade to Pro for unlimited bills and more features.",
+    description: "Free accounts can track up to 5 bills. Upgrade to Pro for unlimited bills and more features.",
   },
   income: {
     title: "You've reached your income sources limit",
-    description: "Free accounts can track up to 10 income sources. Upgrade to Pro for unlimited tracking.",
+    description: "Free accounts can track up to 5 income sources. Upgrade to Pro for unlimited tracking.",
   },
   invoices: {
     title: "Invoicing is a Pro feature",

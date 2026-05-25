@@ -63,7 +63,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What's the difference between Free and Pro?",
-    answer: "The Free plan gives you the core experience: up to 10 bills, 10 income sources, 90-day forecast, AI risk analysis with confidence bands, auto-categorization for 10 transactions per import, CSV & Excel import, CSV export, and low balance alerts via email and push notifications. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), gives you unlimited Ask Cashcast AI queries, increases auto-categorization to 50 transactions per import, adds SMS alerts for critical cash crunch warnings, full Reports & Export with Excel and JSON formats, credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
+    answer: "The Free plan gives you the core experience: up to 5 bills, 5 income sources, 90-day forecast, AI risk analysis with confidence bands, auto-categorization for 10 transactions per import, CSV & Excel import, CSV export, and low balance alerts via email and push notifications. Pro ($7.99/month) unlocks unlimited bills and income sources, extends your forecast to a full year (365 days), gives you unlimited Ask Cashcast AI queries, increases auto-categorization to 50 transactions per import, adds SMS alerts for critical cash crunch warnings, full Reports & Export with Excel and JSON formats, credit card tracking with debt payoff planner, and includes Runway Collect—our professional invoicing feature with PDF generation and automated payment reminders."
   },
   {
     question: "Do you offer a lifetime deal?",
@@ -99,7 +99,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Can I try it before I pay?",
-    answer: "Yes! Our Free tier is fully functional—not a limited trial. You get 10 bills, 10 income sources, 90-day forecasting, and the 'Can I Afford It?' scenario tester. If you want unlimited entries, a longer forecast, or invoicing (Runway Collect), you can upgrade anytime. There's no credit card required to sign up."
+    answer: "Yes! Our Free tier is fully functional—not a limited trial. You get 5 bills, 5 income sources, 90-day forecasting, and the 'Can I Afford It?' scenario tester. If you want unlimited entries, a longer forecast, or invoicing (Runway Collect), you can upgrade anytime. There's no credit card required to sign up."
   },
   {
     question: "How do I budget with irregular income?",

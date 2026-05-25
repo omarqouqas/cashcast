@@ -105,15 +105,15 @@ export const PRICING_TIERS: Record<SubscriptionTier, PricingTier> = {
     description: 'Perfect for getting started',
     features: [
       '90-day cash flow forecast',
-      'Up to 10 bills & income sources',
+      'Up to 5 bills & income sources',
       'CSV export',
       'Manual entry only',
       'Basic color coding',
       'Email support (48hr response)',
     ],
     limits: {
-      maxBills: 10,
-      maxIncome: 10,
+      maxBills: 5,
+      maxIncome: 5,
       forecastDays: 90,
       invoicesEnabled: false,
       bankSyncEnabled: false,

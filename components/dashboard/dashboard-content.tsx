@@ -38,6 +38,7 @@ import type { SubscriptionTier } from '@/lib/stripe/config';
 import type { Alert } from '@/lib/alerts/types';
 import type { SerializedIncomePatternAnalysis } from '@/lib/forecasting/types';
 import { IncomeInsightsCard } from '@/components/dashboard/income-insights-card';
+import { UsageIndicator } from '@/components/dashboard/usage-indicator';
 
 interface Account {
   id: string;
@@ -390,6 +391,13 @@ export function DashboardContent({
           onVisibleFiltersChange={setVisibleFilters}
         />
       </div>
+
+      {/* Usage Progress Indicator (Free tier only) */}
+      <UsageIndicator
+        billsCount={activeBillsCount}
+        incomeCount={incomeCount}
+        tier={subscriptionTier}
+      />
 
       {/* Proactive AI Alerts */}
       {deserializedAlerts.length > 0 && (
