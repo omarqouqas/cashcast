@@ -134,6 +134,94 @@ Three months later: 26 blog posts, rate guides, schema markup — and still 0 co
 
 Run these in PostHog → Insights → New insight → SQL (beta)
 
+### Quick Snapshot (Excluding Internal Users)
+
+Use this version to exclude your own account from results:
+
+```sql
+SELECT
+  'Signups' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = 'user_signed_up'
+  AND timestamp >= now() - INTERVAL 30 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+
+UNION ALL
+
+SELECT
+  'Activated (bill <24h)' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = 'bill_added'
+  AND timestamp >= now() - INTERVAL 30 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+
+UNION ALL
+
+SELECT
+  'Visited /pricing' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = '$pageview'
+  AND properties.$current_url LIKE '%/pricing%'
+  AND timestamp >= now() - INTERVAL 30 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+
+UNION ALL
+
+SELECT
+  'Clicked Upgrade' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = 'upgrade_clicked'
+  AND timestamp >= now() - INTERVAL 30 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+
+UNION ALL
+
+SELECT
+  'Hit Feature Gate' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = 'feature_gate_hit'
+  AND timestamp >= now() - INTERVAL 30 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+
+UNION ALL
+
+SELECT
+  'Returned day 2-7' as metric,
+  countDistinct(distinct_id) as value
+FROM events
+WHERE event = 'dashboard_viewed'
+  AND timestamp >= now() - INTERVAL 28 DAY
+  AND timestamp <= now() - INTERVAL 2 DAY
+  AND distinct_id NOT IN (
+    SELECT distinct_id FROM persons
+    WHERE properties.email = 'omar.qouqas@gmail.com'
+  )
+```
+
+**Tip:** You can also mark yourself as an internal user in PostHog Settings → Project → Filter out internal and test users.
+
+---
+
 ### Quick Snapshot (All Metrics in One Query)
 
 ```sql
