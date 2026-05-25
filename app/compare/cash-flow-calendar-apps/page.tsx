@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 const comparisonRows = [
   { feature: '"Safe to Spend" indicator', cff: '✅ Prominently displayed daily', typical: '❌ Not available' },
   { feature: 'Low balance alerts', cff: '✅ Proactive email warnings', typical: '❌ No' },
-  { feature: 'Free tier', cff: '✅ Yes (10 bills, 10 income)', typical: '❌ Trial only (14 days)' },
+  { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income)', typical: '❌ Trial only (14 days)' },
   { feature: 'Forecast length', cff: '90 days (Free) / 365 days (Pro)', typical: '~30 days' },
   { feature: 'Credit card forecasting', cff: '✅ Utilization tracking + payment simulator', typical: '❌ No' },
   { feature: 'Debt payoff planner', cff: '✅ Snowball vs Avalanche comparison', typical: '❌ No' },

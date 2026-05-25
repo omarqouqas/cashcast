@@ -47,7 +47,7 @@ const comparisonRows = [
   { feature: 'Monthly price', cff: '✅ $7.99/mo (73% cheaper)', pulse: '❌ $29-$89/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', pulse: '❌ $348-$1,068/year' },
   { feature: 'Lifetime option', cff: '✅ $99 one-time', pulse: '❌ Not available' },
-  { feature: 'Free tier', cff: '✅ Yes (10 bills, 10 income, 90-day forecast)', pulse: '❌ 30-day trial only' },
+  { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', pulse: '❌ 30-day trial only' },
   { feature: 'Data entry method', cff: '✅ Guided forms + CSV/Excel import', pulse: '⚠️ Spreadsheet-style (manual)' },
   { feature: 'Cash flow calendar', cff: '✅ Visual daily calendar', pulse: '✅ Chart-based view' },
   { feature: 'Scenario planning', cff: '✅ "Can I Afford It?" tester', pulse: '✅ Toggle entries on/off' },

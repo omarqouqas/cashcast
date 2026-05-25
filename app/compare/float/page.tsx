@@ -49,7 +49,7 @@ const comparisonRows = [
   { feature: 'Monthly price', cff: '✅ $7.99/mo (87% cheaper)', float: '❌ $59-$199/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', float: '❌ $708-$2,388/year' },
   { feature: 'Lifetime option', cff: '✅ $99 one-time', float: '❌ Not available' },
-  { feature: 'Free tier', cff: '✅ Yes (10 bills, 10 income, 90-day forecast)', float: '❌ 14-day trial only' },
+  { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', float: '❌ 14-day trial only' },
   { feature: 'Requires accounting software', cff: '✅ No - standalone', float: '❌ Yes - requires Xero or QuickBooks' },
   { feature: 'Setup time', cff: '✅ 5 minutes', float: '⚠️ 30+ minutes (sync + config)' },
   { feature: 'Cash flow calendar', cff: '✅ Daily view, any future day', float: '✅ Yes' },

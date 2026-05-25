@@ -49,7 +49,7 @@ const comparisonRows = [
   { feature: 'Monthly price (entry)', cashcast: '✅ $7.99/mo (20% cheaper)', pocketsmith: '❌ $9.95/mo' },
   { feature: 'Yearly price', cashcast: '✅ $79/year', pocketsmith: '❌ $119/year' },
   { feature: 'Lifetime option', cashcast: '✅ $99 one-time', pocketsmith: '❌ Not available' },
-  { feature: 'Free tier', cashcast: '✅ Yes (10 bills, 10 income, 90-day forecast)', pocketsmith: '⚠️ 6-month forecast only' },
+  { feature: 'Free tier', cashcast: '✅ Yes (5 bills, 5 income, 90-day forecast)', pocketsmith: '⚠️ 6-month forecast only' },
   { feature: 'Built for freelancers', cashcast: '✅ Irregular income is core focus', pocketsmith: '❌ Generic budgeting tool' },
   { feature: 'Built-in invoicing', cashcast: '✅ Runway Collect (included)', pocketsmith: '❌ No' },
   { feature: 'Invoice → forecast sync', cashcast: '✅ Automatic', pocketsmith: '❌ Not available' },

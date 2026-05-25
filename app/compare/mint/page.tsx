@@ -50,7 +50,7 @@ const comparisonRows = [
   { feature: 'Status', cff: '✅ Active and growing', mint: '❌ Shutting down (migrating to Credit Karma)' },
   { feature: 'Approach', cff: '✅ Forward-looking (shows future balance)', mint: '❌ Backward-looking (tracks past spending)' },
   { feature: 'Ads', cff: '✅ No ads ever', mint: '❌ Heavy advertising' },
-  { feature: 'Free tier', cff: '✅ Yes (10 bills, 10 income, 90-day forecast)', mint: '✅ Free (ad-supported)' },
+  { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', mint: '✅ Free (ad-supported)' },
   { feature: 'Paid option', cff: '✅ $7.99/mo or $99 lifetime', mint: '❌ N/A' },
   { feature: 'Daily balance forecast', cff: '✅ See balance on any future day', mint: '❌ No forecasting' },
   { feature: 'Forecast length', cff: '✅ Up to 365 days', mint: '❌ Not applicable' },
@@ -94,7 +94,7 @@ const faqStructuredData = {
       name: 'Is Cashcast free like Mint?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes! Cashcast has a free tier with 10 bills, 10 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $99 lifetime deal.',
+        text: 'Yes! Cashcast has a free tier with 5 bills, 5 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $99 lifetime deal.',
       },
     },
     {
@@ -110,7 +110,7 @@ const faqStructuredData = {
       name: 'What is the best free Mint alternative in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cashcast is the best free Mint alternative in 2026. It offers a generous free tier with 10 bills, 10 income sources, and 90-day forecasting—with no ads and no data selling. For freelancers, it\'s better than Mint because it shows future cash flow, not just past spending.',
+        text: 'Cashcast is the best free Mint alternative in 2026. It offers a generous free tier with 5 bills, 5 income sources, and 90-day forecasting—with no ads and no data selling. For freelancers, it\'s better than Mint because it shows future cash flow, not just past spending.',
       },
     },
     {
@@ -312,7 +312,7 @@ export default function MintComparisonPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-white">Sign up for Cashcast</h3>
                     <p className="mt-2 text-zinc-400">
-                      Create a free account—no credit card required. You&apos;ll get 10 bills, 10 income sources,
+                      Create a free account—no credit card required. You&apos;ll get 5 bills, 5 income sources,
                       and 90-day forecasting to start.
                     </p>
                   </div>
@@ -384,7 +384,7 @@ export default function MintComparisonPage() {
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
                 <h3 className="text-white font-semibold">Is Cashcast really free?</h3>
                 <p className="mt-2 text-zinc-400">
-                  Yes! Our free tier includes 10 bills, 10 income sources, 90-day forecasting, and no ads.
+                  Yes! Our free tier includes 5 bills, 5 income sources, 90-day forecasting, and no ads.
                   No credit card required. Upgrade to Pro only when you need more.
                 </p>
               </div>

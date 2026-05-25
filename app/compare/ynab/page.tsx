@@ -50,7 +50,7 @@ const comparisonRows = [
   { feature: 'Monthly price', cff: '✅ $7.99/mo (47% cheaper)', ynab: '❌ $14.99/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', ynab: '❌ $109/year' },
   { feature: 'Lifetime option', cff: '✅ $99 one-time', ynab: '❌ Not available' },
-  { feature: 'Free tier', cff: '✅ Yes (10 bills, 10 income, 90-day forecast)', ynab: '❌ 34-day trial only' },
+  { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', ynab: '❌ 34-day trial only' },
   { feature: 'Irregular income support', cff: '✅ Built for it', ynab: '⚠️ Requires workarounds' },
   { feature: 'Daily balance forecast', cff: '✅ See balance on any future day', ynab: '❌ Monthly view only' },
   { feature: 'Forecast length', cff: '✅ Up to 365 days', ynab: '⚠️ Current month focus' },
@@ -110,7 +110,7 @@ const faqStructuredData = {
       name: 'Is there a free YNAB alternative?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Cashcast offers a free tier with 10 bills, 10 income sources, and a 90-day forecast—no credit card required. YNAB only offers a 34-day trial before requiring payment.',
+        text: 'Yes. Cashcast offers a free tier with 5 bills, 5 income sources, and a 90-day forecast—no credit card required. YNAB only offers a 34-day trial before requiring payment.',
       },
     },
     {
