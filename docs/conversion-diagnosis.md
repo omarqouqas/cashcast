@@ -145,10 +145,7 @@ SELECT
 FROM events
 WHERE event = 'user_signed_up'
   AND timestamp >= now() - INTERVAL 30 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 
 UNION ALL
 
@@ -158,10 +155,7 @@ SELECT
 FROM events
 WHERE event = 'bill_added'
   AND timestamp >= now() - INTERVAL 30 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 
 UNION ALL
 
@@ -172,10 +166,7 @@ FROM events
 WHERE event = '$pageview'
   AND properties.$current_url LIKE '%/pricing%'
   AND timestamp >= now() - INTERVAL 30 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 
 UNION ALL
 
@@ -185,10 +176,7 @@ SELECT
 FROM events
 WHERE event = 'upgrade_clicked'
   AND timestamp >= now() - INTERVAL 30 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 
 UNION ALL
 
@@ -198,10 +186,7 @@ SELECT
 FROM events
 WHERE event = 'feature_gate_hit'
   AND timestamp >= now() - INTERVAL 30 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 
 UNION ALL
 
@@ -212,10 +197,7 @@ FROM events
 WHERE event = 'dashboard_viewed'
   AND timestamp >= now() - INTERVAL 28 DAY
   AND timestamp <= now() - INTERVAL 2 DAY
-  AND distinct_id NOT IN (
-    SELECT distinct_id FROM persons
-    WHERE properties.email = 'omar.qouqas@gmail.com'
-  )
+  AND person.properties.email != 'omar.qouqas@gmail.com'
 ```
 
 **Tip:** You can also mark yourself as an internal user in PostHog Settings → Project → Filter out internal and test users.
@@ -376,24 +358,24 @@ WHERE started.event = 'onboarding_started'
 
 ---
 
-## Results (May 25, 2026)
+## Results (May 25, 2026) — Excluding Internal Users
 
 | Metric | Value | Rate | Assessment |
 |--------|-------|------|------------|
-| Signups (30 days) | 9-13 | 100% | Baseline |
-| Activation (bill added <24h) | 7 | 54-78% | **Good** (above 40% threshold) |
-| Day 2-7 Return | 10 | ~77-100% | **Good** |
-| /pricing visits | 1 | 8% | **Problem** |
+| Signups (30 days) | 8 | 100% | Baseline |
+| Activation (bill added <24h) | 8 | **100%** | **Excellent** |
+| Day 2-7 Return | 9 | **100%+** | **Excellent** |
+| /pricing visits | 1 | 12.5% | **Problem** |
 | Upgrade clicks | 0 | 0% | **Problem** |
-| feature_gate_hit count | 2 | 15% | **Problem** |
+| feature_gate_hit count | 2 | 25% | **Problem** |
 
 ---
 
 ## Confirmed Diagnosis: INVISIBLE PAYWALL
 
-**Activation: NOT the problem** (54-78% is solid)
+**Activation: EXCELLENT** (100% — every signup adds a bill within 24h)
 
-**Retention: NOT the problem** (10 users returning is strong for 13 signups)
+**Retention: EXCELLENT** (9 users returning, more than 30-day signups = older users still engaged)
 
 **Paywall visibility: THE problem**
 - Users are signing up ✓
@@ -401,7 +383,7 @@ WHERE started.event = 'onboarding_started'
 - Users are coming back ✓
 - Users never see a reason to upgrade ✗
 
-Only 2 out of ~13 users ever hit a feature gate. Only 1 ever saw /pricing. The free tier is too generous — users get everything they need without touching Pro.
+Only 2 out of 8 users ever hit a feature gate. Only 1 ever saw /pricing. The free tier is too generous — users get everything they need without touching Pro.
 
 ---
 
