@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 26, 2026 (Day 82)
+**Last Updated:** May 26, 2026 (Day 83)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 82
+- **Days in Development:** 83
 - **Commits:** 420+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (39 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages (8 total) + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis + Upgrade Funnel Instrumentation + HoneyBook SEO Content (Comparison Page + 3 Blog Posts)**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (39 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages (8 total) + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis + Upgrade Funnel Instrumentation + HoneyBook SEO Content (Comparison Page + 3 Blog Posts) + **First YouTube Short + TikTok Launch (Faceless Video Workflow) + Strategic Reviews (Dana, FlowPulse)**
 
 **Current Focus:**
 
@@ -28,7 +28,54 @@
 
 ---
 
-## Recent Development (Days 60-82)
+## Recent Development (Days 60-83)
+
+### Day 83: First YouTube Short + TikTok Launch + Strategic Reviews (May 26, 2026)
+
+**First Product Video Shipped** - Launched first YouTube Short and TikTok video using pain → solution format. Faceless production workflow established with $0/month tooling cost.
+
+**Video #1: "If you're a freelancer, you've felt this"**
+- 25-second pain-points-first Short (Rent due → Client hasn't paid → Taxes hit → Old invoice unpaid → Cashcast landing page reveal → Safe to Spend + 365-day forecast)
+- Published to YouTube Shorts and TikTok (`@cashcastmoney` account created)
+- Personal Instagram intentionally excluded (audience mismatch, algorithm penalty for content-type switch)
+- AI-generated voiceover, no founder face or voice required
+
+**Faceless Production Workflow (~30 min per video, ~$0):**
+- **Script:** Claude (conversation-based, no separate tool)
+- **AI voiceover:** ElevenLabs free tier (Adam voice; Stability 50, Similarity 75, Style 15)
+- **Screen recording:** Windows Game Bar (Win+G) on cashcast.money landing page, fullscreen + 125% zoom, bookmarks hidden
+- **Editing:** CapCut Desktop (free) — 9:16 vertical, manual pain-point text overlays (paid feature workaround: auto-captions are paywalled, manual text overlays are free unlimited)
+- **No music, no avatar** — voice + text + product UI carry the story
+
+**Distribution decision:**
+- **YouTube Shorts:** Yes — primary platform, algorithm-friendly to new accounts
+- **TikTok:** Yes — highest leverage for new SaaS accounts; same MP4 reused
+- **Instagram Reels:** Skipped — lowest priority for current stage; personal account excluded by design
+- Recommended cadence: 5 Shorts/week + 1 long-form/month once muscle memory is established
+
+**Strategic Reviews (no code changes):**
+
+**Dana's Feedback Validation** (`docs/dana's feedback.md`):
+- **Billing platform integration** → Valid signal but wrong solution. HoneyBook has no public REST API; recommended CSV import + Zapier integration (later) over deep integration. CSV import path aligns with existing `lib/import/` infrastructure.
+- **iOS "cluttered and dark"** → Insufficient data. n=1 anecdote, base CSS is actually light mode (`bg-white text-zinc-900`). Recommended: wait for Dana's laptop notes + 2-3 more iPhone reactions before any redesign.
+- **Pooled lending fund** → Decline. Converts Cashcast from SaaS into regulated consumer lender (state lending licenses × 50, CFPB supervision, TILA/Reg Z, fair-lending, UDAAP). Even cash-advance apps (Earnin, Dave, Brigit) deliberately structure as non-lenders. Affiliate model with existing licensed lender is the only viable path if pursued long-term.
+
+**FlowPulse Competitor Analysis** (`flowpulseapp.org`):
+- Pre-launch waitlist site; not indexed in search; blocked to automated fetch
+- Positioning: HoneyBook/Bonsai clone — invoicing-first with forecasting as sub-bullet on Starter ($19.99) and Pro ($39.99) tiers
+- Pricing 2.5–5× more expensive than Cashcast ($19.99–99.99 vs $7.99)
+- **Threat assessment: LOW** — entering saturated invoicing category, not the forecasting category. Validates Cashcast's wedge rather than threatens it.
+- **Action items deferred until they ship:** pre-build `/compare/flowpulse` SEO page; monitor every 60 days for forecasting-feature deepening
+
+**Documentation Created Earlier in Session:**
+- `docs/posthog-activation-funnel.md` — 5 HogQL queries for activation→conversion funnel diagnostic + May 26 baseline (8 signups / 100% activation / 50% return / 25% pricing visit / 12.5% paywall / 0 conversions)
+
+**Next Steps:**
+- Ship Short #2 within 7 days (workflow now muscle memory, ~15 min per video)
+- Wait 7–14 days then re-run funnel queries against newly instrumented events (`pricing_page_viewed`, `upgrade_button_clicked`, `checkout_started`, `subscription_created`)
+- **Highest-information action available:** interview the 1 user who hit `feature_gate_hit` 9 times — direct outreach via PostHog person identifier
+
+---
 
 ### Day 82: Free Tier Limit Reduction & Usage Indicator (May 25, 2026)
 
