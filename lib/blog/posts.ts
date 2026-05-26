@@ -16,6 +16,52 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'avoid-overdraft-freelancer',
+    title: 'How to Avoid Overdraft as a Freelancer: 5 Proven Strategies',
+    description: 'Freelancers overdraft because of timing, not income. Learn how to predict low-balance days and never bounce a payment again.',
+    publishedAt: '2026-05-26',
+    author: {
+      name: 'Cashcast Team',
+      role: 'Personal Finance Experts',
+    },
+    category: 'guides',
+    readingTime: '8 min read',
+    keywords: [
+      'avoid overdraft freelancer',
+      'freelancer overdraft',
+      'prevent overdraft',
+      'freelancer bank balance',
+      'overdraft protection freelancer',
+      'freelance cash flow',
+      'bill timing freelancer',
+      'irregular income overdraft',
+      'low balance alert',
+    ],
+  },
+  {
+    slug: 'predict-bank-balance-freelancer',
+    title: 'How to Predict Your Bank Balance as a Freelancer (Step-by-Step)',
+    description: 'Stop guessing what your bank balance will be next week. Here\'s how to forecast your future balance with irregular income.',
+    publishedAt: '2026-05-26',
+    author: {
+      name: 'Cashcast Team',
+      role: 'Personal Finance Experts',
+    },
+    category: 'guides',
+    readingTime: '7 min read',
+    keywords: [
+      'predict bank balance',
+      'see future bank balance',
+      'forecast bank balance',
+      'freelancer bank balance prediction',
+      'cash flow forecast',
+      'what will my balance be',
+      'bank balance calculator',
+      'freelance financial planning',
+      'day by day cash flow',
+    ],
+  },
+  {
     slug: 'honeybook-cash-flow-forecasting',
     title: 'Does HoneyBook Have Cash Flow Forecasting? What Photographers Need to Know',
     description: 'HoneyBook tracks payments but won\'t forecast your cash flow. Learn why that matters for photographers and how to add forecasting to your workflow.',

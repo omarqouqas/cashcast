@@ -153,6 +153,33 @@ Discovered HoneyBook added a "Cash Flow" feature in late 2025. Updated all Honey
 - `app/compare/honeybook/page.tsx` - Updated comparison table, FAQs, and Related guides
 - `components/landing/footer.tsx` - Added HoneyBook to Compare section
 
+**Brand SEO Improvements (May 26):**
+Analyzed Google search results for "cashcast" - found cashcast.money at position ~10-12, competing with:
+- CALP Network CashCast podcast (humanitarian aid)
+- cashcast.app (another cash flow app)
+- getcashcast.com (direct competitor - "Your money on a calendar")
+- RoaringApps Cash Cast (Mac app)
+- @cashcastusa YouTube (personal finance videos)
+
+**Strategy A: Brand SEO - Implemented:**
+- Added Organization schema to homepage (brand, social profiles, contact)
+- Added WebSite schema (enables Google sitelinks search box)
+- Enhanced SoftwareApplication schema with full feature list, pricing tiers, rating
+
+**Strategy B: Long-tail Keywords - Documented:**
+Created `docs/seo-action-plan.md` with target keywords:
+- "freelance cash flow app" (homepage optimized)
+- "cash flow calendar for freelancers" (homepage + blog)
+- "see future bank balance" (content gap)
+- "irregular income budget app" (blog exists)
+- "avoid overdraft freelancer" (content gap)
+
+**Files Created:**
+- `docs/seo-action-plan.md` - Full SEO action plan with A+B strategy
+
+**Files Modified:**
+- `app/page.tsx` - Added Organization, WebSite, enhanced SoftwareApplication schemas
+
 ### Day 81: SEO Content Expansion for Freelance Rate Keywords (May 14, 2026)
 
 **SEO Analysis & Content Creation** - Analyzed Google Search Console data showing 743 impressions but 0 clicks for `/tools/freelance-rate-calculator` (avg position 68.7). Created comprehensive content to improve rankings.
