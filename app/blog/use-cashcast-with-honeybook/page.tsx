@@ -474,6 +474,46 @@ export default function UseCashcastWithHoneyBookPage() {
               </Link>
             </div>
           </section>
+
+          {/* Related articles */}
+          <section className="mt-12">
+            <h2 className="text-xl font-semibold text-white mb-6">Related Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Link
+                href="/blog/honeybook-cash-flow-forecasting"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  Does HoneyBook Have Cash Flow Forecasting?
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  What HoneyBook&apos;s Cash Flow feature actually does (and doesn&apos;t do)
+                </p>
+              </Link>
+              <Link
+                href="/blog/honeybook-alternatives-photographers"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  HoneyBook Alternatives for Photographers
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  3 paths forward after the 2025 price increase
+                </p>
+              </Link>
+              <Link
+                href="/blog/photographer-hourly-rate"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  Freelance Photographer Rates 2026
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  Complete guide by specialty and experience
+                </p>
+              </Link>
+            </div>
+          </section>
         </div>
       </article>
     </>

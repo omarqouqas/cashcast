@@ -70,7 +70,15 @@ const faqSchema = {
       name: 'Does HoneyBook have cash flow forecasting?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. HoneyBook is a CRM focused on client management, contracts, and invoicing. It shows you who owes you money but cannot forecast when payments will arrive or what your bank balance will be on any future date. You need a dedicated cash flow tool like Cashcast to fill this gap.',
+        text: 'HoneyBook added a Cash Flow feature in late 2025, but it shows historical data (paid payments minus expenses), not future projections. It cannot forecast your bank balance for next week or next month. For forward-looking cash flow forecasting, you need a dedicated tool like Cashcast.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between HoneyBook Cash Flow and cash flow forecasting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'HoneyBook Cash Flow is backward-looking: it shows what already happened (paid payments minus logged expenses). Cash flow forecasting is forward-looking: it predicts your future bank balance by projecting upcoming income and bills. One tells you where you have been, the other tells you where you are going.',
       },
     },
     {
@@ -86,7 +94,7 @@ const faqSchema = {
       name: 'Why do freelancers need cash flow forecasting alongside HoneyBook?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'HoneyBook tells you what you are owed but not when you will have the money. For freelancers with irregular income, knowing your future bank balance is critical for planning large purchases, avoiding overdrafts, and managing seasonal slow periods.',
+        text: 'HoneyBook tells you what you earned but not what your bank balance will be next month. For freelancers with irregular income, knowing your future balance is critical for planning large purchases, avoiding overdrafts, and managing seasonal slow periods.',
       },
     },
   ],
@@ -220,9 +228,60 @@ export default function HoneyBookCashFlowPage() {
             </div>
           </section>
 
+          {/* HoneyBook's Cash Flow Feature */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-semibold text-white mb-4">Wait—HoneyBook Has a &quot;Cash Flow&quot; Feature Now</h2>
+
+            <p className="text-zinc-300 leading-relaxed mb-4">
+              In late 2025, HoneyBook added a Cash Flow graph to their Finance Overview page. So doesn&apos;t that solve the problem?
+            </p>
+
+            <p className="text-zinc-300 leading-relaxed mb-4">
+              <strong className="text-white">Not quite.</strong> Here&apos;s the key difference:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <XCircle className="h-5 w-5 text-amber-400" />
+                  <h3 className="font-semibold text-white">HoneyBook Cash Flow</h3>
+                </div>
+                <p className="text-sm text-zinc-400 mb-3">Backward-looking reporting</p>
+                <ul className="space-y-2 text-sm text-zinc-400">
+                  <li>• Shows paid payments minus expenses</li>
+                  <li>• Displays what <em>already happened</em></li>
+                  <li>• Requires manual expense logging</li>
+                  <li>• Desktop only</li>
+                  <li>• Project profitability focus</li>
+                </ul>
+              </div>
+              <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <CheckCircle2 className="h-5 w-5 text-teal-400" />
+                  <h3 className="font-semibold text-white">Cash Flow Forecasting</h3>
+                </div>
+                <p className="text-sm text-teal-300 mb-3">Forward-looking projection</p>
+                <ul className="space-y-2 text-sm text-zinc-300">
+                  <li>• Projects future bank balance</li>
+                  <li>• Shows what <em>will happen</em></li>
+                  <li>• Tracks upcoming bills automatically</li>
+                  <li>• Alerts before overdrafts</li>
+                  <li>• Day-by-day visibility</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-zinc-700 bg-zinc-800/50 p-5 my-6">
+              <p className="text-zinc-300 text-sm">
+                <strong className="text-white">The analogy:</strong> HoneyBook&apos;s Cash Flow is like your car&apos;s odometer—it tells you how far you&apos;ve driven.
+                Cash flow forecasting is like GPS—it tells you how far you still need to go and warns you if you&apos;ll run out of gas before you get there.
+              </p>
+            </div>
+          </section>
+
           {/* Why HoneyBook Doesn't Do This */}
           <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-white mb-4">Why HoneyBook Doesn&apos;t Offer Cash Flow Forecasting</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">What HoneyBook Still Can&apos;t Do</h2>
 
             <p className="text-zinc-300 leading-relaxed mb-4">
               HoneyBook is a <strong className="text-white">client relationship management (CRM)</strong> tool. It&apos;s designed to help you:
@@ -243,12 +302,12 @@ export default function HoneyBookCashFlowPage() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400 mt-1 flex-shrink-0" />
-                <span>Automate follow-ups and workflows</span>
+                <span>Track historical profitability (via Cash Flow graph)</span>
               </li>
             </ul>
 
             <p className="text-zinc-300 leading-relaxed mb-4">
-              What HoneyBook <em>doesn&apos;t</em> do:
+              What HoneyBook <em>still doesn&apos;t</em> do:
             </p>
 
             <ul className="space-y-2 text-zinc-300 mb-6">
@@ -258,7 +317,7 @@ export default function HoneyBookCashFlowPage() {
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="h-4 w-4 text-rose-400 mt-1 flex-shrink-0" />
-                <span>Show your projected bank balance</span>
+                <span>Show your <em>future</em> projected bank balance</span>
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="h-4 w-4 text-rose-400 mt-1 flex-shrink-0" />
@@ -266,13 +325,13 @@ export default function HoneyBookCashFlowPage() {
               </li>
               <li className="flex items-start gap-2">
                 <XCircle className="h-4 w-4 text-rose-400 mt-1 flex-shrink-0" />
-                <span>Help you answer &quot;Can I afford this?&quot;</span>
+                <span>Help you answer &quot;Can I afford this next month?&quot;</span>
               </li>
             </ul>
 
             <p className="text-zinc-300 leading-relaxed">
               This isn&apos;t a criticism of HoneyBook—it&apos;s simply not what the tool was built for.
-              You wouldn&apos;t expect your camera to also be your accounting software.
+              The new Cash Flow feature helps you understand past performance, but it can&apos;t predict your future balance.
             </p>
           </section>
 
@@ -428,9 +487,18 @@ export default function HoneyBookCashFlowPage() {
               <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
                 <h3 className="font-semibold text-white mb-2">Does HoneyBook have cash flow forecasting?</h3>
                 <p className="text-zinc-400 text-sm">
-                  No. HoneyBook is a CRM focused on client management, contracts, and invoicing. It shows you who
-                  owes you money but cannot forecast when payments will arrive or what your bank balance will be
-                  on any future date. You need a dedicated cash flow tool to fill this gap.
+                  HoneyBook added a Cash Flow feature in late 2025, but it shows historical data (paid payments minus expenses),
+                  not future projections. It cannot forecast your bank balance for next week or next month.
+                  For forward-looking cash flow forecasting, you need a dedicated tool like Cashcast.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+                <h3 className="font-semibold text-white mb-2">What&apos;s the difference between HoneyBook Cash Flow and forecasting?</h3>
+                <p className="text-zinc-400 text-sm">
+                  HoneyBook&apos;s Cash Flow is backward-looking: it shows what already happened (paid payments minus logged expenses).
+                  Cash flow forecasting is forward-looking: it predicts your future bank balance by projecting upcoming income and bills.
+                  One tells you where you&apos;ve been, the other tells you where you&apos;re going.
                 </p>
               </div>
 
@@ -483,6 +551,28 @@ export default function HoneyBookCashFlowPage() {
           <section className="mt-12">
             <h2 className="text-xl font-semibold text-white mb-6">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Link
+                href="/blog/use-cashcast-with-honeybook"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  How to Use Cashcast with HoneyBook
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  5 ways to use both tools together
+                </p>
+              </Link>
+              <Link
+                href="/blog/honeybook-alternatives-photographers"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  HoneyBook Alternatives for Photographers
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  3 paths forward after the 2025 price increase
+                </p>
+              </Link>
               <Link
                 href="/blog/cash-flow-forecasting-for-freelancers"
                 className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
