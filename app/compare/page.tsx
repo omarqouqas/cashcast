@@ -29,6 +29,19 @@ export const metadata: Metadata = {
 
 const comparePages = [
   {
+    href: '/compare/honeybook',
+    title: 'HoneyBook Alternative: Add Cash Flow Forecasting',
+    description:
+      'HoneyBook raised prices 51-89% in 2025. Cashcast adds the cash flow visibility HoneyBook lacks—$7.99/mo vs $36-109/mo.',
+    badge: 'New',
+  },
+  {
+    href: '/compare/ynab',
+    title: 'YNAB Alternative for Freelancers',
+    description:
+      '47% cheaper than YNAB ($7.99 vs $14.99/mo). Forward-looking forecasts instead of backward-looking budgets.',
+  },
+  {
     href: '/compare/cash-flow-calendar-apps',
     title: 'Best Cash Flow Calendar Apps for Freelancers (2026)',
     description:
@@ -51,6 +64,12 @@ const comparePages = [
     title: 'Pulse Alternative for Freelancers',
     description:
       '73% cheaper than Pulse with guided forms instead of spreadsheets. Includes invoicing and tax tracking that Pulse lacks.',
+  },
+  {
+    href: '/compare/mint',
+    title: 'Mint Alternative After Shutdown',
+    description:
+      'Mint shut down in 2024. Cashcast offers forward-looking forecasts for freelancers, not just expense tracking.',
   },
 ] as const;
 
@@ -89,8 +108,13 @@ export default function CompareIndexPage() {
               <Link
                 key={p.href}
                 href={p.href}
-                className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 hover:bg-zinc-900/55 transition-colors"
+                className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 hover:bg-zinc-900/55 transition-colors relative"
               >
+                {'badge' in p && p.badge && (
+                  <span className="absolute top-4 right-4 text-xs font-medium bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded-full border border-teal-500/30">
+                    {p.badge}
+                  </span>
+                )}
                 <h2 className="text-xl font-semibold text-white">{p.title}</h2>
                 <p className="mt-2 text-zinc-400">{p.description}</p>
                 <p className="mt-4 text-sm text-teal-300">Read comparison →</p>
