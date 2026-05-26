@@ -54,7 +54,8 @@ const comparisonRows = [
   { feature: 'Yearly price', cashcast: '✅ $79/year', honeybook: '❌ $390-1,188/year' },
   { feature: 'Lifetime option', cashcast: '✅ $99 one-time', honeybook: '❌ Not available' },
   { feature: 'Free tier', cashcast: '✅ Yes (5 bills, 5 income, 90-day forecast)', honeybook: '❌ 7-day trial only' },
-  { feature: 'Cash flow calendar', cashcast: '✅ See balance on any future day (up to 365 days)', honeybook: '❌ No cash flow visibility' },
+  { feature: 'Cash flow forecasting', cashcast: '✅ See future balance on any day (up to 365 days)', honeybook: '❌ No—only backward-looking reporting' },
+  { feature: 'Cash flow reporting', cashcast: '✅ Yes', honeybook: '✅ Yes (added late 2025, shows past only)' },
   { feature: '"Can I Afford It?" tool', cashcast: '✅ Yes—check affordability before spending', honeybook: '❌ No' },
   { feature: 'Invoice payment forecasting', cashcast: '✅ Predict when invoices will actually get paid', honeybook: '❌ No' },
   { feature: 'Bill tracking', cashcast: '✅ Track recurring bills and see collisions', honeybook: '❌ No expense tracking' },
@@ -103,7 +104,15 @@ const faqStructuredData = {
       name: 'What does Cashcast do that HoneyBook doesn\'t?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cashcast provides cash flow forecasting—something HoneyBook completely lacks. You can see your projected bank balance for any day up to a year ahead, get low balance alerts before overdrafts happen, track bills alongside income, and answer "Can I afford this?" before making purchases. HoneyBook focuses on client relationships; Cashcast focuses on your financial runway.',
+        text: 'Cashcast provides forward-looking cash flow forecasting. While HoneyBook added a Cash Flow feature in late 2025, it only shows historical data (past payments minus expenses). Cashcast shows your projected future bank balance for any day up to a year ahead, alerts you before overdrafts happen, and answers "Can I afford this?" before you spend. HoneyBook looks backward; Cashcast looks forward.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does HoneyBook have cash flow features?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes, HoneyBook added a Cash Flow graph in late 2025. However, it shows backward-looking data only—paid payments minus logged expenses. It cannot forecast your future balance or predict when invoices will actually get paid. For forward-looking cash flow forecasting, you need a dedicated tool like Cashcast.',
       },
     },
     {
@@ -326,8 +335,8 @@ export default function HoneyBookComparisonPage() {
                     <span>Full invoicing suite</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <XCircle className="h-4 w-4 text-rose-400 mt-0.5 flex-shrink-0" />
-                    <span>No cash flow forecasting</span>
+                    <AlertTriangle className="h-4 w-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <span>Cash flow reporting (historical only)</span>
                   </li>
                 </ul>
               </div>
@@ -497,6 +506,13 @@ export default function HoneyBookComparisonPage() {
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
+                <h3 className="text-white font-semibold">Does HoneyBook have cash flow features?</h3>
+                <p className="mt-2 text-zinc-400">
+                  HoneyBook added a Cash Flow graph in late 2025, but it only shows historical data (what already happened).
+                  It can&apos;t forecast your future balance or predict when invoices will get paid. That&apos;s what Cashcast does.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
                 <h3 className="text-white font-semibold">Is Cashcast a HoneyBook replacement?</h3>
                 <p className="mt-2 text-zinc-400">
                   No. HoneyBook is a CRM; Cashcast is a cash flow forecaster. They solve different problems and work great together.
@@ -583,28 +599,56 @@ export default function HoneyBookComparisonPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Link
-                href="/blog/how-to-manage-irregular-income-as-freelancer"
+                href="/blog/honeybook-cash-flow-forecasting"
                 className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
               >
                 <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
-                  How to Manage Irregular Income
+                  Does HoneyBook Have Cash Flow Forecasting?
                 </p>
                 <p className="mt-1 text-sm text-zinc-400">
-                  Essential for photographers with seasonal income
+                  What HoneyBook&apos;s Cash Flow feature does (and doesn&apos;t do)
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
                   Read guide <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </Link>
               <Link
-                href="/blog/cash-flow-forecasting-for-freelancers"
+                href="/blog/use-cashcast-with-honeybook"
                 className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
               >
                 <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
-                  Cash Flow Forecasting 101
+                  How to Use Cashcast with HoneyBook
                 </p>
                 <p className="mt-1 text-sm text-zinc-400">
-                  Why it matters more than budgeting
+                  5 ways to use both tools together
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+                  Read guide <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+              <Link
+                href="/blog/honeybook-alternatives-photographers"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  HoneyBook Alternatives for Photographers
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  3 paths forward after the 2025 price increase
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+                  Read guide <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+              <Link
+                href="/blog/photographer-hourly-rate"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+              >
+                <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+                  Freelance Photographer Rates 2026
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  Complete guide by specialty and experience
                 </p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
                   Read guide <ArrowRight className="h-3.5 w-3.5" />
