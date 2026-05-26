@@ -130,6 +130,29 @@ Created `/compare/honeybook` page and 3 SEO blog posts targeting HoneyBook users
 - `app/compare/page.tsx` - Added HoneyBook (with "New" badge), YNAB, and Mint to comparison index
 - `components/landing/landing-header.tsx` - Fixed Compare link to /compare
 
+**HoneyBook Cash Flow Feature Acknowledgment (May 26):**
+Discovered HoneyBook added a "Cash Flow" feature in late 2025. Updated all HoneyBook content to acknowledge this while clarifying the key distinction:
+
+- **HoneyBook Cash Flow:** Backward-looking reporting (shows paid payments minus expenses)
+- **Cashcast:** Forward-looking forecasting (predicts future bank balance)
+
+**Content Updates:**
+- Updated `/blog/honeybook-cash-flow-forecasting` with new section "Wait—HoneyBook Has a Cash Flow Feature Now"
+- Added FAQ explaining difference between reporting vs forecasting
+- Updated comparison table in `/compare/honeybook` to show HoneyBook has "Cash flow reporting (historical only)"
+- Added new FAQ schema question about HoneyBook's cash flow features
+- Improved internal linking between all 3 HoneyBook blog posts (cross-links in Related Articles)
+
+**Footer Update:**
+- Added "vs HoneyBook" link to Compare section in footer
+
+**Files Modified:**
+- `app/blog/honeybook-cash-flow-forecasting/page.tsx` - Added Cash Flow feature acknowledgment
+- `app/blog/use-cashcast-with-honeybook/page.tsx` - Added Related Articles section
+- `app/blog/honeybook-alternatives-photographers/page.tsx` - Updated Related Articles
+- `app/compare/honeybook/page.tsx` - Updated comparison table, FAQs, and Related guides
+- `components/landing/footer.tsx` - Added HoneyBook to Compare section
+
 ### Day 81: SEO Content Expansion for Freelance Rate Keywords (May 14, 2026)
 
 **SEO Analysis & Content Creation** - Analyzed Google Search Console data showing 743 impressions but 0 clicks for `/tools/freelance-rate-calculator` (avg position 68.7). Created comprehensive content to improve rankings.
