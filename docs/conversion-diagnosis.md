@@ -390,18 +390,20 @@ Only 2 out of 8 users ever hit a feature gate. Only 1 ever saw /pricing. The fre
 ## Recommended Fix: Make Limits Visible
 
 ### Option A: Usage Progress Indicators (Recommended - Lowest Risk)
-- Show "3/10 bills used" progress bar on dashboard
-- At 7 bills, show banner: "You're almost at the free limit"
-- At 10 bills, hard gate with upgrade prompt
+- Show "3/5 bills used" progress bar on dashboard
+- At 4 bills, show banner: "You're almost at the free limit"
+- At 5 bills, hard gate with upgrade prompt
 
 ### Option B: Tease Pro Features Earlier
 - Show "365-day forecast" as grayed out on calendar with "Pro" badge
 - Show "AI Assistant" in sidebar with lock icon
 - Add "Unlock Invoicing" prompt when they add income
 
-### Option C: Restrict Free Tier (Aggressive)
-- Drop free forecast from 90 days to 30 days
-- Drop free bills from 10 to 5
+### Option C: Restrict Free Tier (Aggressive) ✅ IMPLEMENTED (May 25, 2026)
+- ~~Drop free forecast from 90 days to 30 days~~ (kept at 90 days)
+- ✅ Drop free bills from 10 to 5
+- ✅ Drop free income from 10 to 5
+- ✅ Added UsageIndicator component with progress bars
 - Forces users to hit limits faster
 
 **Decision:** Implement Option A first — adds visibility without removing value.

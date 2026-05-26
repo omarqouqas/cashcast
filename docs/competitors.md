@@ -337,7 +337,7 @@ This document tracks competitors in the personal finance and cash flow managemen
 - **Price:** 47-60% cheaper ($7.99 vs $15-20)
 - **Features:** Debt payoff planner, CC payment simulator, scenario testing
 - **Calendar view:** Day-by-day balance projection (they don't have this)
-- **Generous free tier:** 90-day forecast with 10 bills/income vs their basic templates
+- **Generous free tier:** 90-day forecast with 5 bills/income vs their basic templates
 
 **Competitive Overlap:** Low-Medium — Different primary focus. Flow = "create invoices fast", Cashcast = "know if you'll have money when bills hit". We both serve freelancers but solve different problems. They could become more direct competitors if they add forecasting.
 

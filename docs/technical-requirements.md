@@ -300,7 +300,7 @@ const stats = await getUserUsageStats()
 
 - `UpgradePrompt` - Modal with billing toggle, pricing, feature list
 - `UpgradeBanner` - Inline warning (amber at limit, blue near limit)
-- `UsageIndicator` - Badge showing "3/10 bills"
+- `UsageIndicator` - Progress bar showing "3/5 bills" with color-coded status
 
 **`components/subscription/gated-add-button.tsx`**
 
