@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
 import PricingSection from '@/components/pricing/pricing-section';
+import { PricingPageTracker } from '@/components/pricing/pricing-page-tracker';
 import { pricingSchema, generateFAQSchema } from '@/components/seo/schemas';
 
 export const metadata: Metadata = {
@@ -68,6 +69,9 @@ export default async function PricingPage({
 
   return (
     <>
+      <Suspense fallback={null}>
+        <PricingPageTracker />
+      </Suspense>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}

@@ -223,7 +223,44 @@ export const trackInvoiceMarkedPaid = (data: {
 // ============================================
 
 /**
- * Track when user clicks upgrade button
+ * Track when pricing page is viewed
+ */
+export const trackPricingPageViewed = (source: 'feature_gate' | 'nav' | 'banner' | 'settings' | 'direct') => {
+  posthog.capture('pricing_page_viewed', {
+    source,
+  })
+}
+
+/**
+ * Track when user clicks any upgrade button
+ */
+export const trackUpgradeButtonClicked = (data: {
+  location: 'feature_gate' | 'pricing' | 'banner' | 'settings'
+  tier: 'pro' | 'lifetime'
+}) => {
+  posthog.capture('upgrade_button_clicked', {
+    location: data.location,
+    tier: data.tier,
+  })
+}
+
+/**
+ * Track when checkout is started (before redirect to Stripe)
+ */
+export const trackCheckoutStarted = (data: {
+  tier: 'pro' | 'lifetime'
+  price: number
+  billing_period: 'monthly' | 'yearly' | 'lifetime'
+}) => {
+  posthog.capture('checkout_started', {
+    tier: data.tier,
+    price: data.price,
+    billing_period: data.billing_period,
+  })
+}
+
+/**
+ * Track when user clicks upgrade button (legacy - kept for backwards compatibility)
  */
 export const trackUpgradeClicked = (data: {
   fromTier: 'free' | 'pro' | 'premium'

@@ -11,6 +11,7 @@ import Stripe from 'stripe';
 import { stripe, webhookSecret } from '@/lib/stripe/client';
 import { createClient } from '@supabase/supabase-js';
 import { getTierFromPriceId } from '@/lib/stripe/config';
+import { captureServerEvent } from '@/lib/posthog/server';
 
 // Validate environment variables at startup
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
@@ -275,8 +276,19 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     console.error('Database error in handleCheckoutCompleted:', error);
     throw error;
   }
-  
+
   console.log(`Checkout completed for user ${userId}, tier: ${tier}, period_end: ${periodDates.end}, canceling: ${isCanceling}`);
+
+  // Track subscription_created event
+  const priceAmount = subscription.items.data[0]?.price?.unit_amount ?? 0;
+  await captureServerEvent('subscription_created', {
+    distinctId: userId,
+    properties: {
+      tier: tier,
+      price: priceAmount / 100, // Convert cents to dollars
+      billing_period: interval === 'year' ? 'yearly' : 'monthly',
+    },
+  });
 
   // Handle referral conversion if applicable
   const referralCode = subscription.metadata?.referred_by_code;
@@ -575,6 +587,16 @@ async function handleLifetimePurchaseCompleted(session: Stripe.Checkout.Session)
   }
 
   console.log(`Lifetime purchase completed for user ${userId}`);
+
+  // Track subscription_created event for lifetime
+  await captureServerEvent('subscription_created', {
+    distinctId: userId,
+    properties: {
+      tier: 'lifetime',
+      price: 99,
+      billing_period: 'lifetime',
+    },
+  });
 
   // NOW cancel existing Stripe subscription (after DB is updated)
   // If this fails, user has lifetime but also keeps Pro until next billing - not ideal but not critical

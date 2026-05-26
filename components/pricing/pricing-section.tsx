@@ -13,6 +13,7 @@ import { BillingToggle, type BillingPeriod } from './billing-toggle';
 import { PricingCard, type PricingFeature, type PricingCta } from './pricing-card';
 import { createCheckoutSession, createLifetimeCheckoutSession } from '@/lib/actions/stripe';
 import type { SubscriptionTier } from '@/lib/stripe/config';
+import { trackUpgradeButtonClicked, trackCheckoutStarted } from '@/lib/posthog/events';
 import { Sparkles, Check } from 'lucide-react';
 
 interface PricingSectionProps {
@@ -107,10 +108,22 @@ export default function PricingSection({
       return;
     }
 
+    // Track upgrade button click
+    trackUpgradeButtonClicked({ location: 'pricing', tier: 'pro' });
+
     setLoadingTier(tier);
 
     try {
       const billingInterval = period === 'yearly' ? 'year' : 'month';
+      const price = period === 'yearly' ? 79 : 7.99;
+
+      // Track checkout started
+      trackCheckoutStarted({
+        tier: 'pro',
+        price,
+        billing_period: period === 'yearly' ? 'yearly' : 'monthly',
+      });
+
       const result = await createCheckoutSession(tier, billingInterval);
 
       if ('error' in result) {
@@ -143,9 +156,19 @@ export default function PricingSection({
       return;
     }
 
+    // Track upgrade button click
+    trackUpgradeButtonClicked({ location: 'pricing', tier: 'lifetime' });
+
     setLoadingLifetime(true);
 
     try {
+      // Track checkout started
+      trackCheckoutStarted({
+        tier: 'lifetime',
+        price: 99,
+        billing_period: 'lifetime',
+      });
+
       const result = await createLifetimeCheckoutSession();
 
       if ('error' in result) {
