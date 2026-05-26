@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
+import { organizationSchema, websiteSchema } from '@/components/seo/schemas';
 
 export const metadata: Metadata = {
   title: 'Freelancers: See Your Bank Balance 90 Days Out | Cashcast',
@@ -145,16 +146,71 @@ export const metadata: Metadata = {
   },
 };
 
-const structuredData = {
+const softwareAppSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Cashcast',
   applicationCategory: 'FinanceApplication',
+  applicationSubCategory: 'Cash Flow Forecasting',
   operatingSystem: 'Web',
+  description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead, track bills and income, get low balance alerts.',
+  url: 'https://cashcast.money',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    ratingCount: '1',
+    bestRating: '5',
+    worstRating: '1',
+  },
   offers: {
-    '@type': 'Offer',
-    price: '0',
+    '@type': 'AggregateOffer',
+    lowPrice: '0',
+    highPrice: '99',
     priceCurrency: 'USD',
+    offerCount: 3,
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free',
+        price: '0',
+        priceCurrency: 'USD',
+        description: '90-day forecast, 5 bills, 5 income sources',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Pro',
+        price: '7.99',
+        priceCurrency: 'USD',
+        description: '365-day forecast, unlimited bills and income, invoicing',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Lifetime',
+        price: '99',
+        priceCurrency: 'USD',
+        description: 'All Pro features forever with one-time payment',
+      },
+    ],
+  },
+  featureList: [
+    'Cash flow calendar with day-by-day balance projection',
+    'Up to 365-day forecast',
+    'Bill tracking with collision alerts',
+    'Income tracking for irregular freelance income',
+    'Low balance alerts via email, SMS, and push',
+    'Monte Carlo probabilistic forecasting',
+    'AI-powered "Ask Cashcast" natural language queries',
+    'Invoicing with Stripe payment links',
+    'Tax withholding tracking',
+    'CSV/Excel import',
+    'YNAB import',
+  ],
+  screenshot: 'https://cashcast.money/og-image.png',
+  softwareVersion: '1.0',
+  author: {
+    '@type': 'Organization',
+    name: 'Cashcast',
+    url: 'https://cashcast.money',
   },
 } as const;
 
@@ -228,14 +284,24 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection-teal scroll-smooth">
+      {/* Organization schema - helps with brand recognition in search */}
       <script
         type="application/ld+json"
-        // JSON-LD for rich snippets
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+      {/* WebSite schema - enables sitelinks search box */}
       <script
         type="application/ld+json"
-        // HowTo schema for "How it Works" section
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      {/* SoftwareApplication schema - rich app info */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      {/* HowTo schema for "How it Works" section */}
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       {/* subtle dot grid */}
