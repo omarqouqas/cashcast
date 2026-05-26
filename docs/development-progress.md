@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 25, 2026 (Day 82)
+**Last Updated:** May 26, 2026 (Day 82)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -17,7 +17,7 @@
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (26 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (26 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis + Upgrade Funnel Instrumentation**
 
 **Current Focus:**
 
@@ -65,6 +65,26 @@
 
 **Documentation:**
 - Created `docs/conversion-diagnosis.md` with PostHog queries and analysis
+
+**Upgrade Funnel Instrumentation (May 26):**
+Added 4 missing PostHog events to diagnose where the 0% conversion funnel breaks:
+
+| Event | Location | Properties |
+|-------|----------|------------|
+| `pricing_page_viewed` | `/pricing` page mount | `source: 'feature_gate' \| 'nav' \| 'banner' \| 'settings' \| 'direct'` |
+| `upgrade_button_clicked` | Pricing section buttons | `location`, `tier` |
+| `checkout_started` | Before Stripe redirect | `tier`, `price`, `billing_period` |
+| `subscription_created` | Stripe webhook | `tier`, `price`, `billing_period` |
+
+**Files Created:**
+- `components/pricing/pricing-page-tracker.tsx` - Client component for page view tracking
+- `docs/posthog-activation-funnel.md` - 5 HogQL queries for funnel diagnosis
+
+**Files Modified:**
+- `lib/posthog/events.ts` - Added 3 new event functions
+- `app/pricing/page.tsx` - Added PricingPageTracker
+- `components/pricing/pricing-section.tsx` - Added tracking to upgrade buttons
+- `app/api/webhooks/stripe/route.ts` - Added server-side subscription_created event
 
 ### Day 81: SEO Content Expansion for Freelance Rate Keywords (May 14, 2026)
 

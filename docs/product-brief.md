@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.32
-**Last Updated:** May 25, 2026
-**Status:** Live - Free Tier Limits Reduced + Usage Indicator Component
+**Version:** 6.33
+**Last Updated:** May 26, 2026
+**Status:** Live - Upgrade Funnel Instrumentation + Free Tier Limits Reduced
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -838,13 +838,15 @@ User Request
 ### PostHog Events
 
 **Conversion Funnel:**
-1. `user_signed_up` → 2. `onboarding_completed` → 3. `calendar_viewed` → 4. `upgrade_prompt_shown` → 5. `subscription_created`
+1. `user_signed_up` → 2. `onboarding_completed` → 3. `calendar_viewed` → 4. `feature_gate_hit` → 5. `pricing_page_viewed` → 6. `upgrade_button_clicked` → 7. `checkout_started` → 8. `subscription_created`
 
 **Key Metrics to Monitor:**
 - Signup → Onboarding completion rate
 - Onboarding → First calendar view rate
-- Free → Upgrade prompt shown rate
-- Upgrade prompt → Checkout initiated rate
+- Free → Feature gate hit rate
+- Feature gate → Pricing page visit rate
+- Pricing visit → Upgrade button click rate
+- Upgrade click → Checkout started rate
 - Checkout → Subscription created rate
 
 ### Key Events Tracked
@@ -855,9 +857,11 @@ User Request
 | `onboarding_completed` | accounts_count, etc. | Activation |
 | `calendar_viewed` | days_shown | Engagement |
 | `scenario_tested` | amount_range, result | Feature usage |
-| `upgrade_prompt_shown` | trigger | Conversion funnel |
-| `upgrade_initiated` | tier, interval | Conversion funnel |
-| `subscription_created` | tier, interval, mrr | Revenue |
+| `feature_gate_hit` | feature | Paywall visibility |
+| `pricing_page_viewed` | source | Conversion funnel |
+| `upgrade_button_clicked` | location, tier | Conversion funnel |
+| `checkout_started` | tier, price, billing_period | Conversion funnel |
+| `subscription_created` | tier, price, billing_period | Revenue |
 
 ### Weekly Digest Events
 
