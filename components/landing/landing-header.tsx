@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { label: 'How It Works', href: '/#how-it-works' },
   { label: 'Pricing', href: '/#pricing' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Compare', href: '/compare/cash-flow-calendar-apps' },
+  { label: 'Compare', href: '/compare' },
 ] as const;
 
 export default function LandingHeader() {
