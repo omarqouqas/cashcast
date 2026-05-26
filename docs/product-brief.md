@@ -1,8 +1,8 @@
 # Cashcast - Complete Product Brief
 
-**Version:** 6.31
-**Last Updated:** May 10, 2026
-**Status:** Live - Tabbed Settings + Full-Width Layout + Sidebar Optimizations
+**Version:** 6.32
+**Last Updated:** May 25, 2026
+**Status:** Live - Free Tier Limits Reduced + Usage Indicator Component
 **Product URL:** https://cashcast.money
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -400,7 +400,7 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 - Automatic tier upgrades/downgrades
 
 **11. Feature Gating ✅**
-- Usage indicators ("3/10 bills")
+- Usage indicators ("3/5 bills") with progress bars
 - Upgrade banners (amber at limit, blue near limit)
 - Upgrade modals with billing toggle
 - Server-side validation
@@ -710,8 +710,8 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 
 | Feature | Free ($0) | Pro ($7.99/mo) | Lifetime ($99) |
 |---------|-----------|----------------|-----------------|
-| Bills | 10 | Unlimited | Unlimited |
-| Income Sources | 10 | Unlimited | Unlimited |
+| Bills | 5 | Unlimited | Unlimited |
+| Income Sources | 5 | Unlimited | Unlimited |
 | Forecast Days | 90 | 365 | 365 |
 | AI Queries (Ask Cashcast) | 5/day | Unlimited | Unlimited |
 | Calendar View | ✅ | ✅ | ✅ |

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 14, 2026 (Day 81)
+**Last Updated:** May 25, 2026 (Day 82)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 81
+- **Days in Development:** 82
 - **Commits:** 420+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (26 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + **Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (26 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + 6 SEO Blog Posts + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Float Comparison Page + Pulse Comparison Page + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + PocketSmith Comparison Page + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis**
 
 **Current Focus:**
 
@@ -28,7 +28,43 @@
 
 ---
 
-## Recent Development (Days 60-81)
+## Recent Development (Days 60-82)
+
+### Day 82: Free Tier Limit Reduction & Usage Indicator (May 25, 2026)
+
+**Conversion Diagnosis with PostHog** - Analyzed funnel data to diagnose 0% upgrade rate. Found:
+- 8 signups (excluding owner)
+- 100% activation (bill added within 24h)
+- 100%+ Day 2-7 retention
+- Only 12.5% visited /pricing page
+- 0% clicked upgrade button
+- Only 25% hit feature gates
+
+**Diagnosis: Invisible Paywall** - Users never hit limits with 10 bills/income allowed. The paywall was invisible, not a pricing or value problem.
+
+**Free Tier Limit Reduction:**
+- Reduced maxBills from 10 to 5
+- Reduced maxIncome from 10 to 5
+- Goal: Force more users to hit limits and see upgrade prompts
+
+**New UsageIndicator Component:**
+- Created `components/dashboard/usage-indicator.tsx`
+- Shows progress bars for bills and income usage ("3/5 bills")
+- Color-coded: teal (normal), amber (near limit), rose (at limit)
+- Links to /pricing for upgrade
+- Only displays for free tier users
+
+**Files Modified:**
+- `lib/stripe/config.ts` - Tier limits (10→5)
+- `components/dashboard/dashboard-content.tsx` - Added UsageIndicator
+- `components/subscription/upgrade-prompt.tsx` - Updated copy
+- `components/pricing/pricing-section.tsx` - Updated pricing table
+- `components/landing/faq-section.tsx` - Updated FAQ
+- `components/seo/schemas.tsx` - Updated schema markup
+- 6 compare pages (ynab, pulse, pocketsmith, mint, float, cash-flow-calendar-apps)
+
+**Documentation:**
+- Created `docs/conversion-diagnosis.md` with PostHog queries and analysis
 
 ### Day 81: SEO Content Expansion for Freelance Rate Keywords (May 14, 2026)
 
