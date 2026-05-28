@@ -312,7 +312,7 @@ export function BillsContent({ bills, categories = [], currency = 'USD' }: Bills
           </button>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {filteredBills.map((bill) => (
             <BillCard key={bill.id} bill={bill} categories={categories} currency={currency} />
           ))}

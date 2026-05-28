@@ -53,7 +53,7 @@ export function CalendarSummary({ calendarData }: CalendarSummaryProps) {
     : 'text-zinc-100';
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6">
       {/* Starting Balance Card */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">

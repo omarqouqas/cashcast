@@ -376,7 +376,7 @@ export default async function BillsPage({ searchParams }: BillsPageProps) {
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Quick Summary</h3>
 
           {/* Summary Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {/* Monthly Bills */}
             <div className="bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-1">

@@ -124,7 +124,7 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
           <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Quick Summary</h3>
 
           {/* Balance Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             {/* Total Balance */}
             <div className="bg-teal-50 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/30 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-1">
@@ -161,7 +161,7 @@ export default async function AccountsPage({ searchParams }: AccountsPageProps) 
           </div>
 
           {/* Account Health Status */}
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 gap-4">
             {staleAccounts.length > 0 ? (
               <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1">

@@ -110,7 +110,7 @@ export function AccountsContent({ accounts, emergencyFundAccountId }: AccountsCo
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredAccounts.map((account) => (
             <AccountCard
               key={account.id}
