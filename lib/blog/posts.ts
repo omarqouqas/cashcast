@@ -16,6 +16,30 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'cash-flow-forecasting-self-employed',
+    title: 'Cash Flow Forecasting for the Self-Employed: The Complete Guide (with the Method Freelancers Actually Use)',
+    description: 'Most cash flow forecasting guides are written for predictable salaries. This one is for the self-employed — irregular income, late clients, and all.',
+    publishedAt: '2026-05-26',
+    author: {
+      name: 'Cashcast Team',
+      role: 'Personal Finance Experts',
+    },
+    category: 'guides',
+    readingTime: '15 min read',
+    keywords: [
+      'cash flow forecasting self-employed',
+      'self-employed cash flow forecast',
+      'how to forecast cash flow self-employed',
+      'freelancer cash flow forecasting',
+      'cash flow planning freelancer',
+      'irregular income cash flow',
+      'self-employment cash flow',
+      'freelance financial planning',
+      'cash flow calendar self-employed',
+      'safe to spend freelancer',
+    ],
+  },
+  {
     slug: 'avoid-overdraft-freelancer',
     title: 'How to Avoid Overdraft as a Freelancer: 5 Proven Strategies',
     description: 'Freelancers overdraft because of timing, not income. Learn how to predict low-balance days and never bounce a payment again.',

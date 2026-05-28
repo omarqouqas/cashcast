@@ -21,7 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Blog
     { url: `${baseUrl}/blog`, lastModified, priority: 0.8 },
-    ...blogPosts,
+    // Featured SEO post with higher priority
+    { url: `${baseUrl}/blog/cash-flow-forecasting-self-employed`, lastModified, priority: 0.8 },
+    ...blogPosts.filter(p => p.url !== `${baseUrl}/blog/cash-flow-forecasting-self-employed`),
 
     // Comparison pages
     { url: `${baseUrl}/compare`, lastModified, priority: 0.7 },
