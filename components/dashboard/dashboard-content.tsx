@@ -439,7 +439,7 @@ export function DashboardContent({
       )}
 
       {/* Quick Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {/* Daily Budget */}
         <div className="flex flex-col gap-2 h-full">
           <Link href="/dashboard/calendar" className="flex-1">
@@ -456,7 +456,7 @@ export function DashboardContent({
               </div>
               <div>
                 <p
-                  className={`text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight ${dailyBudgetColorClass}`}
+                  className={`text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight ${dailyBudgetColorClass}`}
                 >
                   {dailyBudgetData
                     ? dailyBudgetData.dailyBudget < 0
@@ -509,7 +509,7 @@ export function DashboardContent({
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-zinc-100">
+                <p className="text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-zinc-100">
                   {formatCurrency(totalBalance, currency)}
                 </p>
                 <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1">
@@ -544,7 +544,7 @@ export function DashboardContent({
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-emerald-400">
+                <p className="text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight text-emerald-400">
                   {formatCurrency(monthlyIncome, currency)}
                   <span className="text-xs sm:text-sm md:text-base font-normal text-emerald-400/70">/mo</span>
                 </p>
@@ -580,7 +580,7 @@ export function DashboardContent({
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-rose-400">
+                <p className="text-2xl sm:text-3xl font-semibold tabular-nums tracking-tight text-rose-400">
                   {formatCurrency(monthlyBills, currency)}
                   <span className="text-xs sm:text-sm md:text-base font-normal text-rose-400/70">/mo</span>
                 </p>
@@ -665,11 +665,11 @@ export function DashboardContent({
                 </div>
               )}
 
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 py-4 border-t border-b border-zinc-200 dark:border-zinc-700/50">
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 py-4 border-t border-b border-zinc-200 dark:border-zinc-700/50">
                 <div className="min-w-0">
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Lowest Balance</p>
                   <p
-                    className={`text-base sm:text-xl md:text-2xl font-bold truncate ${getBalanceColor(
+                    className={`text-lg sm:text-2xl font-bold truncate ${getBalanceColor(
                       forecastMetrics.lowestBalance,
                       safetyBuffer
                     )}`}
@@ -682,14 +682,14 @@ export function DashboardContent({
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Total Income</p>
-                  <p className="text-base sm:text-xl md:text-2xl font-bold text-emerald-400 truncate">
+                  <p className="text-lg sm:text-2xl font-bold text-emerald-400 truncate">
                     {formatCurrency(forecastMetrics.totalIncome, currency)}
                   </p>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">{horizonPeriod}</p>
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-1">Total Bills</p>
-                  <p className="text-base sm:text-xl md:text-2xl font-bold text-rose-400 truncate">
+                  <p className="text-lg sm:text-2xl font-bold text-rose-400 truncate">
                     {formatCurrency(forecastMetrics.totalBills, currency)}
                   </p>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">{horizonPeriod}</p>

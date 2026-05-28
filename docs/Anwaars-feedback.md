@@ -159,7 +159,7 @@ Shows value in context, not a generic paywall.
 - [x] Add Step 3: Forecast preview with personalized insights ✅ **Done May 28, 2026**
 - [x] Add contextual Pro upsell on preview step ✅ **Done May 28, 2026**
 - [x] Reduce text, use bullet points and icons ✅ **Done May 28, 2026**
-- [ ] Improve mobile/PWA visual polish
+- [x] Improve mobile/PWA visual polish (dashboard cards & typography) ✅ **Done May 28, 2026**
 - [ ] A/B test new onboarding vs current
 
 ---
@@ -213,3 +213,28 @@ Shows value in context, not a generic paywall.
 **File Changed:** `app/dashboard/page.tsx` (line 388)
 
 **Commit:** `fix: override subscription tier on checkout success (race condition)`
+
+---
+
+## Mobile/PWA Visual Polish (May 28, 2026)
+
+Based on "Visually it's not appealing" feedback, improved dashboard cards & typography for iPhone PWA.
+
+### Changes Made
+
+| Component | Before | After |
+|-----------|--------|-------|
+| Quick Stats Grid | `gap-3` (12px) | `gap-4` (16px) |
+| Stat numbers | `text-xl sm:text-2xl md:text-3xl` | `text-2xl sm:text-3xl` |
+| Forecast Metrics Grid | `gap-2 sm:gap-4` | `gap-3 sm:gap-4` |
+| Forecast numbers | `text-base sm:text-xl md:text-2xl` | `text-lg sm:text-2xl` |
+
+### Why These Changes
+
+- **Increased gaps:** Cards felt cramped on 375px screens (iPhone SE)
+- **Simplified font scaling:** 3-tier scaling (`text-xl → text-2xl → text-3xl`) was jarring. 2-tier (`text-2xl → text-3xl`) is smoother
+- **Better mobile-first:** Larger base sizes (`text-2xl`, `text-lg`) look better on small screens
+
+### File Changed
+
+- `components/dashboard/dashboard-content.tsx`
