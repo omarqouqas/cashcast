@@ -76,7 +76,7 @@ export const trackOnboardingStarted = () => {
  */
 export const trackOnboardingStep = (
   step: number,
-  stepName: 'account' | 'income' | 'bills' | 'review'
+  stepName: 'account' | 'income' | 'bills' | 'review' | 'preview'
 ) => {
   posthog.capture('onboarding_step_completed', {
     step_number: step,

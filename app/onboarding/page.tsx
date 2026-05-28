@@ -7,11 +7,11 @@ import { showError } from '@/lib/toast'
 import { ProgressSteps } from '@/components/onboarding/progress-steps'
 import { StepQuickSetup } from '@/components/onboarding/step-quick-setup'
 import { StepBills } from '@/components/onboarding/step-bills'
+import { StepForecastPreview } from '@/components/onboarding/step-forecast-preview'
 
 import {
   onboardingCreateAccount,
   onboardingCreateBills,
-  onboardingCreateIncomes,
   onboardingMarkComplete,
 } from '@/lib/actions/onboarding'
 import {
@@ -19,14 +19,13 @@ import {
   trackOnboardingStep,
   trackOnboardingCompleted,
   trackAccountCreated,
-  trackIncomeAdded,
   trackBillAdded,
 } from '@/lib/posthog/events'
 
 export default function OnboardingPage() {
   const router = useRouter()
 
-  const STORAGE_KEY = 'cff_onboarding_state_v2' // Bumped version for new 2-step flow
+  const STORAGE_KEY = 'cff_onboarding_state_v3' // Bumped version for new 3-step flow
 
   type PersistedState = {
     step: number
@@ -72,8 +71,8 @@ export default function OnboardingPage() {
       const parsed = JSON.parse(raw) as Partial<PersistedState>
       if (typeof parsed.step !== 'number') return null
       return {
-        step: Math.min(1, Math.max(0, parsed.step)), // Max step is now 1 (Bills)
-        completed: Array.isArray(parsed.completed) ? parsed.completed.map(Boolean).slice(0, 2) : [false, false],
+        step: Math.min(2, Math.max(0, parsed.step)), // Max step is now 2 (Preview)
+        completed: Array.isArray(parsed.completed) ? parsed.completed.map(Boolean).slice(0, 3) : [false, false, false],
         startingBalance:
           typeof parsed.startingBalance === 'number' || parsed.startingBalance === null
             ? parsed.startingBalance
@@ -102,7 +101,7 @@ export default function OnboardingPage() {
   const persisted = loadPersisted()
 
   const [step, setStep] = useState<number>(persisted?.step ?? 0)
-  const [completed, setCompleted] = useState<boolean[]>(persisted?.completed ?? [false, false])
+  const [completed, setCompleted] = useState<boolean[]>(persisted?.completed ?? [false, false, false])
 
   const [startingBalance, setStartingBalance] = useState<number | null>(persisted?.startingBalance ?? null)
   const [currency, setCurrency] = useState<string>(persisted?.currency ?? 'USD')
@@ -145,9 +144,11 @@ export default function OnboardingPage() {
   const pageTitle = useMemo(() => {
     switch (step) {
       case 0:
-        return 'Quick Setup'
+        return 'Balance'
       case 1:
         return 'Bills'
+      case 2:
+        return 'Your Forecast'
       default:
         return 'Onboarding'
     }
@@ -162,7 +163,7 @@ export default function OnboardingPage() {
   }
 
   function nextStep() {
-    setStep((s) => Math.min(1, s + 1))
+    setStep((s) => Math.min(2, s + 1))
   }
 
   async function finishOnboarding() {
@@ -222,18 +223,6 @@ export default function OnboardingPage() {
                 setStartingBalance(accountRes.account.current_balance ?? values.balance)
                 setCurrency(accountRes.account.currency ?? 'USD')
 
-                // Create income if provided
-                if (values.income) {
-                  const incomeRes = await onboardingCreateIncomes([values.income])
-                  if ('error' in incomeRes) throw new Error(incomeRes.error)
-                  // Track income addition
-                  trackIncomeAdded({
-                    frequency: values.income.frequency,
-                    isRecurring: values.income.frequency !== 'one-time',
-                    hasEndDate: false,
-                  })
-                }
-
                 // Track step completion
                 trackOnboardingStep(0, 'account')
                 markStepComplete(0)
@@ -268,33 +257,36 @@ export default function OnboardingPage() {
                 // Track step completion
                 trackOnboardingStep(1, 'bills')
                 markStepComplete(1)
-
-                // Track onboarding completed
-                trackOnboardingCompleted({
-                  accountsCreated: 1,
-                  incomeSourcesCreated: startingBalance !== null ? 1 : 0,
-                  billsCreated: res.bills.length,
-                })
-
-                // Mark onboarding complete and redirect to calendar
-                const success = await finishOnboarding()
-                if (success) {
-                  router.push('/dashboard/calendar')
-                }
+                nextStep()
               }}
-              onSkip={async () => {
+              onSkip={() => {
                 setGlobalError(null)
                 setBillsTracked(0)
 
                 // Track step completion (even if skipped)
                 trackOnboardingStep(1, 'bills')
                 markStepComplete(1)
+                nextStep()
+              }}
+            />
+          )}
+
+          {step === 2 && (
+            <StepForecastPreview
+              balance={startingBalance}
+              billsCount={billsTracked}
+              onContinue={async () => {
+                setGlobalError(null)
+
+                // Track step completion
+                trackOnboardingStep(2, 'preview')
+                markStepComplete(2)
 
                 // Track onboarding completed
                 trackOnboardingCompleted({
-                  accountsCreated: 1,
-                  incomeSourcesCreated: startingBalance !== null ? 1 : 0,
-                  billsCreated: 0,
+                  accountsCreated: startingBalance !== null ? 1 : 0,
+                  incomeSourcesCreated: 0,
+                  billsCreated: billsTracked,
                 })
 
                 // Mark onboarding complete and redirect to calendar

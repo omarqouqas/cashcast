@@ -2,7 +2,7 @@
 
 import { Check } from 'lucide-react'
 
-const STEPS = ['Quick Setup', 'Bills'] as const
+const STEPS = ['Balance', 'Bills', 'Preview'] as const
 
 export type OnboardingStepTitle = (typeof STEPS)[number]
 
