@@ -206,22 +206,27 @@ export default function OnboardingPage() {
               onContinue={async (values) => {
                 setGlobalError(null)
 
-                // Create account with defaults
-                const accountRes = await onboardingCreateAccount({
-                  name: 'Main Account',
-                  account_type: 'checking',
-                  current_balance: values.balance,
-                  currency: 'USD',
-                  is_spendable: true,
-                })
+                // Only create account if step not already completed (prevents duplicates)
+                if (!completed[0]) {
+                  const accountRes = await onboardingCreateAccount({
+                    name: 'Main Account',
+                    account_type: 'checking',
+                    current_balance: values.balance,
+                    currency: 'USD',
+                    is_spendable: true,
+                  })
 
-                if ('error' in accountRes) throw new Error(accountRes.error)
+                  if ('error' in accountRes) throw new Error(accountRes.error)
 
-                // Track account creation
-                trackAccountCreated('checking')
+                  // Track account creation
+                  trackAccountCreated('checking')
 
-                setStartingBalance(accountRes.account.current_balance ?? values.balance)
-                setCurrency(accountRes.account.currency ?? 'USD')
+                  setStartingBalance(accountRes.account.current_balance ?? values.balance)
+                  setCurrency(accountRes.account.currency ?? 'USD')
+                } else {
+                  // Step already completed, just update balance
+                  setStartingBalance(values.balance)
+                }
 
                 // Track step completion
                 trackOnboardingStep(0, 'account')
@@ -241,18 +246,25 @@ export default function OnboardingPage() {
             <StepBills
               onContinue={async (rows) => {
                 setGlobalError(null)
-                const res = await onboardingCreateBills(rows)
-                if ('error' in res) throw new Error(res.error)
 
-                // Track each bill added
-                rows.forEach((bill) => {
-                  trackBillAdded({
-                    frequency: bill.frequency,
-                    category: bill.category,
+                // Only create bills if step not already completed (prevents duplicates)
+                if (!completed[1]) {
+                  const res = await onboardingCreateBills(rows)
+                  if ('error' in res) throw new Error(res.error)
+
+                  // Track each bill added
+                  rows.forEach((bill) => {
+                    trackBillAdded({
+                      frequency: bill.frequency,
+                      category: bill.category,
+                    })
                   })
-                })
 
-                setBillsTracked(res.bills.length)
+                  setBillsTracked(res.bills.length)
+                } else {
+                  // Step already completed, just update count
+                  setBillsTracked(rows.length)
+                }
 
                 // Track step completion
                 trackOnboardingStep(1, 'bills')

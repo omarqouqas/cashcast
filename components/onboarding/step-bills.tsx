@@ -77,7 +77,7 @@ export function StepBills({
         .filter((chip) => selectedKeys.has(chip.key))
         .map((chip) => ({
           name: chip.name,
-          amount: 0, // Placeholder - user edits in dashboard
+          amount: 1, // Placeholder ($1) - user edits in dashboard
           frequency: 'monthly' as const,
           due_date: dueDate,
           category: chip.category,
