@@ -385,7 +385,14 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
       message={message}
       calendarError={calendarError}
       currency={currency}
-      subscriptionTier={subscription.tier}
+      subscriptionTier={
+        // Override tier when returning from checkout (webhook may not have processed yet)
+        checkoutStatus === 'success'
+          ? isLifetimePurchase
+            ? 'lifetime'
+            : 'pro'
+          : subscription.tier
+      }
       checkoutSuccess={checkoutStatus === 'success'}
       isLifetimePurchase={isLifetimePurchase}
       alerts={serializedAlerts}

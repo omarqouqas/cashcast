@@ -192,3 +192,24 @@ Shows value in context, not a generic paywall.
 - Soft Pro upsell in context ("Want to see further ahead?")
 - No scrolling required on mobile
 - Follows the fitness app pattern Anwaar described
+
+---
+
+## Bug Report: Lifetime Banner Shown After Purchase (May 28, 2026)
+
+**First paying customer!** Anwaar purchased the Lifetime deal.
+
+**Bug:** After completing Lifetime checkout, the dashboard showed:
+1. "Pay once... Get Lifetime — $99" banner (shouldn't show)
+2. "Free Plan Usage 0/5" indicator (shouldn't show)
+3. "Welcome to Lifetime!" success message (correct)
+
+**Root Cause:** Race condition between Stripe checkout redirect and webhook processing. The page fetched `subscription.tier` from the database before the webhook updated it.
+
+**Fix:** Override `subscriptionTier` when `checkoutStatus === 'success'`:
+- If `isLifetimePurchase` → tier = 'lifetime'
+- Otherwise → tier = 'pro'
+
+**File Changed:** `app/dashboard/page.tsx` (line 388)
+
+**Commit:** `fix: override subscription tier on checkout success (race condition)`
