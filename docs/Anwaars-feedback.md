@@ -155,9 +155,40 @@ Shows value in context, not a generic paywall.
 ## Action Items
 
 - [x] Audit current onboarding flow and count questions/steps
-- [ ] Simplify bills step to quick-tap chips only (defer details to dashboard)
-- [ ] Add Step 3: Forecast preview with personalized insights
-- [ ] Add contextual Pro upsell on preview step
-- [ ] Reduce text, use bullet points and icons
+- [x] Simplify bills step to quick-tap chips only (defer details to dashboard) ✅ **Done May 28, 2026**
+- [x] Add Step 3: Forecast preview with personalized insights ✅ **Done May 28, 2026**
+- [x] Add contextual Pro upsell on preview step ✅ **Done May 28, 2026**
+- [x] Reduce text, use bullet points and icons ✅ **Done May 28, 2026**
 - [ ] Improve mobile/PWA visual polish
 - [ ] A/B test new onboarding vs current
+
+---
+
+## Implementation Complete (May 28, 2026)
+
+**Commit:** `1242cd6 feat: redesign onboarding based on user feedback`
+
+### New Flow (3 Steps)
+
+| Step | What it asks | Fields |
+|------|--------------|--------|
+| **0: Balance** | Current balance only | 1 input |
+| **1: Bills** | Tap-to-toggle chips (9 options) | 0 forms, just taps |
+| **2: Preview** | Shows stats + soft Pro upsell | 0 inputs |
+
+### Files Changed
+
+- `components/onboarding/step-quick-setup.tsx` - Removed income section, single balance input
+- `components/onboarding/step-bills.tsx` - Replaced 5-field forms with tap-only chips
+- `components/onboarding/step-forecast-preview.tsx` - **NEW** - "aha" moment with stats + upsell
+- `components/onboarding/progress-steps.tsx` - Updated to 3 steps
+- `app/onboarding/page.tsx` - New 3-step flow orchestration
+- `lib/posthog/events.ts` - Added 'preview' step tracking
+
+### Key Improvements
+
+- Reduced from ~15+ form fields to 1 input + tap chips
+- Added personalized "Your forecast is ready" screen
+- Soft Pro upsell in context ("Want to see further ahead?")
+- No scrolling required on mobile
+- Follows the fitness app pattern Anwaar described

@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 26, 2026 (Day 83)
+**Last Updated:** May 28, 2026 (Day 85)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,14 +10,14 @@
 
 ## Quick Stats
 
-- **Days in Development:** 83
+- **Days in Development:** 85
 - **Commits:** 420+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
 
 ## Current Status Summary
 
-**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (39 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages (8 total) + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + **Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis + Upgrade Funnel Instrumentation + HoneyBook SEO Content (Comparison Page + 3 Blog Posts) + **First YouTube Short + TikTok Launch (Faceless Video Workflow) + Strategic Reviews (Dana, FlowPulse)**
+**Overall Progress:** MVP Complete + Feature Gating + Analytics + Stripe Live + YNAB-Inspired Calendar + Comprehensive Filters + Low Balance Alerts + Simpler Onboarding + Emergency Fund Tracker + Stripe Payment Links + Landing Page Hero Dashboard + Calendar Visual Polish + User Profile Dropdown Redesign + Invoice Branding + Form UX Polish + SEO/AEO Audit + Content Expansion (39 Blog Posts + Glossary) + Dashboard/Calendar Mobile UX Polish + Semi-Monthly Frequency Bug Fixes + Reports & Export Feature + Custom Bill Categories + Credit Card Cash Flow Forecasting + Debt Payoff Planner + User Settings Currency Support + Quotes Feature + Lifetime Deal + Pricing Updates + Comparison Pages (8 total) + YNAB Import + Import Recurring Entries + Quarterly/Annually Income Frequencies + Excel Import + Landing Page Repositioning (Sacred Seven PM Review) + Gemini Market Research Integration (Docs + Marketing Content) + Gemini Pivot Analysis & Roadmap + Tax Reserve Calculator Tool + Landing Page Niche Messaging + AI-Powered Probabilistic Forecasting (Monte Carlo) + Simplified Navigation + AI Natural Language Queries ("Ask Cashcast") + Smart Categorization for Imports + Branding Refresh + Proactive AI Alerts + Income Pattern Forecasting + AI Recurring Pattern Detection for PDF Import + Automated Payment Reminders + Time Tracking + Invoicing + Referral Program + SMS/Push Low Balance Alerts + Competitive Analysis Update + CurrencyInput Bug Fix + Desktop Sidebar Navigation + Tabbed Settings Interface + Full-Width Layout + Theme Toggle + Dark Mode Only (Light Mode Disabled) + Combined Settings Forms + Calendar Redesign (Left Border Status) + Per-Income Tax Withholding + Free Tier Limit Reduction (10→5) + Usage Indicator Component + Conversion Funnel Diagnosis + Upgrade Funnel Instrumentation + HoneyBook SEO Content (Comparison Page + 3 Blog Posts) + First YouTube Short + TikTok Launch (Faceless Video Workflow) + Strategic Reviews (Dana, FlowPulse) + **Onboarding Redesign (Fitness App Pattern - 3-step flow with "aha" moment)**
 
 **Current Focus:**
 
@@ -28,7 +28,42 @@
 
 ---
 
-## Recent Development (Days 60-83)
+## Recent Development (Days 60-85)
+
+### Day 85: Onboarding Redesign Based on User Feedback (May 28, 2026)
+
+**User Feedback Implementation** - Anwaar completed onboarding on iPhone PWA and provided critical feedback: "get me intrigued first" and compared to fitness apps that show personalized value before asking for payment.
+
+**Problem Identified:**
+- Old flow: 15+ form fields → straight to dashboard (no "aha" moment)
+- Users didn't understand why they should pay for Pro
+- Too much scrolling, too many questions
+
+**Solution Implemented - Fitness App Pattern:**
+1. **Minimal questions** - Reduced to 1 input + tap chips
+2. **Personalized preview** - "Your forecast is ready" with stats
+3. **Contextual upsell** - "Extend to 365 days with Pro"
+
+**New Onboarding Flow (3 Steps):**
+
+| Step | Before | After |
+|------|--------|-------|
+| Balance | Balance + Income (5 fields) | Balance only (1 field) |
+| Bills | 5-field form per bill | Tap-to-toggle chips (9 options) |
+| Preview | N/A | NEW: Stats + soft Pro upsell |
+
+**Files Changed:**
+- `components/onboarding/step-quick-setup.tsx` - Simplified to single balance input
+- `components/onboarding/step-bills.tsx` - Replaced forms with tap-only chips
+- `components/onboarding/step-forecast-preview.tsx` - **NEW** - "aha" moment screen
+- `components/onboarding/progress-steps.tsx` - 3-step indicator
+- `app/onboarding/page.tsx` - New flow orchestration
+- `lib/posthog/events.ts` - Added 'preview' step tracking
+
+**Documentation:**
+- `docs/Anwaars-feedback.md` - Full feedback analysis and implementation notes
+
+---
 
 ### Day 83: First YouTube Short + TikTok Launch + Strategic Reviews (May 26, 2026)
 
