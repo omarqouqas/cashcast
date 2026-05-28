@@ -59,10 +59,105 @@ The user has a **reason** to pay because they've seen personalized value first.
 
 ---
 
+## Current Onboarding Analysis
+
+### Flow: 2 Steps
+
+| Step | What it asks | Fields |
+|------|--------------|--------|
+| **0: Quick Setup** | Balance (required) + Income (optional, collapsible) | 1-5 fields |
+| **1: Bills** | Add bills with quick-tap suggestions | 5 fields per bill (name, amount, frequency, due date, category) |
+
+Then → straight to `/dashboard/calendar` (no personalized insight)
+
+### Problems Mapped to Feedback
+
+| Issue | Where it happens |
+|-------|------------------|
+| **No "aha" moment** | After Step 1, user goes straight to calendar. No personalized insight like "Your first crunch is April 15th" |
+| **Too many fields** | Bills step: each bill has 5 form fields. Adding 3 bills = 15+ inputs |
+| **Scrolling** | Bills step requires vertical scrolling on mobile, especially with multiple bills |
+| **No upgrade hook** | No paywall or "here's why Pro is worth it" moment |
+
+### What's Actually Good
+
+- Quick-tap suggestion chips for bills (Rent, Utilities, Phone, Subscriptions, Car Payment)
+- Income section is collapsible/optional
+- "Skip for now" option on both steps
+- Copy is reasonably concise in headers
+
+### Files involved
+
+- `app/onboarding/page.tsx` - Main orchestrator
+- `components/onboarding/step-quick-setup.tsx` - Balance + income
+- `components/onboarding/step-bills.tsx` - Bill entry with 5 fields per bill
+
+---
+
+## Recommended Changes
+
+### 1. Simplify Bills Step (Biggest Win)
+
+**Current:** Each bill requires 5 fields (name, amount, frequency, due date, category)
+
+**Proposed:** Quick-tap chips only during onboarding
+- "Tap the bills you pay" → Rent, Utilities, Phone, Subscriptions, Car, Insurance, Loan
+- Use smart defaults (monthly, $0 placeholder)
+- Let users edit details later in dashboard
+
+### 2. Add Step 3: Forecast Preview ("Aha" Moment)
+
+After bills, show a personalized insight screen:
+
+```
+Based on what you told us:
+
+• Your runway: 47 days
+• First low balance: April 15 ($234)
+• Monthly burn: ~$2,400
+
+[See Your Full Calendar]
+```
+
+This is the "I built this for you" moment fitness apps use.
+
+### 3. Contextual Upsell on Preview
+
+On the forecast preview screen:
+
+```
+You're seeing 90 days.
+Unlock 365-day forecast with Pro →
+```
+
+Shows value in context, not a generic paywall.
+
+### 4. Reduce Text Throughout
+
+- Remove helper paragraphs ("Use today's balance from your bank app")
+- Use placeholders instead of labels where possible
+- Icons instead of text labels on mobile
+
+---
+
+## Priority Matrix
+
+| Fix | Priority | Impact | Effort |
+|-----|----------|--------|--------|
+| Add forecast preview step ("aha" moment) | Critical | Very High | Medium |
+| Simplify bills to tap-only chips | Critical | High | Low |
+| Contextual upsell on preview | High | High | Low |
+| Reduce text / use icons | High | Medium | Low |
+| Mobile/PWA visual polish | Medium | Medium | High |
+
+---
+
 ## Action Items
 
-- [ ] Audit current onboarding flow and count questions/steps
-- [ ] Redesign onboarding to show personalized value before paywall
+- [x] Audit current onboarding flow and count questions/steps
+- [ ] Simplify bills step to quick-tap chips only (defer details to dashboard)
+- [ ] Add Step 3: Forecast preview with personalized insights
+- [ ] Add contextual Pro upsell on preview step
 - [ ] Reduce text, use bullet points and icons
 - [ ] Improve mobile/PWA visual polish
 - [ ] A/B test new onboarding vs current
