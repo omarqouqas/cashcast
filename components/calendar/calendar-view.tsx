@@ -9,6 +9,7 @@ import { DayCard } from './day-card';
 import { DayDetailModal } from './day-detail-modal';
 import { BalanceTrendChartInteractive } from './balance-trend-chart-interactive';
 import { StickyCalendarHeader } from './sticky-header';
+import { ForecastCutoffBanner } from './forecast-cutoff-banner';
 import { TrendingUp, AlertCircle, ChevronDown, Info } from 'lucide-react';
 
 interface CalendarViewProps {
@@ -290,6 +291,11 @@ export function CalendarView({
             </div>
           </div>
         ))}
+
+        {/* Forecast Cutoff Upsell (free tier only) */}
+        <div className="mt-8">
+          <ForecastCutoffBanner forecastDays={forecastDays} />
+        </div>
       </div>
 
       {/* Day Detail Modal */}

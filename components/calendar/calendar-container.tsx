@@ -7,6 +7,7 @@ import { StickyCalendarHeader } from './sticky-header'
 import { LowBalanceWarning } from './low-balance-warning'
 import { BillCollisionWarning } from './bill-collision-warning'
 import { BalanceTrendChartInteractive } from './balance-trend-chart-interactive'
+import { ForecastCutoffBanner } from './forecast-cutoff-banner'
 import type { CalendarDay, Transaction } from '@/lib/calendar/types'
 import type { CollisionSummary } from '@/lib/calendar/detect-collisions'
 import { isToday } from 'date-fns'
@@ -305,6 +306,9 @@ export function CalendarContainer({ calendarData }: CalendarContainerProps) {
             </div>
           ))}
         </div>
+
+        {/* Forecast Cutoff Upsell (free tier only) */}
+        <ForecastCutoffBanner forecastDays={calendarData.forecastDays} />
 
         <div className="px-4 pb-4">
           {lastUpdatedAt ? (

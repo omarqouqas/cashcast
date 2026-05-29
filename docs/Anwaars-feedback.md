@@ -238,3 +238,33 @@ Based on "Visually it's not appealing" feedback, improved dashboard cards & typo
 ### File Changed
 
 - `components/dashboard/dashboard-content.tsx`
+
+---
+
+## Calendar Forecast Cutoff Upsell (May 28, 2026)
+
+Contextual upsell at the end of calendar for free tier users (90-day limit).
+
+### Implementation
+
+**New Component:** `components/calendar/forecast-cutoff-banner.tsx`
+
+Shows an amber banner at the end of the forecast with:
+- "You're seeing 90 days"
+- "Extend your forecast to a full year with Pro"
+- "See 365 days ahead →" CTA linking to /pricing
+
+**Only shows when** `forecastDays === 90` (free tier)
+
+### Files Changed
+
+- `components/calendar/forecast-cutoff-banner.tsx` - **NEW** - Upsell banner component
+- `components/calendar/calendar-container.tsx` - Added banner to mobile view
+- `components/calendar/calendar-view.tsx` - Added banner to desktop view
+
+### Why This Works
+
+- Contextual: User sees it exactly when their forecast ends
+- Non-intrusive: Not a modal, just an inline banner
+- Clear value: "90 days vs 365 days" is tangible
+- Tracked: `trackFeatureGateHit('forecast_cutoff_banner')` for analytics
