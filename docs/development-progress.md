@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 28, 2026 (Day 85)
+**Last Updated:** May 29, 2026 (Day 85)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -29,6 +29,40 @@
 ---
 
 ## Recent Development (Days 60-85)
+
+### Day 85: Paywall Outreach Calibration Error — Heather Deicher (May 29, 2026)
+
+**Continued from earlier Day 85 work (SEO Push + Calendar Wall + First $99 + Outreach).**
+
+**First Reply (10:52 AM)** — Heather asked about Pro limits and membership. Seemed to perfectly confirm the "invisible paywall" diagnosis. Felt like a major signal.
+
+**Second Reply** — Revealed she's paying for a **different app entirely**. She described "refreshing the bank connection to reconcile" — Cashcast has no bank connections (manual entry is a stated differentiator). She signed up in March, never engaged, and confuses our outreach with whichever bank-sync app she actually pays for (likely PocketSmith, Monarch, or Copilot).
+
+**Real Signals (Revised):**
+
+1. **Brand non-memorability** — After 8 weeks, a signed-up user can't distinguish Cashcast from competitors. Either first-use moment isn't memorable, or onboarding emails don't reinforce the differentiator.
+
+2. **PostHog millisecond-bounce pattern still suggests paywall UX issues** — but NOT confirmed by user voice. Calendar Forecast Wall and free-tier-reduction remain defensible on data pattern, not Heather's quote.
+
+3. **n=1 anecdotes can be noise** — One reply seemed conclusive. Second reply inverted conclusion. Direct outreach is high-information but requires verification before building strategy on it.
+
+**Strategic Impact:**
+
+| Decision | Status After Second Reply |
+|----------|---------------------------|
+| Calendar Forecast Wall | 🟡 Defensible on data, not confirmed by voice |
+| Free tier 10→5 | 🟡 Same |
+| Dashboard widget Pro badges | ❌ Still wrong |
+| Lifetime deal raise to $249 | ✅ Unaffected |
+
+**New action surfaced:** Audit onboarding emails — do any post-signup emails reinforce brand + manual-entry differentiator? If signups can't remember Cashcast after 8 weeks, that's a memorability problem.
+
+**Documentation:**
+- `docs/feedback-heather-deicher.md` — Full calibration error write-up
+
+**Lesson:** When a single user reply seems to perfectly confirm a hypothesis, ask one more question before changing strategy. The second question separates signal from coincidence.
+
+---
 
 ### Day 85: SEO Content Push + Calendar Wall Upsell + First $99 + Paywall Outreach (May 28, 2026)
 
