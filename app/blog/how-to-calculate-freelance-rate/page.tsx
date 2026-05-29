@@ -742,6 +742,23 @@ export default function HowToCalculateFreelanceRatePage() {
         <h2 className="text-xl font-semibold text-white mb-6">Related Resources</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Link
+            href="/blog/cash-flow-forecasting-self-employed"
+            className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5 hover:border-teal-500/50 transition-colors group"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs text-teal-400 font-medium">Complete Guide</span>
+            </div>
+            <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
+              Cash Flow Forecasting for the Self-Employed
+            </p>
+            <p className="mt-1 text-sm text-zinc-400">
+              Know your rate—then forecast when that money actually arrives.
+            </p>
+            <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
+              Read guide <ArrowRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
+          <Link
             href="/tools/freelance-rate-calculator"
             className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
           >
