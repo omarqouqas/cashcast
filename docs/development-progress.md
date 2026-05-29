@@ -30,6 +30,72 @@
 
 ## Recent Development (Days 60-85)
 
+### Day 85: SEO Content Push + Calendar Wall Upsell + First $99 + Paywall Outreach (May 28, 2026)
+
+**Continued from earlier Day 85 work (Onboarding Redesign).**
+
+**SEO Content — PocketSmith-Targeting Blog Post**
+
+Shipped 2,800-word guide at `/blog/cash-flow-forecasting-self-employed` targeting the keyword PocketSmith currently holds with a thin 600-word article. Leads with the "Safe to Spend" angle PocketSmith doesn't have. Includes FAQ + HowTo + Article schemas. Cross-linked from `/compare/pocketsmith`. Sitemap priority 0.8.
+
+**Internal Link Equity Boost — 5 Featured Cross-Links**
+
+Added featured cross-links from 5 high-traffic existing posts to the new PocketSmith-targeting post (teal highlight + "Complete Guide" badge + contextual description):
+- `/blog/how-to-calculate-freelance-rate`
+- `/blog/what-is-safe-to-spend`
+- `/blog/cash-flow-forecasting-for-freelancers`
+- `/blog/how-to-manage-irregular-income-as-freelancer`
+- `/blog/quarterly-tax-savings-1099-contractors`
+
+**Calendar Forecast Wall Upsell (Contextual Upsell #1)**
+
+Highest-leverage contextual upsell moment: free users scrolling past day 90 see days 91+ behind a frosted overlay with "See 365 days with Pro" CTA. Shipped alone (per strategic review) to get clean attribution before stacking more upsells. Instrumented with existing `feature_gate_hit` + `upgrade_button_clicked` events using `location: 'calendar_forecast_wall'`.
+
+**🎉 First $99 Revenue — Lifetime Deal Purchase**
+
+First Stripe transaction completed end-to-end. Buyer: founder's wife (friends-and-family). Not a market-validation signal — treat as plumbing test.
+
+- ✅ Validates Stripe checkout, webhook handler, and new `subscription_created` PostHog event all fire correctly
+- ⚠️ Highlights urgency of the lifetime deal pricing decision (Sacred Seven doc flagged this in Feb): a real customer at $99 caps LTV at ~12 months of monthly. **Decide within 24h: remove the tier or raise to $249.**
+- 🔧 Wife's email added to PostHog internal-users filter
+
+**Paywall User Outreach — Highest-Information Action Taken**
+
+Ran PostHog query to identify users who hit `feature_gate_hit`. **Important calibration discovery:** the "9-hit paywall user" hypothesis I'd been building strategy around was the founder's own Laurier test email (`qouq6160@mylaurier.ca`). PostHog's "Filter out internal users" toggle applies to insights but **NOT to raw SQL queries** — manual filter required.
+
+Actual real paywall users (after manual filter):
+
+| Email | Hits | Date | Pattern |
+|-------|------|------|---------|
+| kbfletch2011@gmail.com | 2 | Feb 2, 2026 | 3ms between hits — immediate rejection |
+| hkuecker09@gmail.com | 2 | Mar 24, 2026 | 2ms between hits — immediate rejection |
+| frandeiba95@gmail.com | 1 | May 15, 2026 | Single hit |
+
+**Diagnosis from pattern:** Real users encountered the paywall and bounced within milliseconds. This is a **paywall UX problem**, not a pricing problem — even $1/mo wouldn't fix millisecond bounces.
+
+**Action taken:** Sent personal 2-sentence outreach emails to all 3 users asking what they were trying to do and what stopped them from upgrading. Expected reply rate: 1 of 3 within 7 days.
+
+**Other commits today:**
+- Mobile typography + spacing polish on dashboard pages
+- Schema fixes — added `aggregateRating` + `review` to Product schemas for Google Search Console validation
+- Race condition fix: subscription tier override on checkout success
+- Duplicate prevention in onboarding (accounts/bills)
+
+**Documentation:**
+- `docs/SEOActionPlan.md` — brand SEO + long-tail keyword strategy
+- `docs/Anwaars-feedback.md` — full feedback analysis (cross-references earlier Day 85 entry)
+
+**Commits:** `8f5555c`, `97c13ee`, `477b376`, `da6c4b2`, `35ff516`, `ed3c54c`, `622cfab`, `f9b1f78`, `1c315d7`, `f08fb43`, `f32a4e8`
+
+**Pending Strategic Decisions:**
+- **Within 24h:** Remove lifetime deal or raise to $249 (urgent — purchase flow now proven to work)
+- **Within 7 days:** Re-run funnel query to see if calendar wall produces `upgrade_button_clicked` events
+- **Within 7 days:** Watch for outreach replies; one substantive reply will reshape paywall strategy
+- **Hold:** No more contextual upsells until calendar wall produces data (avoid noise/attribution loss)
+- **Hold:** Don't ship dashboard widget Pro badges (anti-pattern — looks desperate, hurts trust)
+
+---
+
 ### Day 85: Onboarding Redesign Based on User Feedback (May 28, 2026)
 
 **User Feedback Implementation** - Anwaar completed onboarding on iPhone PWA and provided critical feedback: "get me intrigued first" and compared to fitness apps that show personalized value before asking for payment.
