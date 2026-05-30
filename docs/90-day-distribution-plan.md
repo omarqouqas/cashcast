@@ -1,246 +1,138 @@
-# Cashcast — 90-Day Distribution Plan
+# Cashcast — Distribution Plan (Part-Time Founder Edition)
 
 **Created:** May 29, 2026 (Day 85)
-**Time horizon:** Days 86–175 (May 29 → August 27, 2026)
+**Founder context:** Full-time employee, parent of 2, married. Realistic founder time budget: **5 hours/week**, sometimes less.
+
+**Time horizon:** Days 86–265 (May 29 → November 24, 2026) — roughly 6 months instead of 3.
 
 ---
 
-## The honest starting line
+## The honest math
 
-| Metric | Today |
+| Time block | Hours/week |
 |---|---|
-| Signups | ~8/month |
-| Paying customers | 0 (1 friends-and-family lifetime, not market signal) |
-| MRR | $0 |
-| Blog posts | 40+ |
-| YouTube Shorts | 1 |
-| TikTok posts | 1 |
-| Twitter following | Minimal |
-| Reddit access | Blocked (account banned) |
-| Email list | None |
-| Referral mechanic | Built, untested at scale |
+| Day job + commute | ~50 |
+| Active parenting + family presence | ~25–35 |
+| Sleep | ~50 |
+| Household, meals, life admin | ~15 |
+| **Available for Cashcast (realistic max)** | **~5–8** |
 
-**Product status:** Live, stable, feature-complete for MVP. The product is not the bottleneck. **Distribution is.**
+Pushing past 8 hours/week consistently means something breaks: sleep, marriage, patience with the kids, day-job performance, or all of the above. **A burned-out founder ships nothing.**
+
+**Plan around your worst week, not your best day.**
 
 ---
 
-## North Star — 90-Day Targets
+## The 3 activities that survived the cut
 
-**Realistic:**
-- 50–80 signups/month by Day 90 (6–10× current)
-- 3–5 paying customers (genuine market validation, not F&F)
-- 1,500–3,000 monthly organic blog visits
+Brutal prioritization at 5 hours/week:
 
-**Stretch:**
-- 150+ signups/month
-- 10–15 paying customers
-- 5k+ monthly organic visits
+| Activity | Time/week | Why it survived |
+|---|---|---|
+| **1 YouTube Short (cross-posted to TikTok)** | 1.5 hrs | Algorithm rewards cadence. Cross-posts free. Muscle memory after ~5 videos. |
+| **3–5 cold DMs to freelancers** | 1 hr | Highest per-contact conversion. Keeps you connected to real users. |
+| **Blog content (rotating; 1 post/month)** | 2–2.5 hrs | Compounds for years. Strongest existing asset. |
 
-**Failure mode to avoid:** spreading thin across 8 channels and getting 0 traction on any of them. Focus beats diversification at this stage.
+**Total: ~5 hrs/week.** Everything else is parked until life has more capacity.
 
 ---
 
-## The 5 distribution layers (priority order)
+## What gets cut and why
 
-The layers are ranked by **leverage-per-hour** for Cashcast's specific stage. The instinct will be to do all 5 at full intensity. Resist that. Do layers 1–3 consistently. Layer 4 weekly. Layer 5 sporadically.
-
-| # | Layer | Why it ranks here | Time/week |
-|---|---|---|---|
-| 1 | **Content cadence (SEO blog)** | Compounds for years. Already strongest asset. Cheapest scaling. | 4–6 hrs |
-| 2 | **YouTube Shorts + TikTok** | Algorithm rewards new accounts. Visual product. Cross-posts free. | 2–3 hrs |
-| 3 | **Direct outreach (Twitter/LinkedIn DMs)** | Highest per-contact conversion. Slowest scaling. Real conversations. | 2–3 hrs |
-| 4 | **Community presence (Indie Hackers, Facebook Groups, niche Discords)** | Trust-building. Long payoff. Required for credibility. | 1–2 hrs |
-| 5 | **Launch platforms (Product Hunt, BetaList, MicroLaunch, etc.)** | One-shot spikes. SEO backlinks. Not repeatable. | 1 hr ad-hoc |
-
-**Total weekly budget:** ~10–15 hours of distribution work. Solo-founder sustainable.
-
----
-
-## Month 1 (Days 86–115) — Foundation & Cadence
-
-**Theme:** Establish rhythms. Test what works. Cheap wins.
-
-### Week 1 (Days 86–92)
-- **Shorts:** Ship Short #2, draft Shorts #3–5
-- **Content:** Submit `/blog/cash-flow-forecasting-self-employed` + 5 recently-modified posts to Google Search Console (URL Inspection → Request Indexing)
-- **Outreach:** Set up Twitter cadence (1 substantive post/day). Find 5 freelancers complaining about money on Twitter — engage thoughtfully, don't pitch
-- **Community:** Join 3 freelancer Facebook Groups + 2 Discord communities. **Observe only this week, don't post**
-- **Launch platforms:** None yet
-- **Reflection:** Pull PostHog data on calendar wall + new instrumented events. Watch for outreach replies from kbfletch2011 and frandeiba95.
-
-### Week 2 (Days 93–99)
-- **Shorts:** Ship Shorts #3 + #4. Cross-post all Shorts to TikTok (same MP4).
-- **Content:** Write next SEO blog post — pick a long-tail keyword from `docs/SEOActionPlan.md`. Target 2,500+ words.
-- **Outreach:** Start cold DMs: **5 freelancers/day on Twitter**. Script: "Hey, saw your post about [X]. I built a tool for exactly this — would love your brutal feedback if you ever try it. No pitch — cashcast.money. Cheers." Track replies in a sheet.
-- **Community:** Make first post in Indie Hackers (helpful, not promotional — e.g., "what I learned shipping my first YouTube Short")
-- **Launch platforms:** Submit to **AlternativeTo** (free, takes 5 min) listing Cashcast as alternative to YNAB/Mint/PocketSmith
-
-### Week 3 (Days 100–106)
-- **Shorts:** Ship Shorts #5 + #6
-- **Content:** Publish the blog post written in Week 2. Cross-link from 3 existing high-traffic posts.
-- **Outreach:** Continue 5 DMs/day. Reply to anyone who responded last week — ask one specific followup.
-- **Community:** 1–2 helpful posts in freelancer Facebook Groups (no link drops — *answer questions*, link only if asked)
-- **Launch platforms:** Submit to **Uneed.best** (free)
-
-### Week 4 (Days 107–115)
-- **Shorts:** Ship Shorts #7 + #8. Start drafting first long-form (10–15 min) pillar video.
-- **Content:** Write second SEO blog post (target a different keyword cluster)
-- **Outreach:** Send weekly recap thread on Twitter (what shipped, what was learned). Recycle Shorts.
-- **Community:** Indie Hackers post #2 — different angle (e.g., "first paying customer story" — frame the wife purchase as the plumbing test it was, founders love that honesty)
-- **Launch platforms:** None
-- **Reflection:** End-of-month review:
-  - Signups this month vs baseline
-  - Best-performing Short (views, retention)
-  - Best-performing blog post (Search Console impressions)
-  - Outreach reply rate
-  - Outreach → signup conversion rate
-
-**Month 1 expected outcome:** 15–30 signups (~2× current), 0–2 paying customers, content engine compounding, first organic signs of life.
-
----
-
-## Month 2 (Days 116–145) — Compounding & First Big Launch
-
-**Theme:** Layer on bigger launches. Capitalize on early signals.
-
-### Week 5 (Days 116–122)
-- **Shorts:** Ship Shorts #9 + #10
-- **Content:** Publish blog post written in Week 4. Long-form pillar YouTube video drafted.
-- **Outreach:** Switch to LinkedIn DMs alongside Twitter — 3 LinkedIn DMs/day (lower volume, higher per-contact value)
-- **Community:** Indie Hackers — start replying helpfully to others' posts (build presence beyond your own posts)
-- **Launch platforms:** **MicroLaunch Pro Launch ($39)** — schedule for this week. Stack with other actions.
-
-### Week 6 (Days 123–129)
-- **Shorts:** Ship Shorts #11 + #12
-- **Content:** Long-form pillar video published. Cross-link from 3 blog posts.
-- **Outreach:** Continue. Update tracking sheet.
-- **Community:** Reach out to 5 freelancer podcasters / newsletter writers asking if they'd want a guest post or interview about cash flow for freelancers. Free distribution + backlinks.
-- **Launch platforms:** **BetaList submission ($79)** — paid version gets faster review
-
-### Week 7 (Days 130–136)
-- **Shorts:** Ship Shorts #13 + #14
-- **Content:** Write third major SEO blog post (3,000+ words — pillar content targeting a high-volume keyword)
-- **Outreach:** Continue DMs. Start tracking which message variants get the best reply rate.
-- **Community:** Twitter — pin a thread that's working. Engage daily.
-- **Launch platforms:** None
-
-### Week 8 (Days 137–145)
-- **Shorts:** Ship Shorts #15 + #16
-- **Content:** Publish pillar post. Update existing comparison pages (`/compare/*`) with refreshed copy, new screenshots, link to recent blog content
-- **Outreach:** Continue
-- **Community:** Twitter — host a casual "ask me anything about freelance cash flow" thread
-- **Launch platforms:** None
-- **Reflection:** Month 2 review. Compare against Month 1 baselines.
-
-**Month 2 expected outcome:** 30–60 signups/month, 1–3 paying customers, 1 launch spike, MicroLaunch + BetaList backlinks compounding SEO.
-
----
-
-## Month 3 (Days 146–175) — Scale & Big Launches
-
-**Theme:** Double down on what works. Cut what doesn't. Execute the biggest single launch.
-
-### Week 9 (Days 146–152)
-- **Shorts:** Ship Shorts #17 + #18
-- **Content:** Write blog post + a Cashcast-vs-competitor comparison piece (FreshBooks? Bonsai? Wave?)
-- **Outreach:** Continue. Migrate to whichever channel is converting better (Twitter vs LinkedIn).
-- **Community:** Apply to be a guest on 1–2 freelancer podcasts
-- **Launch platforms:** **Product Hunt launch prep** — schedule for Week 10. Pre-launch outreach to PH hunters and followers in the next 7 days.
-
-### Week 10 (Days 153–159) — **PRODUCT HUNT LAUNCH WEEK**
-- **Shorts:** Ship Short #19 — make it the PH launch announcement
-- **Content:** Refresh hero page for the launch. Update OG images.
-- **Outreach:** Email + DM everyone who has engaged in Months 1–2 with "I'm launching on PH Tuesday, would love your support" — *only people who actually engaged*, not a spam blast
-- **Community:** Post the PH link to Indie Hackers, every freelancer FB group, every Discord
-- **Launch platforms:** **Product Hunt launch** (Tuesday at 12:01 AM PT for maximum exposure window)
-
-### Week 11 (Days 160–166)
-- **Shorts:** Ship Shorts #20 + #21
-- **Content:** Write a "what we learned from our Product Hunt launch" post for Indie Hackers
-- **Outreach:** Follow up with PH visitors who tried but didn't convert
-- **Community:** Maintain presence
-- **Launch platforms:** Submit to **TinyLaunch ($59)** as a complement
-
-### Week 12 (Days 167–175)
-- **Shorts:** Ship Shorts #22 + #23
-- **Content:** Publish "what we learned" post. Final SEO blog post of the 90-day cycle.
-- **Outreach:** End-of-cycle wrap-up thread on Twitter
-- **Community:** Synthesize 90 days of community learnings into one post — useful content for other founders
-- **Launch platforms:** None
-- **Reflection:** **Full 90-day retrospective.** Build the next 90-day plan from what worked.
-
-**Month 3 expected outcome:** 60–100+ signups/month, 3–5 paying customers, 1–2 launch spikes, the loop becomes self-sustaining.
-
----
-
-## Channel-by-channel: what each one actually does
-
-### Content (SEO blog)
-- **What it does:** Captures buying intent over months/years. Compounds.
-- **Realistic 90-day output:** 4 new posts (1/2 weeks) + updates to existing
-- **Expected signups attributed:** 10–40 over 90 days
-- **Time/post:** 3–5 hours
-
-### YouTube Shorts + TikTok
-- **What it does:** Top-of-funnel awareness. Algorithm-driven distribution. Free retargeting.
-- **Realistic 90-day output:** 20–25 Shorts
-- **Expected signups attributed:** 5–50 (huge variance — one viral Short can be 80% of the total)
-- **Time/Short:** 15–30 min once workflow is muscle memory
-
-### Direct outreach (Twitter/LinkedIn DMs)
-- **What it does:** High-touch, slow scaling, real conversations
-- **Realistic 90-day output:** ~400 DMs sent (5/day × 80 days), ~80 replies, ~20 trials, ~3–5 paying
-- **Expected signups attributed:** 15–30
-- **Time/day:** 30–45 min
-
-### Community presence
-- **What it does:** Builds trust, generates word-of-mouth, lowers CAC long-term
-- **Realistic 90-day output:** 12 helpful posts across 3–4 communities + daily engagement
-- **Expected signups attributed:** 5–15 directly, much more indirectly
-- **Time/week:** 1–2 hrs
-
-### Launch platforms
-- **What they do:** SEO backlinks + one-time visibility spikes
-- **Realistic 90-day output:** AlternativeTo (free, Week 2), Uneed (free, Week 3), MicroLaunch ($39, Week 5), BetaList ($79, Week 6), Product Hunt (free, Week 10), TinyLaunch ($59, Week 11)
-- **Total cost:** ~$177
-- **Expected signups attributed:** 50–200 from PH alone (good launch), 5–20 each from others
-- **Time/launch:** 2–4 hrs for the big ones, 30 min for small listings
-
----
-
-## Launch platforms — quick reference
-
-| Platform | Cost | When | Why |
-|---|---|---|---|
-| **AlternativeTo** | Free | Week 2 | Listed as alt to YNAB/Mint/PocketSmith — high-intent search traffic |
-| **Uneed.best** | Free | Week 3 | Maker audience, low effort |
-| **MicroLaunch Pro** | $39 | Week 5 | **DR60+ do-follow backlink** is the real value; treat as SEO buy, not distribution. Small audience, mostly other makers. Don't expect big signup spike. |
-| **BetaList** | $79 (paid) or free (slow queue) | Week 6 | Established platform, decent backlink, ~3k engaged subscribers |
-| **Product Hunt** | Free | Week 10 | **The big one.** Coordinate carefully — prep hunter, pre-warm audience, ship Tuesday 12:01 PT. Can drive 500–5,000 visitors in 24 hours. |
-| **TinyLaunch** | $59 | Week 11 | Complement post-PH, similar to MicroLaunch |
-
-### MicroLaunch evaluation (separate note)
-
-- **Buy it for:** the DR60+ do-follow backlink (worth $50–150 alone via other backlink services)
-- **Don't expect:** meaningful direct signups; their audience is ~25k monthly visitors, mostly makers not freelancers
-- **Skip:** the $129 "Product Review & Action Plan" pack — you already have better strategic guidance
-- **Stack with:** other actions the same week so SEO compounds
-
----
-
-## Weekly time budget
-
-| Activity | Hours/week |
+| Cut | Why it's OK |
 |---|---|
-| Content writing | 4–6 |
-| Shorts production | 2–3 |
-| DM outreach | 2–3 |
-| Community presence | 1–2 |
-| Launch platform prep (ad-hoc) | 0–4 |
-| Analytics review | 1 |
-| **Total** | **10–15 hrs/week sustainable** |
+| Daily Twitter posting | At low follower count, near-zero compound. Revisit at 500+ followers. |
+| Indie Hackers / Facebook Group active engagement | Trust-building takes 6+ months. Park for now. |
+| Most launch platforms | One-shot, not repeatable. Save MicroLaunch + PH for when there's a feature worth launching. |
+| Long-form YouTube videos | 4-hr production per video. Bad ROI at this time budget. Revisit month 6+. |
+| LinkedIn DMs alongside Twitter | Pick one channel. Twitter is sufficient. |
+| Multiple Shorts per week | One quality Short beats three rushed ones. |
+| Daily analytics monitoring | Check PostHog **once a week**, not daily. |
 
-If you can't do all of this, **cut the launch platforms first** — they're #5 in priority. Cut community second. Never cut content or Shorts — those compound.
+---
+
+## How to actually fit 5 hours into a week with kids
+
+The trick isn't finding 5 contiguous hours — they don't exist. It's **stacking small windows.**
+
+| Window | When | What fits |
+|---|---|---|
+| **Weekend morning block (90 min)** | Sat OR Sun, 6:30–8 AM before kids/spouse are up | Produce a Short OR draft a blog section. The single most important window. |
+| **Kid nap or quiet time** | 1–2× per week, 30–45 min | Edit Short, send DMs, write a paragraph |
+| **Lunch break at work** | 2–3× per week, 20 min | Send DMs, reply to comments, schedule posts |
+| **Commute (audio only)** | Daily | Voice-memo blog post outlines, mentally draft Short scripts |
+| **After kids' bedtime** | 2–3× per week, **only 30–45 min, never past 10 PM** | Light tasks only — DMs, scheduling. **Never creative work when tired.** |
+
+**Non-negotiables:**
+- **No founder work past 10 PM.** Quality drops, sleep suffers, next-day patience tanks.
+- **Weekend morning block is bounded at 90 min.** Be present for the rest of the day.
+- **Tell your spouse the weekly block.** Set expectations. Don't surprise them.
+- **If a kid is sick or family needs you — Cashcast loses the week.** Don't fight that.
+
+---
+
+## Tools that save hours
+
+- **CapCut mobile (free)** — edit Shorts on your phone during commute or while kids watch TV. Don't need to be at a laptop.
+- **Notion / Obsidian on phone** — voice-to-text capture for blog outlines whenever ideas hit
+- **Buffer / Publer** — write a week of Twitter posts in 30 min on Sunday, schedule out, walk away
+- **ElevenLabs** — already in workflow; eliminates own-voice recording
+- **Claude** — outsource strategy and script writing each week. Reuse the workflow.
+
+---
+
+## Weekly cadence (the template that repeats)
+
+| Window | Time | Activity |
+|---|---|---|
+| Weekend morning block | 90 min | Produce + edit + upload 1 Short |
+| Lunch break ×2 | 40 min total | Send 5–7 DMs across the week |
+| After-bedtime ×2 | 60 min total | Blog post draft (1 hr/week amortized = 1 post/month) |
+| Sunday evening | 30 min | Plan next week, schedule social posts, check PostHog once |
+| **Total** | **~4 hours actual + 1 hour buffer** | |
+
+If a week falls apart (sick kid, work crunch, family event), **the Short is the only non-negotiable.** Cut everything else.
+
+---
+
+## Realistic 6-month targets (vs. the original 90-day version)
+
+| Metric | Original 90-day target | Part-time 6-month target |
+|---|---|---|
+| Signups/month by end | 50–80 | 30–50 |
+| Paying customers | 3–5 | 2–4 |
+| Shorts shipped | 20–25 | 20–24 (one per week) |
+| Blog posts shipped | 4 | 5–6 |
+| Cold DMs sent | ~400 | ~100–150 |
+| Launch platforms | 5–6 | 1–2 (MicroLaunch + PH) |
+
+Same outcomes, longer timeline. Cashcast doesn't care if you take 6 months or 3 — it only cares whether you're still shipping in month 12.
+
+---
+
+## Month-by-month plan (compressed but realistic)
+
+### Months 1–2 (Days 86–145) — Cadence and signal
+- **Goal:** Establish the 5-hr/week rhythm. Don't break the chain.
+- Ship 1 Short/week (~8 total)
+- Ship 2 blog posts total
+- Send ~50 DMs total
+- Skip all launch platforms — too distracting at this stage
+- **End-of-month-2 check:** Are you still doing 5 hrs/week, or did you crash? If you crashed, plan needs to drop to 3 hrs/week.
+
+### Months 3–4 (Days 146–205) — First launch + content compounding
+- Ship 1 Short/week (~8 more)
+- Ship 2 more blog posts
+- Send ~50 more DMs
+- **MicroLaunch Pro ($39)** — Month 3, primarily for the DR60+ backlink
+- Look at end-of-month-2 data: which Short style worked best? Make 3 more like it.
+
+### Months 5–6 (Days 206–265) — Big launch + decision point
+- Ship 1 Short/week (~8 more)
+- Ship 2 more blog posts
+- Send ~50 more DMs
+- **Product Hunt launch** — Month 5 or 6, on a weekend so you can support it on the day
+- **End-of-6-month review:** Are you at 30+ signups/month? Were you sustainable? Renew the plan or revise.
 
 ---
 
@@ -248,43 +140,50 @@ If you can't do all of this, **cut the launch platforms first** — they're #5 i
 
 | Signal | Action |
 |---|---|
-| A Short hits 5,000+ views in 72h | Make 3 more in the same format that week |
-| A Short gets <100 views after 7 days | Don't try that format again, move on |
-| A blog post ranks page 1 for any keyword | Update it monthly, link to it from new posts |
-| A DM message gets >25% reply rate | Lock the message, send variations of it |
-| A DM message gets <5% reply rate | Rewrite from scratch |
-| Community post gets 10+ thoughtful comments | Post more in that community |
-| Launch platform delivers <20 signups | Skip that platform in the next cycle |
-| PostHog shows >5% pricing-page visits | Paywall is becoming visible — keep refining |
-| 7 days pass with 0 outreach replies | Rewrite the email, try again with the next batch |
+| A Short hits 5,000+ views | Make 3 more in the same format over the next 3 weeks |
+| A Short under 100 views after 7 days | Drop that format, try a different hook |
+| A blog post ranks page 1 for any keyword | Update it once per quarter, link from new posts |
+| A DM message gets >25% reply rate | Lock it in, send variations of it |
+| A DM gets <5% reply rate | Rewrite from scratch |
+| 7+ days pass with no founder time | **Don't try to "catch up."** Resume the cadence next week. |
+| You worked past 10 PM three nights in a row | **Stop for a week.** Reset. |
+| Spouse comments on your absence | **Stop immediately.** Reset the weekly block, talk to them. |
 
 ---
 
-## What I am explicitly NOT doing in 90 days
+## What this plan is NOT
 
-Stating these up front to prevent shiny-object distraction:
-
-- ❌ No paid ads (Google, Meta, X) — wrong stage, no validated CAC
-- ❌ No SEO agency, no freelance writers — solo founder authenticity is part of the brand
-- ❌ No conference sponsorships
-- ❌ No press / PR pushes
-- ❌ No new product features (per the Sacred Seven validation gate)
-- ❌ No Instagram Reels (mentioned earlier — lowest priority, personal account excluded)
-- ❌ No TikTok engagement / scrolling — upload-and-close only
+- ❌ Not a "grind harder" plan — explicitly sustainable
+- ❌ Not a paid-ads plan — wrong stage, wrong budget
+- ❌ Not a community-building plan — that comes in year 2
+- ❌ Not a Product Hunt launch sprint — PH gets one weekend in Month 5/6
+- ❌ Not a feature-shipping plan — product is fine, distribution is the bottleneck
 
 ---
 
-## End-of-90-day decision
+## The deeper truth
 
-If the 90-day numbers come in at 60+ signups/month + 3+ paying customers + 2k+ organic visits/month:
-→ The model works. Scale time investment. Consider hiring a part-time content writer or video editor.
+The single biggest predictor of indie-SaaS success isn't velocity. It's persistence. **Persistence requires not burning out. Not burning out requires sustainable cadence.**
 
-If the numbers come in at <30 signups/month + 0–1 paying customers:
-→ Bigger problem than distribution. Time to revisit positioning, audience targeting, or pricing model.
+A founder who ships **one Short and three DMs per week for 52 weeks** beats a founder who ships **30 Shorts in 3 weeks and then disappears for 9 months.**
 
-If the numbers come in at 30–60 signups/month + 1–2 paying customers:
-→ Working but slow. Double down on the single best-performing channel, drop the worst-performing one, continue another 90 days.
+Pieter Levels, Nathan Barry (early ConvertKit), Justin Jackson, Tyler Tringas — all built meaningful SaaS over years while doing it nights and weekends with families. The path exists. The path requires you to be alive, present, and married at the end of year 2.
+
+**Cashcast doesn't need to be your full-time job in 6 months. It needs to be alive, growing, and not destroying your family.** That's the goal. The compound effect handles the rest.
 
 ---
 
-**This plan is a living document. Update after each weekly reflection.**
+## End-of-6-month decision tree
+
+If at Day 265 you have **30+ signups/month + 2+ paying customers + 1k+ monthly organic visits:**
+→ The model works. Continue at 5 hrs/week, raise pricing experiments, consider 1 hire (part-time writer or VA).
+
+If you have **<15 signups/month + 0–1 paying customers:**
+→ Bigger problem than distribution. Time to revisit positioning, audience, or pricing model before more distribution effort.
+
+If you have **15–30 signups/month + 1 paying customer:**
+→ Working but slow. Drop the worst-performing channel, double down on the best, continue another 90 days at the same cadence.
+
+---
+
+**This plan is a living document. Update after each monthly reflection. Do not increase the time budget without first auditing what gets cut from life to make room.**
