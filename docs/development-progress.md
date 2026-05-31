@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 29, 2026 (Day 85)
+**Last Updated:** May 31, 2026 (Day 87)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,7 +10,7 @@
 
 ## Quick Stats
 
-- **Days in Development:** 85
+- **Days in Development:** 87
 - **Commits:** 420+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -28,7 +28,45 @@
 
 ---
 
-## Recent Development (Days 60-85)
+## Recent Development (Days 60-87)
+
+### Day 87: Vibe Marketing Strategy — 7 Distribution Strategies Evaluated (May 31, 2026)
+
+**Source:** "7 distribution strategies for vibe coders" video from The Vibe Marketer / Late Checkout Agency.
+
+Evaluated all 7 strategies against Cashcast's constraints (solo part-time founder, ~5 hrs/week, no own voice, 0 true market conversions). Created comprehensive strategy doc with ruthless prioritization.
+
+**Prioritized Order:**
+
+| Priority | Strategy | Timeline |
+|----------|----------|----------|
+| #1 | AI Content Repurposing Engine (no-voice version) | Week 1-2 |
+| #2 | Free Tools as Top of Funnel (Quarterly Tax Estimator first) | Weeks 2-4 |
+| #3 | MCP Server for AI discoverability | Month 2-3 |
+| #4 | Programmatic SEO at scale | Month 3+ |
+| #5 | AEO refactor of existing posts | Ongoing |
+| #6 | Viral Artifacts (Cashcast Wrapped) | Month 4+ |
+| SKIP | Newsletter acquisition | Revisit at $2K+ MRR |
+
+**Key Insight — AI Content Repurposing Engine (No-Voice Version):**
+
+The workflow is designed for a founder who doesn't use their own voice:
+1. Brain-dump 300-500 words to Claude (15 min on lunch/commute)
+2. Claude generates content pack: 5 tweets, 3 LinkedIn posts, 2 Short scripts, newsletter draft, blog outline, quote graphics
+3. ElevenLabs voices the Short scripts (5 min)
+4. CapCut produces Shorts with screen recording + AI voiceover (15-20 min each)
+5. Schedule text content via Buffer/Publer (15 min)
+
+**Effort:** ~1.5-2 hrs/week for a full week of multi-channel content. Fits inside 5-hr/week with room for one other strategy.
+
+**The Brutal Truth:** At 5 hrs/week, you can run 1-2 strategies actively. The rest are queued. Don't try to do all 7.
+
+**Documentation:**
+- `docs/vibe-marketing-strategy.md` — Full strategy doc with implementation details
+
+**Next Action:** Capture first pillar this weekend. Brain-dump one freelancer cash flow topic into Claude, generate the content pack, ship the outputs over 7 days.
+
+---
 
 ### Day 85: Paywall Outreach Calibration Error — Heather Deicher (May 29, 2026)
 
