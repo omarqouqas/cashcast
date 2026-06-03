@@ -1,6 +1,6 @@
 # Cashcast - Development Progress
 
-**Last Updated:** May 31, 2026 (Day 87)
+**Last Updated:** June 2, 2026 (Day 89)
 
 **Repository:** https://github.com/omarqouqas/cashcast
 
@@ -10,7 +10,7 @@
 
 ## Quick Stats
 
-- **Days in Development:** 87
+- **Days in Development:** 89
 - **Commits:** 420+
 - **Database Tables:** 18
 - **Test Coverage:** Manual testing (automated tests planned post-launch)
@@ -28,7 +28,49 @@
 
 ---
 
-## Recent Development (Days 60-87)
+## Recent Development (Days 60-89)
+
+### Day 89: GSC Analysis + SERP Title Rewrites + SEO Playbook (June 2, 2026)
+
+**GSC Data Review (April 5 – May 31, 2026)**
+
+Analyzed first real GSC export. The numbers are brutal but diagnostic:
+- 1,892 impressions → 5 clicks (0.26% CTR)
+- All 5 clicks came from branded searches (homepage, position 8)
+- 0 clicks from any content page despite 1,800+ impressions
+
+**Critical Findings:**
+
+| Issue | Example | Fix |
+|-------|---------|-----|
+| Freelance Rate Calculator ranks position 81 | 744 impressions, 0 clicks | AEO refactor, internal links |
+| Rate guides rank position 50-80 | web-developer-hourly-rate: 517 impressions, pos 66 | Too far down; need backlinks + content refresh |
+| High-position pages with 0 clicks | /tools (pos 3), /compare/pulse (pos 9), irregular-income (pos 13) | Title/meta not compelling — rewrote |
+| May 28-31 impression crash | Dropped from 115/day to 0/day | Verified no code regression; likely weekend + algorithm |
+
+**SERP Title Rewrites (3 pages)**
+
+| Page | Old Title | New Title |
+|------|-----------|-----------|
+| /tools | "Free Cash Flow Tools" | "Free Tools for Freelancers: 10+ Calculators & Cash Flow Apps" |
+| /compare/pulse | "Pulse Alternative for Freelancers" | "Pulse vs Cashcast (2026): Which Cash Flow App is Right for Freelancers?" |
+| /blog/how-to-manage-irregular-income-as-freelancer | "How to Manage Irregular Income as a Freelancer: A Complete Guide" | "How to Manage Irregular Freelance Income: 5 Strategies That Actually Work" |
+
+**Documentation Added:**
+- `docs/seo-execution-playbook.md` — 5 plays adapted from Agensi case study (1.5M impressions in 3 months)
+- `docs/seo-publish-checklist.md` — 12-point checklist including manual GSC indexing step
+
+**Code Verification:**
+- No URL regressions in recent commits
+- sitemap.ts dynamically pulls all 32 blog posts
+- Build passes with 110 pages
+
+**Next Actions (Wednesday June 3):**
+1. Check GSC for June 1-2 impression recovery
+2. Request indexing for the 3 updated pages
+3. Set reminder for June 9 to measure CTR impact
+
+---
 
 ### Day 87: Vibe Marketing Strategy — 7 Distribution Strategies Evaluated (May 31, 2026)
 
