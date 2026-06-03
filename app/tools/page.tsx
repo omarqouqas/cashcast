@@ -8,16 +8,16 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { Sparkles, BookOpen, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Free Cash Flow Tools | Cashcast',
+  title: 'Free Tools for Freelancers: 10+ Calculators & Cash Flow Apps | Cashcast',
   description:
-    'Free cash flow tools to help freelancers forecast balances, avoid overdrafts, and make smarter spending decisions.',
+    'Rate calculator, tax estimator, "can I afford it?" checker — 10 free tools built for freelancers. No signup required.',
   alternates: {
     canonical: 'https://cashcast.money/tools',
   },
   openGraph: {
-    title: 'Free Cash Flow Tools',
+    title: 'Free Tools for Freelancers: 10+ Calculators & Cash Flow Apps',
     description:
-      'Try free cash flow tools to forecast your balance and avoid getting blindsided.',
+      'Rate calculator, tax estimator, "can I afford it?" checker — 10 free tools built for freelancers. No signup required.',
     url: 'https://cashcast.money/tools',
     siteName: 'Cashcast',
     type: 'website',
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Cash Flow Tools',
+    title: 'Free Tools for Freelancers: 10+ Calculators & Cash Flow Apps',
     description:
-      'Free cash flow tools to help you project balances and avoid overdrafts.',
+      'Rate calculator, tax estimator, "can I afford it?" checker — 10 free tools built for freelancers. No signup required.',
     images: ['/hero-dashboard.png'],
   },
 };

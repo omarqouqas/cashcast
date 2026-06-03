@@ -8,9 +8,9 @@ import { breadcrumbs } from '@/components/seo/schemas';
 import { CheckCircle2, XCircle, AlertTriangle, BookOpen, ArrowRight, DollarSign, Zap, Clock } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Pulse Alternative for Freelancers | Cashcast vs Pulse App',
+  title: 'Pulse vs Cashcast (2026): Which Cash Flow App is Right for Freelancers? | Cashcast',
   description:
-    'Looking for a Pulse alternative? Cashcast is 73% cheaper ($7.99 vs $29/mo), includes invoicing, and shows your "Safe to Spend" so you always know what you can afford.',
+    'Pulse is built for agencies. Cashcast is built for solo freelancers. Side-by-side comparison: pricing, features, forecast length, and who each one is actually for.',
   keywords: [
     'pulse alternative',
     'pulse app alternative',
@@ -23,23 +23,25 @@ export const metadata: Metadata = {
     'pulse app review',
     'best pulse alternative 2026',
     'freelancer cash flow forecast',
+    'pulse vs cashcast',
+    'pulse vs cashcast 2026',
   ],
   alternates: {
     canonical: 'https://cashcast.money/compare/pulse',
   },
   openGraph: {
-    title: 'Pulse Alternative for Freelancers | 73% Cheaper',
+    title: 'Pulse vs Cashcast (2026): Which Cash Flow App is Right for Freelancers?',
     description:
-      'Looking for a Pulse alternative? Cashcast is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
+      'Pulse is built for agencies. Cashcast is built for solo freelancers. Side-by-side comparison: pricing, features, forecast length, and who each one is actually for.',
     url: 'https://cashcast.money/compare/pulse',
     siteName: 'Cashcast',
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pulse Alternative for Freelancers | 73% Cheaper',
+    title: 'Pulse vs Cashcast (2026): Which Cash Flow App is Right for Freelancers?',
     description:
-      'Looking for a Pulse alternative? Cashcast is 73% cheaper, includes invoicing, and shows your Safe to Spend.',
+      'Pulse is built for agencies. Cashcast is built for solo freelancers. Side-by-side comparison: pricing, features, forecast length, and who each one is actually for.',
   },
 };
 

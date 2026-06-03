@@ -696,8 +696,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'how-to-manage-irregular-income-as-freelancer',
-    title: 'How to Manage Irregular Income as a Freelancer: A Complete Guide',
-    description: 'Learn proven strategies for budgeting, saving, and planning when your income is unpredictable. Stop the feast-or-famine cycle with these practical tips.',
+    title: 'How to Manage Irregular Freelance Income: 5 Strategies That Actually Work',
+    description: 'When your income bounces between $1,200 and $8,400/month, generic budget advice doesn\'t work. Here\'s what does: income-smoothing math, tax buffers, and the Safe-to-Spend method.',
     publishedAt: '2026-01-23',
     author: {
       name: 'Cashcast Team',
