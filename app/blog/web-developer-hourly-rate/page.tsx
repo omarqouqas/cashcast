@@ -6,18 +6,14 @@ import { getPostBySlug } from '@/lib/blog/posts';
 import {
   Calculator,
   DollarSign,
-  TrendingUp,
   MapPin,
-  Briefcase,
-  Award,
   ArrowRight,
   CheckCircle2,
   Code,
   Database,
-  Globe,
-  Smartphone,
-  Server,
-  Cloud,
+  AlertTriangle,
+  MessageSquare,
+  TrendingUp,
 } from 'lucide-react';
 
 const post = getPostBySlug('web-developer-hourly-rate')!;
@@ -36,6 +32,7 @@ export const metadata: Metadata = {
     siteName: 'Cashcast',
     type: 'article',
     publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
     authors: [post.author.name],
   },
   twitter: {
@@ -51,6 +48,7 @@ const articleSchema = {
   headline: post.title,
   description: post.description,
   datePublished: post.publishedAt,
+  dateModified: post.updatedAt || post.publishedAt,
   author: {
     '@type': 'Organization',
     name: post.author.name,
@@ -66,8 +64,49 @@ const articleSchema = {
   },
   speakable: {
     '@type': 'SpeakableSpecification',
-    cssSelector: ['.speakable-headline', '.speakable-summary'],
+    cssSelector: ['.speakable-headline', '.speakable-summary', '.definition-box'],
   },
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Calculate Your Web Developer Hourly Rate',
+  description:
+    'A five-step method for setting a freelance web developer hourly rate based on your real costs, target income, and billable hours rather than a market average.',
+  totalTime: 'PT30M',
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Add up your annual cost of doing business',
+      text: 'Total everything you spend to operate: software subscriptions, hardware, insurance, accounting, marketing, and self-employment taxes (typically 25-30% of net income). This is the number your rate has to cover before you pay yourself.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Set your target take-home salary',
+      text: 'Decide what you want to actually earn for the year after expenses and taxes. Use a salaried web developer benchmark as a floor, then add a premium for the risk and overhead of freelancing.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Estimate your real billable hours',
+      text: 'A full-time year is 2,080 hours, but freelancers rarely bill more than 1,000-1,300 of them. Sales, admin, learning, and downtime are unpaid. Use a realistic billable-hours number, not the theoretical maximum.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 4,
+      name: 'Divide to get your baseline rate',
+      text: 'Add your annual costs, taxes, and target salary, then divide by your realistic billable hours. For example, $105,000 in total needs divided by 1,200 billable hours is roughly $88 per hour.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 5,
+      name: 'Adjust for specialty, experience, and market',
+      text: 'Move your baseline up for in-demand specialties (React, DevOps, AI integration), senior experience, and high-paying client types or regions. Move it down only if you are deliberately building a portfolio.',
+    },
+  ],
 };
 
 const faqSchema = {
@@ -76,98 +115,121 @@ const faqSchema = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What is the average hourly rate for a freelance web developer in 2026?',
+      name: 'What is the average hourly rate for a web developer in 2026?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The average freelance web developer hourly rate in 2026 ranges from $75-150/hour for mid-level developers and $125-250/hour for senior developers in the US market. Full-stack developers typically charge $100-175/hour, while specialized developers (e.g., blockchain, AI integration) can charge $150-300/hour or more.',
+        text: 'Most freelance web developers charge $50-200/hour in 2026. Junior frontend developers land around $35-75/hour, mid-level full-stack developers at $75-150/hour, and senior backend or DevOps specialists at $125-250/hour. According to the annual Stack Overflow Developer Survey, rates track closely with years of experience and specialization.',
       },
     },
     {
       '@type': 'Question',
-      name: 'How much do freelance web developers charge for a website?',
+      name: 'How much should I charge as a freelance web developer?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Freelance web developer project rates vary widely: simple WordPress sites cost $2,000-8,000, custom business websites run $8,000-25,000, e-commerce sites range from $15,000-50,000, and complex web applications can cost $50,000-200,000+. Rates depend on functionality, design complexity, and timeline.',
+        text: 'Start from your numbers, not the market average. Add your annual business expenses, taxes (25-30% for self-employment), and target salary, then divide by your realistic billable hours (usually 1,000-1,300 per year, not 2,080). A developer needing $90,000 take-home with $15,000 in costs and 1,200 billable hours lands near $95/hour before specialty adjustments.',
       },
     },
     {
       '@type': 'Question',
-      name: 'What factors affect web developer hourly rates?',
+      name: 'Is $50 an hour too low for a web developer?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Key factors include: tech stack expertise (React/Next.js pays more than WordPress), years of experience, specialization (e-commerce, SaaS, fintech), location, client type (enterprise vs startup), and project complexity. Developers with DevOps, security, or AI/ML skills command premium rates.',
+        text: '$50/hour is at the floor of the 2026 market — reasonable for a junior developer building a portfolio or working through an agency, but low for anyone mid-level or above. After self-employment taxes, software, and unpaid admin time, $50/hour gross often nets closer to $30/hour. Most mid-level freelance web developers charge $75-150/hour.',
       },
     },
     {
       '@type': 'Question',
-      name: 'How do front-end vs back-end developer rates compare?',
+      name: "What's the difference in pay between frontend and backend developers?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Front-end and back-end developer rates are similar at $75-175/hour for mid-to-senior levels. Back-end developers with specialized skills (distributed systems, high-scale architecture) can command higher rates. Full-stack developers who do both typically charge $100-200/hour and offer more value per hour.',
+        text: 'Frontend and backend rates overlap heavily, but backend and DevOps work tends to pay 10-20% more at the senior level because scaling, security, and data-integrity mistakes are expensive. Mid-level frontend devs charge roughly $75-125/hour; mid-level backend devs $85-140/hour. Full-stack developers who do both typically command the top of the range.',
       },
     },
     {
       '@type': 'Question',
-      name: 'Should freelance developers charge hourly or project-based rates?',
+      name: 'How much do React developers charge per hour?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on project clarity. Hourly rates work better for maintenance, bug fixes, unclear scope, or ongoing retainers. Project-based pricing is better for new builds with defined requirements, redesigns, or feature development. Many developers use weekly or monthly retainers for ongoing work.',
+        text: 'Freelance React developers charge $100-175/hour in 2026, with Next.js specialists at the higher end ($110-185/hour). React remains one of the most in-demand frontend skills in the Stack Overflow Developer Survey, which keeps rates strong even as the talent pool grows.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I charge hourly or per project as a web developer?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use hourly for open-ended work — maintenance, bug fixes, and projects with unclear scope — because it puts scope risk on the client. Use project-based pricing for defined builds, where you can quote a fixed price and keep the upside if you work efficiently. Retainers ($2,000-15,000/month) work best for ongoing relationships and the most predictable cash flow.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I know if my rate is too low?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Three signals: every prospect says yes immediately, you're fully booked but still can't cover taxes and a slow month, or your effective hourly rate after unpaid admin drops below your local market floor. If you haven't raised your rate in over a year while demand stayed steady, you're almost certainly underpriced.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What hourly rate do senior web developers charge?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Senior freelance web developers (6-10 years) charge $125-250/hour in 2026, and leads or architects with 10+ years reach $175-300/hour. Specialty pushes this higher: AI integration, high-scale backend, and DevOps work routinely clear $200/hour for senior practitioners.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I raise my web developer hourly rate with existing clients?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Give 30-60 days notice, anchor the increase to delivered results, and apply it at a natural boundary like a new project or quarter. A simple script: 'Starting [date], my rate moves to $X/hour.' Then name a specific outcome you delivered. Expect to raise rates with new clients first, then bring existing ones up over time.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do web developers charge for the time they spend learning or fixing bugs?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Bugs introduced during a project are normally fixed on the developer's time, not billed — that's part of delivering working software. Learning a tool specifically for a client's project is sometimes billed at a reduced rate by agreement, but general skill-building is not. This is why baseline rates build in unpaid hours: the billable year is closer to 1,200 hours than 2,080.",
       },
     },
   ],
 };
 
 const ratesByExperience = [
-  { level: 'Junior (0-2 years)', range: '$40-75/hr', project: '$2,000-8,000', notes: 'Simpler projects, supervision needed' },
-  { level: 'Mid-Level (3-5 years)', range: '$75-125/hr', project: '$8,000-25,000', notes: 'Standard market rate' },
-  { level: 'Senior (6-10 years)', range: '$125-200/hr', project: '$20,000-60,000', notes: 'Complex projects, architecture' },
-  { level: 'Lead/Architect (10+ years)', range: '$175-300/hr', project: '$40,000-150,000+', notes: 'Enterprise, specialized' },
+  { level: 'Junior (0-2 yrs)', frontend: '$35-75', backend: '$45-85', fullstack: '$50-90', devops: '$60-100' },
+  { level: 'Mid-Level (3-5 yrs)', frontend: '$75-125', backend: '$85-140', fullstack: '$90-150', devops: '$110-175' },
+  { level: 'Senior (6-10 yrs)', frontend: '$110-175', backend: '$125-200', fullstack: '$125-200', devops: '$150-225' },
+  { level: 'Lead / Architect (10+ yrs)', frontend: '$150-225', backend: '$175-275', fullstack: '$175-275', devops: '$200-300' },
 ];
 
-const ratesBySpecialization = [
-  { specialty: 'WordPress Development', range: '$50-100/hr', demand: 'High', notes: 'Theme customization, plugins' },
-  { specialty: 'Front-End (React/Vue)', range: '$100-175/hr', demand: 'Very High', notes: 'Modern SPAs, component libraries' },
-  { specialty: 'Full-Stack (Node/Next.js)', range: '$100-200/hr', demand: 'Very High', notes: 'End-to-end development' },
-  { specialty: 'Back-End (Python/Go)', range: '$100-200/hr', demand: 'High', notes: 'APIs, services, data processing' },
-  { specialty: 'E-Commerce (Shopify/WooCommerce)', range: '$75-150/hr', demand: 'High', notes: 'Custom stores, integrations' },
-  { specialty: 'DevOps / Cloud', range: '$125-225/hr', demand: 'High', notes: 'AWS, CI/CD, infrastructure' },
-  { specialty: 'Mobile (React Native/Flutter)', range: '$100-200/hr', demand: 'High', notes: 'Cross-platform apps' },
-  { specialty: 'Blockchain / Web3', range: '$150-300/hr', demand: 'Medium', notes: 'Smart contracts, dApps' },
-  { specialty: 'AI/ML Integration', range: '$150-300/hr', demand: 'Very High', notes: 'AI features, LLM integration' },
-];
-
-const ratesByTechStack = [
-  { stack: 'WordPress / PHP', range: '$50-100/hr', trend: 'Stable' },
-  { stack: 'React / Next.js', range: '$100-175/hr', trend: 'Growing' },
-  { stack: 'Vue / Nuxt', range: '$90-160/hr', trend: 'Stable' },
-  { stack: 'Angular', range: '$90-150/hr', trend: 'Declining' },
-  { stack: 'Node.js', range: '$90-175/hr', trend: 'Stable' },
-  { stack: 'Python (Django/FastAPI)', range: '$100-200/hr', trend: 'Growing' },
-  { stack: 'Go', range: '$125-225/hr', trend: 'Growing' },
-  { stack: 'Rust', range: '$150-250/hr', trend: 'Growing' },
-  { stack: 'Ruby on Rails', range: '$100-175/hr', trend: 'Declining' },
-  { stack: 'Shopify / Liquid', range: '$75-150/hr', trend: 'Stable' },
+const ratesBySpecialty = [
+  { specialty: 'React', range: '$100-175/hr', notes: 'Highest-demand frontend skill' },
+  { specialty: 'Next.js', range: '$110-185/hr', notes: 'Full-stack React, SSR and edge' },
+  { specialty: 'Vue / Nuxt', range: '$90-160/hr', notes: 'Strong in Europe and Asia' },
+  { specialty: 'Python / Django', range: '$100-190/hr', notes: 'APIs, data, AI integration' },
+  { specialty: 'Node.js', range: '$90-175/hr', notes: 'JavaScript backends, real-time' },
+  { specialty: 'Ruby on Rails', range: '$100-180/hr', notes: 'Smaller pool keeps rates up' },
+  { specialty: 'Mobile (React Native / Flutter)', range: '$100-200/hr', notes: 'Cross-platform apps' },
 ];
 
 const ratesByLocation = [
-  { location: 'San Francisco / Silicon Valley', range: '$150-300/hr', multiplier: '1.5x' },
-  { location: 'New York City', range: '$125-250/hr', multiplier: '1.3x' },
-  { location: 'Los Angeles / Seattle', range: '$110-200/hr', multiplier: '1.15x' },
-  { location: 'Austin / Denver / Boston', range: '$100-175/hr', multiplier: '1.0x' },
-  { location: 'Other US Cities', range: '$75-150/hr', multiplier: '0.85x' },
-  { location: 'Remote (US clients)', range: '$100-200/hr', multiplier: '1.0x' },
-  { location: 'UK / Western Europe', range: '£60-150/hr', multiplier: '0.9x' },
-  { location: 'Eastern Europe', range: '$40-100/hr', multiplier: '0.5x' },
+  { location: 'US — San Francisco / Bay Area', range: '$150-300/hr', note: 'Highest US market' },
+  { location: 'US — NYC / Seattle / LA', range: '$125-250/hr', note: 'Major tech hubs' },
+  { location: 'US — Midwest / South', range: '$90-175/hr', note: 'Lower cost of living' },
+  { location: 'US — Remote (US clients)', range: '$100-200/hr', note: 'Remote compresses the gap' },
+  { location: 'UK', range: '£60-150/hr', note: '≈ $75-190/hr' },
+  { location: 'Western Europe', range: '€70-160/hr', note: '≈ $75-175/hr' },
+  { location: 'Latin America', range: '$40-100/hr', note: 'Popular nearshore region' },
+  { location: 'India', range: '$25-70/hr', note: 'Largest offshore pool' },
 ];
 
-const projectPricing = [
-  { project: 'Simple WordPress Site', low: '$2,000', mid: '$5,000', high: '$10,000' },
-  { project: 'Business Website (Custom)', low: '$8,000', mid: '$18,000', high: '$35,000' },
-  { project: 'E-Commerce Store', low: '$10,000', mid: '$25,000', high: '$60,000' },
-  { project: 'Web Application (MVP)', low: '$25,000', mid: '$60,000', high: '$150,000' },
-  { project: 'SaaS Platform', low: '$50,000', mid: '$125,000', high: '$300,000+' },
-  { project: 'Mobile App (Cross-platform)', low: '$20,000', mid: '$50,000', high: '$120,000' },
-  { project: 'API Development', low: '$10,000', mid: '$30,000', high: '$75,000' },
+const pricingModels = [
+  { attribute: 'Best for', hourly: 'Maintenance, unclear scope', project: 'Defined builds', retainer: 'Ongoing relationships' },
+  { attribute: 'How you bill', hourly: 'Per hour tracked', project: 'Fixed price per deliverable', retainer: 'Fixed monthly fee' },
+  { attribute: 'Who carries scope risk', hourly: 'Client', project: 'Developer', retainer: 'Shared' },
+  { attribute: 'Cash flow predictability', hourly: 'Low to medium', project: 'Lumpy (milestones)', retainer: 'High (recurring)' },
+  { attribute: 'Typical range', hourly: '$50-250/hr', project: '$2k-200k+', retainer: '$2k-15k/mo' },
 ];
 
 export default function WebDeveloperHourlyRatePage() {
@@ -176,6 +238,10 @@ export default function WebDeveloperHourlyRatePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -198,8 +264,9 @@ export default function WebDeveloperHourlyRatePage() {
           </span>
           <span>{post.readingTime}</span>
           <span>•</span>
-          <time dateTime={post.publishedAt}>
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
+          <time dateTime={post.updatedAt || post.publishedAt}>
+            Updated{' '}
+            {new Date(post.updatedAt || post.publishedAt).toLocaleDateString('en-US', {
               month: 'long',
               day: 'numeric',
               year: 'numeric',
@@ -225,457 +292,363 @@ export default function WebDeveloperHourlyRatePage() {
       </header>
 
       <div className="prose prose-invert prose-zinc max-w-none">
-        {/* Introduction */}
+        {/* Introduction — definitive AEO answer */}
         <p>
-          Whether you&apos;re a freelance web developer setting your rates or a business trying to understand what developers
-          cost, this guide covers web developer hourly rates for 2026. We break down rates by experience, specialization,
-          tech stack, and project type based on current market data.
+          Most freelance web developers charge between <strong>$50 and $200 per hour in 2026</strong>, with
+          junior frontend devs at $35-75/hr, mid-level full-stack devs at $75-150/hr, and senior backend or
+          DevOps specialists at $125-250/hr. Specialty, geography, and client size shift the range significantly.
+          Here&apos;s the complete breakdown — including how to set yours and what to do if a client pushes back.
         </p>
 
-        <div className="not-prose my-8 rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
+        <div className="definition-box not-prose my-8 rounded-2xl border border-teal-500/20 bg-teal-500/5 p-6">
           <div className="flex items-start gap-3">
             <DollarSign className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
             <div>
-              <p className="font-semibold text-white mb-2">Quick Answer</p>
-              <p className="text-sm text-zinc-300">
-                Freelance web developer rates in 2026 typically range from <strong className="text-teal-300">$75-175/hour</strong> for
-                mid-to-senior developers in the US market. Specialized developers (AI integration, blockchain, high-scale systems)
-                charge <strong className="text-teal-300">$150-300/hour</strong> or more.
+              <p className="font-semibold text-white mb-2">The short answer</p>
+              <p className="text-zinc-300 leading-relaxed">
+                A typical 2026 freelance web developer rate is{' '}
+                <strong className="text-teal-300">$75-175/hour</strong> for mid-to-senior US developers.
+                Specialized work — AI integration, high-scale backend, DevOps — runs{' '}
+                <strong className="text-teal-300">$150-300/hour</strong>. Junior and offshore developers start
+                lower, around $25-75/hour.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Rates by Experience */}
-        <h2 id="by-experience">Web Developer Rates by Experience Level</h2>
-
         <p>
-          Experience is the most significant factor in web developer rates. Here&apos;s what freelancers at each level typically charge:
+          Those numbers come from market data rather than guesswork. The{' '}
+          <a
+            href="https://www.bls.gov/ooh/computer-and-information-technology/web-developers.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            U.S. Bureau of Labor Statistics
+          </a>{' '}
+          reports a median wage around $85,000/year for salaried web developers — but a staff salary and a
+          freelance hourly rate are not the same thing. Freelancers have to cover their own taxes, benefits,
+          downtime, and unpaid admin, which is why the hourly figure looks high until you do the math. Most
+          freelance web developers we&apos;ve spoken to underprice for exactly that reason.
         </p>
 
-        <div className="not-prose my-8 overflow-hidden rounded-xl border border-zinc-800">
-          <div className="grid grid-cols-4 gap-px bg-zinc-800">
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Level</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Hourly</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Project</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Notes</div>
-          </div>
-          <div className="divide-y divide-zinc-800">
-            {ratesByExperience.map((rate, index) => (
-              <div key={index} className="grid grid-cols-4 gap-px bg-zinc-800">
-                <div className="bg-zinc-900/60 p-4 text-sm text-white">{rate.level}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-teal-300 font-medium">{rate.range}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-300">{rate.project}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-400">{rate.notes}</div>
-              </div>
-            ))}
-          </div>
+        {/* H2 #1 — Experience level */}
+        <h2 id="by-experience">Web Developer Hourly Rate Ranges by Experience Level</h2>
+
+        <p>
+          Experience is the single biggest lever on rate. This table crosses experience level with role, since a
+          senior backend developer and a junior frontend developer are barely in the same market:
+        </p>
+
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-zinc-800">
+          <table className="min-w-[640px] w-full text-sm">
+            <thead className="bg-zinc-950/40 border-b border-zinc-800">
+              <tr>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Experience</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Frontend</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Backend</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Full-Stack</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">DevOps</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {ratesByExperience.map((row, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-3 text-white font-medium">{row.level}</td>
+                  <td className="px-4 py-3 text-teal-300">{row.frontend}</td>
+                  <td className="px-4 py-3 text-teal-300">{row.backend}</td>
+                  <td className="px-4 py-3 text-teal-300">{row.fullstack}</td>
+                  <td className="px-4 py-3 text-teal-300">{row.devops}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="not-prose my-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
           <div className="flex items-start gap-3">
             <TrendingUp className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
             <div>
-              <p className="font-semibold text-white mb-2">Rate Growth Pattern</p>
+              <p className="font-semibold text-white mb-2">The senior jump is real</p>
               <p className="text-sm text-zinc-300">
-                Developer rates typically increase 50-100% when moving from mid-level to senior, reflecting the ability
-                to work independently, make architectural decisions, and mentor others. The jump to lead/architect
-                requires both technical depth and client-facing skills.
+                Rates typically climb 50-100% from mid-level to senior. The reason isn&apos;t raw coding speed —
+                it&apos;s the ability to make architecture decisions, work unsupervised, and own outcomes. The
+                Stack Overflow Developer Survey shows the same pattern year after year: compensation scales with
+                experience and specialization more than with the language itself.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Rates by Specialization */}
-        <h2 id="by-specialization">Web Developer Rates by Specialization</h2>
+        {/* H2 #2 — Specialty */}
+        <h2 id="by-specialty">Web Developer Hourly Rate by Specialty</h2>
 
         <p>
-          Your specialization significantly impacts what you can charge. Here&apos;s how different focus areas compare:
+          Two developers with identical experience can charge very different rates depending on their stack and
+          focus. Demand and the size of the talent pool both matter:
         </p>
 
-        <div className="not-prose my-8 overflow-hidden rounded-xl border border-zinc-800">
-          <div className="grid grid-cols-4 gap-px bg-zinc-800">
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Specialty</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Rate Range</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Demand</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Focus</div>
-          </div>
-          <div className="divide-y divide-zinc-800">
-            {ratesBySpecialization.map((spec, index) => (
-              <div key={index} className="grid grid-cols-4 gap-px bg-zinc-800">
-                <div className="bg-zinc-900/60 p-4 text-sm text-white">{spec.specialty}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-teal-300 font-medium">{spec.range}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-300">{spec.demand}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-400">{spec.notes}</div>
-              </div>
-            ))}
-          </div>
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-zinc-800">
+          <table className="min-w-[560px] w-full text-sm">
+            <thead className="bg-zinc-950/40 border-b border-zinc-800">
+              <tr>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Specialty</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Rate Range</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Why</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {ratesBySpecialty.map((row, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-3 text-white font-medium flex items-center gap-2">
+                    <Code className="h-3.5 w-3.5 text-zinc-500" />
+                    {row.specialty}
+                  </td>
+                  <td className="px-4 py-3 text-teal-300 font-medium">{row.range}</td>
+                  <td className="px-4 py-3 text-zinc-400">{row.notes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        <h3>High-Demand Specializations for 2026</h3>
-
-        <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
-            <Code className="h-5 w-5 text-teal-400 mb-3" />
-            <p className="font-semibold text-white mb-2">AI/ML Integration</p>
-            <p className="text-sm text-zinc-400">
-              Building AI-powered features, LLM integrations, and intelligent automation. Very high demand, premium rates ($150-300/hr).
-            </p>
-          </div>
-          <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
-            <Globe className="h-5 w-5 text-teal-400 mb-3" />
-            <p className="font-semibold text-white mb-2">Full-Stack (Next.js/Node)</p>
-            <p className="text-sm text-zinc-400">
-              Modern full-stack development with React ecosystem. Very high demand, strong rates ($100-200/hr).
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <Cloud className="h-5 w-5 text-teal-400 mb-3" />
-            <p className="font-semibold text-white mb-2">DevOps / Cloud Architecture</p>
-            <p className="text-sm text-zinc-400">
-              AWS/GCP expertise, CI/CD, infrastructure as code. High demand from scaling startups ($125-225/hr).
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <Smartphone className="h-5 w-5 text-teal-400 mb-3" />
-            <p className="font-semibold text-white mb-2">Cross-Platform Mobile</p>
-            <p className="text-sm text-zinc-400">
-              React Native and Flutter development. Good demand for app-focused projects ($100-200/hr).
-            </p>
-          </div>
-        </div>
-
-        {/* Rates by Tech Stack */}
-        <h2 id="by-tech-stack">Rates by Technology Stack</h2>
 
         <p>
-          Your primary tech stack affects both your rate and demand. Here&apos;s how different technologies compare:
+          <strong>React and Next.js</strong> sit at the top of the frontend market because nearly every new web
+          product uses them, and the React ecosystem rewards developers who can also handle data fetching,
+          rendering strategy, and performance. <strong>Python/Django</strong> rates have climbed alongside AI
+          integration work — a Django developer who can wire up an LLM feature is charging closer to $190/hour
+          than $100. Older stacks like <strong>Ruby on Rails</strong> hold surprisingly strong rates precisely
+          because the talent pool shrank while the apps built on them still need maintaining.
         </p>
 
-        <div className="not-prose my-8 overflow-hidden rounded-xl border border-zinc-800">
-          <div className="grid grid-cols-3 gap-px bg-zinc-800">
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Tech Stack</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Rate Range</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Market Trend</div>
-          </div>
-          <div className="divide-y divide-zinc-800">
-            {ratesByTechStack.map((tech, index) => (
-              <div key={index} className="grid grid-cols-3 gap-px bg-zinc-800">
-                <div className="bg-zinc-900/60 p-4 text-sm text-white flex items-center gap-2">
-                  <Code className="h-3.5 w-3.5 text-zinc-500" />
-                  {tech.stack}
-                </div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-teal-300 font-medium">{tech.range}</div>
-                <div className={`bg-zinc-900/60 p-4 text-sm ${
-                  tech.trend === 'Growing' ? 'text-green-400' :
-                  tech.trend === 'Declining' ? 'text-amber-400' : 'text-zinc-400'
-                }`}>
-                  {tech.trend}
-                </div>
+        {/* H2 #3 — Geography */}
+        <h2 id="by-location">Geographic Rate Differences</h2>
+
+        <p>
+          Geography still moves rates, but remote work has compressed the gap. A US-based remote developer
+          working for US clients can charge close to in-hub rates, while offshore regions compete primarily on
+          price:
+        </p>
+
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-zinc-800">
+          <table className="min-w-[560px] w-full text-sm">
+            <thead className="bg-zinc-950/40 border-b border-zinc-800">
+              <tr>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Location</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Rate Range</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Notes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {ratesByLocation.map((row, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-3 text-white font-medium flex items-center gap-2">
+                    <MapPin className="h-3.5 w-3.5 text-zinc-500" />
+                    {row.location}
+                  </td>
+                  <td className="px-4 py-3 text-teal-300 font-medium">{row.range}</td>
+                  <td className="px-4 py-3 text-zinc-400">{row.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          The practical takeaway: your rate is set by your <em>client&apos;s</em> location and budget more than
+          your own. A developer in the US Midwest billing a New York startup remotely can charge NYC-adjacent
+          rates. The same developer billing a local small business cannot.
+        </p>
+
+        {/* H2 #4 — How to calculate (HowTo schema) */}
+        <h2 id="how-to-calculate">How to Calculate Your Web Developer Hourly Rate</h2>
+
+        <p>
+          Market ranges are a sanity check, not a number. The rate that actually keeps you solvent comes from
+          your own costs and goals. Here&apos;s the five-step method — the same logic behind our{' '}
+          <Link href="/tools/freelance-rate-calculator" className="text-teal-400 hover:text-teal-300">
+            free freelance rate calculator
+          </Link>
+          .
+        </p>
+
+        <h3 id="step-1">Step 1: Add up your annual cost of doing business</h3>
+        <p>
+          Total everything you spend to operate: software subscriptions, hardware, insurance, accounting,
+          marketing, and self-employment taxes (typically 25-30% of net income). This is what your rate has to
+          cover before you pay yourself a cent.
+        </p>
+
+        <h3 id="step-2">Step 2: Set your target take-home salary</h3>
+        <p>
+          Decide what you want to actually earn for the year. Use a salaried web developer benchmark as your
+          floor, then add a premium for the risk, overhead, and benefit gaps that come with freelancing.
+        </p>
+
+        <h3 id="step-3">Step 3: Estimate your real billable hours</h3>
+        <p>
+          A full-time year is 2,080 hours, but freelancers rarely bill more than 1,000-1,300 of them. Sales,
+          admin, learning, and slow weeks are unpaid. Use a realistic billable-hours number — overestimating
+          here is the most common reason developers set their rate too low.
+        </p>
+
+        <h3 id="step-4">Step 4: Divide to get your baseline rate</h3>
+        <p>
+          Add your annual costs, taxes, and target salary, then divide by your realistic billable hours. A
+          developer with $105,000 in total needs and 1,200 billable hours arrives at roughly <strong>$88/hour</strong>{' '}
+          as a baseline.
+        </p>
+
+        <h3 id="step-5">Step 5: Adjust for specialty, experience, and market</h3>
+        <p>
+          Move your baseline up for in-demand specialties, senior experience, and high-paying client types.
+          Move it down only if you&apos;re deliberately building a portfolio. For the full method with worked
+          examples, see our guide on{' '}
+          <Link href="/blog/how-to-calculate-freelance-rate" className="text-teal-400 hover:text-teal-300">
+            how to calculate your freelance rate
+          </Link>
+          .
+        </p>
+
+        {/* H2 #5 — Hourly vs project vs retainer */}
+        <h2 id="pricing-models">Hourly vs Project-Based vs Retainer Pricing</h2>
+
+        <p>
+          The rate is only half the decision — how you package it changes how much you earn and how predictable
+          your income is. Here&apos;s how the three models compare:
+        </p>
+
+        <div className="not-prose my-8 overflow-x-auto rounded-xl border border-zinc-800">
+          <table className="min-w-[640px] w-full text-sm">
+            <thead className="bg-zinc-950/40 border-b border-zinc-800">
+              <tr>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium"> </th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Hourly</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Project-Based</th>
+                <th className="px-4 py-3 text-left text-zinc-300 font-medium">Retainer</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              {pricingModels.map((row, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-3 text-white font-medium">{row.attribute}</td>
+                  <td className="px-4 py-3 text-zinc-300">{row.hourly}</td>
+                  <td className="px-4 py-3 text-zinc-300">{row.project}</td>
+                  <td className="px-4 py-3 text-zinc-300">{row.retainer}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>Hourly</strong> protects you when scope is fuzzy — the client absorbs overruns.{' '}
+          <strong>Project-based</strong> pricing rewards efficiency: quote a fixed price and keep the upside if
+          you deliver faster than expected. <strong>Retainers</strong> trade a little rate for the most
+          predictable cash flow, which matters enormously when you&apos;re trying to forecast irregular income.
+        </p>
+
+        {/* H2 #6 — Negotiation */}
+        <h2 id="negotiation">What to Do When Clients Negotiate Your Rate</h2>
+
+        <p>
+          Pushback on rate is normal and rarely a rejection — it&apos;s an opening move. Most freelance web
+          developers we&apos;ve spoken to handle it with frames, not discounts:
+        </p>
+
+        <div className="not-prose my-8 space-y-4">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+            <div className="flex items-start gap-3">
+              <MessageSquare className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-white mb-1">When they say &quot;that&apos;s more than we budgeted&quot;</p>
+                <p className="text-sm text-zinc-400">
+                  Don&apos;t drop the rate — reduce the scope. &quot;I can work to that budget. Here&apos;s what I&apos;d
+                  build first, and what we&apos;d add in a phase two.&quot; You protect your rate and give them a
+                  real path forward.
+                </p>
               </div>
-            ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+            <div className="flex items-start gap-3">
+              <MessageSquare className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-white mb-1">When they ask for a &quot;long-term discount&quot;</p>
+                <p className="text-sm text-zinc-400">
+                  Tie the discount to commitment, not hope. &quot;My retainer rate is $X/hour for a guaranteed 20
+                  hours a month. The project rate is $Y.&quot; The lower number requires something concrete in return.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+            <div className="flex items-start gap-3">
+              <MessageSquare className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-semibold text-white mb-1">When they compare you to a cheaper offshore quote</p>
+                <p className="text-sm text-zinc-400">
+                  Reframe around risk and total cost. &quot;You can absolutely find $30/hour developers. The
+                  question is what a rebuild costs if the first version doesn&apos;t ship.&quot; Compete on outcomes,
+                  never on price.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="not-prose my-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
+        <div className="not-prose my-8 rounded-xl border border-amber-500/30 bg-amber-500/5 p-5">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="font-semibold text-amber-300 mb-2">When to walk away</p>
+              <p className="text-sm text-zinc-300">
+                Walk if a client wants senior work at junior rates, treats your rate as the only variable, or
+                pushes for a discount before scope is even defined. A client who negotiates hard before the work
+                starts negotiates harder when the invoice is due. For how rates compare in adjacent roles, see
+                our{' '}
+                <Link href="/blog/software-engineer-hourly-rate" className="text-teal-400 hover:text-teal-300">
+                  software engineer hourly rate guide
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Forecasting aside — brand + differentiator + pillar link */}
+        <div className="not-prose my-10 rounded-xl border border-zinc-800 bg-zinc-900/40 p-6">
           <div className="flex items-start gap-3">
             <CheckCircle2 className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
             <div>
-              <p className="font-semibold text-white mb-2">Stack Selection Strategy</p>
+              <p className="font-semibold text-white mb-2">Setting the rate is half the problem</p>
               <p className="text-sm text-zinc-300">
-                Focus on growing technologies for long-term rate potential. React/Next.js, Python, and Go are safe bets.
-                WordPress still has volume but lower rates. Niche technologies (Rust, blockchain) pay well but have
-                smaller markets.
+                The other half is surviving the gap between finishing the work and getting paid. That&apos;s the
+                problem Cashcast was built for: a cash flow forecast made specifically for freelancers, with
+                manual entry and no bank connection required, so you can see your balance up to 365 days ahead
+                and know what&apos;s safe to spend before the next invoice clears. For the full method, read our
+                guide to{' '}
+                <Link href="/blog/cash-flow-forecasting-self-employed" className="text-teal-400 hover:text-teal-300">
+                  cash flow forecasting for the self-employed
+                </Link>
+                .
               </p>
             </div>
           </div>
         </div>
-
-        {/* Rates by Location */}
-        <h2 id="by-location">Web Developer Rates by Location</h2>
-
-        <p>
-          Location impacts rates, though remote work has reduced geographical premiums:
-        </p>
-
-        <div className="not-prose my-8 overflow-hidden rounded-xl border border-zinc-800">
-          <div className="grid grid-cols-3 gap-px bg-zinc-800">
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Location</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Rate Range</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white">vs. Average</div>
-          </div>
-          <div className="divide-y divide-zinc-800">
-            {ratesByLocation.map((loc, index) => (
-              <div key={index} className="grid grid-cols-3 gap-px bg-zinc-800">
-                <div className="bg-zinc-900/60 p-4 text-sm text-white flex items-center gap-2">
-                  <MapPin className="h-3.5 w-3.5 text-zinc-500" />
-                  {loc.location}
-                </div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-teal-300 font-medium">{loc.range}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-400">{loc.multiplier}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Project Pricing */}
-        <h2 id="project-pricing">Web Development Project Pricing</h2>
-
-        <p>
-          Many developers prefer project-based pricing for defined work. Here are typical project rates:
-        </p>
-
-        <div className="not-prose my-8 overflow-hidden rounded-xl border border-zinc-800">
-          <div className="grid grid-cols-4 gap-px bg-zinc-800">
-            <div className="bg-zinc-900 p-4 font-semibold text-white">Project Type</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white text-center">Budget</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white text-center">Standard</div>
-            <div className="bg-zinc-900 p-4 font-semibold text-white text-center">Premium</div>
-          </div>
-          <div className="divide-y divide-zinc-800">
-            {projectPricing.map((item, index) => (
-              <div key={index} className="grid grid-cols-4 gap-px bg-zinc-800">
-                <div className="bg-zinc-900/60 p-4 text-sm text-white">{item.project}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-400 text-center">{item.low}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-teal-300 font-medium text-center">{item.mid}</div>
-                <div className="bg-zinc-900/60 p-4 text-sm text-zinc-400 text-center">{item.high}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <h3>Pricing Strategy by Project Type</h3>
-
-        <div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <p className="font-semibold text-white mb-3">Use Hourly Pricing For:</p>
-            <ul className="text-sm text-zinc-400 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-1">•</span>
-                Ongoing maintenance and support
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-1">•</span>
-                Bug fixes and troubleshooting
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-1">•</span>
-                Projects with unclear requirements
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-1">•</span>
-                Team augmentation / embedded work
-              </li>
-            </ul>
-          </div>
-          <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
-            <p className="font-semibold text-white mb-3">Use Project Pricing For:</p>
-            <ul className="text-sm text-zinc-400 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="text-teal-500 mt-1">•</span>
-                New website or app builds
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-teal-500 mt-1">•</span>
-                Well-defined feature development
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-teal-500 mt-1">•</span>
-                Website redesigns with clear scope
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-teal-500 mt-1">•</span>
-                API integrations with documentation
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Front-End vs Back-End vs Full-Stack */}
-        <h2 id="fe-vs-be">Front-End vs. Back-End vs. Full-Stack Rates</h2>
-
-        <p>How do rates compare across the development spectrum?</p>
-
-        <div className="not-prose my-8 space-y-4">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Front-End Developer</span>
-              </div>
-              <span className="text-teal-300 font-bold">$75-175/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              React, Vue, Angular specialists. Strong demand for modern framework expertise. UI component libraries
-              and design system implementation can command premium rates.
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Server className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Back-End Developer</span>
-              </div>
-              <span className="text-teal-300 font-bold">$85-200/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              Node.js, Python, Go, Rust specialists. Higher rates for distributed systems, high-scale architecture,
-              and security expertise. Database optimization is always in demand.
-            </p>
-          </div>
-          <div className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Database className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Full-Stack Developer</span>
-              </div>
-              <span className="text-teal-300 font-bold">$100-200/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              End-to-end development capability. Higher rates reflect the ability to deliver complete features
-              independently. Very high demand for startups and small teams.
-            </p>
-          </div>
-        </div>
-
-        {/* Client Types */}
-        <h2 id="by-client">Rates by Client Type</h2>
-
-        <div className="not-prose my-8 space-y-4">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Enterprise / Fortune 500</span>
-              </div>
-              <span className="text-teal-300 font-bold">$150-300/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              Larger budgets, longer sales cycles, formal processes. May require specific insurance, compliance,
-              or security clearances. Premium rates but more bureaucracy.
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Funded Startups</span>
-              </div>
-              <span className="text-teal-300 font-bold">$100-200/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              Good budgets, fast-moving, value quality. Often need full-stack or specialized skills. May offer
-              equity (usually not worth the discount).
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Agencies</span>
-              </div>
-              <span className="text-teal-300 font-bold">$75-150/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              Steady work, clear briefs, but lower rates (they bill clients 2-3x your rate). Good for consistent
-              income and filling pipeline gaps.
-            </p>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-teal-400" />
-                <span className="font-semibold text-white">Small Businesses</span>
-              </div>
-              <span className="text-teal-300 font-bold">$50-100/hr</span>
-            </div>
-            <p className="text-sm text-zinc-400">
-              Smaller budgets, but simpler projects. Often WordPress, Shopify, or basic custom sites. Good for
-              building portfolio and referral networks.
-            </p>
-          </div>
-        </div>
-
-        {/* How to Increase Rates */}
-        <h2 id="increase-rates">How to Increase Your Developer Rates</h2>
-
-        <div className="not-prose my-8 space-y-4">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-start gap-3">
-              <Code className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-white mb-1">Learn High-Value Technologies</p>
-                <p className="text-sm text-zinc-400">
-                  AI/ML integration, modern cloud architecture (serverless, containers), and emerging frameworks
-                  command premium rates. Stay ahead of the market, not behind it.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-start gap-3">
-              <Award className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-white mb-1">Specialize in an Industry</p>
-                <p className="text-sm text-zinc-400">
-                  &quot;I build fintech applications&quot; pays more than &quot;I build websites.&quot; Healthcare, fintech, and
-                  e-commerce clients pay premiums for domain expertise.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-start gap-3">
-              <TrendingUp className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-white mb-1">Target Larger Clients</p>
-                <p className="text-sm text-zinc-400">
-                  Enterprise and well-funded startups pay 2-3x what small businesses pay. Update your portfolio
-                  and positioning to attract bigger projects.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5">
-            <div className="flex items-start gap-3">
-              <CheckCircle2 className="h-5 w-5 text-teal-400 mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-white mb-1">Quantify Your Impact</p>
-                <p className="text-sm text-zinc-400">
-                  &quot;Built an e-commerce platform handling $2M/month in transactions&quot; is worth more than &quot;Built e-commerce site.&quot;
-                  Metrics and business outcomes justify higher rates.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Key Takeaways */}
-        <h2 id="key-takeaways">Key Takeaways</h2>
-
-        <ul>
-          <li><strong>Mid-level developers</strong> charge $75-125/hour; senior developers charge $125-200+/hour</li>
-          <li><strong>Tech stack matters:</strong> Modern frameworks (React/Next.js, Go) pay more than legacy tech</li>
-          <li><strong>AI/ML integration</strong> is the highest-paying specialization in 2026</li>
-          <li><strong>Full-stack developers</strong> can charge premium rates for end-to-end delivery</li>
-          <li><strong>Enterprise clients</strong> pay 2-3x what small businesses pay</li>
-          <li><strong>To increase rates:</strong> specialize by industry, learn emerging tech, and quantify results</li>
-        </ul>
 
         {/* CTA */}
         <div className="not-prose my-10 rounded-xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
           <Calculator className="h-8 w-8 text-teal-400 mx-auto mb-3" />
-          <h3 className="text-xl font-semibold text-white mb-3">
-            Calculate Your Developer Rate
-          </h3>
+          <h3 className="text-xl font-semibold text-white mb-3">Track your freelance income with Cashcast</h3>
           <p className="text-zinc-300 mb-4">
-            Use our free calculator to find your minimum, standard, and premium hourly rates based on your income goals and expenses.
+            Once your rate is set, Cashcast keeps the income side honest — a daily forecast up to 365 days ahead
+            and automatic Safe to Spend, free for 90 days at cashcast.money. No bank connection required.
           </p>
           <Link
-            href="/tools/freelance-rate-calculator"
+            href="/auth/signup"
             className="inline-flex items-center justify-center h-10 px-6 rounded-lg bg-teal-500 hover:bg-teal-400 text-zinc-950 font-semibold text-sm transition-colors"
           >
-            Try the Calculator Free
+            Try Cashcast Free
           </Link>
         </div>
       </div>
@@ -738,34 +711,6 @@ export default function WebDeveloperHourlyRatePage() {
             </span>
           </Link>
           <Link
-            href="/blog/when-to-raise-freelance-rates"
-            className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
-          >
-            <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
-              When to Raise Your Rates
-            </p>
-            <p className="mt-1 text-sm text-zinc-400">
-              Signs you&apos;re undercharging and how to increase.
-            </p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
-              Read guide <ArrowRight className="h-3.5 w-3.5" />
-            </span>
-          </Link>
-          <Link
-            href="/blog/ux-designer-hourly-rate"
-            className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
-          >
-            <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
-              UX Designer Hourly Rates (2026)
-            </p>
-            <p className="mt-1 text-sm text-zinc-400">
-              Compare rates for freelance UX designers.
-            </p>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
-              View rates <ArrowRight className="h-3.5 w-3.5" />
-            </span>
-          </Link>
-          <Link
             href="/blog/software-engineer-hourly-rate"
             className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
           >
@@ -780,17 +725,21 @@ export default function WebDeveloperHourlyRatePage() {
             </span>
           </Link>
           <Link
-            href="/blog/graphic-designer-hourly-rate"
-            className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-5 hover:border-zinc-700 transition-colors group"
+            href="/blog/cash-flow-forecasting-self-employed"
+            className="rounded-xl border border-teal-500/30 bg-teal-500/5 p-5 hover:border-teal-500/50 transition-colors group"
           >
+            <div className="flex items-center gap-2 mb-2">
+              <Database className="h-4 w-4 text-teal-400" />
+              <span className="text-xs text-teal-400 font-medium">Pillar Guide</span>
+            </div>
             <p className="font-medium text-white group-hover:text-teal-300 transition-colors">
-              Graphic Designer Hourly Rates (2026)
+              Cash Flow Forecasting for the Self-Employed
             </p>
             <p className="mt-1 text-sm text-zinc-400">
-              Rates for brand, motion, and print design.
+              Turn an irregular rate into a stable forecast.
             </p>
             <span className="mt-3 inline-flex items-center gap-1 text-sm text-teal-400 group-hover:gap-2 transition-all">
-              View rates <ArrowRight className="h-3.5 w-3.5" />
+              Read guide <ArrowRight className="h-3.5 w-3.5" />
             </span>
           </Link>
         </div>
