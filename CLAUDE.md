@@ -95,6 +95,13 @@ If any of these appear in a draft, remove them:
 
 - TypeScript + Next.js 14 App Router + Tailwind + Supabase + Stripe
 - Package manager: pnpm
-- Branch convention: ship to current feature branch, never directly to main without PR
+- Branch convention (risk-based):
+  - **Code that deploys** (anything in app/, components/, lib/, pages/,
+    API routes, schema, config): ALWAYS use a feature branch + PR. This
+    lets CI run and a Vercel preview render before it hits production.
+  - **Docs-only changes** (anything in docs/, README, CLAUDE.md, *.md
+    files with no code impact): direct push to main is fine — markdown
+    can't break the production site, and a PR adds pure overhead.
+  - When unsure whether a change is "code" or "docs," default to PR.
 - Commit messages: descriptive, reference doc paths when adding strategy
 - Don't add new dependencies without discussion
