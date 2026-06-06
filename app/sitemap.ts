@@ -21,9 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Blog
     { url: `${baseUrl}/blog`, lastModified, priority: 0.8 },
-    // Featured SEO post with higher priority
+    // Featured SEO posts with higher priority
     { url: `${baseUrl}/blog/cash-flow-forecasting-self-employed`, lastModified, priority: 0.8 },
-    ...blogPosts.filter(p => p.url !== `${baseUrl}/blog/cash-flow-forecasting-self-employed`),
+    { url: `${baseUrl}/blog/web-developer-hourly-rate`, lastModified: new Date('2026-06-06'), priority: 0.8 },
+    ...blogPosts.filter(
+      p =>
+        p.url !== `${baseUrl}/blog/cash-flow-forecasting-self-employed` &&
+        p.url !== `${baseUrl}/blog/web-developer-hourly-rate`,
+    ),
 
     // Comparison pages
     { url: `${baseUrl}/compare`, lastModified, priority: 0.7 },
