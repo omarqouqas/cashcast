@@ -34,7 +34,6 @@ import {
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { getUserSubscription } from '@/lib/stripe/subscription';
-import { organizationSchema, websiteSchema } from '@/components/seo/schemas';
 
 export const metadata: Metadata = {
   title: 'Freelancers: See Your Bank Balance 90 Days Out | Cashcast',
@@ -155,13 +154,6 @@ const softwareAppSchema = {
   operatingSystem: 'Web',
   description: 'Cash flow calendar app for freelancers with irregular income. See your bank balance up to 365 days ahead, track bills and income, get low balance alerts.',
   url: 'https://cashcast.money',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    ratingCount: '1',
-    bestRating: '5',
-    worstRating: '1',
-  },
   offers: {
     '@type': 'AggregateOffer',
     lowPrice: '0',
@@ -284,16 +276,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection-teal scroll-smooth">
-      {/* Organization schema - helps with brand recognition in search */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      {/* WebSite schema - enables sitelinks search box */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
+      {/* Organization + WebSite schemas are injected globally via app/layout.tsx */}
       {/* SoftwareApplication schema - rich app info */}
       <script
         type="application/ld+json"

@@ -388,26 +388,6 @@ export const pricingSchema = {
     name: 'Cashcast',
   },
   image: 'https://cashcast.money/og-image.png',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    bestRating: '5',
-    worstRating: '1',
-    ratingCount: '1',
-  },
-  review: {
-    '@type': 'Review',
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue: '5',
-      bestRating: '5',
-    },
-    author: {
-      '@type': 'Person',
-      name: 'Daniel',
-    },
-    reviewBody: 'I could never see what was coming financially. Bills would sneak up on me, and I\'d only find out after getting charged. The Cash Flow Calendar gives me a clear 90-day view of what\'s coming in and going out, so nothing catches me off guard.',
-  },
   offers: {
     '@type': 'AggregateOffer',
     lowPrice: '0',
@@ -484,26 +464,6 @@ export const productSchema = {
     name: 'Cashcast',
   },
   image: 'https://cashcast.money/og-image.png',
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    bestRating: '5',
-    worstRating: '1',
-    ratingCount: '1',
-  },
-  review: {
-    '@type': 'Review',
-    reviewRating: {
-      '@type': 'Rating',
-      ratingValue: '5',
-      bestRating: '5',
-    },
-    author: {
-      '@type': 'Person',
-      name: 'Daniel',
-    },
-    reviewBody: 'I could never see what was coming financially. Bills would sneak up on me, and I\'d only find out after getting charged. The Cash Flow Calendar gives me a clear 90-day view of what\'s coming in and going out, so nothing catches me off guard.',
-  },
   offers: [
     {
       '@type': 'Offer',
