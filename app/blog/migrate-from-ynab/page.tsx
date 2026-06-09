@@ -166,7 +166,7 @@ export default function MigrateFromYnabPage() {
                 <h3 className="text-lg font-semibold text-white mb-1">Subscription Costs</h3>
                 <p className="text-zinc-400">
                   YNAB costs $99/year (or $14.99/month). Over 5 years, that&apos;s nearly $500.
-                  Cashcast offers a $99 lifetime deal—pay once, use forever.
+                  Cashcast offers a $249 lifetime deal—pay once, use forever.
                 </p>
               </div>
             </div>
@@ -458,7 +458,7 @@ export default function MigrateFromYnabPage() {
                 <tr className="border-b border-zinc-800">
                   <td className="py-3 px-4">Pricing</td>
                   <td className="py-3 px-4">$99/year subscription</td>
-                  <td className="py-3 px-4 text-teal-400">$99 lifetime (one-time)</td>
+                  <td className="py-3 px-4 text-teal-400">$249 lifetime (one-time)</td>
                 </tr>
               </tbody>
             </table>

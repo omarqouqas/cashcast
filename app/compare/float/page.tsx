@@ -48,7 +48,7 @@ const comparisonRows = [
   { feature: 'Target user', cff: '✅ Freelancers & solopreneurs', float: '⚠️ Growing SMBs & agencies' },
   { feature: 'Monthly price', cff: '✅ $7.99/mo (87% cheaper)', float: '❌ $59-$199/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', float: '❌ $708-$2,388/year' },
-  { feature: 'Lifetime option', cff: '✅ $99 one-time', float: '❌ Not available' },
+  { feature: 'Lifetime option', cff: '✅ $249 one-time', float: '❌ Not available' },
   { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', float: '❌ 14-day trial only' },
   { feature: 'Requires accounting software', cff: '✅ No - standalone', float: '❌ Yes - requires Xero or QuickBooks' },
   { feature: 'Setup time', cff: '✅ 5 minutes', float: '⚠️ 30+ minutes (sync + config)' },
@@ -217,7 +217,7 @@ export default function FloatComparisonPage() {
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
                 <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
-                <p className="mt-1 text-sm text-zinc-400">or $99 lifetime</p>
+                <p className="mt-1 text-sm text-zinc-400">or $249 lifetime</p>
               </div>
               <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-center">
                 <p className="text-sm text-amber-300 font-medium">Your Savings</p>
@@ -357,7 +357,7 @@ export default function FloatComparisonPage() {
                 <h3 className="text-lg font-semibold text-white">87% cheaper</h3>
                 <p className="mt-2 text-zinc-400">
                   $7.99/mo vs $59-199/mo. That&apos;s $51+ back in your pocket every month—or grab our
-                  $99 lifetime deal and never pay again.
+                  $249 lifetime deal and never pay again.
                 </p>
               </div>
             </div>

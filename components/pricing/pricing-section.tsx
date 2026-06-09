@@ -165,7 +165,7 @@ export default function PricingSection({
       // Track checkout started
       trackCheckoutStarted({
         tier: 'lifetime',
-        price: 99,
+        price: 249,
         billing_period: 'lifetime',
       });
 
@@ -307,11 +307,11 @@ export default function PricingSection({
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-white">$99</span>
-              <span className="text-zinc-500 line-through">$158/2yr</span>
+              <span className="text-4xl font-bold text-white">$249</span>
+              <span className="text-zinc-500 line-through">$316/4yr</span>
             </div>
             <span className="text-sm text-amber-400 font-medium">
-              Save 37% vs 2 years of Pro (yearly)
+              Save 21% vs 4 years of Pro (yearly)
             </span>
           </div>
 

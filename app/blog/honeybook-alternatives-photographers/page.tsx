@@ -407,7 +407,7 @@ export default function HoneyBookAlternativesPhotographersPage() {
 
             <p className="text-zinc-300 leading-relaxed">
               <strong className="text-white">Total cost:</strong> HoneyBook Starter ($36/mo) + Cashcast Pro ($7.99/mo) = <strong className="text-white">$43.99/mo</strong>.
-              Or get Cashcast Lifetime ($99 one-time) to lock in the price forever.
+              Or get Cashcast Lifetime ($249 one-time) to lock in the price forever.
             </p>
           </section>
 

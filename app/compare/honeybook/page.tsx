@@ -52,7 +52,7 @@ const comparisonRows = [
   { feature: 'Primary purpose', cashcast: '✅ Cash flow forecasting', honeybook: '✅ Client CRM & invoicing' },
   { feature: 'Monthly price', cashcast: '✅ $7.99/mo', honeybook: '❌ $36-109/mo (51-89% price hike in 2025)' },
   { feature: 'Yearly price', cashcast: '✅ $79/year', honeybook: '❌ $390-1,188/year' },
-  { feature: 'Lifetime option', cashcast: '✅ $99 one-time', honeybook: '❌ Not available' },
+  { feature: 'Lifetime option', cashcast: '✅ $249 one-time', honeybook: '❌ Not available' },
   { feature: 'Free tier', cashcast: '✅ Yes (5 bills, 5 income, 90-day forecast)', honeybook: '❌ 7-day trial only' },
   { feature: 'Cash flow forecasting', cashcast: '✅ See future balance on any day (up to 365 days)', honeybook: '❌ No—only backward-looking reporting' },
   { feature: 'Cash flow reporting', cashcast: '✅ Yes', honeybook: '✅ Yes (added late 2025, shows past only)' },
@@ -155,7 +155,7 @@ const productComparisonSchema = {
   offers: {
     '@type': 'AggregateOffer',
     lowPrice: '0',
-    highPrice: '99',
+    highPrice: '249',
     priceCurrency: 'USD',
     offerCount: 3,
     offers: [
@@ -174,7 +174,7 @@ const productComparisonSchema = {
       {
         '@type': 'Offer',
         name: 'Lifetime',
-        price: '99',
+        price: '249',
         priceCurrency: 'USD',
       },
     ],
@@ -295,7 +295,7 @@ export default function HoneyBookComparisonPage() {
                 <p className="text-sm text-teal-300 font-medium">Cashcast Pro</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
                 <p className="mt-1 text-sm text-emerald-400">365-day cash flow forecast</p>
-                <p className="mt-3 text-xs text-zinc-500">Or $99 lifetime—pay once, use forever.</p>
+                <p className="mt-3 text-xs text-zinc-500">Or $249 lifetime—pay once, use forever.</p>
               </div>
             </div>
           </section>

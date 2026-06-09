@@ -78,7 +78,7 @@ const comparisonRows = [
   { feature: 'Weekly email digest', cff: '✅ Yes', typical: '❌ No' },
   { feature: 'Freelancer-focused', cff: '✅ Built for irregular income', typical: '⚠️ Generic' },
   { feature: 'Bank connection required', cff: '❌ Optional', typical: '⚠️ Often required' },
-  { feature: 'Price', cff: '$7.99/mo or $99 lifetime', typical: '$8-15/mo' },
+  { feature: 'Price', cff: '$7.99/mo or $249 lifetime', typical: '$8-15/mo' },
 ] as const;
 
 const faqStructuredData = {

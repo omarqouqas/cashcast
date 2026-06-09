@@ -593,7 +593,7 @@ async function handleLifetimePurchaseCompleted(session: Stripe.Checkout.Session)
     distinctId: userId,
     properties: {
       tier: 'lifetime',
-      price: 99,
+      price: 249,
       billing_period: 'lifetime',
     },
   });

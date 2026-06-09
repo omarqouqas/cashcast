@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 const comparisonRows = [
   { feature: 'Monthly price', cff: '✅ $7.99/mo (73% cheaper)', pulse: '❌ $29-$89/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', pulse: '❌ $348-$1,068/year' },
-  { feature: 'Lifetime option', cff: '✅ $99 one-time', pulse: '❌ Not available' },
+  { feature: 'Lifetime option', cff: '✅ $249 one-time', pulse: '❌ Not available' },
   { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', pulse: '❌ 30-day trial only' },
   { feature: 'Data entry method', cff: '✅ Guided forms + CSV/Excel import', pulse: '⚠️ Spreadsheet-style (manual)' },
   { feature: 'Cash flow calendar', cff: '✅ Visual daily calendar', pulse: '✅ Chart-based view' },
@@ -216,7 +216,7 @@ export default function PulseComparisonPage() {
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
                 <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
-                <p className="mt-1 text-sm text-zinc-400">or $99 lifetime</p>
+                <p className="mt-1 text-sm text-zinc-400">or $249 lifetime</p>
               </div>
               <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-center">
                 <p className="text-sm text-amber-300 font-medium">Your Savings</p>

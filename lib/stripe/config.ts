@@ -194,8 +194,8 @@ export const PRICING_TIERS: Record<SubscriptionTier, PricingTier> = {
     },
     prices: {
       // Lifetime is a one-time payment, stored in 'monthly' slot for simplicity
-      monthly: { amount: 9900, priceId: STRIPE_PRICE_IDS.lifetime }, // $99 one-time
-      yearly: { amount: 9900, priceId: STRIPE_PRICE_IDS.lifetime },
+      monthly: { amount: 24900, priceId: STRIPE_PRICE_IDS.lifetime }, // $249 one-time
+      yearly: { amount: 24900, priceId: STRIPE_PRICE_IDS.lifetime },
     },
   },
 };

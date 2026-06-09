@@ -49,7 +49,7 @@ const comparisonRows = [
   { feature: 'Approach', cff: '✅ Forward-looking (shows future balance)', ynab: '❌ Backward-looking (tracks past spending)' },
   { feature: 'Monthly price', cff: '✅ $7.99/mo (47% cheaper)', ynab: '❌ $14.99/mo' },
   { feature: 'Yearly price', cff: '✅ $79/year', ynab: '❌ $109/year' },
-  { feature: 'Lifetime option', cff: '✅ $99 one-time', ynab: '❌ Not available' },
+  { feature: 'Lifetime option', cff: '✅ $249 one-time', ynab: '❌ Not available' },
   { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', ynab: '❌ 34-day trial only' },
   { feature: 'Irregular income support', cff: '✅ Built for it', ynab: '⚠️ Requires workarounds' },
   { feature: 'Daily balance forecast', cff: '✅ See balance on any future day', ynab: '❌ Monthly view only' },
@@ -304,7 +304,7 @@ export default function YNABComparisonPage() {
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">
                 <h3 className="text-lg font-semibold text-white">47% cheaper</h3>
                 <p className="mt-2 text-zinc-400">
-                  $7.99/mo vs $14.99/mo. Or save even more with our $99 lifetime deal—pay once, use forever.
+                  $7.99/mo vs $14.99/mo. Or skip subscriptions entirely with our $249 lifetime deal—pay once, use forever.
                   No more subscription fatigue.
                 </p>
               </div>

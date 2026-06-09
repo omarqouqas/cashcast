@@ -391,7 +391,7 @@ export const pricingSchema = {
   offers: {
     '@type': 'AggregateOffer',
     lowPrice: '0',
-    highPrice: '149',
+    highPrice: '249',
     priceCurrency: 'USD',
     offerCount: 3,
     offers: [
@@ -417,7 +417,7 @@ export const pricingSchema = {
       {
         '@type': 'Offer',
         name: 'Lifetime Deal',
-        price: '149',
+        price: '249',
         priceCurrency: 'USD',
         priceValidUntil: '2026-12-31',
         description: 'All Pro features forever with a one-time payment. No recurring fees.',

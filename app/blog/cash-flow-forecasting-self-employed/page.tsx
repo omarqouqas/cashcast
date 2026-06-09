@@ -175,7 +175,7 @@ const faqSchema = {
       name: 'How is Cashcast different from PocketSmith for the self-employed?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Cashcast is built specifically for freelancers and self-employed users with irregular income. It includes invoicing with automatic forecast sync, tax bucketing for quarterly estimates, and a "Safe to Spend" metric that PocketSmith doesn\'t have. Cashcast costs $7.99/month vs PocketSmith\'s $9.95+/month, with a $149 lifetime option.',
+        text: 'Cashcast is built specifically for freelancers and self-employed users with irregular income. It includes invoicing with automatic forecast sync, tax bucketing for quarterly estimates, and a "Safe to Spend" metric that PocketSmith doesn\'t have. Cashcast costs $7.99/month vs PocketSmith\'s $9.95+/month, with a $249 lifetime option.',
       },
     },
     {
@@ -219,7 +219,7 @@ const comparisonData = [
     irregularIncome: 'Built for it (core feature)',
     forecastLength: '90 days free / 365 days Pro',
     learningCurve: 'Low (5 min setup)',
-    price: '$7.99/month or $149 lifetime',
+    price: '$7.99/month or $249 lifetime',
     bestFor: 'Freelancers & self-employed',
   },
 ];

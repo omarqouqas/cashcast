@@ -414,7 +414,7 @@ export default function UseCashcastWithHoneyBookPage() {
             </div>
 
             <p className="text-zinc-400 text-sm mt-4">
-              Or get Cashcast Lifetime ($99 one-time) and pay $390/yr total going forward.
+              Or get Cashcast Lifetime ($249 one-time) and pay $390/yr total going forward.
             </p>
           </section>
 

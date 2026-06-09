@@ -67,7 +67,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Do you offer a lifetime deal?",
-    answer: "Yes! For $99 one-time, you get permanent Pro access with no monthly fees ever. This includes all Pro features (365-day forecast, unlimited bills/income, Runway Collect invoicing, Excel/JSON exports) plus all future updates. It's perfect if you prefer to pay once rather than subscribe. You'll save 37% compared to paying for 2 years of Pro (yearly). The lifetime deal is available on our pricing page."
+    answer: "Yes! For $249 one-time, you get permanent Pro access with no monthly fees ever. This includes all Pro features (365-day forecast, unlimited bills/income, Runway Collect invoicing, Excel/JSON exports) plus all future updates. It's perfect if you prefer to pay once rather than subscribe — it pays for itself in about two and a half years versus monthly Pro, then it's free forever. The lifetime deal is available on our pricing page."
   },
   {
     question: "Can I connect my bank account?",
