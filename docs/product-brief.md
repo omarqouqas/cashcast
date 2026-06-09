@@ -710,7 +710,7 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 
 *Note: Premium tier is sunset (kept only for backwards compatibility). Live offering is Free + Pro + Lifetime.*
 
-| Feature | Free ($0) | Pro ($7.99/mo) | Lifetime ($99) |
+| Feature | Free ($0) | Pro ($7.99/mo) | Lifetime ($249) |
 |---------|-----------|----------------|-----------------|
 | Bills | 5 | Unlimited | Unlimited |
 | Income Sources | 5 | Unlimited | Unlimited |
@@ -737,7 +737,7 @@ By automatically subtracting tax reserves, upcoming bills, and debt payments fro
 **Pricing Options:**
 - Pro Monthly: $7.99/mo
 - Pro Yearly: $79/year (2 months free)
-- Lifetime: $99 one-time (permanent Pro access, no renewals)
+- Lifetime: $249 one-time (permanent Pro access, no renewals)
 
 ### Revenue Projections
 
@@ -1074,7 +1074,7 @@ User Request
 | **Data Method** | Enhanced Spreadsheet | Automated Sync (Xero/QBO) | Bank sync (12k+) | Manual + CSV Import |
 | **Invoicing** | ❌ | ❌ | ❌ | ✅ Runway Collect |
 | **Tax Tooling** | ❌ | ❌ | ❌ | ✅ US + Canada |
-| **Pricing** | $29-$89/month | $59-$199/month | $9.95-$26.63/month | $7.99/month or $99 lifetime |
+| **Pricing** | $29-$89/month | $59-$199/month | $9.95-$26.63/month | $7.99/month or $249 lifetime |
 | **Target User** | Small Agencies | Growing SMBs | General consumers | Freelancers with irregular income |
 
 ### Market Gap (Updated May 2026)
@@ -1443,7 +1443,7 @@ Canada represents a strategic expansion opportunity due to:
   - **Credit Card Cash Flow Forecasting** - Utilization tracking & payment planning guide
   - **Debt Payoff: Snowball vs Avalanche** - Strategy comparison for irregular income
   - **Import Bank Transactions from Excel** - Step-by-step import guide with HowTo schema
-  - **Why We Offer a $99 Lifetime Deal** - Subscription fatigue messaging, YNAB comparison
+  - **Why We Offer a $249 Lifetime Deal** - Subscription fatigue messaging, YNAB comparison
   - **Export Cash Flow Data for Tax Season** - 1099 contractor guide with HowTo schema
   - **How to Migrate from YNAB** - Complete migration walkthrough
   - Each post includes: OpenGraph image generation, JSON-LD schemas (Article, HowTo, FAQ), internal cross-linking

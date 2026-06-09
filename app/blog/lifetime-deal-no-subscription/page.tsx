@@ -61,7 +61,7 @@ const faqSchema = {
       name: 'What does the lifetime deal include?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The $99 lifetime deal includes permanent access to all Pro features: 365-day forecasting, unlimited accounts, credit card tracking, debt payoff planner, reports & exports, and all future updates.',
+        text: 'The $249 lifetime deal includes permanent access to all Pro features: 365-day forecasting, unlimited accounts, credit card tracking, debt payoff planner, reports & exports, and all future updates.',
       },
     },
     {
@@ -69,7 +69,7 @@ const faqSchema = {
       name: 'Is the lifetime deal really one-time payment?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, you pay $99 once and never pay again. There are no hidden fees, no annual renewals, and no feature limitations.',
+        text: 'Yes, you pay $249 once and never pay again. There are no hidden fees, no annual renewals, and no feature limitations.',
       },
     },
     {
@@ -181,14 +181,14 @@ export default function LifetimeDealPage() {
           </div>
 
           <p className="text-zinc-300">
-            Meanwhile, our lifetime deal? <strong className="text-teal-400">$99 once, forever.</strong>
+            Meanwhile, our lifetime deal? <strong className="text-teal-400">$249 once, forever.</strong>
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
             What&apos;s Included in the Lifetime Deal
           </h2>
           <p className="text-zinc-300">
-            For $99, you get permanent access to everything in Pro—no restrictions, no asterisks:
+            For $249, you get permanent access to everything in Pro—no restrictions, no asterisks:
           </p>
           <div className="grid sm:grid-cols-2 gap-4 my-6">
             <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4">
@@ -281,16 +281,16 @@ export default function LifetimeDealPage() {
                 </tr>
                 <tr className="border-b border-zinc-800 bg-teal-500/5">
                   <td className="py-3 px-4 text-teal-400 font-semibold">Lifetime</td>
-                  <td className="py-3 px-4 text-teal-400 font-semibold">$99 once</td>
-                  <td className="py-3 px-4 text-teal-400 font-semibold">$99</td>
-                  <td className="py-3 px-4 text-teal-400 font-semibold">$99</td>
-                  <td className="py-3 px-4 text-teal-400 font-semibold">$99</td>
+                  <td className="py-3 px-4 text-teal-400 font-semibold">$249 once</td>
+                  <td className="py-3 px-4 text-teal-400 font-semibold">$249</td>
+                  <td className="py-3 px-4 text-teal-400 font-semibold">$249</td>
+                  <td className="py-3 px-4 text-teal-400 font-semibold">$249</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="text-zinc-400 text-sm">
-            The lifetime deal pays for itself in just over one year compared to the yearly plan.
+            The lifetime deal pays for itself within four years compared to the yearly plan—then it&apos;s free for life.
           </p>
 
           <h2 className="text-2xl font-bold text-white mt-12 mb-4">
@@ -403,12 +403,12 @@ export default function LifetimeDealPage() {
                 <tr className="border-b border-zinc-800">
                   <td className="py-3 px-4">Lifetime deal</td>
                   <td className="py-3 px-4"><X className="w-4 h-4 text-red-400 inline" /></td>
-                  <td className="py-3 px-4"><Check className="w-4 h-4 text-teal-400 inline" /> $99 one-time</td>
+                  <td className="py-3 px-4"><Check className="w-4 h-4 text-teal-400 inline" /> $249 one-time</td>
                 </tr>
                 <tr className="border-b border-zinc-800">
                   <td className="py-3 px-4">5-year cost (subscription)</td>
                   <td className="py-3 px-4">$495</td>
-                  <td className="py-3 px-4">$345 (yearly) or $99 (lifetime)</td>
+                  <td className="py-3 px-4">$345 (yearly) or $249 (lifetime)</td>
                 </tr>
                 <tr className="border-b border-zinc-800">
                   <td className="py-3 px-4">365-day forecasting</td>
@@ -440,8 +440,8 @@ export default function LifetimeDealPage() {
               Ready to Ditch Subscription Fatigue?
             </h3>
             <p className="text-zinc-400 mb-6 max-w-xl mx-auto">
-              Pay once, use forever. Get lifetime access to all Pro features for $99—less than
-              one year of most budgeting subscriptions.
+              Pay once, use forever. Get lifetime access to all Pro features for $249—one payment
+              instead of subscribing year after year.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -455,7 +455,7 @@ export default function LifetimeDealPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-zinc-900 font-semibold rounded-lg transition-colors"
               >
                 <Infinity className="w-5 h-5" />
-                Get Lifetime Deal — $99
+                Get Lifetime Deal — $249
               </Link>
             </div>
           </div>

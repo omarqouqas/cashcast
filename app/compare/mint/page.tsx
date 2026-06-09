@@ -51,7 +51,7 @@ const comparisonRows = [
   { feature: 'Approach', cff: '✅ Forward-looking (shows future balance)', mint: '❌ Backward-looking (tracks past spending)' },
   { feature: 'Ads', cff: '✅ No ads ever', mint: '❌ Heavy advertising' },
   { feature: 'Free tier', cff: '✅ Yes (5 bills, 5 income, 90-day forecast)', mint: '✅ Free (ad-supported)' },
-  { feature: 'Paid option', cff: '✅ $7.99/mo or $99 lifetime', mint: '❌ N/A' },
+  { feature: 'Paid option', cff: '✅ $7.99/mo or $249 lifetime', mint: '❌ N/A' },
   { feature: 'Daily balance forecast', cff: '✅ See balance on any future day', mint: '❌ No forecasting' },
   { feature: 'Forecast length', cff: '✅ Up to 365 days', mint: '❌ Not applicable' },
   { feature: '"Safe to Spend"', cff: '✅ Always visible', mint: '❌ No equivalent' },
@@ -94,7 +94,7 @@ const faqStructuredData = {
       name: 'Is Cashcast free like Mint?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes! Cashcast has a free tier with 5 bills, 5 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $99 lifetime deal.',
+        text: 'Yes! Cashcast has a free tier with 5 bills, 5 income sources, and 90-day forecasting. Unlike Mint, there are no ads. Pro features are available for $7.99/month or a $249 lifetime deal.',
       },
     },
     {

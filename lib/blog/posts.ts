@@ -469,8 +469,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: 'lifetime-deal-no-subscription',
-    title: 'Why We Offer a $99 Lifetime Deal (No Subscription Required)',
-    description: 'Tired of subscription fatigue? Learn why we offer a one-time $99 lifetime deal and how it compares to monthly subscriptions like YNAB.',
+    title: 'Why We Offer a $249 Lifetime Deal (No Subscription Required)',
+    description: 'Tired of subscription fatigue? Learn why we offer a one-time $249 lifetime deal and how it compares to monthly subscriptions like YNAB.',
     publishedAt: '2026-02-08',
     author: {
       name: 'Cashcast Team',

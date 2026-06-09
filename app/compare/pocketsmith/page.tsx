@@ -48,7 +48,7 @@ const comparisonRows = [
   { feature: 'Target user', cashcast: '✅ Freelancers & self-employed', pocketsmith: '⚠️ General consumers & households' },
   { feature: 'Monthly price (entry)', cashcast: '✅ $7.99/mo (20% cheaper)', pocketsmith: '❌ $9.95/mo' },
   { feature: 'Yearly price', cashcast: '✅ $79/year', pocketsmith: '❌ $119/year' },
-  { feature: 'Lifetime option', cashcast: '✅ $99 one-time', pocketsmith: '❌ Not available' },
+  { feature: 'Lifetime option', cashcast: '✅ $249 one-time', pocketsmith: '❌ Not available' },
   { feature: 'Free tier', cashcast: '✅ Yes (5 bills, 5 income, 90-day forecast)', pocketsmith: '⚠️ 6-month forecast only' },
   { feature: 'Built for freelancers', cashcast: '✅ Irregular income is core focus', pocketsmith: '❌ Generic budgeting tool' },
   { feature: 'Built-in invoicing', cashcast: '✅ Runway Collect (included)', pocketsmith: '❌ No' },
@@ -77,7 +77,7 @@ const faqStructuredData = {
       name: 'Is Cashcast cheaper than PocketSmith?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Cashcast costs $7.99/month vs PocketSmith Foundation at $9.95/month — 20% cheaper. Cashcast also offers a $99 lifetime deal that PocketSmith doesn\'t have. Higher PocketSmith tiers run $16.63-$26.63/month.',
+        text: 'Yes. Cashcast costs $7.99/month vs PocketSmith Foundation at $9.95/month — 20% cheaper. Cashcast also offers a $249 lifetime deal that PocketSmith doesn\'t have. Higher PocketSmith tiers run $16.63-$26.63/month.',
       },
     },
     {
@@ -216,7 +216,7 @@ export default function PocketSmithComparisonPage() {
               <div className="rounded-2xl border border-teal-500/30 bg-teal-500/5 p-6 text-center">
                 <p className="text-sm text-teal-300 font-medium">Cashcast</p>
                 <p className="mt-2 text-3xl font-bold text-white">$7.99<span className="text-lg text-zinc-400">/mo</span></p>
-                <p className="mt-1 text-sm text-zinc-400">or $99 lifetime</p>
+                <p className="mt-1 text-sm text-zinc-400">or $249 lifetime</p>
               </div>
               <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-6 text-center">
                 <p className="text-sm text-amber-300 font-medium">Your Savings</p>
@@ -448,7 +448,7 @@ export default function PocketSmithComparisonPage() {
                 <h3 className="text-white font-semibold">Is Cashcast cheaper than PocketSmith?</h3>
                 <p className="mt-2 text-zinc-400">
                   Yes — $7.99/mo vs $9.95/mo (20% cheaper). PocketSmith&apos;s top tier is $26.63/mo.
-                  We also offer a $99 lifetime deal that PocketSmith doesn&apos;t have.
+                  We also offer a $249 lifetime deal that PocketSmith doesn&apos;t have.
                 </p>
               </div>
               <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6">

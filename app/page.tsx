@@ -157,7 +157,7 @@ const softwareAppSchema = {
   offers: {
     '@type': 'AggregateOffer',
     lowPrice: '0',
-    highPrice: '99',
+    highPrice: '249',
     priceCurrency: 'USD',
     offerCount: 3,
     offers: [
@@ -178,7 +178,7 @@ const softwareAppSchema = {
       {
         '@type': 'Offer',
         name: 'Lifetime',
-        price: '99',
+        price: '249',
         priceCurrency: 'USD',
         description: 'All Pro features forever with one-time payment',
       },

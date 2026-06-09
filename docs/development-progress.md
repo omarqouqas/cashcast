@@ -50,6 +50,20 @@
 
 **Important:** Resist the urge to immediately re-write all marketing copy, landing pages, and `/compare` pages to align. That's a multi-week project that should be tackled deliberately on weekend blocks — not as a reactive sprint. For now, the rules govern *new* content. Existing content can be cleaned up over time.
 
+**Lifetime Deal Raised: $99 → $249**
+
+Implemented the long-recommended pricing change. Drivers:
+- Sacred Seven doc (Feb 2026) flagged $99 lifetime as cannibalizing MRR
+  ($99 ÷ $7.99 ≈ 12 months — any customer staying longer is locked in below market)
+- First real lifetime purchase (F&F, May 28) proved the flow works end-to-end
+- $249 ≈ 30 months of monthly Pro — filters deal-hunters, signals quality
+- Aligned with the locked B2C positioning: a B2C anxious creative who finds
+  peace of mind stays for years, so LTV preservation matters
+
+Wife's existing $99 lifetime is unaffected (Stripe prices immutable on
+existing subscriptions). Old $99 price archived in Stripe after deploy
+verification.
+
 ### Day 89: GSC Analysis + SERP Title Rewrites + SEO Playbook (June 2, 2026)
 
 **GSC Data Review (April 5 – May 31, 2026)**
