@@ -30,6 +30,26 @@
 
 ## Recent Development (Days 60-89)
 
+### Day 96: Positioning Locked — B2C / The Anxious Creative (June 9, 2026)
+
+**Strategic clarification, not a code change.** Ran a positioning audit with the strategic advisor (Claude). The product brief already had a clear "Anxious Creative" persona, but high-level positioning had been hedging between B2C, B2Solo, and B2B-adjacent framings across various docs. Decision: **B2C, full stop.**
+
+**Locked answers:**
+- **Category:** B2C personal-finance software (not B2B, not "B2Solo")
+- **Primary persona:** The Anxious Creative ($45-90k freelancer, irregular income, has overdrafted)
+- **North Star referral reason:** "It gave me peace of mind about money"
+- **Year-3 vision:** 10,000 individuals on B2C pricing (~$1-2M ARR)
+- **Anti-targets:** W-2 employees, businesses with bookkeepers, agency teams, anyone needing complex accounting
+
+**Three implications for current strategy:**
+1. Stop chasing the Side-Gig Hustler as a Pro revenue target — keep as free-tier / word-of-mouth only (too price-sensitive)
+2. Drop B2B comparison framings (Pulse) from primary positioning — those pages stay for SEO but not how we describe ourselves
+3. The lifetime deal raise ($99→$249) is even more justified — a B2C anxious creative who finds peace of mind stays for years; $99 lifetime caps LTV at ~12 months
+
+**No code changes today.** Locked the positioning in CLAUDE.md (full section) and product-brief.md (one-line statement at top) so future Cursor sessions inherit it automatically. Next time copy or feature decisions come up, the positioning rules govern.
+
+**Important:** Resist the urge to immediately re-write all marketing copy, landing pages, and `/compare` pages to align. That's a multi-week project that should be tackled deliberately on weekend blocks — not as a reactive sprint. For now, the rules govern *new* content. Existing content can be cleaned up over time.
+
 ### Day 89: GSC Analysis + SERP Title Rewrites + SEO Playbook (June 2, 2026)
 
 **GSC Data Review (April 5 – May 31, 2026)**

@@ -1,5 +1,7 @@
 # Cashcast - Complete Product Brief
 
+> **Positioning (locked June 9, 2026):** Cashcast is B2C personal-finance software for freelancers with irregular income. Primary persona: the Anxious Creative ($45-90k, "will I make rent?"). North Star: "it gave me peace of mind about money." NOT for W-2 employees, NOT for businesses with bookkeepers, NOT for agency teams. Year-3 goal: 10,000 individuals on B2C pricing. See CLAUDE.md for the full positioning section.
+
 **Version:** 6.33
 **Last Updated:** May 26, 2026
 **Status:** Live - Upgrade Funnel Instrumentation + Free Tier Limits Reduced

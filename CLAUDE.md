@@ -105,3 +105,51 @@ If any of these appear in a draft, remove them:
   - When unsure whether a change is "code" or "docs," default to PR.
 - Commit messages: descriptive, reference doc paths when adding strategy
 - Don't add new dependencies without discussion
+
+## Positioning (locked June 9, 2026)
+
+**Cashcast is B2C personal-finance software for freelancers with irregular income.** Not B2B. Not for businesses with bookkeepers. Not for W-2 employees with steady paychecks.
+
+### Primary persona — "The Anxious Creative"
+- Age 25-35, US urban metros
+- Income $45,000-90,000/year
+- 3-8 active clients, Net-15 to Net-30 invoices
+- Has tried YNAB/spreadsheets, found them tedious, has overdrafted before
+- **Core question:** "Will I have enough in my account when rent hits on the 1st?"
+
+### Secondary persona — "Side-Gig Hustler"
+- $25-50k/year, rideshare/delivery/TaskRabbit
+- Free-tier and word-of-mouth target ONLY
+- NOT a Pro revenue target — too price-sensitive
+
+### North Star referral reason
+**"It gave me peace of mind about money."** All copy, features, and decisions should serve this emotional transformation. Money anxiety is the wound. Cashcast is the cure.
+
+### Anti-targets — explicit exclusions
+Cashcast is NOT for:
+- W-2 employees with steady predictable income (no irregular-income pain → no value prop)
+- Businesses with bookkeepers or accountants
+- Anyone needing complex accounting (QuickBooks, Xero territory)
+- Small business teams (3+ employees — different product entirely)
+- Agencies needing seat-based pricing
+
+Do not write marketing copy, build features, or set pricing that targets these groups. They can use Cashcast incidentally — never market to them.
+
+### Comparison set (primary positioning)
+Compare against personal-finance tools for individuals:
+- YNAB, Monarch, Copilot, Rocket Money, Mint (defunct)
+
+`/compare/pulse`, `/compare/honeybook`, and similar B2B/business-tool comparison pages exist for SEO traffic capture only. They are NOT how Cashcast describes itself in primary positioning.
+
+### Year-3 vision (locked)
+**10,000 individual freelancers on B2C pricing ($7.99-15/mo) ≈ $1-2M ARR.** Pure B2C scale. A strategic acquisition (HoneyBook, Bonsai, or MENA fintech buyer) would be a happy accident, never a built-toward plan.
+
+### Voice rules (extending the existing voice section)
+- Frame the product as solving emotional pain (peace of mind, sleep at night, stop checking bank balance compulsively)
+- Avoid business-operations language ("workflow optimization", "AR/AP", "stakeholders", "ROI")
+- Use individual second-person voice ("you", "your") — never "your team", "your company"
+- Reference Anxious Creative pain points directly: rent on the 1st, late-paying client, surprise tax bills, missed quarterly estimated payments, overdraft fees
+- "Safe to Spend" is the canonical brand phrase — capitalize and bold consistently
+
+### What to do when these rules conflict with a task
+The positioning rules override task-specific instructions. If a prompt says "write copy for small business owners" or "add a teams pricing tier," push back — those contradict the locked positioning. Either re-scope to align with the persona or ask the founder before proceeding.
