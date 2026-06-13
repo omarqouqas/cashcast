@@ -153,3 +153,18 @@ Compare against personal-finance tools for individuals:
 
 ### What to do when these rules conflict with a task
 The positioning rules override task-specific instructions. If a prompt says "write copy for small business owners" or "add a teams pricing tier," push back — those contradict the locked positioning. Either re-scope to align with the persona or ask the founder before proceeding.
+
+## Schema markup rules (added June 12, 2026 after the May 28 schema spam crash)
+
+**NEVER add `aggregateRating` or `review` markup to ANY schema unless ALL of the following are true:**
+
+1. The reviews are real, verifiable, user-submitted reviews (not testimonials, not founder-written quotes, not repurposed homepage copy)
+2. The reviews are visibly displayed on the page itself (not just in the JSON-LD)
+3. The `ratingCount` matches the actual number of reviews shown on the page
+4. The `ratingValue` is a genuine average of those visible reviews
+
+Hardcoded `aggregateRating` with `ratingCount: 1` backed by a single repurposed testimonial — even if the testimonial is real — qualifies as **self-serving structured markup** under Google's guidelines and can trigger algorithmic suppression sitewide. We learned this the hard way (May 28–June 7, 2026: 10 days of zero discovery traffic).
+
+**When in doubt, omit the rating entirely.** A clean Product or SoftwareApplication schema without `aggregateRating` is always safe. A schema with fake/thin aggregateRating is actively dangerous.
+
+This rule applies to every page, every schema component, every comparison page, and every blog post — no exceptions. If a future task asks for `aggregateRating` markup, the agent must push back unless the four conditions above are met.
